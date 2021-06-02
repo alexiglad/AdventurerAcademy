@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement focusable="false" name="PartyContainer" style="left: 1%; top: 1%; right: 99%; bottom: 0; align-items: center; justify-content: flex-start; max-width: none; max-height: none; width: 10%; height: 99%;">
+        <ui:VisualElement name="CharacterPortrait" style="background-image: url(&apos;/Assets/Art/Sprites/WitchHead.png&apos;); width: 100%; height: 10%; padding-bottom: 0; margin-bottom: 5px; margin-left: -15px;" />
+        <ui:VisualElement name="HealthBarBackground" style="background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); width: 75%; height: 1%; left: 25%; margin-bottom: 2px; -unity-background-image-tint-color: rgb(0, 0, 0);">
+            <ui:VisualElement name="HealthBar" tabindex="0" style="width: 100%; height: 100%; left: 0; background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); background-color: rgb(255, 57, 57); -unity-background-image-tint-color: rgb(255, 0, 0);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ManaBarBackground" style="background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); width: 75%; height: 1%; left: 25%; margin-bottom: 2px;">
+            <ui:VisualElement name="ManaBar" tabindex="0" style="width: 100%; height: 100%; left: 0; background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); background-color: rgb(255, 57, 57); -unity-background-image-tint-color: rgb(6, 9, 255);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="StaminaBarBackground" style="background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); width: 75%; height: 1%; left: 25%; margin-bottom: 2px; -unity-background-image-tint-color: rgb(255, 255, 255);">
+            <ui:VisualElement name="StaminaBar" tabindex="0" style="width: 100%; height: 100%; left: 0; background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); background-color: rgb(255, 57, 57); -unity-background-image-tint-color: rgb(103, 255, 0);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
