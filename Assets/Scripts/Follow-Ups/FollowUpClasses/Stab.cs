@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Stab : FollowUp
 {
     //this ability is a "counter" to the zap ability
@@ -10,11 +9,13 @@ public class Stab : FollowUp
     //base damage is 10
     //Zap zapInstance;
     FloatValueSO damage;
-    void Awake()
+    void OnEnable()
     {
         //zapInstance = ZapSO.zapInstance;
-        damage.SetFloatValue(10);
-        Stab.CreateInstance("Stab");
+        damage = (FloatValueSO)CreateInstance("FloatValueSO");
+        damage.SetFloatValue(10f);
+
+        
     }
 
 

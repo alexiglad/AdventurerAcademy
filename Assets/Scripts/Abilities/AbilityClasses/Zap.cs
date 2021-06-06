@@ -5,13 +5,11 @@ public class Zap : Ability
 {
     private FloatValueSO damage;
     // Start is called before the first frame update
-    void Awake()
+    void OnEnable()
     {
         //Gets Random Damage Between 1 and 10, rounded to the nearest int
-        damage.SetFloatValue(3);
-        Zap.CreateInstance("ZapSOInstance");
-        //Zap zap = (Zap)Zap.FindObjectOfType(typeof(Zap));
-        //this is the code to access an instance of zap (should always be the same instance)
+        damage = (FloatValueSO)CreateInstance("FloatValueSO");
+        damage.SetFloatValue(5f);
     }
     
 

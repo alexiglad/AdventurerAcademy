@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FollowUpProcessor : ScriptableObject
 {
-    CombatManager combatManager = (CombatManager)CombatManager.FindObjectOfType(typeof(CombatManager));
-    void Awake()
+    CombatManager combatManager;
+    public void OnEnable()
     {
-        FollowUpProcessor.CreateInstance("FollowUpProcessor");
-        
+        combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
     }
+
     public void HandleFollowUpAction(FollowUpAction followUpAction)
     {
         foreach(Character character in combatManager.characters)//this is sorted properly on initiative

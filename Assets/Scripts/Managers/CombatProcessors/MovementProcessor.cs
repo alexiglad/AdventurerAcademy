@@ -7,13 +7,11 @@ public class MovementProcessor : ScriptableObject
 {
     float moveSpeed;
     FollowUpProcessor followUpProcessor;
-    void Awake()
+    public void OnEnable()
     {
-        MovementProcessor.CreateInstance("MovementProcessor");
-        followUpProcessor = (FollowUpProcessor)FollowUpProcessor.FindObjectOfType(typeof(FollowUpProcessor));
+        followUpProcessor = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
     }
-
-
+     
     public Vector2 UpdatePosition(Character character, Vector2 movement)
     {
         Vector2 actualMovement = NormalizeMovement(movement);

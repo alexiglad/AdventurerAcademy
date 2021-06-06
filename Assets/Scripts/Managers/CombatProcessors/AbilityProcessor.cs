@@ -4,17 +4,7 @@ using UnityEngine;
 
 public class AbilityProcessor : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Awake()
-    {
-        AbilityProcessor.CreateInstance("AbilityProcessor");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     /////////////////////////////////
     public void DealSplashDamage(Character character, float damage, float damageFallOff, float range){
         
