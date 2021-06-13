@@ -12,22 +12,28 @@ public class CombatManager : GameStateManager
     Turn turn;
     Character character;
 
+    AbilityButtonClicked onAbilityButtonClicked;
+
+    public Character Character { get => character; set => character = value; }
+    public bool CharacterType { get => characterType; set => characterType = value; }
+
 
     #endregion
     void Awake(){
+        turn = new Turn(); 
         enumerator = characters.GetEnumerator();
         character = enumerator.Current;
 
         LeftClicked onLeftClicked = FindObjectOfType<LeftClicked>();
         onLeftClicked.OnLeftClicked += CombatMove;
+        //TODO FIX THIS
+
         FinishTurnButtonClicked onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
 
-        AbilityButtonClicked[] onAbilityButtonClicked = FindObjectsOfType<AbilityButtonClicked>();//reason we use array is there are multiple of these for each button
-        foreach(AbilityButtonClicked abilityButton in onAbilityButtonClicked)
-        {
-            abilityButton.OnAbilityButtonClicked += CombatAbility;
-        }
+
+        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//reason we use array is there are multiple of these for each button
+        onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
 
         TargetButtonClicked[] onTargetButtonClicked = FindObjectsOfType<TargetButtonClicked>();//reason we use array is there are multiple of these for each button
         foreach (TargetButtonClicked targetButton in onTargetButtonClicked)
@@ -140,6 +146,9 @@ public class CombatManager : GameStateManager
         {//only do this if is an enemy
             DetermineEnemyTurn(character);
         }
+        onAbilityButtonClicked.UpdateAbilities(character);
+
+
     }
     bool MoreThanOneSideIsAlive()
     {
@@ -176,10 +185,9 @@ public class CombatManager : GameStateManager
         UpdateIteration(turnUpdate);
         Debug.Log("Theoretically movedCombat");
     }
-    void CombatAbility(object sender, EventArgs e)
+    void CombatAbility(object sender, AbilityEventArgs e)
     {
-        AbilityButtonClicked sent = sender as AbilityButtonClicked;
-        Turn turnUpdate = new Turn(sent.Ability);
+        Turn turnUpdate = new Turn(e.NewAbility);
         UpdateIteration(turnUpdate);
 
     }

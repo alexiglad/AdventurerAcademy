@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
 
 
         //temporary code creates combat manager with characters
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, null);
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, null);
         //temporary default
         
 

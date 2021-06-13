@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected FloatValueSO maxHealth;
     [SerializeField] private FloatValueSO maxMana;
     [SerializeField] private FloatValueSO maxStamina;
-    [SerializeField] protected BoolValueSO isPlayer;//true if player false if enemy
+    [SerializeField] private BoolValueSO isPlayer;//true if player false if enemy
     [SerializeField] protected FloatValueSO maxMovement;//this eventually will be calculated based on speed/agility and what-not
     [SerializeField] protected FloatValueSO initiative;
     [SerializeField] protected FloatValueSO moveSpeed;
@@ -25,13 +25,15 @@ public class Character : MonoBehaviour
 
 
     public List<FollowUp> followUps = new List<FollowUp>();
-    public List<Ability> inUseAbilities = new List<Ability>();
+    private List<Ability> inUseAbilities = new List<Ability>();//size 5
 
     protected Rigidbody2D characterRigidBody;
     protected Vector2 movementLeft;
     [SerializeField] protected MovementProcessor abilityProcessorInstance = (MovementProcessor)MovementProcessor.FindObjectOfType(typeof(MovementProcessor));
     [SerializeField] protected FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FollowUpProcessor.FindObjectOfType(typeof(FollowUpProcessor));
     [SerializeField] protected GameStateManagerSO gameStateManager;
+
+    public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
 
     #endregion
     public Character(string name, float initiative){//Note this is not being called. Marked for future removal
