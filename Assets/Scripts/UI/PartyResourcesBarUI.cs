@@ -39,6 +39,15 @@ public class PartyResourcesBarUI : MonoBehaviour
             staminaBar.transform.scale = UpdateBar(stamina.GetFloatValue() / maxStamina.GetFloatValue()); //Updates SP bar
 
 
+            //drawing movement line
+
+            /*CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+            if (tempRef.Character.GetPlayer())
+            {//only do this if user is playing
+                Vector2 mousePos = Input.mousePosition;
+
+            TODO
+            }*/
         }
     }
     private Vector3 UpdateBar(float sizeNormalized)

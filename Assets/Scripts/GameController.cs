@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameStateManagerSO currentGameStateManager;
     [SerializeField] private GameStateSO currentGameState;
+    private SortedSet<Character> characters = new SortedSet<Character>();
 
 
     void Start()
@@ -20,17 +21,23 @@ public class GameController : MonoBehaviour
         CreateAllAbilityInstances();
 
 
-        //temporary code creates combat manager with characters
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, null);
-        //temporary default
-        
 
+        //temporary code creates combat manager with characters
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
+        //temporary default
+
+        foreach (Character character in characters)
+        {
+            Debug.Log(character.ToString());
+        }
+        Debug.Log(characters.Count);
     }
 
     
     // Update is called once per frame
     void Update()
     {
+        
         //currentGameStateManager.GetGameStateManager().Update();
         //commented out because combat manager is not completely implemented yet
     }
@@ -42,7 +49,15 @@ public class GameController : MonoBehaviour
         currentGameStateManager.SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
         currentGameStateManager.GetGameStateManager().AddCharacters(characters);
     }*/
-    
+    public void AddCharacter(Character character)
+    {
+        characters.Add(character);
+        
+    }
+    public void RemoveCharacter(Character character)
+    {
+        characters.Remove(character);
+    }
     private void CreateAllProcessorInstances()
     {
         //create instances of all processors

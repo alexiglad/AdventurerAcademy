@@ -105,13 +105,13 @@ MonoBehaviour:
   maxStamina: {fileID: 11400000, guid: 06b233fa95c22344e8066810dbc1eef8, type: 2}
   isPlayer: {fileID: 11400000, guid: 0fb772db2d7801c418f0c6533430f1c1, type: 2}
   maxMovement: {fileID: 11400000, guid: 3a062be4aa7ccdf46ba2b0f3282b2902, type: 2}
-  initiative: {fileID: 11400000, guid: f3fb04e7c1ae7d64fa1b1207b7acda0a, type: 2}
+  initiative: {fileID: 11400000, guid: 77829b91102459e4c99cfc940cb4fc6f, type: 2}
   moveSpeed: {fileID: 11400000, guid: a9df193cdb829c54cab976b4132a5116, type: 2}
-  name: {fileID: 11400000, guid: c3567491e53d2e54fadbc3753e52ee69, type: 2}
+  name: {fileID: 11400000, guid: b2a6f3e41575b734880e906e1e6b8cab, type: 2}
+  damage: {fileID: 0}
+  damageMultiplier: {fileID: 0}
+  damageRange: {fileID: 0}
   followUps: []
-  inUseAbilities:
-  - {fileID: 0}
-  knownAbilities: []
   abilityProcessorInstance: {fileID: 0}
   followUpProcessorInstance: {fileID: 0}
   gameStateManager: {fileID: 0}

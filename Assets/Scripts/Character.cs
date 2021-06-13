@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IComparable<Character>
 {
     #region Local Variables
     [SerializeField] protected FloatValueSO health;
@@ -15,7 +16,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected FloatValueSO maxMovement;//this eventually will be calculated based on speed/agility and what-not
     [SerializeField] protected FloatValueSO initiative;
     [SerializeField] protected FloatValueSO moveSpeed;
-    [SerializeField] protected new StringValueSO name;
+    [SerializeField] private new StringValueSO name;
 
     [SerializeField] private FloatValueSO damage;
     [SerializeField] private FloatValueSO damageMultiplier;
@@ -36,13 +37,25 @@ public class Character : MonoBehaviour
 
     public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }
+    public StringValueSO Name { get => name; set => name = value; }
 
     #endregion
     public Character(string name, float initiative){//Note this is not being called. Marked for future removal
         this.name.SetStringValue(name);
         this.initiative.SetFloatValue(initiative);
     }
-    
+    public new String ToString()
+    {
+        return this.name.GetStringValue();
+    }
+    private void OnEnable()
+    {
+        FindObjectOfType<GameController>().AddCharacter(this);
+    }
+    private void OnDisable()
+    {
+        //FindObjectOfType<GameController>().RemoveCharacter(this);
+    }
     protected void Start()
     {
         //Resets Character's Health, Mana, and Stamina to maximum on runtime
@@ -52,6 +65,7 @@ public class Character : MonoBehaviour
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
 
     }
+    
     public void CreateUI()//creates ability buttons
     {
         foreach(Ability ability in inUseAbilities)
@@ -130,9 +144,14 @@ public class Character : MonoBehaviour
         health.SetFloatValue(value);
     }
     #endregion
-    public float CompareTo(Character character)//test if this is actually working
+    public int CompareTo(Character character)//test if this is actually working
     {
-        return -1 * (this.initiative.GetFloatValue() - character.initiative.GetFloatValue());
+        if (this.initiative.GetFloatValue() - character.initiative.GetFloatValue() < 0)
+            return 1;
+        else if (this.initiative.GetFloatValue() - character.initiative.GetFloatValue() > 0)
+            return -1;
+        else
+            return base.GetHashCode().CompareTo(character.GetHashCode());
     }
 
 }
