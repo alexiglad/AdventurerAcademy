@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e28f5b4ccea9543ba9b360ec730ae0, type: 3}
   m_Name: PCHealth
   m_EditorClassIdentifier: 
-  floatValue: 104.86
+  floatValue: 100

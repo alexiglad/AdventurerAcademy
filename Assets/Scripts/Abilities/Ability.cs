@@ -6,12 +6,7 @@ using UnityEngine;
 [Serializable]
 public abstract class Ability : ScriptableObject
 {
-    public AbilityProcessor abilityProcessorInstance;
 
-    public void Awake()
-    {
-        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
-    }
     public abstract void HandleAbility(Character attacker, Character attackee, Ability ability);
 
 }

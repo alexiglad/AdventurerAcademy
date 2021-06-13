@@ -6,8 +6,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    [SerializeField] private GameStateManagerSO currentGameStateManager;//Cedric Change
-    [SerializeField] private GameStateSO currentGameState;//Cedric Change
+    [SerializeField] private GameStateManagerSO currentGameStateManager;
+    [SerializeField] private GameStateSO currentGameState;
 
 
     void Start()
@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
 
 
         //temporary code creates combat manager with characters
-        CreateStateInstance(GameStateEnum.Combat, new SortedSet<Character>());
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, null);
         //temporary default
         
 
@@ -36,13 +36,12 @@ public class GameController : MonoBehaviour
     }
 
 
-    public void CreateStateInstance(GameStateEnum gameState, SortedSet<Character> characters)
+    /*public void CreateStateInstance(GameStateEnum gameState, SortedSet<Character> characters)
     {
-
         currentGameState.SetGameState(gameState);
-        currentGameStateManager.SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));//Cedric Change
-        currentGameStateManager.GetGameStateManager().AddCharacters(characters);//Cedric Change
-    }
+        currentGameStateManager.SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
+        currentGameStateManager.GetGameStateManager().AddCharacters(characters);
+    }*/
     
     private void CreateAllProcessorInstances()
     {

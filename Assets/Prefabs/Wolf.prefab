@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6174382709882193814}
   - component: {fileID: 6174382709882193809}
   - component: {fileID: 6174382709882193815}
-  - component: {fileID: 6174382709882193834}
   - component: {fileID: 6174382709882193813}
   m_Layer: 0
   m_Name: Wolf
@@ -99,34 +98,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 11400000, guid: 8bfd3e64f5873ed48aeab817e61381de, type: 2}
+  mana: {fileID: 11400000, guid: 96bbc131f6754544cbf2804ed700b5bf, type: 2}
+  stamina: {fileID: 11400000, guid: c9e917d5a8ae1914b9aa302a3f08227c, type: 2}
   maxHealth: {fileID: 11400000, guid: 6b64eed63433f77438af46b764d67678, type: 2}
+  maxMana: {fileID: 11400000, guid: 4b83ddc6fdfaca2478c6f5b3e383f05f, type: 2}
+  maxStamina: {fileID: 11400000, guid: 06b233fa95c22344e8066810dbc1eef8, type: 2}
   isPlayer: {fileID: 11400000, guid: 0fb772db2d7801c418f0c6533430f1c1, type: 2}
   maxMovement: {fileID: 11400000, guid: 3a062be4aa7ccdf46ba2b0f3282b2902, type: 2}
   initiative: {fileID: 11400000, guid: f3fb04e7c1ae7d64fa1b1207b7acda0a, type: 2}
   moveSpeed: {fileID: 11400000, guid: a9df193cdb829c54cab976b4132a5116, type: 2}
   name: {fileID: 11400000, guid: c3567491e53d2e54fadbc3753e52ee69, type: 2}
-  mana: {fileID: 11400000, guid: 96bbc131f6754544cbf2804ed700b5bf, type: 2}
-  maxMana: {fileID: 11400000, guid: 4b83ddc6fdfaca2478c6f5b3e383f05f, type: 2}
-  stamina: {fileID: 11400000, guid: c9e917d5a8ae1914b9aa302a3f08227c, type: 2}
-  maxStamina: {fileID: 11400000, guid: 06b233fa95c22344e8066810dbc1eef8, type: 2}
   followUps: []
   inUseAbilities:
   - {fileID: 0}
   knownAbilities: []
---- !u!114 &6174382709882193834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6174382709882193808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ecddbf9eaa3e147b143277bffee706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: {fileID: 11400000, guid: 7e59234ef585651418c8af9440250ac1, type: 2}
-  playerRidgidbody: {fileID: 6174382709882193813}
+  abilityProcessorInstance: {fileID: 0}
+  followUpProcessorInstance: {fileID: 0}
+  gameStateManager: {fileID: 0}
 --- !u!50 &6174382709882193813
 Rigidbody2D:
   serializedVersion: 4

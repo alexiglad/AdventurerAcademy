@@ -15,7 +15,7 @@ public class AbilityProcessor : ScriptableObject
     }
     public void DealDamage(Character character, float damage){
 
-
+        
         if(character.GetHealth().GetFloatValue() <= 0){
             character.Dead();
         }

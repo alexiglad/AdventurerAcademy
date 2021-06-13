@@ -7,7 +7,21 @@ public class Turn
     Vector2 movement;
     Ability ability;
     Character target;
+    public Turn() { }
+    public Turn(Vector2 movement)
+    {
+        this.movement = movement;
+    }
 
+    public Turn(Ability ability)
+    {
+        this.ability = ability;
+    }
+
+    public Turn(Character target)
+    {
+        this.target = target;
+    }
 
     public bool IsEmpty()
     {

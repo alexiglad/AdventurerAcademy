@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,69 +8,59 @@ public class CombatManager : GameStateManager
     #region Local Variables
     public SortedSet<Character> characters = new SortedSet<Character>();
     private IEnumerator<Character> enumerator;
-    bool playerIsAlive;
     bool characterType;
     Turn turn;
-    Turn turnChange;
-    Player player = null;//TODO set this equal to player instance
     Character character;
+
 
     #endregion
     void Awake(){
-        //set up local variables here
-        playerIsAlive = true;
         enumerator = characters.GetEnumerator();
         character = enumerator.Current;
-        //TODO UNCOMMENT THIS WHEN FIXED
-        //characterType = GetCharacterType();//true if the character is player side false if enemy side
-        turnChange = new Turn();
 
+        LeftClicked onLeftClicked = FindObjectOfType<LeftClicked>();
+        onLeftClicked.OnLeftClicked += CombatMove;
+        FinishTurnButtonClicked onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
+        onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
+
+        AbilityButtonClicked[] onAbilityButtonClicked = FindObjectsOfType<AbilityButtonClicked>();//reason we use array is there are multiple of these for each button
+        foreach(AbilityButtonClicked abilityButton in onAbilityButtonClicked)
+        {
+            abilityButton.OnAbilityButtonClicked += CombatAbility;
+        }
+
+        TargetButtonClicked[] onTargetButtonClicked = FindObjectsOfType<TargetButtonClicked>();//reason we use array is there are multiple of these for each button
+        foreach (TargetButtonClicked targetButton in onTargetButtonClicked)
+        {
+            targetButton.OnTargetButtonClicked += CombatTarget;
+        }
     }
 
 
     // Update is called once per frame
     
-    public override void Update()
+    public void UpdateIteration(Turn turnChange)
     {
-
-        
-        if (!playerIsAlive || !MoreThanOneSideIsAlive())
+        UpdateTurn(turnChange);//this just adjusts the global variable turn appropriately
+        if (ValidTurn(turnChange))
         {
-            //trigger win/loss event TODO            
-            //delete CombatManager instance and display battle won/lost
-            //screen accordingly
-
+            UpdateCharacters(turnChange);
         }
-
-        if (!characterType) 
-        {
-            turnChange = DetermineEnemyTurn(character);
-        }
-        else
-        {
-            turnChange = DeterminePlayerTurn(character);
-        }
-
-        if (!turnChange.IsEmpty()) { 
-            UpdateTurn(turnChange);//this just adjusts the global variable turn appropriately
-            if (ValidTurn(turnChange))
-            {
-                UpdateCharacters(turnChange);
-            }
-            
-        }
-        
+                
         if (TurnFinished())
             IterateCharacters();
     }
+    public override void AddCharacters(SortedSet<Character> characters)
+    {
+        this.characters = characters;
+    }
+    #region Custom Combat Manager Methods 
+
     public Turn DetermineEnemyTurn(Character character)//TODO
     {
         return null;//implement event listeners
     }
-    public Turn DeterminePlayerTurn(Character character)//TODO
-    {
-        return null;//implement event listeners
-    }
+
     public void UpdateTurn(Turn turnChange)
     {
         if (turnChange.GetMovement() != Vector2.zero)
@@ -84,7 +75,7 @@ public class CombatManager : GameStateManager
         {
             turn.SetTarget(turnChange.GetTarget());
         }
-    }
+    } 
     public void UpdateCharacters(Turn turnChange)
     {
         //call ability or move method if necessary
@@ -121,21 +112,18 @@ public class CombatManager : GameStateManager
         {
             return true;
         }
-        else if(false){//TODO get event listener input for "finish turn" button pressed
-        #pragma warning disable 
-            return true;
-        #pragma warning restore
-        }
         else{
             return false;
         }
     }
 
     public void RemoveCharacter(Character character) {
-        characters.Remove(character);
-        if(character == player)
-            playerIsAlive=false;//pop up menu immediately
+        characters.Remove(character);//iterate?TODO check if need to iterate
         //decide if whole squad is dead
+        if (!MoreThanOneSideIsAlive())
+        {
+            EndBattle(character.GetPlayer());//if true is a win if false is a loss
+        }
     }
 
     void IterateCharacters(){
@@ -148,7 +136,10 @@ public class CombatManager : GameStateManager
             character = enumerator.Current;
             characterType=GetCharacterType();	
         }
-        turn = null;
+        if (!characterType)
+        {//only do this if is an enemy
+            DetermineEnemyTurn(character);
+        }
     }
     bool MoreThanOneSideIsAlive()
     {
@@ -171,9 +162,41 @@ public class CombatManager : GameStateManager
         }
         return false;
     }
-    public override void AddCharacters(SortedSet<Character> characters)
-    {
-        this.characters = characters;
+    void EndBattle(bool won)
+    { 
+        FindObjectOfType<CombatOver>().TriggerEvent(won);
     }
 
-}
+    #endregion
+
+    #region Event Listeners
+    void CombatMove(object sender, EventArgs e)
+    {
+        Turn turnUpdate = new Turn(new Vector2(1, 1));//TODO eventually replace with with generated vector based on mouse pos
+        UpdateIteration(turnUpdate);
+        Debug.Log("Theoretically movedCombat");
+    }
+    void CombatAbility(object sender, EventArgs e)
+    {
+        AbilityButtonClicked sent = sender as AbilityButtonClicked;
+        Turn turnUpdate = new Turn(sent.Ability);
+        UpdateIteration(turnUpdate);
+
+    }
+    void CombatTarget(object sender, EventArgs e)
+    {
+        TargetButtonClicked sent = sender as TargetButtonClicked;
+        Turn turnUpdate = new Turn(sent.Target);
+        UpdateIteration(turnUpdate);
+
+    }
+    void FinishTurn(object sender, EventArgs e)
+    {
+        IterateCharacters();
+    }
+
+    
+
+
+        #endregion
+    }

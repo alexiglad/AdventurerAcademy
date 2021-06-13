@@ -7,15 +7,16 @@ public class Stab : FollowUp
     //if an attacker zaps another player within 1 meter of that player that player will
     //automatically stab the attacker as a follow-up
     //base damage is 10
-    //Zap zapInstance;
+    Zap zapInstance;
     FloatValueSO damage;
+    AbilityProcessor abilityProcessorInstance;
     void OnEnable()
     {
-        //zapInstance = ZapSO.zapInstance;
+        zapInstance = (Zap)FindObjectOfType(typeof(Zap));
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(10f);
+        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
 
-        
     }
 
 
@@ -26,18 +27,17 @@ public class Stab : FollowUp
 
         //this is where you bring your idea of what makes a follow-up trigger to life
         //in this case for simplicities sake im going to make it when a character uses zap and is within 1 unit
-        /*
+        
         if (followUpAction.Ability == zapInstance && followUpAction.Attackee == character)
             return true;
-        */
+        
         return false;
         //incorporate attacker and attackee into follow up event system
     }
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
-        //TODO implement actual ability stuff
         //this ability just hurts the 
-        base.abilityProcessorInstance.DealDamage(followUpAction.Attacker, damage.GetFloatValue());  
+        abilityProcessorInstance.DealDamage(followUpAction.Attacker, damage.GetFloatValue());  
 
     }
 }

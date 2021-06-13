@@ -11,22 +11,26 @@ public class Character : MonoBehaviour
     [SerializeField] protected FloatValueSO maxHealth;
     [SerializeField] private FloatValueSO maxMana;
     [SerializeField] private FloatValueSO maxStamina;
-    [SerializeField] protected BoolValueSO isPlayer; 
+    [SerializeField] protected BoolValueSO isPlayer;//true if player false if enemy
     [SerializeField] protected FloatValueSO maxMovement;//this eventually will be calculated based on speed/agility and what-not
     [SerializeField] protected FloatValueSO initiative;
     [SerializeField] protected FloatValueSO moveSpeed;
     [SerializeField] protected new StringValueSO name;
 
+    [SerializeField] private FloatValueSO damage;
+    [SerializeField] private FloatValueSO damageMultiplier;
+
+    [SerializeField] protected FloatValueSO damageRange;
+
+
+
     public List<FollowUp> followUps = new List<FollowUp>();
     public List<Ability> inUseAbilities = new List<Ability>();
-    public List<Ability> knownAbilities = new List<Ability>();
 
     protected Rigidbody2D characterRigidBody;
     protected Vector2 movementLeft;
     [SerializeField] protected MovementProcessor abilityProcessorInstance = (MovementProcessor)MovementProcessor.FindObjectOfType(typeof(MovementProcessor));
     [SerializeField] protected FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FollowUpProcessor.FindObjectOfType(typeof(FollowUpProcessor));
-
-    //[SerializeField] protected CombatManager combatManagerInstance = (CombatManager)CombatManager.FindObjectOfType(typeof(CombatManager));//Alexi code
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     #endregion
@@ -41,8 +45,18 @@ public class Character : MonoBehaviour
         health.SetFloatValue(maxHealth.GetFloatValue());
         mana.SetFloatValue(maxMana.GetFloatValue());
         stamina.SetFloatValue(maxStamina.GetFloatValue());
+        //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
+
     }
-    
+    public void CreateUI()//creates ability buttons
+    {
+        foreach(Ability ability in inUseAbilities)
+        {
+            //create button TODO
+            
+        }
+    }
+
 
     public bool InflictAbility(Character attackee, Ability ability){        
         

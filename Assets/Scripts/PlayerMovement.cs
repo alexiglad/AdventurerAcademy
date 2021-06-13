@@ -6,10 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private FloatValueSO moveSpeed;
     [SerializeField] private Rigidbody2D playerRidgidbody;
-
+    [SerializeField] private GameStateSO currentGameState;
     private Vector2 moveDirection;
 
-    // Update is called once per frame
+    // Update is called once per frame 
     void Update()
     {
         ProcessInputs();
@@ -20,15 +20,22 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        /*switch (GameController.controller.GetWorldState())
+        switch (currentGameState.GetGameState())
         {
-            case WorldState.roam:
+            case GameStateEnum.Roaming:
                 Move(); break;
+            case GameStateEnum.Combat:
+                Stop(); break;
+            case GameStateEnum.Dialogue:
+                Stop(); break;
+            case GameStateEnum.Menu:
+                Stop(); break;
+            case GameStateEnum.Loading:
+                Stop(); break;
             default:
                 Stop(); break;
-        }*/
+        }
 
-        Move();
     }
 
     void ProcessInputs() 
