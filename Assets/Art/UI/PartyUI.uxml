@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement focusable="false" name="PartyContainer" style="left: 1%; top: 1%; right: 99%; bottom: 0; align-items: center; justify-content: flex-start; max-width: none; max-height: none; width: 10%; height: 99%;">
+    <ui:VisualElement focusable="false" name="PartyContainer" style="left: 1%; top: 1%; right: 99%; bottom: 0; align-items: center; justify-content: flex-start; max-width: none; max-height: none; width: 10%; height: 99%; position: absolute;">
         <ui:VisualElement name="CharacterPortrait" style="background-image: url(&apos;/Assets/Art/Sprites/WitchHead.png&apos;); width: 100%; height: 10%; padding-bottom: 0; margin-bottom: 5px; margin-left: -15px;" />
         <ui:VisualElement name="HealthBarBackground" style="background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); width: 75%; height: 1%; left: 25%; margin-bottom: 2px; -unity-background-image-tint-color: rgb(0, 0, 0);">
             <ui:VisualElement name="HealthBar" tabindex="0" style="width: 100%; height: 100%; left: 0; background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); background-color: rgb(255, 57, 57); -unity-background-image-tint-color: rgb(255, 0, 0);" />
@@ -11,11 +11,12 @@
             <ui:VisualElement name="StaminaBar" tabindex="0" style="width: 100%; height: 100%; left: 0; background-image: url(&apos;/Assets/Art/Sprites/WhitePixel.png&apos;); background-color: rgb(255, 57, 57); -unity-background-image-tint-color: rgb(103, 255, 0);" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="AbilityBar" style="margin-left: 0; width: 60%; height: 15%; left: 20%; right: 20%; bottom: 5%; top: auto;">
+    <ui:VisualElement name="AbilityBar" style="margin-left: 0; width: 60%; height: 15%; left: 20%; right: 20%; bottom: 5%; top: auto; position: absolute;">
         <ui:Button display-tooltip-when-elided="true" name="AbilityOne" style="left: 0; width: 15%; height: 100%; margin-left: initial; margin-right: initial; margin-top: initial; margin-bottom: auto; padding-right: 0; padding-top: 0; padding-bottom: 0; padding-left: 0;" />
         <ui:Button display-tooltip-when-elided="true" name="AbilityTwo" style="left: 20%; width: 15%; height: 100%; margin-left: initial; margin-right: initial; margin-top: initial; margin-bottom: auto; bottom: auto; top: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; position: relative;" />
         <ui:Button display-tooltip-when-elided="true" name="AbilityThree" style="left: 40%; width: 15%; height: 100%; margin-left: initial; margin-right: initial; margin-top: initial; margin-bottom: auto; bottom: auto; top: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
         <ui:Button display-tooltip-when-elided="true" name="AbilityFour" style="left: 60%; width: 15%; height: 100%; margin-left: initial; margin-right: initial; margin-top: initial; margin-bottom: auto; bottom: auto; top: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
         <ui:Button display-tooltip-when-elided="true" name="AbilityFive" style="left: 80%; width: 15%; height: 100%; margin-left: initial; margin-right: initial; margin-top: initial; margin-bottom: initial; bottom: auto; top: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
     </ui:VisualElement>
+    <ui:Button text="End Turn" display-tooltip-when-elided="true" name="EndTurn" style="bottom: 5%; width: 5%; left: 85%; position: absolute; height: 10%;" />
 </ui:UXML>
