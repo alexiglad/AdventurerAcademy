@@ -1,6 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Note: Below is an example ability Summary
+/// 
+/// 
+/// Zap is a basic elemental ability that does a flat 5 damage
+/// Zap's Element is Electricity
+/// Zap is available to Wizard type characters
+/// </summary>
 public class Zap : Ability
 {
     private FloatValueSO damage;
@@ -8,12 +17,10 @@ public class Zap : Ability
     // Start is called before the first frame update
     void OnEnable()
     {
-        //Gets Random Damage Between 1 and 10, rounded to the nearest int
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(5f);
         abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
         //TODO find a better way to do this eventually
-
     }
 
 
