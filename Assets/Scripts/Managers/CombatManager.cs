@@ -7,6 +7,7 @@ public class CombatManager : GameStateManager
 {
     #region Local Variables
     public SortedSet<Character> characters = new SortedSet<Character>();
+
     private IEnumerator<Character> enumerator;
     bool characterType;
     Turn turn;
@@ -64,7 +65,8 @@ public class CombatManager : GameStateManager
 
     public Turn DetermineEnemyTurn(Character character)//TODO
     {
-        return null;//implement event listeners
+        return character.EnemyAI.DetermineTurn(character);
+        //return null;//implement event listeners
     }
 
     public void UpdateTurn(Turn turnChange)

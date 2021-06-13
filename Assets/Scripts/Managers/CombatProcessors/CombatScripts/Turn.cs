@@ -23,6 +23,12 @@ public class Turn
         this.target = target;
     }
 
+    public Turn(Ability ability, Character target) 
+    {
+        this.ability = ability;
+        this.target = target;
+    }
+
     public bool IsEmpty()
     {
         return this.movement == Vector2.zero && this.ability == null && this.target == null;

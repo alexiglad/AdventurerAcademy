@@ -21,6 +21,7 @@ public class Character : MonoBehaviour
     [SerializeField] private FloatValueSO damageMultiplier;
 
     [SerializeField] protected FloatValueSO damageRange;
+    [SerializeField] private BasicAI enemyAI;
 
 
 
@@ -34,6 +35,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
+    public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }
 
     #endregion
     public Character(string name, float initiative){//Note this is not being called. Marked for future removal
