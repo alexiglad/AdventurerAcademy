@@ -37,7 +37,7 @@ public class Stab : FollowUp
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
         //this ability just hurts the 
-        abilityProcessorInstance.DealDamage(followUpAction.Attacker, damage.GetFloatValue());  
+        abilityProcessorInstance.Damage(followUpAction.Attacker, damage.GetFloatValue());  
 
     }
 }
