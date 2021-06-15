@@ -15,6 +15,11 @@ public class CombatManager : GameStateManager
 
     AbilityButtonClicked onAbilityButtonClicked;
 
+
+    AbilityProcessor abilityProcessorInstance;
+    StatusProcessor statusProcessorInstance;
+
+
     public Character Character { get => character; set => character = value; }
     public bool CharacterType { get => characterType; set => characterType = value; }
 
@@ -41,11 +46,16 @@ public class CombatManager : GameStateManager
         {
             targetButton.OnTargetButtonClicked += CombatTarget;
         }
+
+        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
+        statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
+
+
     }
 
 
     // Update is called once per frame
-    
+
     public void UpdateIteration(Turn turnChange)
     {
         UpdateTurn(turnChange);//this just adjusts the global variable turn appropriately
@@ -134,7 +144,7 @@ public class CombatManager : GameStateManager
         }
     }
 
-    void IterateCharacters(){
+    public void IterateCharacters(){
         turn = null;
         if(enumerator.MoveNext()){
             character = enumerator.Current;
@@ -149,7 +159,8 @@ public class CombatManager : GameStateManager
             DetermineEnemyTurn(character);
         }
         onAbilityButtonClicked.UpdateAbilities(character);
-
+        statusProcessorInstance.HandleStatuses(character);
+        
 
     }
     bool MoreThanOneSideIsAlive()

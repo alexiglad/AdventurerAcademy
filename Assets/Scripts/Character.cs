@@ -28,16 +28,21 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     public List<FollowUp> followUps = new List<FollowUp>();
     private List<Ability> inUseAbilities = new List<Ability>();//size 5
+    private List<Status> statuses = new List<Status>();
 
     protected Rigidbody2D characterRigidBody;
     protected Vector2 movementLeft;
-    [SerializeField] protected MovementProcessor abilityProcessorInstance = (MovementProcessor)MovementProcessor.FindObjectOfType(typeof(MovementProcessor));
-    [SerializeField] protected FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FollowUpProcessor.FindObjectOfType(typeof(FollowUpProcessor));
+    [SerializeField] protected MovementProcessor abilityProcessorInstance;
+    [SerializeField] protected FollowUpProcessor followUpProcessorInstance;
     [SerializeField] protected GameStateManagerSO gameStateManager;
+
+    
 
     public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }
     public StringValueSO Name { get => name; set => name = value; }
+    public List<Status> Statuses { get => statuses; set => statuses = value; }
+
 
     #endregion
     public Character(string name, float initiative){//Note this is not being called. Marked for future removal
@@ -50,6 +55,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     private void OnEnable()
     {
+        abilityProcessorInstance = (MovementProcessor)MovementProcessor.FindObjectOfType(typeof(MovementProcessor));
+        followUpProcessorInstance = (FollowUpProcessor)FollowUpProcessor.FindObjectOfType(typeof(FollowUpProcessor));
         FindObjectOfType<GameController>().AddCharacter(this);
     }
     private void OnDisable()
@@ -142,6 +149,14 @@ public class Character : MonoBehaviour, IComparable<Character>
     public virtual void SetHealth(float value)
     {
         health.SetFloatValue(value);
+    }
+    public virtual void DecrementHealth(float value)
+    {
+        health.SetFloatValue(health.GetFloatValue() - value);
+    }
+    public virtual void IncrementHealth(float value)
+    {
+        health.SetFloatValue(health.GetFloatValue() + value);
     }
     #endregion
     public int CompareTo(Character character)//test if this is actually working

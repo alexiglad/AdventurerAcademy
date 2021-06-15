@@ -26,11 +26,7 @@ public class GameController : MonoBehaviour
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
         //temporary default
 
-        foreach (Character character in characters)
-        {
-            Debug.Log(character.ToString());
-        }
-        Debug.Log(characters.Count);
+
     }
 
     

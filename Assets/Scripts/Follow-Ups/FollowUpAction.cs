@@ -6,7 +6,9 @@ public class FollowUpAction
 {
     Ability ability;
     Vector2 movement;
-    FollowUp individualFollowUp;
+    FollowUp followUp;
+    AbilityStatuses statusEffect;
+
     Character attacker;
     Character attackee;
 
@@ -27,12 +29,20 @@ public class FollowUpAction
     {
         this.attacker = attacker;
         this.attackee = attackee;
-        this.individualFollowUp = individualFollowUp;
+        this.followUp = individualFollowUp;
+    }
+
+    public FollowUpAction(Character attacker, Character attackee, AbilityStatuses statusEffect)
+    {
+        this.statusEffect = statusEffect;
+        this.attacker = attacker;
+        this.attackee = attackee;
     }
 
     public Ability Ability { get => ability; set => ability = value; }
     public Vector2 Movement { get => movement; set => movement = value; }
-    public FollowUp IndividualFollowUp { get => individualFollowUp; set => individualFollowUp = value; }
+    public FollowUp IndividualFollowUp { get => followUp; set => followUp = value; }
     public Character Attacker { get => attacker; set => attacker = value; }
     public Character Attackee { get => attackee; set => attackee = value; }
+    public AbilityStatuses StatusEffect { get => statusEffect; set => statusEffect = value; }
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05386a0d0d116124f8cc411f457a8075, type: 3}
   m_Name: WolfNames
   m_EditorClassIdentifier: 
-  stringValue: 
+  stringValue: Lava Wolf
