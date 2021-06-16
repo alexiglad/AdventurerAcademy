@@ -9,13 +9,11 @@ public class Stab : FollowUp
     //base damage is 10
     Zap zapInstance;
     FloatValueSO damage;
-    AbilityProcessor abilityProcessorInstance;
     void OnEnable()
     {
         zapInstance = (Zap)FindObjectOfType(typeof(Zap));
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(10f);
-        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
 
     }
 

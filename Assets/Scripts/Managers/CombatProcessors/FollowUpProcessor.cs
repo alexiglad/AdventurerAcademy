@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUpProcessor")]
+
 public class FollowUpProcessor : ScriptableObject
 {
     CombatManager combatManager;

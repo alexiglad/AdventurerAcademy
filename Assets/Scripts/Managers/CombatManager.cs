@@ -25,8 +25,9 @@ public class CombatManager : GameStateManager
 
 
     #endregion
-    void Awake(){
-        turn = new Turn(); 
+    void Awake()
+    {
+        turn = new Turn();
         enumerator = characters.GetEnumerator();
         character = enumerator.Current;
 
@@ -63,7 +64,7 @@ public class CombatManager : GameStateManager
         {
             UpdateCharacters(turnChange);
         }
-                
+
         if (TurnFinished())
             IterateCharacters();
     }
@@ -85,7 +86,7 @@ public class CombatManager : GameStateManager
         {//add x and y components to turn
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());
         }
-        else if(turnChange.GetAbility() != null)
+        else if (turnChange.GetAbility() != null)
         {
             turn.SetAbility(turnChange.GetAbility());
         }
@@ -93,7 +94,7 @@ public class CombatManager : GameStateManager
         {
             turn.SetTarget(turnChange.GetTarget());
         }
-    } 
+    }
     public void UpdateCharacters(Turn turnChange)
     {
         //call ability or move method if necessary
@@ -106,36 +107,44 @@ public class CombatManager : GameStateManager
             character.InflictAbility(turn.GetTarget(), turn.GetAbility());
         }
     }
-    
 
-    bool GetCharacterType(){
+
+    bool GetCharacterType()
+    {
         return character.GetPlayer();
     }
 
-    bool ValidTurn(Turn pushTurn){
-        
-        if(pushTurn.GetMovement()!=null){
-            return true;
-        }
-        else if(turn.GetAbility() != null && turn.GetTarget() != null){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    bool ValidTurn(Turn pushTurn)
+    {
 
-    bool TurnFinished(){
-        if(turn.GetMovement().magnitude>=character.GetMaxMovement() && turn.GetAbility()!=null && turn.GetTarget()!=null)
+        if (pushTurn.GetMovement() != null)
         {
             return true;
         }
-        else{
+        else if (turn.GetAbility() != null && turn.GetTarget() != null)
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
 
-    public void RemoveCharacter(Character character) {
+    bool TurnFinished()
+    {
+        if (turn.GetMovement().magnitude >= character.GetMaxMovement() && turn.GetAbility() != null && turn.GetTarget() != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void RemoveCharacter(Character character)
+    {
         characters.Remove(character);//iterate?TODO check if need to iterate
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
@@ -144,15 +153,18 @@ public class CombatManager : GameStateManager
         }
     }
 
-    public void IterateCharacters(){
+    public void IterateCharacters()
+    {
         turn = null;
-        if(enumerator.MoveNext()){
+        if (enumerator.MoveNext())
+        {
             character = enumerator.Current;
-            characterType=GetCharacterType();
+            characterType = GetCharacterType();
         }
-        else{//restart iteration through set however you do that
+        else
+        {//restart iteration through set however you do that
             character = enumerator.Current;
-            characterType=GetCharacterType();	
+            characterType = GetCharacterType();
         }
         if (!characterType)
         {//only do this if is an enemy
@@ -160,19 +172,19 @@ public class CombatManager : GameStateManager
         }
         onAbilityButtonClicked.UpdateAbilities(character);
         statusProcessorInstance.HandleStatuses(character);
-        
+
 
     }
     bool MoreThanOneSideIsAlive()
     {
         int zero = 1;//used to check for f first iteration is done yet
-        bool initial = false ;
+        bool initial = false;
         //private IEnumerator<Character> tempEnum = characters.GetEnumerator();
 
 
-        foreach(Character character in characters)
+        foreach (Character character in characters)
         {
-            if (zero==1)
+            if (zero == 1)
             {
                 zero = 0;
                 initial = character.GetPlayer();
@@ -185,7 +197,7 @@ public class CombatManager : GameStateManager
         return false;
     }
     void EndBattle(bool won)
-    { 
+    {
         FindObjectOfType<CombatOver>().TriggerEvent(won);
     }
 
@@ -216,8 +228,8 @@ public class CombatManager : GameStateManager
         IterateCharacters();
     }
 
-    
 
 
-        #endregion
-    }
+
+    #endregion
+}

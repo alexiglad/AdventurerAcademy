@@ -10,11 +10,9 @@ using UnityEngine;
 public class Voodoo : Ability
 {
     private Character target;
-    AbilityProcessor abilityProcessorInstance;
     private void OnEnable()
     {
 
-        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

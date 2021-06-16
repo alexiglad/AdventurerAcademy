@@ -8,14 +8,10 @@ using UnityEngine;
 public class FieryBite : Ability
 {
     private FloatValueSO damage;
-    AbilityProcessor abilityProcessorInstance;
-    StatusProcessor statusProcessorInstance;
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(3f);
-        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
-        statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

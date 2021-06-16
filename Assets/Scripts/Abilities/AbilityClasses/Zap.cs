@@ -13,15 +13,12 @@ using UnityEngine;
 public class Zap : Ability
 {
     private FloatValueSO damage;
-    AbilityProcessor abilityProcessorInstance;
-    StatusProcessor statusProcessorInstance;
+
     // Start is called before the first frame update
     void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(5f);
-        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
-        statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
 
         //TODO find a better way to do this eventually
     }

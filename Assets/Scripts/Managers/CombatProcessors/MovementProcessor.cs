@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "ScriptableObjects/MovementProcessor")]
 
 public class MovementProcessor : ScriptableObject
 {
