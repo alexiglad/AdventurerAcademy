@@ -19,10 +19,10 @@ public class TargetButtonClicked : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))//TODO temporary needs to get button context
+        /*if (Input.GetKeyDown(KeyCode.O))//TODO temporary needs to get button context
         {
             //left click pressed
             OnTargetButtonClicked?.Invoke(this, EventArgs.Empty);
-        }
+        }*/
     }
 }

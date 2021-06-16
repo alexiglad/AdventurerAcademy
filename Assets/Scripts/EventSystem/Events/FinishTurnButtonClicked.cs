@@ -17,10 +17,10 @@ public class FinishTurnButtonClicked : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))//TODO temporary need to add finish turn button
+        /*if (Input.GetKeyDown(KeyCode.P))//TODO temporary need to add finish turn button
         {
             //left click pressed
             OnFinishTurnButtonClicked?.Invoke(this, EventArgs.Empty);
-        }
+        }*/
     }
 }

@@ -14,10 +14,10 @@ public class LeftClicked : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             //left click pressed
             OnLeftClicked?.Invoke(this, EventArgs.Empty);
-        }
+        }*/
     }
 }

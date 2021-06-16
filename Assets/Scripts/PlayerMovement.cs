@@ -40,10 +40,10 @@ public class PlayerMovement : MonoBehaviour
 
     void ProcessInputs() 
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        //float moveX = Input.GetAxisRaw("Horizontal");
+        //float moveY = Input.GetAxisRaw("Vertical");
 
-        moveDirection = new Vector2(moveX, moveY).normalized;
+        //moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
     void Move() 
