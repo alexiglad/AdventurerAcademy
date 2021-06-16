@@ -149,10 +149,18 @@ public class Character : MonoBehaviour, IComparable<Character>
     public virtual void SetHealth(float value)
     {
         health.SetFloatValue(value);
+        if (this.health.GetFloatValue() <= 0)
+        {
+            this.Dead();
+        }
     }
     public virtual void DecrementHealth(float value)
     {
         health.SetFloatValue(health.GetFloatValue() - value);
+        if (this.health.GetFloatValue() <= 0)
+        {
+            this.Dead();
+        }
     }
     public virtual void IncrementHealth(float value)
     {

@@ -12,7 +12,7 @@ public class BasicAI
         Ability ability = character.InUseAbilities[num1];
 
         List<Character> players = new List<Character>();
-        foreach (Character characterE in tempRef.characters)
+        foreach (Character characterE in tempRef.Characters)
         {
             if (characterE.GetPlayer())
                 players.Add(characterE);

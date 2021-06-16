@@ -6,7 +6,7 @@ using UnityEngine;
 public class CombatManager : GameStateManager
 {
     #region Local Variables
-    public SortedSet<Character> characters = new SortedSet<Character>();
+    private SortedSet<Character> characters = new SortedSet<Character>();
 
     private IEnumerator<Character> enumerator;
     bool characterType;
@@ -22,6 +22,7 @@ public class CombatManager : GameStateManager
 
     public Character Character { get => character; set => character = value; }
     public bool CharacterType { get => characterType; set => characterType = value; }
+    public SortedSet<Character> Characters { get => characters; set => characters = value; }
 
 
     #endregion

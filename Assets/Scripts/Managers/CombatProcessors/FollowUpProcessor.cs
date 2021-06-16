@@ -14,7 +14,7 @@ public class FollowUpProcessor : ScriptableObject
 
     public void HandleFollowUpAction(FollowUpAction followUpAction)
     {
-        foreach(Character character in combatManager.characters)//this is sorted properly on initiative
+        foreach(Character character in combatManager.Characters)//this is sorted properly on initiative
         {
             foreach(FollowUp followUp in character.followUps)
             {

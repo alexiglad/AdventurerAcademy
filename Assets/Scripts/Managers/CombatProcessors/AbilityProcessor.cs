@@ -6,29 +6,37 @@ using UnityEngine;
 
 public class AbilityProcessor : ScriptableObject
 {
-
+    MovementProcessor movementProcessor;
+    private void OnEnable()
+    {
+        movementProcessor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
+    }
     /////////////////////////////////
-    public void SplashDamage(Character character, float damage, float damageFallOff, float range){
-        
-
-        if(character.GetHealth().GetFloatValue()<=0){
-            character.Dead();
+    public void SplashDamage(Character character, float damage, float range){
+        List<Character> charactersWithinRange = new List<Character>();
+        charactersWithinRange = movementProcessor.GetCharactersInRange(character.transform.position, range);
+        foreach(Character character1 in charactersWithinRange)
+        {
+            character1.DecrementHealth(damage);
         }
     }
     public void Damage(Character character, float damage){
 
-        
-        if(character.GetHealth().GetFloatValue() <= 0){
-            character.Dead();
-        }
+        character.DecrementHealth(damage);
     }
 
     
     public void Heal(Character character, float heal){
+        character.IncrementHealth(heal);
 
     }
-    public void SplashHeal(Character character, float heal, float healFallOff, float range){
-
+    public void SplashHeal(Character character, float heal, float range){
+        List<Character> charactersWithinRange = new List<Character>();
+        charactersWithinRange = movementProcessor.GetCharactersInRange(character.transform.position, range);
+        foreach (Character character1 in charactersWithinRange)
+        {
+            character1.IncrementHealth(heal);
+        }
     }
 
 }

@@ -6,7 +6,9 @@ using UnityEngine;
 public class FinishTurnButtonClicked : MonoBehaviour
 {
     //these are created programmatically for each button 
+#pragma warning disable
     public event EventHandler OnFinishTurnButtonClicked;
+#pragma warning restore
 
 
     void Start()

@@ -23,7 +23,6 @@ public class Default : Ability
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessorInstance.Damage(attackee, damage.GetFloatValue());
 
 
     }

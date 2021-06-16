@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// unimplemented
 /// 
 /// 
 /// 
@@ -23,7 +23,7 @@ public class TouchOfDeath : Ability
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessorInstance.Damage(attackee, damage.GetFloatValue());
+        //unimplemented
 
 
     }

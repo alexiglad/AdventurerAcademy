@@ -17,29 +17,26 @@ public class StatusProcessor : ScriptableObject
     public void HandleStatuses(Character character)
     {
         foreach (Status status in character.Statuses) {
-            if (status.StatusEffect != AbilityStatuses.None)//character has an ability
+            status.TurnsLeft--;
+            if (status.StatusEffect == StatusTypeEnum.Regen)
             {
-                status.TurnsLeft--;
-                if (status.StatusEffect == AbilityStatuses.Regen)
-                {
-                    Heal(character, status);
-                }
-                else if (status.StatusEffect == AbilityStatuses.Burn ||
-                    status.StatusEffect == AbilityStatuses.Poison ||
-                    status.StatusEffect == AbilityStatuses.Frozen)
-                {
-                    Damage(character, status);
-                }
-                else if (status.StatusEffect == AbilityStatuses.Sleep)
-                {
-                    combatManager.IterateCharacters();
-                }
+                Heal(character, status);
+            }
+            else if (status.StatusEffect == StatusTypeEnum.Burn ||
+                status.StatusEffect == StatusTypeEnum.Poison ||
+                status.StatusEffect == StatusTypeEnum.Frozen)
+            {
+                Damage(character, status);
+            }
+            else if (status.StatusEffect == StatusTypeEnum.Sleep)
+            {
+                combatManager.IterateCharacters();
+            }
 
-                //determine if status should fade away
-                if (status.TurnsLeft < 1)//i.e. status should disappear
-                {
-                    character.Statuses.Remove(status);
-                }
+            //determine if status should fade away
+            if (status.TurnsLeft < 1)//i.e. status should disappear
+            {
+                character.Statuses.Remove(status);
             }
         }
     }

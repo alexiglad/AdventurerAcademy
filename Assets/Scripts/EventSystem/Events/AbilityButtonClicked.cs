@@ -23,7 +23,7 @@ public class AbilityButtonClicked : MonoBehaviour
 
     void OnEnable()
     {
-        var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
+        /*var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
         abilityButton1 = rootVisualElement.Q<Button>("AbilityOne");
         abilityButton1.clicked += OnAbilityOnePressed;
         abilityButton2 = rootVisualElement.Q<Button>("AbilityTwo");
@@ -33,7 +33,7 @@ public class AbilityButtonClicked : MonoBehaviour
         abilityButton4 = rootVisualElement.Q<Button>("AbilityFour");
         abilityButton4.clicked += OnAbilityFourPressed;
         abilityButton5 = rootVisualElement.Q<Button>("AbilityFive");
-        abilityButton5.clicked += OnAbilityFivePressed;
+        abilityButton5.clicked += OnAbilityFivePressed;*/
 
     }
     public void UpdateAbilities(Character character)

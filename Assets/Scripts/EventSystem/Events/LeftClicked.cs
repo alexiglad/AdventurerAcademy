@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class LeftClicked : MonoBehaviour
 {
+#pragma warning disable
     public event EventHandler OnLeftClicked;
+#pragma warning restore
     void Start()
     {
         

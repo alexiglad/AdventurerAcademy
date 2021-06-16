@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AbilityStatuses
+public enum StatusTypeEnum
 {
-    None,//base case
     Regen,//heal
     Burn,//deal damage
     Poison,//
