@@ -10,8 +10,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameStateSO currentGameState;
     private SortedSet<Character> characters = new SortedSet<Character>();
 
+    static Controls controls;
 
-    void Start()
+    public static Controls Controls { get => controls; set => controls = value; }
+
+    void Awake()
     {
         //instantiate all processor instances!! 
         //instantiate all follow-ups and abilities
@@ -19,6 +22,9 @@ public class GameController : MonoBehaviour
         CreateAllProcessorInstances();
         CreateAllFollowUpInstances();
         CreateAllAbilityInstances();
+
+        //controls
+        controls = new Controls();
 
 
 
@@ -28,23 +34,23 @@ public class GameController : MonoBehaviour
 
 
     }
-
-    
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
-        //currentGameStateManager.GetGameStateManager().Update();
-        //commented out because combat manager is not completely implemented yet
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
+    private void Update()
+    {
+        float movementInput = controls.Roaming.Movement.ReadValue<float>();
+        //controls.Combat.
     }
 
 
-    /*public void CreateStateInstance(GameStateEnum gameState, SortedSet<Character> characters)
-    {
-        currentGameState.SetGameState(gameState);
-        currentGameStateManager.SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
-        currentGameStateManager.GetGameStateManager().AddCharacters(characters);
-    }*/
     public void AddCharacter(Character character)
     {
         characters.Add(character);
@@ -60,6 +66,7 @@ public class GameController : MonoBehaviour
         FollowUpProcessor.CreateInstance("FollowUpProcessor");
         AbilityProcessor.CreateInstance("AbilityProcessor");
         MovementProcessor.CreateInstance("MovementProcessor");
+        StatusProcessor.CreateInstance("StatusProcessor");
     }
     private void CreateAllAbilityInstances()
     {

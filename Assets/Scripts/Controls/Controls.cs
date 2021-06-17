@@ -271,7 +271,7 @@ public class @Controls : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Inventory"",
+            ""name"": ""Menu"",
             ""id"": ""26f87b3a-14c6-4d79-b5ec-adcbe35a68e6"",
             ""actions"": [
                 {
@@ -423,11 +423,11 @@ public class @Controls : IInputActionCollection, IDisposable
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_Navigate = m_Dialogue.FindAction("Navigate", throwIfNotFound: true);
-        // Inventory
-        m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
-        m_Inventory_Escape = m_Inventory.FindAction("Escape", throwIfNotFound: true);
-        m_Inventory_Select = m_Inventory.FindAction("Select", throwIfNotFound: true);
-        m_Inventory_Navigate = m_Inventory.FindAction("Navigate", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
+        m_Menu_Select = m_Menu.FindAction("Select", throwIfNotFound: true);
+        m_Menu_Navigate = m_Menu.FindAction("Navigate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -605,39 +605,39 @@ public class @Controls : IInputActionCollection, IDisposable
     }
     public DialogueActions @Dialogue => new DialogueActions(this);
 
-    // Inventory
-    private readonly InputActionMap m_Inventory;
-    private IInventoryActions m_InventoryActionsCallbackInterface;
-    private readonly InputAction m_Inventory_Escape;
-    private readonly InputAction m_Inventory_Select;
-    private readonly InputAction m_Inventory_Navigate;
-    public struct InventoryActions
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_Escape;
+    private readonly InputAction m_Menu_Select;
+    private readonly InputAction m_Menu_Navigate;
+    public struct MenuActions
     {
         private @Controls m_Wrapper;
-        public InventoryActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Escape => m_Wrapper.m_Inventory_Escape;
-        public InputAction @Select => m_Wrapper.m_Inventory_Select;
-        public InputAction @Navigate => m_Wrapper.m_Inventory_Navigate;
-        public InputActionMap Get() { return m_Wrapper.m_Inventory; }
+        public MenuActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Escape => m_Wrapper.m_Menu_Escape;
+        public InputAction @Select => m_Wrapper.m_Menu_Select;
+        public InputAction @Navigate => m_Wrapper.m_Menu_Navigate;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
-        public void SetCallbacks(IInventoryActions instance)
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
         {
-            if (m_Wrapper.m_InventoryActionsCallbackInterface != null)
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
             {
-                @Escape.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnEscape;
-                @Escape.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnEscape;
-                @Escape.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnEscape;
-                @Select.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSelect;
-                @Navigate.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnNavigate;
+                @Escape.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
+                @Select.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                @Navigate.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
+                @Navigate.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
+                @Navigate.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
             }
-            m_Wrapper.m_InventoryActionsCallbackInterface = instance;
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Escape.started += instance.OnEscape;
@@ -652,7 +652,7 @@ public class @Controls : IInputActionCollection, IDisposable
             }
         }
     }
-    public InventoryActions @Inventory => new InventoryActions(this);
+    public MenuActions @Menu => new MenuActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -678,7 +678,7 @@ public class @Controls : IInputActionCollection, IDisposable
     {
         void OnNavigate(InputAction.CallbackContext context);
     }
-    public interface IInventoryActions
+    public interface IMenuActions
     {
         void OnEscape(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
