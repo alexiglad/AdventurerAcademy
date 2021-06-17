@@ -189,7 +189,7 @@ public class @Controls : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Dialouge"",
+            ""name"": ""Dialogue"",
             ""id"": ""cf7ef379-0b8c-450f-826e-f90bca4b1a98"",
             ""actions"": [
                 {
@@ -420,9 +420,9 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Combat_Select = m_Combat.FindAction("Select", throwIfNotFound: true);
         m_Combat_Submenu = m_Combat.FindAction("Submenu", throwIfNotFound: true);
         m_Combat_Inventory = m_Combat.FindAction("Inventory", throwIfNotFound: true);
-        // Dialouge
-        m_Dialouge = asset.FindActionMap("Dialouge", throwIfNotFound: true);
-        m_Dialouge_Navigate = m_Dialouge.FindAction("Navigate", throwIfNotFound: true);
+        // Dialogue
+        m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
+        m_Dialogue_Navigate = m_Dialogue.FindAction("Navigate", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_Escape = m_Inventory.FindAction("Escape", throwIfNotFound: true);
@@ -572,29 +572,29 @@ public class @Controls : IInputActionCollection, IDisposable
     }
     public CombatActions @Combat => new CombatActions(this);
 
-    // Dialouge
-    private readonly InputActionMap m_Dialouge;
-    private IDialougeActions m_DialougeActionsCallbackInterface;
-    private readonly InputAction m_Dialouge_Navigate;
-    public struct DialougeActions
+    // Dialogue
+    private readonly InputActionMap m_Dialogue;
+    private IDialogueActions m_DialogueActionsCallbackInterface;
+    private readonly InputAction m_Dialogue_Navigate;
+    public struct DialogueActions
     {
         private @Controls m_Wrapper;
-        public DialougeActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Navigate => m_Wrapper.m_Dialouge_Navigate;
-        public InputActionMap Get() { return m_Wrapper.m_Dialouge; }
+        public DialogueActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Navigate => m_Wrapper.m_Dialogue_Navigate;
+        public InputActionMap Get() { return m_Wrapper.m_Dialogue; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DialougeActions set) { return set.Get(); }
-        public void SetCallbacks(IDialougeActions instance)
+        public static implicit operator InputActionMap(DialogueActions set) { return set.Get(); }
+        public void SetCallbacks(IDialogueActions instance)
         {
-            if (m_Wrapper.m_DialougeActionsCallbackInterface != null)
+            if (m_Wrapper.m_DialogueActionsCallbackInterface != null)
             {
-                @Navigate.started -= m_Wrapper.m_DialougeActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_DialougeActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_DialougeActionsCallbackInterface.OnNavigate;
+                @Navigate.started -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNavigate;
+                @Navigate.performed -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNavigate;
+                @Navigate.canceled -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNavigate;
             }
-            m_Wrapper.m_DialougeActionsCallbackInterface = instance;
+            m_Wrapper.m_DialogueActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Navigate.started += instance.OnNavigate;
@@ -603,7 +603,7 @@ public class @Controls : IInputActionCollection, IDisposable
             }
         }
     }
-    public DialougeActions @Dialouge => new DialougeActions(this);
+    public DialogueActions @Dialogue => new DialogueActions(this);
 
     // Inventory
     private readonly InputActionMap m_Inventory;
@@ -674,7 +674,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnSubmenu(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
     }
-    public interface IDialougeActions
+    public interface IDialogueActions
     {
         void OnNavigate(InputAction.CallbackContext context);
     }
