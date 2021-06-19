@@ -7,6 +7,7 @@ using UnityEngine;
 /// doll with the damage transfering to the target enemy. The doll has a set ammount of HP and
 /// cannot be moved once created.
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Voodoo")]
 public class Voodoo : Ability
 {
     private Character target;

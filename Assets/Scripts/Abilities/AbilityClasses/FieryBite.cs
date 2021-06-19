@@ -5,6 +5,7 @@ using UnityEngine;
 /// FieryBite is a basic monster ability that does a flat 3 damage. 
 /// also inflicts a burn affect onto target with a turn range from 3-4
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/FieryBite")]
 public class FieryBite : Ability
 {
     private FloatValueSO damage;

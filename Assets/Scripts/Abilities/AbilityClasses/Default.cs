@@ -9,6 +9,7 @@ using UnityEngine;
 /// 
 /// 
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Default")]
 public class Default : Ability
 {
     private FloatValueSO damage;

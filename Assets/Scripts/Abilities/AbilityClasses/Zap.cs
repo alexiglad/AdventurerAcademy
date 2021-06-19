@@ -10,6 +10,7 @@ using UnityEngine;
 /// Zap's Element is Electricity
 /// Zap is available to Wizard type characters
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Zap")]
 public class Zap : Ability
 {
     private FloatValueSO damage;

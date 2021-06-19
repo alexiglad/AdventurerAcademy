@@ -5,6 +5,7 @@ using UnityEngine;
 /// MoltenBite is a low damage attack (2) that does 3 splash damage to every
 /// character within a range of 5 (this is temporary lol)
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/MoltenBite")]
 public class MoltenBite : Ability
 {
     private FloatValueSO damage;

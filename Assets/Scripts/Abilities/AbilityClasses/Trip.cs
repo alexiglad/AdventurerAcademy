@@ -5,6 +5,7 @@ using UnityEngine;
 /// Melee range special ability that does a small amount of 
 /// fire damage (6) with a chance to knock-down enemy (50%)
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Trip")]
 public class Trip : Ability
 {
     private FloatValueSO damage;

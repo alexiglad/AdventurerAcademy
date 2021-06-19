@@ -10,6 +10,7 @@ using UnityEngine;
 /// 
 /// 
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/MagicalHeal")]
 public class MagicalHeal : Ability
 {
     private FloatValueSO damage;

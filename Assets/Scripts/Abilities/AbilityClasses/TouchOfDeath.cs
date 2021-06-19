@@ -9,6 +9,7 @@ using UnityEngine;
 /// 
 /// 
 /// </summary>
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/TouchOfDeath")]
 public class TouchOfDeath : Ability
 {
     private FloatValueSO damage;
