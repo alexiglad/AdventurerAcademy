@@ -26,10 +26,11 @@ public class CombatManager : GameStateManager
 
 
     #endregion
-    void Awake()
+    public override void Start()
     {
         turn = new Turn();
         enumerator = characters.GetEnumerator();
+        enumerator.MoveNext();
         character = enumerator.Current;
 
         LeftClicked onLeftClicked = FindObjectOfType<LeftClicked>();
@@ -40,7 +41,7 @@ public class CombatManager : GameStateManager
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
 
 
-        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//reason we use array is there are multiple of these for each button
+        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
         onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
 
         TargetButtonClicked[] onTargetButtonClicked = FindObjectsOfType<TargetButtonClicked>();//reason we use array is there are multiple of these for each button
@@ -51,7 +52,8 @@ public class CombatManager : GameStateManager
 
         abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
         statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
-
+        
+        onAbilityButtonClicked.UpdateAbilities(character);
 
     }
 
@@ -69,9 +71,10 @@ public class CombatManager : GameStateManager
         if (TurnFinished())
             IterateCharacters();
     }
-    public override void AddCharacters(SortedSet<Character> characters)
+    public override void AddCharacters(SortedSet<Character> charactersPassed)
     {
-        this.characters = characters;
+
+        this.characters = charactersPassed;
     }
     #region Custom Combat Manager Methods 
 
@@ -117,13 +120,13 @@ public class CombatManager : GameStateManager
 
     bool ValidTurn(Turn pushTurn)
     {
-
-        if (pushTurn.GetMovement() != null)
+        if (pushTurn.GetMovement() != Vector2.zero)//TODO update all vector 2's to vector 3's
         {
             return true;
         }
         else if (turn.GetAbility() != null && turn.GetTarget() != null)
         {
+            
             return true;
         }
         else
@@ -163,7 +166,9 @@ public class CombatManager : GameStateManager
             characterType = GetCharacterType();
         }
         else
-        {//restart iteration through set however you do that
+        {//TODO check if this works
+            enumerator = characters.GetEnumerator();
+            enumerator.MoveNext();
             character = enumerator.Current;
             characterType = GetCharacterType();
         }

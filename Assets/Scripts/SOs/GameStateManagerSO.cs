@@ -13,7 +13,7 @@ public class GameStateManagerSO : ScriptableObject
     void OnEnable()
     {
         FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
-        controls = GameController.Controls;
+        
     }
     public void SetGameStateManager(Type manager)
     {
@@ -31,9 +31,11 @@ public class GameStateManagerSO : ScriptableObject
         currentGameState.SetGameState(gameState);
         SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
         GetGameStateManager().AddCharacters(characters);
+        GetGameStateManager().Start();
 
+        controls = GameController.Controls;
         //input system code
-        if(gameState == GameStateEnum.Combat)
+        if (gameState == GameStateEnum.Combat)
         {
             controls.Combat.Enable();
         }

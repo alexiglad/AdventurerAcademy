@@ -14,4 +14,8 @@ public class MenuManager : GameStateManager
     {
         this.characters = characters;
     }
+    public override void Start()
+    {
+
+    }
 }

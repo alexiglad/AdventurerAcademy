@@ -7,6 +7,5 @@ public class Player : Character
 {
     public List<Ability> knownAbilities = new List<Ability>();
 
-    public Player(string name, float initiative) : base(name, initiative) { }
     
 }

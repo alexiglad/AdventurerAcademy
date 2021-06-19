@@ -14,4 +14,8 @@ public class LoadingManager : GameStateManager
     {
         this.characters = characters;
     }
+    public override void Start()
+    {
+
+    }
 }

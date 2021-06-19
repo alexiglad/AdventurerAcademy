@@ -14,4 +14,8 @@ public class RoamingManager : GameStateManager
     {
         this.characters = characters;
     }
+    public override void Start()
+    {
+        
+    }
 }

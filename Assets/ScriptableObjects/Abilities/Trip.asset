@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c57020678a295f47aea05b65c9c42eb, type: 3}
-  m_Name: Zap
+  m_Script: {fileID: 11500000, guid: 0e1d48f93763bf9408648e22f64d9322, type: 3}
+  m_Name: Trip
   m_EditorClassIdentifier: 
   abilityProcessorInstance: {fileID: 0}
   statusProcessorInstance: {fileID: 0}

@@ -11,11 +11,12 @@ public class GameController : MonoBehaviour
     private SortedSet<Character> characters = new SortedSet<Character>();
 
     static Controls controls;
-
+    AbilityButtonClicked onAbilityButtonClicked;
     public static Controls Controls { get => controls; set => controls = value; }
 
     void Awake()
     {
+
         //instantiate all processor instances!! 
         //instantiate all follow-ups and abilities
 
@@ -23,14 +24,23 @@ public class GameController : MonoBehaviour
         CreateAllFollowUpInstances();
         CreateAllAbilityInstances();
 
-        //controls
         controls = new Controls();
-
-
-
+        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
         //temporary code creates combat manager with characters
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
-        //temporary default
+
+        //controls
+        
+        /////////////////////////////
+        //controls.Combat.Select.started += ctx => 
+        //use context to distinguish between movement and a target
+        //target is only done when an ability has been selected?
+        //this overwrites the movement raycast until either a target has been selected or the user
+        //right clicks allowing for moving again and canceling ability
+        //controls.Combat.Select
+        //
+        
+
 
 
     }

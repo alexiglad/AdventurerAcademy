@@ -14,4 +14,8 @@ public class DialogueManager : GameStateManager
     {
         this.characters = characters;
     }
+    public override void Start()
+    {
+
+    }
 }

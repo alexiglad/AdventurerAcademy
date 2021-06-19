@@ -27,12 +27,12 @@ public class Character : MonoBehaviour, IComparable<Character>
 
 
     public List<FollowUp> followUps = new List<FollowUp>();
-    private List<Ability> inUseAbilities = new List<Ability>();//size 5
+    [SerializeField] private List<Ability> inUseAbilities = new List<Ability>();//size 5
     private List<Status> statuses = new List<Status>();
 
     protected Rigidbody2D characterRigidBody;
     protected Vector2 movementLeft;
-    [SerializeField] protected MovementProcessor abilityProcessorInstance;
+    [SerializeField] protected MovementProcessor movementProcesor;
     [SerializeField] protected FollowUpProcessor followUpProcessorInstance;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
@@ -45,17 +45,14 @@ public class Character : MonoBehaviour, IComparable<Character>
 
 
     #endregion
-    public Character(string name, float initiative){//Note this is not being called. Marked for future removal
-        this.name.SetStringValue(name);
-        this.initiative.SetFloatValue(initiative);
-    }
+
     public new String ToString()
     {
         return this.name.GetStringValue();
     }
     private void OnEnable()
     {
-        abilityProcessorInstance = (MovementProcessor)MovementProcessor.FindObjectOfType(typeof(MovementProcessor));
+        movementProcesor = (MovementProcessor)MovementProcessor.FindObjectOfType(typeof(MovementProcessor));
         followUpProcessorInstance = (FollowUpProcessor)FollowUpProcessor.FindObjectOfType(typeof(FollowUpProcessor));
         FindObjectOfType<GameController>().AddCharacter(this);
     }
@@ -72,6 +69,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
 
     }
+    //TODO add code to make characters move with movement
     
     public void CreateUI()//creates ability buttons
     {
