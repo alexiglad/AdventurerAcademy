@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Turn
 {
-    Vector2 movement;
+    Vector3 movement;
     Ability ability;
     Character target;
     public Turn() { }
@@ -31,13 +31,13 @@ public class Turn
 
     public bool IsEmpty()
     {
-        return this.movement == Vector2.zero && this.ability == null && this.target == null;
+        return this.movement == Vector3.zero && this.ability == null && this.target == null;
     }
 
-    public Vector2 GetMovement(){
+    public Vector3 GetMovement(){
         return movement;
     }
-    public void SetMovement(Vector2 movement){
+    public void SetMovement(Vector3 movement){
         this.movement = movement;
     }
     public Ability GetAbility(){

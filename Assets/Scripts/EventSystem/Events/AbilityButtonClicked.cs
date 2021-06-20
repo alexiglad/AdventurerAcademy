@@ -42,18 +42,24 @@ public class AbilityButtonClicked : MonoBehaviour
         if (character.GetPlayer())
         {
             abilityButtonAbilities = character.InUseAbilities;
-
+            UpdateButtonUI();
             for (int i = 0; i < abilityButtonAbilities.Count; i++)
             {
                 abilityButtons[i].SetActive(true);
             }
         }
     }
+    void UpdateButtonUI()
+    {//uses abilityButtonAbilities to correctly update button UI (I.e. text/images of buttons)
+        //TODO
+    }
 
 
     public void OnAblityButtonPressed(int pos)
     {
         OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos]));
+        //temporarily debug ability clicked
+        Debug.Log("Ability " + pos + "clicked");
     }
 
 }

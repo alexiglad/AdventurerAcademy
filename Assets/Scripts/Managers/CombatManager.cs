@@ -18,6 +18,7 @@ public class CombatManager : GameStateManager
 
     AbilityProcessor abilityProcessorInstance;
     StatusProcessor statusProcessorInstance;
+    MovementProcessor movementProcesssor;
 
 
     public Character Character { get => character; set => character = value; }
@@ -32,10 +33,11 @@ public class CombatManager : GameStateManager
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
         character = enumerator.Current;
+        
 
         LeftClicked onLeftClicked = FindObjectOfType<LeftClicked>();
         onLeftClicked.OnLeftClicked += CombatMove;
-        //TODO FIX THIS
+        //TODO FIX THIS cedric
 
         FinishTurnButtonClicked onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
@@ -52,13 +54,11 @@ public class CombatManager : GameStateManager
 
         abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
         statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
-        
+        movementProcesssor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
+
         onAbilityButtonClicked.UpdateAbilities(character);
 
     }
-
-
-    // Update is called once per frame
 
     public void UpdateIteration(Turn turnChange)
     {
@@ -81,12 +81,11 @@ public class CombatManager : GameStateManager
     public Turn DetermineEnemyTurn(Character character)//TODO
     {
         return character.EnemyAI.DetermineTurn(character);
-        //return null;//implement event listeners
     }
 
     public void UpdateTurn(Turn turnChange)
     {
-        if (turnChange.GetMovement() != Vector2.zero)
+        if (turnChange.GetMovement() != Vector3.zero)
         {//add x and y components to turn
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());
         }
@@ -102,13 +101,13 @@ public class CombatManager : GameStateManager
     public void UpdateCharacters(Turn turnChange)
     {
         //call ability or move method if necessary
-        if (turnChange.GetMovement() != Vector2.zero)//move turn
+        if (turnChange.GetMovement() != Vector3.zero)//move turn
         {
-            character.SetMovement(turnChange.GetMovement());
+            movementProcesssor.HandleMovement(character, turnChange.GetMovement());
         }
         else//ability turn
         {
-            character.InflictAbility(turn.GetTarget(), turn.GetAbility());
+            abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());
         }
     }
 
@@ -120,7 +119,7 @@ public class CombatManager : GameStateManager
 
     bool ValidTurn(Turn pushTurn)
     {
-        if (pushTurn.GetMovement() != Vector2.zero)//TODO update all vector 2's to vector 3's
+        if (pushTurn.GetMovement() != Vector3.zero)//TODO update all vector 2's to vector 3's
         {
             return true;
         }
@@ -149,7 +148,35 @@ public class CombatManager : GameStateManager
 
     public void RemoveCharacter(Character character)
     {
-        characters.Remove(character);//iterate?TODO check if need to iterate
+        Character tempCharacter = enumerator.Current;
+        if(character == tempCharacter)//i.e. current character is dying get next character
+        {
+            if (enumerator.MoveNext())
+            {
+                tempCharacter = enumerator.Current;
+            }
+            else
+            {
+                tempCharacter = characters.Min;
+            }
+        }
+        characters.Remove(character);
+        enumerator = characters.GetEnumerator();
+        enumerator.MoveNext();
+        while (enumerator.Current != tempCharacter)//exit when tempCharacter pos is found
+        {
+            if (!enumerator.MoveNext())//failsafe code
+            {
+                enumerator.Reset();
+                enumerator.MoveNext();
+                Debug.Log("ERROR REMOVING CHARACTER");
+                break;
+            }
+        }
+        this.character = tempCharacter;
+        //should effectively exit on correct position
+
+
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
@@ -167,7 +194,7 @@ public class CombatManager : GameStateManager
         }
         else
         {//TODO check if this works
-            enumerator = characters.GetEnumerator();
+            enumerator.Reset();
             enumerator.MoveNext();
             character = enumerator.Current;
             characterType = GetCharacterType();
@@ -185,9 +212,6 @@ public class CombatManager : GameStateManager
     {
         int zero = 1;//used to check for f first iteration is done yet
         bool initial = false;
-        //private IEnumerator<Character> tempEnum = characters.GetEnumerator();
-
-
         foreach (Character character in characters)
         {
             if (zero == 1)
@@ -212,7 +236,7 @@ public class CombatManager : GameStateManager
     #region Event Listeners
     void CombatMove(object sender, EventArgs e)
     {
-        Turn turnUpdate = new Turn(new Vector2(1, 1));//TODO eventually replace with with generated vector based on mouse pos
+        Turn turnUpdate = new Turn(new Vector3(1, 1, 0));//TODO eventually replace with with generated vector based on mouse pos
         UpdateIteration(turnUpdate);
         Debug.Log("Theoretically movedCombat");
     }

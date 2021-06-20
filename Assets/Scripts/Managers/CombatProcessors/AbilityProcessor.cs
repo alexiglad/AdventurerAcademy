@@ -7,9 +7,19 @@ using UnityEngine;
 public class AbilityProcessor : ScriptableObject
 {
     MovementProcessor movementProcessor;
+    FollowUpProcessor followUpProcessor;
     private void OnEnable()
     {
         movementProcessor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
+        followUpProcessor = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
+
+    }
+    public void HandleAbility(Character attacker, Character attackee, Ability ability)
+    {
+
+        ability.HandleAbility(attacker, attackee, ability);//format is always attacker, attackee
+        //must check follow up after every ability
+        followUpProcessor.HandleFollowUpAction(new FollowUpAction(attacker, attackee, ability));
     }
     /////////////////////////////////
     public void SplashDamage(Character character, float damage, float range){

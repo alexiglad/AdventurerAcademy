@@ -14,24 +14,38 @@ public class MovementProcessor : ScriptableObject
         followUpProcessor = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
         combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
     }
-     
-    public Vector2 UpdatePosition(Character character, Vector2 movement)
+    public void HandleMovement(Character character, Vector3 movement)
     {
-        //TODO convert all to vector 3's
-        Vector2 actualMovement = NormalizeMovement(movement);
-        //incorporate speed and other factors into actualMovement here 
-        moveSpeed = character.GetMoveSpeed();
-        //update character position here
-        actualMovement *= moveSpeed;
-        character.GetCharacterRigidBody().velocity = new Vector2(actualMovement.x , actualMovement.y );
-
-        followUpProcessor.HandleFollowUpAction(new FollowUpAction(character, actualMovement));
-        return movement - actualMovement;
+        while(movement != Vector3.zero)
+        {
+            UpdatePosition(character, movement);
+            //need to add sleep timer here?
+        }
+        character.GetCharacterRigidBody().velocity = Vector3.zero;//stop after moving
+        //disable controls temporarily
     }
-    public Vector2 NormalizeMovement(Vector2 movement)
+    public void UpdatePosition(Character character, Vector3 movement)
     {
-        movement.Normalize();
-        return movement;
+        Vector3 actualMovement;//this is basically the direction of the movement
+        if (movement.magnitude > 1)
+        {
+            actualMovement = movement;
+            actualMovement.Normalize();
+        }
+        else
+        {
+            actualMovement = movement;
+        }
+        //incorporate speed and other factors into actualMovement here 
+        //update character position here
+        actualMovement *= character.GetMoveSpeed();
+        if(actualMovement.magnitude >= movement.magnitude)
+        {
+            actualMovement = movement;//can only move remaining distance
+        }
+        character.GetCharacterRigidBody().velocity = new Vector3(actualMovement.x , actualMovement.y, actualMovement.z);
+
+        followUpProcessor.HandleFollowUpAction(new FollowUpAction(character, actualMovement));//this may be too much overhead to handle
     }
     public List<Character> GetCharactersInRange(Vector3 position, float range)
     {

@@ -31,7 +31,6 @@ public class Character : MonoBehaviour, IComparable<Character>
     private List<Status> statuses = new List<Status>();
 
     protected Rigidbody2D characterRigidBody;
-    protected Vector2 movementLeft;
     [SerializeField] protected MovementProcessor movementProcesor;
     [SerializeField] protected FollowUpProcessor followUpProcessorInstance;
     [SerializeField] protected GameStateManagerSO gameStateManager;
@@ -69,34 +68,18 @@ public class Character : MonoBehaviour, IComparable<Character>
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
 
     }
-    //TODO add code to make characters move with movement
     
-    public void CreateUI()//creates ability buttons
-    {
-        foreach(Ability ability in inUseAbilities)
-        {
-            //create button TODO
-            
-        }
-    }
 
-
-    public bool InflictAbility(Character attackee, Ability ability){        
-        
-        ability.HandleAbility(this, attackee, ability);//format is always attacker, attackee
-        //must check follow up after every ability
-        followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(this, attackee, ability));
-        return true;
-    }
     public void Dead(){
         //create event?
-        //combatManagerInstance.characters.Remove(this);//Alexi code
-        if (gameStateManager.GetGameStateManager().GetType() == typeof(CombatManager))//Cedric Change
+        if (gameStateManager.GetGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
             tempRef.RemoveCharacter(this);
         }
         //add more for when player is dead
+        //todo determine if need following destroy code
+        Destroy(this);
     }
 
     #region Getters and Setters
@@ -138,10 +121,6 @@ public class Character : MonoBehaviour, IComparable<Character>
     public Rigidbody2D GetCharacterRigidBody()
     {
         return characterRigidBody;
-    }
-    public void SetMovement(Vector2 movement)
-    {
-        movementLeft = movement;
     }
 
     public virtual void SetHealth(float value)
