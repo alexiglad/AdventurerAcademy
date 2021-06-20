@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/Stab")]
 public class Stab : FollowUp
 {
     //this ability is a "counter" to the zap ability

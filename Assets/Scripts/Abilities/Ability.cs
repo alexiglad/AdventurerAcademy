@@ -9,6 +9,12 @@ public abstract class Ability : ScriptableObject
     [SerializeField] protected AbilityProcessor abilityProcessor;
     [SerializeField] protected StatusProcessor statusProcessor;
 
+    public void LoadResources()
+    {
+        abilityProcessor = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
+        statusProcessor = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
+    }
+
     public abstract void HandleAbility(Character attacker, Character attackee, Ability ability);
 
 }

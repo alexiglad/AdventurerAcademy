@@ -15,10 +15,10 @@ public class CombatManager : GameStateManager
 
 
 
-    AbilityProcessor abilityProcessorInstance;
-    StatusProcessor statusProcessorInstance;
-    MovementProcessor movementProcesssor;
-    UIHandler uiHandler;
+    [SerializeField] AbilityProcessor abilityProcessorInstance;
+    [SerializeField] StatusProcessor statusProcessorInstance;
+    [SerializeField] MovementProcessor movementProcesssor;
+    [SerializeField] UIHandler uiHandler;
 
 
     public Character Character { get => character; set => character = value; }
@@ -38,10 +38,17 @@ public class CombatManager : GameStateManager
         uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
         uiHandler.UpdateCombatTurnUI(character);
 
+        
+
+        abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0]; 
+
+        /*
         abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
         statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
         movementProcesssor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
         uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
+        */
+
 
 
     }

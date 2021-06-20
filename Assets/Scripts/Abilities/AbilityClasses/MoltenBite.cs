@@ -20,6 +20,7 @@ public class MoltenBite : Ability
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
+        Debug.Log(abilityProcessor == null);
         abilityProcessor.SplashDamage(attackee, damage.GetFloatValue(), range.GetFloatValue());
 
     }

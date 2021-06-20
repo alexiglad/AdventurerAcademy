@@ -16,7 +16,8 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-
+        Ability ability = new Default();
+        ability.LoadResources();
         //instantiate all processor instances!! 
         //instantiate all follow-ups and abilities
 
@@ -73,11 +74,12 @@ public class GameController : MonoBehaviour
     }
     private void CreateAllProcessorInstances()
     {
+        //Cedric Edit
         //create instances of all processors
-        FollowUpProcessor.CreateInstance("FollowUpProcessor");
-        AbilityProcessor.CreateInstance("AbilityProcessor");
-        MovementProcessor.CreateInstance("MovementProcessor");
-        StatusProcessor.CreateInstance("StatusProcessor");
+        //FollowUpProcessor.CreateInstance("FollowUpProcessor");
+        //AbilityProcessor.CreateInstance("AbilityProcessor");
+        //MovementProcessor.CreateInstance("MovementProcessor");
+        //StatusProcessor.CreateInstance("StatusProcessor");
     }
 
 }
