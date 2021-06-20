@@ -6,15 +6,13 @@ using UnityEngine;
 
 public class FollowUpProcessor : ScriptableObject
 {
-    CombatManager combatManager;
-    public void OnEnable()
-    {
-        combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
-    }
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+
 
     public void HandleFollowUpAction(FollowUpAction followUpAction)
     {
-        foreach(Character character in combatManager.Characters)//this is sorted properly on initiative
+        CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+        foreach (Character character in tempRef.Characters)//this is sorted properly on initiative
         {
             foreach(FollowUp followUp in character.followUps)
             {

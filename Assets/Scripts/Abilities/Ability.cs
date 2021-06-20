@@ -3,15 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Ability")]
 public abstract class Ability : ScriptableObject
 {
-    [SerializeField] protected AbilityProcessor abilityProcessorInstance;
-    [SerializeField] protected StatusProcessor statusProcessorInstance;
-    private void OnEnable()
-    {
-        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
-        statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
-    }
+    [SerializeField] protected AbilityProcessor abilityProcessor;
+    [SerializeField] protected StatusProcessor statusProcessor;
+
     public abstract void HandleAbility(Character attacker, Character attackee, Ability ability);
 
 }

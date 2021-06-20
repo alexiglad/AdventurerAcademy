@@ -6,19 +6,16 @@ using UnityEngine;
 
 public class AbilityProcessor : ScriptableObject
 {
-    MovementProcessor movementProcessor;
-    FollowUpProcessor followUpProcessor;
-    private void OnEnable()
-    {
-        movementProcessor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
-        followUpProcessor = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
+    [SerializeField] MovementProcessor movementProcessor;
+    [SerializeField] FollowUpProcessor followUpProcessor;
 
-    }
     public void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
 
         ability.HandleAbility(attacker, attackee, ability);//format is always attacker, attackee
+        Debug.Log(attacker + " attacked " + attackee + " with " + ability);
         //must check follow up after every ability
+        Debug.Log("PROCESSOR IS " + movementProcessor);
         followUpProcessor.HandleFollowUpAction(new FollowUpAction(attacker, attackee, ability));
     }
     /////////////////////////////////

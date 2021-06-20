@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97cc39d43368c8143a42e0a51033fda8, type: 3}
-  m_Name: FollowUpProcessor
+  m_Script: {fileID: 11500000, guid: f5da334bec5ed514aa46aac36f541bf3, type: 3}
+  m_Name: WolfIsPlayer
   m_EditorClassIdentifier: 
-  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  boolValue: 0

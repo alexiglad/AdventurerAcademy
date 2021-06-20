@@ -7,13 +7,9 @@ using UnityEngine;
 public class MovementProcessor : ScriptableObject
 {
     float moveSpeed;
-    FollowUpProcessor followUpProcessor;
-    CombatManager combatManager;
-    public void OnEnable()
-    {
-        followUpProcessor = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
-        combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
-    }
+    [SerializeField] FollowUpProcessor followUpProcessor;
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+
     public void HandleMovement(Character character, Vector3 movement)
     {
         while(movement != Vector3.zero)
@@ -50,7 +46,8 @@ public class MovementProcessor : ScriptableObject
     public List<Character> GetCharactersInRange(Vector3 position, float range)
     {
         List<Character> charactersInRange = new List<Character>();
-        foreach(Character character in combatManager.Characters)
+        CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+        foreach (Character character in tempRef.Characters)
         {
             if(Vector3.Distance(character.transform.position, position) <= range)
             {//this character is within range of ability/follow up

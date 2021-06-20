@@ -103,7 +103,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: 6b64eed63433f77438af46b764d67678, type: 2}
   maxMana: {fileID: 11400000, guid: 4b83ddc6fdfaca2478c6f5b3e383f05f, type: 2}
   maxStamina: {fileID: 11400000, guid: 06b233fa95c22344e8066810dbc1eef8, type: 2}
-  isPlayer: {fileID: 11400000, guid: 0fb772db2d7801c418f0c6533430f1c1, type: 2}
+  isPlayer: {fileID: 11400000, guid: 995e04b2661dcea489f7864dfe5c9c96, type: 2}
   maxMovement: {fileID: 11400000, guid: 3a062be4aa7ccdf46ba2b0f3282b2902, type: 2}
   initiative: {fileID: 11400000, guid: 77829b91102459e4c99cfc940cb4fc6f, type: 2}
   moveSpeed: {fileID: 11400000, guid: a9df193cdb829c54cab976b4132a5116, type: 2}
@@ -112,8 +112,10 @@ MonoBehaviour:
   damageMultiplier: {fileID: 0}
   damageRange: {fileID: 0}
   followUps: []
-  abilityProcessorInstance: {fileID: 0}
-  followUpProcessorInstance: {fileID: 0}
+  inUseAbilities:
+  - {fileID: 11400000, guid: 9ee27dcc46f368e4386d25147e247d87, type: 2}
+  - {fileID: 11400000, guid: 0d1c022c6d2bd50429b279242d51cab3, type: 2}
+  - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
   gameStateManager: {fileID: 0}
 --- !u!50 &6174382709882193813
 Rigidbody2D:

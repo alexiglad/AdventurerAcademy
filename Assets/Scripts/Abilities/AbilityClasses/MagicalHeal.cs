@@ -30,12 +30,12 @@ public class MagicalHeal : Ability
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessorInstance.Heal(attackee, damage.GetFloatValue());
+        abilityProcessor.Heal(attackee, damage.GetFloatValue());
 
         if (Random.value >= 0.5)//give target regen
         {
             Status status = new Status(regen.GetFloatValue(), StatusTypeEnum.Regen, 3);
-            statusProcessorInstance.CreateStatus(attacker, attackee, status);
+            statusProcessor.CreateStatus(attacker, attackee, status);
         }
     }
 }

@@ -5,24 +5,28 @@ using UnityEngine;
 
 public class FinishTurnButtonClicked : MonoBehaviour
 {
-    //these are created programmatically for each button 
-#pragma warning disable
     public event EventHandler OnFinishTurnButtonClicked;
-#pragma warning restore
 
+    public GameObject endTurn;
 
-    void Start()
+    void OnEnable()
     {
-
+        endTurn = GameObject.Find("EndTurn");
     }
-
-    // Update is called once per frame
-    void Update()
+    public void UpdateButton(bool isPlayer)
     {
-        /*if (Input.GetKeyDown(KeyCode.P))//TODO temporary need to add finish turn button
+        if (isPlayer)
         {
-            //left click pressed
-            OnFinishTurnButtonClicked?.Invoke(this, EventArgs.Empty);
-        }*/
+            endTurn.SetActive(true);
+        }
+        else
+        {
+            
+            endTurn.SetActive(false);
+        }
+    }
+    public void OnFinishTurnButtonPressed()
+    {
+        OnFinishTurnButtonClicked?.Invoke(this, EventArgs.Empty);
     }
 }

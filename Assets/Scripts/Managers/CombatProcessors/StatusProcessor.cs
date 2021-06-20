@@ -6,13 +6,10 @@ using UnityEngine;
 
 public class StatusProcessor : ScriptableObject
 {
-    CombatManager combatManager;
-    FollowUpProcessor followUpProcessorInstance;
-    public void OnEnable()
-    {
-        combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
-        followUpProcessorInstance = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
-    }
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+    [SerializeField] FollowUpProcessor followUpProcessorInstance;
+
+
 
     public void HandleStatuses(Character character)
     {
@@ -30,7 +27,8 @@ public class StatusProcessor : ScriptableObject
             }
             else if (status.StatusEffect == StatusTypeEnum.Sleep)
             {
-                combatManager.IterateCharacters();
+                CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+                tempRef.IterateCharacters();
             }
 
             //determine if status should fade away

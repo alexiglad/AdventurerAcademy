@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class BasicAI 
+public class BasicAI
 {
     [SerializeField] protected GameStateManagerSO gameStateManager;
+    public BasicAI()
+    {
+        GameStateManagerSO[]  temp = Resources.FindObjectsOfTypeAll<GameStateManagerSO>();
+        gameStateManager = temp[0];
+    }
     public Turn DetermineTurn(Character character)
     {
         CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
@@ -14,7 +19,7 @@ public class BasicAI
         List<Character> players = new List<Character>();
         foreach (Character characterE in tempRef.Characters)
         {
-            if (characterE.GetPlayer())
+            if (characterE.IsPlayer())
                 players.Add(characterE);
         }
         int num2 = Random.Range(0, players.Count - 1);

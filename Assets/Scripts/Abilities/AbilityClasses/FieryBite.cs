@@ -17,10 +17,10 @@ public class FieryBite : Ability
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessorInstance.Damage(attackee, damage.GetFloatValue());
+        abilityProcessor.Damage(attackee, damage.GetFloatValue());
         int turns = Random.Range(3, 5);//in range of 3-4 (is max exclusive)
         Status status = new Status(3, StatusTypeEnum.Burn, turns);
-        statusProcessorInstance.CreateStatus(attacker, attackee, status);
+        statusProcessor.CreateStatus(attacker, attackee, status);
 
     }
 }

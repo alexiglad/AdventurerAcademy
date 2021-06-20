@@ -21,8 +21,9 @@ public class GameController : MonoBehaviour
         //instantiate all follow-ups and abilities
 
         CreateAllProcessorInstances();
-        CreateAllFollowUpInstances();
-        CreateAllAbilityInstances();
+
+        //Ability.CreateInstance("Ability");
+        UIHandler.CreateInstance("UIHandler");
 
         controls = new Controls();
         onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
@@ -78,14 +79,5 @@ public class GameController : MonoBehaviour
         MovementProcessor.CreateInstance("MovementProcessor");
         StatusProcessor.CreateInstance("StatusProcessor");
     }
-    private void CreateAllAbilityInstances()
-    {
-        //create instances of all abilities
-        Zap.CreateInstance("Zap");
-    }
-    private void CreateAllFollowUpInstances()
-    {
-        //create instances of all follow-ups
-        Stab.CreateInstance("Stab");
-    }
+
 }

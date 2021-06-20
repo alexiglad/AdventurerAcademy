@@ -10,11 +10,6 @@ public class AbilityButtonClicked : MonoBehaviour
     //these are created programmatically for each button 
     public event EventHandler<AbilityEventArgs> OnAbilityButtonClicked;
 
-    Ability ability1;
-    Ability ability2;
-    Ability ability3;
-    Ability ability4;
-    Ability ability5;
 
 
     private GameObject[] abilityButtons = new GameObject[5];
@@ -39,7 +34,7 @@ public class AbilityButtonClicked : MonoBehaviour
             abilityButtons[i].SetActive(false);
         }
         
-        if (character.GetPlayer())
+        if (character.IsPlayer())
         {
             abilityButtonAbilities = character.InUseAbilities;
             UpdateButtonUI();
@@ -59,7 +54,7 @@ public class AbilityButtonClicked : MonoBehaviour
     {
         OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos]));
         //temporarily debug ability clicked
-        Debug.Log("Ability " + pos + "clicked");
+        Debug.Log("Ability " + abilityButtonAbilities[pos] + " invoked");
     }
 
 }

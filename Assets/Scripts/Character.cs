@@ -31,8 +31,6 @@ public class Character : MonoBehaviour, IComparable<Character>
     private List<Status> statuses = new List<Status>();
 
     protected Rigidbody2D characterRigidBody;
-    [SerializeField] protected MovementProcessor movementProcesor;
-    [SerializeField] protected FollowUpProcessor followUpProcessorInstance;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     
@@ -51,9 +49,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     private void OnEnable()
     {
-        movementProcesor = (MovementProcessor)MovementProcessor.FindObjectOfType(typeof(MovementProcessor));
-        followUpProcessorInstance = (FollowUpProcessor)FollowUpProcessor.FindObjectOfType(typeof(FollowUpProcessor));
         FindObjectOfType<GameController>().AddCharacter(this);
+        enemyAI = new BasicAI();
     }
     private void OnDisable()
     {
@@ -83,8 +80,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
 
     #region Getters and Setters
-    public bool GetPlayer() {
-        return isPlayer;
+    public bool IsPlayer() {
+        return isPlayer.GetBoolValue();
     }
     public FloatValueSO GetHealth() {
         return health;
@@ -142,6 +139,10 @@ public class Character : MonoBehaviour, IComparable<Character>
     public virtual void IncrementHealth(float value)
     {
         health.SetFloatValue(health.GetFloatValue() + value);
+    }
+    public float GetPercentHealth()
+    {
+        return this.health.GetFloatValue() / this.maxHealth.GetFloatValue();
     }
     #endregion
     public int CompareTo(Character character)//test if this is actually working

@@ -13,12 +13,12 @@ public class CombatManager : GameStateManager
     Turn turn;
     Character character;
 
-    AbilityButtonClicked onAbilityButtonClicked;
 
 
     AbilityProcessor abilityProcessorInstance;
     StatusProcessor statusProcessorInstance;
     MovementProcessor movementProcesssor;
+    UIHandler uiHandler;
 
 
     public Character Character { get => character; set => character = value; }
@@ -33,30 +33,16 @@ public class CombatManager : GameStateManager
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
         character = enumerator.Current;
-        
 
-        LeftClicked onLeftClicked = FindObjectOfType<LeftClicked>();
-        onLeftClicked.OnLeftClicked += CombatMove;
-        //TODO FIX THIS cedric
-
-        FinishTurnButtonClicked onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
-        onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
-
-
-        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
-        onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
-
-        TargetButtonClicked[] onTargetButtonClicked = FindObjectsOfType<TargetButtonClicked>();//reason we use array is there are multiple of these for each button
-        foreach (TargetButtonClicked targetButton in onTargetButtonClicked)
-        {
-            targetButton.OnTargetButtonClicked += CombatTarget;
-        }
+        ImportListeners();
+        uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
+        uiHandler.UpdateCombatTurnUI(character);
 
         abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
         statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
         movementProcesssor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
+        uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
 
-        onAbilityButtonClicked.UpdateAbilities(character);
 
     }
 
@@ -89,11 +75,11 @@ public class CombatManager : GameStateManager
         {//add x and y components to turn
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());
         }
-        else if (turnChange.GetAbility() != null)
+        if (turnChange.GetAbility() != null)
         {
             turn.SetAbility(turnChange.GetAbility());
         }
-        else//has to be target
+        if (turnChange.GetTarget() != null)//has to be target
         {
             turn.SetTarget(turnChange.GetTarget());
         }
@@ -105,7 +91,7 @@ public class CombatManager : GameStateManager
         {
             movementProcesssor.HandleMovement(character, turnChange.GetMovement());
         }
-        else//ability turn
+        if(turn.GetAbility() != null && turn.GetTarget() != null)//ability turn
         {
             abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());
         }
@@ -114,7 +100,7 @@ public class CombatManager : GameStateManager
 
     bool GetCharacterType()
     {
-        return character.GetPlayer();
+        return character.IsPlayer();
     }
 
     bool ValidTurn(Turn pushTurn)
@@ -137,6 +123,10 @@ public class CombatManager : GameStateManager
     bool TurnFinished()
     {
         if (turn.GetMovement().magnitude >= character.GetMaxMovement() && turn.GetAbility() != null && turn.GetTarget() != null)
+        {
+            return true;
+        }
+        else if (!character.IsPlayer())//temp code enemies automatically finish turn in one go
         {
             return true;
         }
@@ -180,13 +170,13 @@ public class CombatManager : GameStateManager
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
-            EndBattle(character.GetPlayer());//if true is a win if false is a loss
+            EndBattle(character.IsPlayer());//if true is a win if false is a loss
         }
     }
 
     public void IterateCharacters()
     {
-        turn = null;
+        turn = new Turn();
         if (enumerator.MoveNext())
         {
             character = enumerator.Current;
@@ -201,9 +191,9 @@ public class CombatManager : GameStateManager
         }
         if (!characterType)
         {//only do this if is an enemy
-            DetermineEnemyTurn(character);
+            UpdateIteration(DetermineEnemyTurn(character));
         }
-        onAbilityButtonClicked.UpdateAbilities(character);
+        uiHandler.UpdateCombatTurnUI(character);
         statusProcessorInstance.HandleStatuses(character);
 
 
@@ -217,9 +207,9 @@ public class CombatManager : GameStateManager
             if (zero == 1)
             {
                 zero = 0;
-                initial = character.GetPlayer();
+                initial = character.IsPlayer();
             }
-            else if (initial != character.GetPlayer())
+            else if (initial != character.IsPlayer())
             {
                 return true;
             }
@@ -234,6 +224,21 @@ public class CombatManager : GameStateManager
     #endregion
 
     #region Event Listeners
+    void ImportListeners()
+    {
+        //TODO work on these with cedric
+        LeftClicked onLeftClicked = FindObjectOfType<LeftClicked>();
+        onLeftClicked.OnLeftClicked += CombatMove;
+
+        FinishTurnButtonClicked onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
+        onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
+
+        AbilityButtonClicked onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
+        onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
+
+        TargetButtonClicked onTargetButtonClicked = FindObjectOfType<TargetButtonClicked>();
+        onTargetButtonClicked.OnTargetButtonClicked += CombatTarget;
+    }
     void CombatMove(object sender, EventArgs e)
     {
         Turn turnUpdate = new Turn(new Vector3(1, 1, 0));//TODO eventually replace with with generated vector based on mouse pos

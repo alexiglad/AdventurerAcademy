@@ -4,8 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - abilityProcessorInstance: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
-  - statusProcessorInstance: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
+  - abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
+  - statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

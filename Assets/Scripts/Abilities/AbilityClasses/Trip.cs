@@ -17,11 +17,11 @@ public class Trip : Ability
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessorInstance.Damage(attackee, damage.GetFloatValue());
+        abilityProcessor.Damage(attackee, damage.GetFloatValue());
         if (Random.value > 0.5)
         {
             Status status = new Status(StatusTypeEnum.Knocked, 1);
-            statusProcessorInstance.CreateStatus(attacker, attackee, status);
+            statusProcessor.CreateStatus(attacker, attackee, status);
         }
 
     }

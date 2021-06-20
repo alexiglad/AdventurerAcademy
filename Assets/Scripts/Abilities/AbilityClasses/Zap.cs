@@ -34,7 +34,7 @@ public class Zap : Ability
         //handle all ability stuff here, including the amount of damage to deal
         //also handle elemental stuff as well as status stuff
 
-        abilityProcessorInstance.Damage(attackee, damage.GetFloatValue());
+        abilityProcessor.Damage(attackee, damage.GetFloatValue());
 
 
     }
