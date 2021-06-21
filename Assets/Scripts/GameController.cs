@@ -16,8 +16,6 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        Ability ability = new Default();
-        ability.LoadResources();
         //instantiate all processor instances!! 
         //instantiate all follow-ups and abilities
 

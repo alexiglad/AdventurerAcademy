@@ -34,7 +34,7 @@ public class StatusProcessor : ScriptableObject
             //determine if status should fade away
             if (status.TurnsLeft < 1)//i.e. status should disappear
             {
-                character.Statuses.Remove(status);
+                character.Statuses.Remove(status);//TODO cannot edit loop while in loop baka
             }
         }
     }

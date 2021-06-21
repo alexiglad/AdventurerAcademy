@@ -16,35 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 88dc712ac2ac0d041b1d1bbd24ea2706
-  m_SerializeEntries:
-  - m_GUID: c9c4c8aed25db114c85390bcf5ee5352
-    m_Address: Assets/ScriptableObjects/Processors/AbilityProcessor.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Processor
-    m_MainAsset: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
-  - m_GUID: b9cb2440d381df14087d20386a913bae
-    m_Address: Assets/ScriptableObjects/Processors/FollowUpProcessor.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Processor
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 61883f9db92e49848bf81670616c6e8a
-    m_Address: Assets/ScriptableObjects/Processors/MovementProcessor.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Processor
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: d1e0fabeb1e415a4f9865e6b83345088
-    m_Address: Assets/ScriptableObjects/Processors/StatusProcessor.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Processor
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c521e71668a88d44aaa341cd1732f577, type: 2}
   m_SchemaSet:

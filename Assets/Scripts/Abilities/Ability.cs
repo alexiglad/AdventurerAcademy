@@ -11,6 +11,7 @@ public abstract class Ability : ScriptableObject
 
     public void LoadResources()
     {
+        Debug.Log("ran");
         abilityProcessor = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
         statusProcessor = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
     }

@@ -13,7 +13,8 @@ public class AbilityButtonClicked : MonoBehaviour
 
 
     private GameObject[] abilityButtons = new GameObject[5];
-    private List<Ability> abilityButtonAbilities = new List<Ability>();
+    private List<Ability> abilityButtonAbilities = new List<Ability>();//Todo Simplify?
+    //Ceddy note: Kinda icky main. Try to completely seperate the logic out of the ui using events.
 
 
 

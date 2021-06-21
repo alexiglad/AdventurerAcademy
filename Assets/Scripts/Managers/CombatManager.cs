@@ -40,8 +40,9 @@ public class CombatManager : GameStateManager
 
         
 
-        abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0]; 
-
+        abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
+        statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
+        movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
         /*
         abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
         statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
