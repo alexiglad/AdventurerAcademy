@@ -11,8 +11,8 @@ public class AbilityProcessor : ScriptableObject
 
     public void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        ability.HandleAbility(attacker, attackee, ability);//format is always attacker, attackee
         Debug.Log(attacker + " attacked " + attackee + " with " + ability);
+        ability.HandleAbility(attacker, attackee, ability);//format is always attacker, attackee
         //must check follow up after every ability
         followUpProcessor.HandleFollowUpAction(new FollowUpAction(attacker, attackee, ability));
     }

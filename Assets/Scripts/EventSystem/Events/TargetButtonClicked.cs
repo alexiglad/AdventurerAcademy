@@ -13,18 +13,13 @@ public class TargetButtonClicked : MonoBehaviour
 
     public Character Target { get => target; set => target = value; }
 
-    void Start()
-    {
 
+
+
+    public void OnTargetSelected(Character character)
+    {
+        target = character;
+        OnTargetButtonClicked(this, EventArgs.Empty);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.O))//TODO temporary needs to get button context
-        {
-            //left click pressed
-            OnTargetButtonClicked?.Invoke(this, EventArgs.Empty);
-        }*/
-    }
 }

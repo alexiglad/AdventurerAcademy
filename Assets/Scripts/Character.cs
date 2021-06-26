@@ -132,6 +132,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public virtual void DecrementHealth(float value)
     {
+        Debug.Log("Decremented " + this + " health by: " + value);
         health.SetFloatValue(health.GetFloatValue() - value);
         if (this.health.GetFloatValue() <= 0)
         {

@@ -45,14 +45,32 @@ public class StatusProcessor : ScriptableObject
     public void CreateStatus(Character attacker, Character attackee, Status status)
     {
         if (attackee.Statuses.Contains(status))
-        {
-
+        {//already has status just update damage and duration if necessary
+            int num = attackee.Statuses.IndexOf(status);
+            if (attackee.Statuses[num].StatusDamage >= status.StatusDamage && attackee.Statuses[num].TurnsLeft >= status.TurnsLeft)
+            {
+                //do nothing
+            }
+            else if (attackee.Statuses[num].StatusDamage >= status.StatusDamage && attackee.Statuses[num].TurnsLeft < status.TurnsLeft)
+            {
+                attackee.Statuses[num].TurnsLeft = status.TurnsLeft;
+            }
+            else if(attackee.Statuses[num].StatusDamage < status.StatusDamage && attackee.Statuses[num].TurnsLeft >= status.TurnsLeft)
+            {
+                attackee.Statuses[num].StatusDamage = status.StatusDamage;
+            }
+            else//both are less
+            {
+                attackee.Statuses[num].TurnsLeft = status.TurnsLeft;
+                attackee.Statuses[num].StatusDamage = status.StatusDamage;
+            }
         }
         else
         {
             attackee.Statuses.Add(status);
-            followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
         }
+        followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
+
         //handle animation
     }
     public void Heal(Character character, Status status)

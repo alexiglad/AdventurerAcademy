@@ -45,12 +45,7 @@ public class CombatManager : GameStateManager
         abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
         statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
         movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
-        /*
-        abilityProcessorInstance = (AbilityProcessor)FindObjectOfType(typeof(AbilityProcessor));
-        statusProcessorInstance = (StatusProcessor)FindObjectOfType(typeof(StatusProcessor));
-        movementProcesssor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
-        uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
-        */
+
 
 
 
@@ -181,6 +176,7 @@ public class CombatManager : GameStateManager
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
+            Debug.Log("Battle Ended");
             EndBattle(character.IsPlayer());//if true is a win if false is a loss
         }
     }
