@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
-    [SerializeField] protected FloatValueSO currentValue;
-    [SerializeField] protected FloatValueSO maxValue;
-    protected Image bar;
+    [SerializeField] FloatValueSO currentValue;
+    [SerializeField] FloatValueSO maxValue;
+    Image bar;
 
     protected void Start()
     {
@@ -21,7 +21,9 @@ public class ResourceBarUI : MonoBehaviour
 
     public void SetSize(float sizeNormalized)
     {
-        if(sizeNormalized>=0 && sizeNormalized<=1)
+        bar.fillAmount = sizeNormalized;
+        /*
+        if (sizeNormalized>=0 && sizeNormalized<=1)
             bar.fillAmount = sizeNormalized;
         else
             switch (sizeNormalized<0)
@@ -29,5 +31,6 @@ public class ResourceBarUI : MonoBehaviour
                 case true: bar.fillAmount = 0; break;
                 case false: bar.fillAmount = 1; break;
             }
+        */
     }
 }
