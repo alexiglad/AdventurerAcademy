@@ -31,17 +31,28 @@ public class StatusProcessor : ScriptableObject
                 tempRef.IterateCharacters();
             }
 
-            //determine if status should fade away
-            if (status.TurnsLeft < 1)//i.e. status should disappear
+
+            
+        }
+        for(int i =0; i< character.Statuses.Count; i++)
+        {
+            if (character.Statuses[i].TurnsLeft < 1)//i.e. status should disappear
             {
-                character.Statuses.Remove(status);//TODO cannot edit loop while in loop baka
+                character.Statuses.Remove(character.Statuses[i]);//TODO cannot edit loop while in loop baka
             }
         }
     }
     public void CreateStatus(Character attacker, Character attackee, Status status)
     {
-        attackee.Statuses.Add(status);
-        followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
+        if (attackee.Statuses.Contains(status))
+        {
+
+        }
+        else
+        {
+            attackee.Statuses.Add(status);
+            followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
+        }
         //handle animation
     }
     public void Heal(Character character, Status status)

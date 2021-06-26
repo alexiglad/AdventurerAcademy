@@ -69,6 +69,8 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     public void Dead(){
         //create event?
+        //TODO fix
+        Debug.Log(this + " died!");
         if (gameStateManager.GetGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();

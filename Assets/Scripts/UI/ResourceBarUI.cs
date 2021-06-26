@@ -16,7 +16,7 @@ public class ResourceBarUI : MonoBehaviour
 
     protected void Update()
     {
-        SetSize(currentValue.GetFloatValue() / maxValue.GetFloatValue());
+        SetSize(currentValue.GetFloatValue() / maxValue.GetFloatValue()); 
     }
 
     public void SetSize(float sizeNormalized)

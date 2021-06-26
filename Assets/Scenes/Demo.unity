@@ -733,6 +733,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 659737826767805197, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: maxValue
+      value: 
+      objectReference: {fileID: 11400000, guid: e9e5db9c7a55f5641bc368392d523761, type: 2}
+    - target: {fileID: 659737826767805197, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: currentValue
+      value: 
+      objectReference: {fileID: 11400000, guid: 4f3e76957f5340b47b3ecb43b2116a38, type: 2}
     - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_Name
       value: Wolf (2)
@@ -1548,6 +1556,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 659737826767805197, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: maxValue
+      value: 
+      objectReference: {fileID: 11400000, guid: e9e5db9c7a55f5641bc368392d523761, type: 2}
+    - target: {fileID: 659737826767805197, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: currentValue
+      value: 
+      objectReference: {fileID: 11400000, guid: 4f3e76957f5340b47b3ecb43b2116a38, type: 2}
     - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_Name
       value: Wolf (1)
@@ -1750,6 +1766,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 659737826767805197, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: maxValue
+      value: 
+      objectReference: {fileID: 11400000, guid: e9e5db9c7a55f5641bc368392d523761, type: 2}
+    - target: {fileID: 659737826767805197, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: currentValue
+      value: 
+      objectReference: {fileID: 11400000, guid: 4f3e76957f5340b47b3ecb43b2116a38, type: 2}
     - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_Name
       value: Wolf

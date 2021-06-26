@@ -12,6 +12,7 @@ public class CombatManager : GameStateManager
     bool characterType;
     Turn turn;
     Character character;
+    bool targeting;
 
 
 
@@ -33,6 +34,7 @@ public class CombatManager : GameStateManager
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
         character = enumerator.Current;
+        targeting = false;
 
         ImportListeners();
         uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
@@ -85,6 +87,7 @@ public class CombatManager : GameStateManager
         }
         if (turnChange.GetAbility() != null)
         {
+            targeting = true;
             turn.SetAbility(turnChange.GetAbility());
         }
         if (turnChange.GetTarget() != null)//has to be target
@@ -204,7 +207,7 @@ public class CombatManager : GameStateManager
         uiHandler.UpdateCombatTurnUI(character);
         statusProcessorInstance.HandleStatuses(character);
 
-
+        targeting = false;
     }
     bool MoreThanOneSideIsAlive()
     {
