@@ -7,11 +7,9 @@ public class Character : MonoBehaviour, IComparable<Character>
 {
     #region Local Variables
     [SerializeField] protected FloatValueSO health;
-    [SerializeField] private FloatValueSO mana;
-    [SerializeField] private FloatValueSO stamina;
+    [SerializeField] private FloatValueSO energy;
     [SerializeField] protected FloatValueSO maxHealth;
-    [SerializeField] private FloatValueSO maxMana;
-    [SerializeField] private FloatValueSO maxStamina;
+    [SerializeField] private FloatValueSO maxEnergy;
     [SerializeField] private BoolValueSO isPlayer;//true if player false if enemy
     [SerializeField] protected FloatValueSO maxMovement;//this eventually will be calculated based on speed/agility and what-not
     [SerializeField] protected FloatValueSO initiative;
@@ -60,8 +58,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         //Resets Character's Health, Mana, and Stamina to maximum on runtime
         health.SetFloatValue(maxHealth.GetFloatValue());
-        mana.SetFloatValue(maxMana.GetFloatValue());
-        stamina.SetFloatValue(maxStamina.GetFloatValue());
+        energy.SetFloatValue(maxEnergy.GetFloatValue());
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
 
     }
@@ -92,21 +89,13 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return maxHealth;
     }
-    public FloatValueSO GetMana()
+    public FloatValueSO GetEnergy()
     {
-        return mana;
+        return energy;
     }
-    public FloatValueSO GetMaxMana()
+    public FloatValueSO GetMaxEnergy()
     {
-        return maxMana;
-    }
-    public FloatValueSO GetStamina()
-    {
-        return stamina;
-    }
-    public FloatValueSO GetMaxStamina()
-    {
-        return maxStamina;
+        return maxEnergy;
     }
     public float GetMaxMovement()
     {
