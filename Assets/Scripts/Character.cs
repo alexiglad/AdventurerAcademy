@@ -106,6 +106,11 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return moveSpeed.GetFloatValue();
     }
+
+    public string GetName()
+    {
+        return name.GetStringValue();
+    }
     public Rigidbody2D GetCharacterRigidBody()
     {
         return characterRigidBody;

@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2413edb3b3450eb439b036aa9c802af6, type: 3}
-  m_Name: GameStateManager
+  m_Script: {fileID: 11500000, guid: 850ce9f56a22d314fbffd0389139d991, type: 3}
+  m_Name: Input Handler
   m_EditorClassIdentifier: 
-  currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
-  controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}

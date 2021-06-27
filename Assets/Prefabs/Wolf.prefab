@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6174382709882193814}
   - component: {fileID: 6174382709882193809}
   - component: {fileID: 6174382709882193815}
-  - component: {fileID: 6174382709882193813}
-  - component: {fileID: 1527691556404994504}
+  - component: {fileID: 1872274231488310998}
+  - component: {fileID: 6595897052179444929}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Untagged
@@ -99,9 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 11400000, guid: 8bfd3e64f5873ed48aeab817e61381de, type: 2}
-  energy: {fileID: 0}
+  energy: {fileID: 11400000, guid: 087ca8bd3441edd4fa3dfecc469aade7, type: 2}
   maxHealth: {fileID: 11400000, guid: 6b64eed63433f77438af46b764d67678, type: 2}
-  maxEnergy: {fileID: 0}
+  maxEnergy: {fileID: 11400000, guid: 45805b514359835479559692bc130b86, type: 2}
   isPlayer: {fileID: 11400000, guid: 995e04b2661dcea489f7864dfe5c9c96, type: 2}
   maxMovement: {fileID: 11400000, guid: 3a062be4aa7ccdf46ba2b0f3282b2902, type: 2}
   initiative: {fileID: 11400000, guid: 77829b91102459e4c99cfc940cb4fc6f, type: 2}
@@ -116,53 +116,35 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0d1c022c6d2bd50429b279242d51cab3, type: 2}
   - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
   gameStateManager: {fileID: 0}
---- !u!50 &6174382709882193813
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!54 &1872274231488310998
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6174382709882193808}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  serializedVersion: 2
   m_Mass: 1
-  m_LinearDrag: 0
+  m_Drag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &1527691556404994504
-BoxCollider2D:
+  m_CollisionDetection: 0
+--- !u!65 &6595897052179444929
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6174382709882193808}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.025859118, y: 0.08240801}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 2.56, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.94828176, y: 0.7284976}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.9458437, y: 0.73804593, z: 0.2}
+  m_Center: {x: 0.027078152, y: 0.07917547, z: 0}
 --- !u!114 &659737826767805197
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -329,7 +329,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1935096897}
         m_TargetAssemblyTypeName: AbilityButtonClicked, Assembly-CSharp
         m_MethodName: OnAblityButtonPressed
         m_Mode: 3
@@ -622,7 +622,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1935096897}
         m_TargetAssemblyTypeName: AbilityButtonClicked, Assembly-CSharp
         m_MethodName: OnAblityButtonPressed
         m_Mode: 3
@@ -915,7 +915,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014851838
 GameObject:
@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1935096897}
         m_TargetAssemblyTypeName: AbilityButtonClicked, Assembly-CSharp
         m_MethodName: OnAblityButtonPressed
         m_Mode: 3
@@ -1263,7 +1263,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1935096897}
         m_TargetAssemblyTypeName: AbilityButtonClicked, Assembly-CSharp
         m_MethodName: OnAblityButtonPressed
         m_Mode: 3
@@ -1344,6 +1344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
+  controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
 --- !u!4 &1551305133
 Transform:
   m_ObjectHideFlags: 0
@@ -1445,7 +1446,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1935096897}
         m_TargetAssemblyTypeName: AbilityButtonClicked, Assembly-CSharp
         m_MethodName: OnAblityButtonPressed
         m_Mode: 3
@@ -1564,6 +1565,17 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 995e04b2661dcea489f7864dfe5c9c96, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+--- !u!114 &1935096897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7028208667455939956, guid: 642cd09155b10e148967733e38509db6, type: 3}
+  m_PrefabInstance: {fileID: 2104118249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54dfa24547581944b97be0e77633ef84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2104118249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1577,7 +1589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8108819873447204533, guid: 642cd09155b10e148967733e38509db6, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8108819873447204533, guid: 642cd09155b10e148967733e38509db6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1619,6 +1631,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8584422525252277912, guid: 642cd09155b10e148967733e38509db6, type: 3}
+      propertyPath: endTurn
+      value: 
+      objectReference: {fileID: 1014851838}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 642cd09155b10e148967733e38509db6, type: 3}
 --- !u!1 &2126365801
@@ -1780,30 +1796,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
-      propertyPath: gameStateManager
-      value: 
-      objectReference: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
-    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
-      propertyPath: inUseAbilities.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
-      propertyPath: inUseAbilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: f34d8d01c190d9745b2059a7057c9986, type: 2}
-    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
-      propertyPath: inUseAbilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 63ee7c142aeeb1c469b767799c31ed93, type: 2}
-    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
-      propertyPath: inUseAbilities.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2c2cf49c2804ccd43a877b81e358b91a, type: 2}
-    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
-      propertyPath: inUseAbilities.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: f30d141a7a7dde84d84d2c2f28393dab, type: 2}
     - target: {fileID: 6499003185554428563, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
       propertyPath: m_Name
       value: Witch
@@ -1852,9 +1844,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6499003185554428585, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
-      propertyPath: currentGameState
-      value: 
-      objectReference: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}

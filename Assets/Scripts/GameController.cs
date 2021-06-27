@@ -10,25 +10,26 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameStateSO currentGameState;
     private SortedSet<Character> characters = new SortedSet<Character>();
 
-    static Controls controls;
+    [SerializeField] InputHandler controls;
+    //static Controls controls;
     AbilityButtonClicked onAbilityButtonClicked;
-    public static Controls Controls { get => controls; set => controls = value; }
+    //public static Controls Controls { get => controls; set => controls = value; }
 
     void Awake()
     {
         //instantiate all processor instances!! 
         //instantiate all follow-ups and abilities
-
+        Debug.Log("In game Conroller");
+        controls.ManualAwake();
         CreateAllProcessorInstances();
 
         //Ability.CreateInstance("Ability");
         UIHandler.CreateInstance("UIHandler");
 
-        controls = new Controls();
+        //controls = new Controls();
         onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
         //temporary code creates combat manager with characters
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
-
         //controls
         
         /////////////////////////////
@@ -44,19 +45,22 @@ public class GameController : MonoBehaviour
 
 
     }
+
+    /*
     private void OnEnable()
     {
-        controls.Enable();
+        controls.GetControls().Enable();
     }
 
     private void OnDisable()
     {
-        controls.Disable();
+        controls.GetControls().Disable();
     }
+    */
 
     private void Update()
     {
-        float movementInput = controls.Roaming.Movement.ReadValue<float>();
+        float movementInput = controls.GetControls().Roaming.Movement.ReadValue<float>();
         //controls.Combat.
     }
 

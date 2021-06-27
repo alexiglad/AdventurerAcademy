@@ -9,7 +9,8 @@ public class GameStateManagerSO : ScriptableObject
 {
     [SerializeField] private GameStateSO currentGameState;
     private GameStateManager currentGameStateManager;
-    Controls controls;
+    //Controls controls;
+    [SerializeField] InputHandler controls;
     void OnEnable()
     {
         FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
@@ -20,6 +21,11 @@ public class GameStateManagerSO : ScriptableObject
         Destroy(currentGameStateManager);
         currentGameStateManager = (GameStateManager)CreateInstance(manager.ToString()); 
         Debug.Log("Switched game state to " + currentGameStateManager.ToString());//Debug
+    }
+
+    public GameStateEnum GetCurrentGameState()
+    {
+        return currentGameState.GetGameState();
     }
 
     public GameStateManager GetGameStateManager()
@@ -33,27 +39,27 @@ public class GameStateManagerSO : ScriptableObject
         GetGameStateManager().AddCharacters(characters);
         GetGameStateManager().Start();
 
-        controls = GameController.Controls;
+        
         //input system code
         if (gameState == GameStateEnum.Combat)
         {
-            controls.Combat.Enable();
+            controls.GetControls().Combat.Enable();
         }
         else if (gameState == GameStateEnum.Roaming)
         {
-            controls.Roaming.Enable();
+            controls.GetControls().Roaming.Enable();
         }
         else if (gameState == GameStateEnum.Dialogue)
         {
-            controls.Dialogue.Enable();
+            controls.GetControls().Dialogue.Enable();
         }
         else if (gameState == GameStateEnum.Menu)
         {
-            controls.Menu.Enable();
+            controls.GetControls().Menu.Enable();
         }
         else//this is game state loading
         {
-            controls.Disable();
+            controls.GetControls().Disable();
         }
     }
 }

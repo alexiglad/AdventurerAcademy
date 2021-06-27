@@ -67,6 +67,12 @@ public class CombatManager : GameStateManager
 
         this.characters = charactersPassed;
     }
+
+    public bool GetTargeting()
+    {
+        return targeting;
+    }
+
     #region Custom Combat Manager Methods 
 
     public Turn DetermineEnemyTurn(Character character)//TODO
