@@ -150,6 +150,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c6415255-8b19-492b-80b5-b2868e9fc308"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -183,6 +191,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Submenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53758380-0380-4b95-aa27-c8befd8efd1a"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -387,6 +406,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Combat_Select = m_Combat.FindAction("Select", throwIfNotFound: true);
         m_Combat_Submenu = m_Combat.FindAction("Submenu", throwIfNotFound: true);
         m_Combat_Inventory = m_Combat.FindAction("Inventory", throwIfNotFound: true);
+        m_Combat_MousePosition = m_Combat.FindAction("MousePosition", throwIfNotFound: true);
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_Navigate = m_Dialogue.FindAction("Navigate", throwIfNotFound: true);
@@ -496,6 +516,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Combat_Select;
     private readonly InputAction m_Combat_Submenu;
     private readonly InputAction m_Combat_Inventory;
+    private readonly InputAction m_Combat_MousePosition;
     public struct CombatActions
     {
         private @Controls m_Wrapper;
@@ -503,6 +524,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Select => m_Wrapper.m_Combat_Select;
         public InputAction @Submenu => m_Wrapper.m_Combat_Submenu;
         public InputAction @Inventory => m_Wrapper.m_Combat_Inventory;
+        public InputAction @MousePosition => m_Wrapper.m_Combat_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -521,6 +543,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Inventory.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
+                @MousePosition.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_CombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -534,6 +559,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -640,6 +668,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnSelect(InputAction.CallbackContext context);
         void OnSubmenu(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
     public interface IDialogueActions
     {
