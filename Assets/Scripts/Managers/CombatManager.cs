@@ -243,8 +243,8 @@ public class CombatManager : GameStateManager
         AbilityButtonClicked onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
         onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
 
-        TargetButtonClicked onTargetButtonClicked = FindObjectOfType<TargetButtonClicked>();
-        onTargetButtonClicked.OnTargetButtonClicked += CombatTarget;
+        //TargetButtonClicked onTargetButtonClicked = FindObjectOfType<TargetButtonClicked>();
+        //onTargetButtonClicked.OnTargetButtonClicked += CombatTarget;
     }
     void CombatMove(object sender, EventArgs e)
     {
@@ -258,10 +258,9 @@ public class CombatManager : GameStateManager
         UpdateIteration(turnUpdate);
 
     }
-    void CombatTarget(object sender, EventArgs e)
+    public void CombatTarget(Character target)
     {
-        TargetButtonClicked sent = sender as TargetButtonClicked;
-        Turn turnUpdate = new Turn(sent.Target);
+        Turn turnUpdate = new Turn(target);
         UpdateIteration(turnUpdate);
 
     }
