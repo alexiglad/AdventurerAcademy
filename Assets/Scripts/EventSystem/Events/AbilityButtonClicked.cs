@@ -32,7 +32,7 @@ public class AbilityButtonClicked : MonoBehaviour
     {
         for (int i = 0; i<abilityButtons.Length; i++)
         {
-            abilityButtons[i].SetActive(false);
+            abilityButtons[i].SetActive(false); 
         }
         
         if (character.IsPlayer())

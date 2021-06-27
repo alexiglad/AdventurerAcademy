@@ -12,9 +12,7 @@ public class TargetButtonClicked : MonoBehaviour
     Character target;
 
     public Character Target { get => target; set => target = value; }
-
-
-
+    //TODO implement with input handler
 
     public void OnTargetSelected(Character character)
     {
