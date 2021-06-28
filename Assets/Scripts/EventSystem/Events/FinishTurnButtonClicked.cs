@@ -9,7 +9,7 @@ public class FinishTurnButtonClicked : MonoBehaviour
 
     public GameObject endTurn;
 
-    void OnEnable()
+    public void ManualAwake()
     {
         endTurn = GameObject.Find("EndTurn");
     }
