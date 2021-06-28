@@ -12,7 +12,6 @@ public class GameController : MonoBehaviour
 
     [SerializeField] InputHandler controls;
     //static Controls controls;
-    AbilityButtonClicked onAbilityButtonClicked;
     //public static Controls Controls { get => controls; set => controls = value; }
 
     void Awake()
