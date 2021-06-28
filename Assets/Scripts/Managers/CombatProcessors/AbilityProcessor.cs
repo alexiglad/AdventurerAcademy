@@ -28,6 +28,8 @@ public class AbilityProcessor : ScriptableObject
         //display circle around splash damage area temporarily
         SplashDamageRange splashDamageRange = SplashDamageRange.FindObjectOfType<SplashDamageRange>();
         splashDamageRange.Run(character.transform.position, range);
+        //Invoke("splashDamageRange.Kill", 2);
+        //TODO finish implementing this
     }
     public void Damage(Character character, float damage){
 

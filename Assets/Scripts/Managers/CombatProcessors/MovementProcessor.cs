@@ -49,7 +49,7 @@ public class MovementProcessor : ScriptableObject
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         foreach (Character character in tempRef.Characters)
         {
-            if(Vector3.Distance(character.transform.position, position) <= range) 
+            if(Vector3.Distance(character.transform.position, position) <= range)
             {//this character is within range of ability/follow up
                 charactersInRange.Add(character);
             }
