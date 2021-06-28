@@ -17,6 +17,8 @@ public class SplashDamageRange : MonoBehaviour
         line.positionCount = segments + 1;
         line.useWorldSpace = false;
         CreatePoints(position);
+        //wait 2 seconds
+        Invoke("Kill", 2);
     }
 
     void CreatePoints(Vector3 position)
@@ -40,5 +42,7 @@ public class SplashDamageRange : MonoBehaviour
     public void Kill()
     {
         //line. TODO delete all lines
+        Destroy(line.gameObject);
+        line = gameObject.GetComponent<LineRenderer>();
     }
 }
