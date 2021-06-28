@@ -73,6 +73,10 @@ public class Character : MonoBehaviour, IComparable<Character>
             CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
             tempRef.RemoveCharacter(this);
         }
+        else
+        {
+            Debug.Log("problem occured");
+        }
         //add more for when player is dead
         //todo determine if need following destroy code
         //Destroy(this);
@@ -124,14 +128,16 @@ public class Character : MonoBehaviour, IComparable<Character>
             this.Dead();
         }
     }
-    public virtual void DecrementHealth(float value)
+    public bool DecrementHealth(float value)
     {
         Debug.Log("Decremented " + this + " health by: " + value);
         health.SetFloatValue(health.GetFloatValue() - value);
         if (this.health.GetFloatValue() <= 0)
         {
             this.Dead();
+            return true;//true means dead
         }
+        return false;
     }
     public virtual void IncrementHealth(float value)
     {

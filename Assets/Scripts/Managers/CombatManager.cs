@@ -25,6 +25,7 @@ public class CombatManager : GameStateManager
     public Character Character { get => character; set => character = value; }
     public bool CharacterType { get => characterType; set => characterType = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
+    public Turn Turn { get => turn; set => turn = value; }
 
 
     #endregion
@@ -81,7 +82,7 @@ public class CombatManager : GameStateManager
     }
 
     public void UpdateTurn(Turn turnChange)
-    {
+    {//TODO check if movement and ability are valid additions to the turn
         if (turnChange.GetMovement() != Vector3.zero)
         {//add x and y components to turn
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());
@@ -189,28 +190,32 @@ public class CombatManager : GameStateManager
 
     public void IterateCharacters()
     {
-        turn = new Turn();
-        if (enumerator.MoveNext())
+        if (MoreThanOneSideIsAlive())
         {
-            character = enumerator.Current;
-            characterType = GetCharacterType();
-        }
-        else
-        {//TODO check if this works
-            enumerator.Reset();
-            enumerator.MoveNext();
-            character = enumerator.Current;
-            characterType = GetCharacterType();
+            turn = new Turn();
+            if (enumerator.MoveNext())
+            {
+                character = enumerator.Current;
+                characterType = GetCharacterType();
+            }
+            else
+            {//TODO check if this works
+                enumerator.Reset();
+                enumerator.MoveNext();
+                character = enumerator.Current;
+                characterType = GetCharacterType();
+            }
+
+            uiHandler.UpdateCombatTurnUI(character);
+            statusProcessorInstance.HandleStatuses(character);
+
+            targeting = false;
+            if (!characterType)
+            {//only do this if is an enemy
+                UpdateIteration(DetermineEnemyTurn(character));
+            }
         }
         
-        uiHandler.UpdateCombatTurnUI(character);
-        statusProcessorInstance.HandleStatuses(character);
-
-        targeting = false;
-        if (!characterType)
-        {//only do this if is an enemy
-            UpdateIteration(DetermineEnemyTurn(character));
-        }
     }
     bool MoreThanOneSideIsAlive()
     {

@@ -13,7 +13,7 @@ public class BasicAI
     {
         CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
 
-        int num1 = Random.Range(0, character.InUseAbilities.Count - 1);
+        int num1 = Random.Range(0, character.InUseAbilities.Count);
         Ability ability = character.InUseAbilities[num1];
 
         List<Character> players = new List<Character>();
@@ -22,7 +22,7 @@ public class BasicAI
             if (characterE.IsPlayer())
                 players.Add(characterE);
         }
-        int num2 = Random.Range(0, players.Count - 1);
+        int num2 = Random.Range(0, players.Count);
         Character target = players[num2];
 
         Turn turn = new Turn(ability, target);//ability need target code now

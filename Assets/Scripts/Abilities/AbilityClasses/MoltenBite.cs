@@ -13,7 +13,7 @@ public class MoltenBite : Ability
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(3f);
+        damage.SetFloatValue(4f);
         range = (FloatValueSO)CreateInstance("FloatValueSO");
         range.SetFloatValue(2f);
     }

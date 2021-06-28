@@ -19,7 +19,7 @@ public class FieryBite : Ability
     {
         abilityProcessor.Damage(attackee, damage.GetFloatValue());
         int turns = Random.Range(3, 5);//in range of 3-4 (is max exclusive)
-        Status status = new Status(3, StatusTypeEnum.Burn, turns);
+        Status status = new Status(damage.GetFloatValue(), StatusTypeEnum.Burn, turns);
         statusProcessor.CreateStatus(attacker, attackee, status);
 
     }

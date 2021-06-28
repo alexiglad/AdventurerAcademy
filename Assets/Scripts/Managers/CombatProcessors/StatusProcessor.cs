@@ -23,12 +23,21 @@ public class StatusProcessor : ScriptableObject
                 status.StatusEffect == StatusTypeEnum.Poison ||
                 status.StatusEffect == StatusTypeEnum.Frozen)
             {
-                Damage(character, status);
+                if(Damage(character, status))
+                {
+                    break;
+                }
+                
             }
             else if (status.StatusEffect == StatusTypeEnum.Sleep)
             {
                 CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
                 tempRef.IterateCharacters();
+            }
+            else if(status.StatusEffect == StatusTypeEnum.Knocked)
+            {
+                CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+                tempRef.Turn.SetMovement(new Vector3(character.GetMaxMovement(), 0, 0));//TODO deterine if this works
             }
 
 
@@ -62,7 +71,10 @@ public class StatusProcessor : ScriptableObject
         {//i.e. status doesn't already exist
             attackee.Statuses.Add(status);
         }
-        followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
+        if(gameStateManager.GetGameStateManager().GetType() == typeof(CombatManager))
+        {
+            followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
+        }
 
         //handle animation
     }
@@ -92,9 +104,9 @@ public class StatusProcessor : ScriptableObject
     {
         character.IncrementHealth(status.StatusDamage);
     }
-    public void Damage(Character character, Status status)
+    public bool Damage(Character character, Status status)
     {
-        character.DecrementHealth(status.StatusDamage);
+        return character.DecrementHealth(status.StatusDamage);
     }
 
 }
