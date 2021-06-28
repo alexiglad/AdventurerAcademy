@@ -19,15 +19,12 @@ public class GameController : MonoBehaviour
     {
         //instantiate all processor instances!! 
         //instantiate all follow-ups and abilities
-        Debug.Log("In game Conroller");
         controls.ManualAwake();
-        CreateAllProcessorInstances();
+        //CreateAllProcessorInstances();
 
         //Ability.CreateInstance("Ability");
         UIHandler.CreateInstance("UIHandler");
 
-        //controls = new Controls();
-        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
         //temporary code creates combat manager with characters
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
         //controls

@@ -15,7 +15,7 @@ public class MoltenBite : Ability
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(3f);
         range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
+        range.SetFloatValue(2f);
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

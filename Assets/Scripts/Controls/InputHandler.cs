@@ -37,15 +37,22 @@ public class InputHandler : ScriptableObject
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempref = (CombatManager)gameStateManager.GetGameStateManager();
-            if(tempref.GetTargeting() == true)
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (tempref.GetTargeting() == true)
+            {
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
+                { 
                     if (hit.transform != null)
+                    { 
                         if (hit.transform.GetComponent<Character>() != null)
                         {
-                            Character debug = hit.transform.GetComponent<Character>();
-                            Debug.Log(debug.GetName());
+                            //debugging commented out
+                            //Character debug = hit.transform.GetComponent<Character>();
+                            //Debug.Log("Ability was selected on: " + debug.GetName());
                             tempref.CombatTarget(hit.transform.GetComponent<Character>());
                         }
+                    }
+                }
+            }
         }
     }
 }

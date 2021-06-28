@@ -23,6 +23,7 @@ public class ToRoamingListener : MonoBehaviour
 
     void ToRoaming(object sender, BoolEventArgs e)
     {
+        Debug.Log("here");
         if (e.NewBool)//true so means they won, act normally display win screen eventually
         {
             //display win screen code here
@@ -32,9 +33,5 @@ public class ToRoamingListener : MonoBehaviour
         {
             currentGameStateManager.CreateStateInstance(GameStateEnum.Loading, null);
         }
-    }
-    void ToRoaming(object sender, EventArgs e)
-    {
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, null);
     }
 }

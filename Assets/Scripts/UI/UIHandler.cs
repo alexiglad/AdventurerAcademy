@@ -19,10 +19,9 @@ public class UIHandler : ScriptableObject
     {
         onAbilityButtonClicked.UpdateAbilities(character);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
-        //TODO
-        //update raycast for movement
-        //update target characters selection
+
     }
+    //TODO automatically turn off and on UI based off the manager being switched
     public void DisplayAbility()
     {
 

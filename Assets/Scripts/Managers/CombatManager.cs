@@ -182,7 +182,7 @@ public class CombatManager : GameStateManager
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
-            Debug.Log("Battle Ended");
+            Debug.Log("Battle Ended!");
             EndBattle(character.IsPlayer());//if true is a win if false is a loss
         }
     }
@@ -202,14 +202,15 @@ public class CombatManager : GameStateManager
             character = enumerator.Current;
             characterType = GetCharacterType();
         }
-        if (!characterType)
-        {//only do this if is an enemy
-            UpdateIteration(DetermineEnemyTurn(character));
-        }
+        
         uiHandler.UpdateCombatTurnUI(character);
         statusProcessorInstance.HandleStatuses(character);
 
         targeting = false;
+        if (!characterType)
+        {//only do this if is an enemy
+            UpdateIteration(DetermineEnemyTurn(character));
+        }
     }
     bool MoreThanOneSideIsAlive()
     {

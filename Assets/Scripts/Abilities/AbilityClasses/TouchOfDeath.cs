@@ -31,5 +31,6 @@ public class TouchOfDeath : Ability
         float maxDamage = attackee.GetMaxHealth().GetFloatValue()/damageDivider.GetFloatValue();//max damage is 1/3 of health
         float damagePercent = 1 - attacker.GetPercentHealth();
         abilityProcessor.Damage(attackee, maxDamage * damagePercent);
+        attacker.DecrementHealth(attacker.GetMaxHealth().GetFloatValue());//kill user
     }
 }

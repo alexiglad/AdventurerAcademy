@@ -38,40 +38,55 @@ public class StatusProcessor : ScriptableObject
         {
             if (character.Statuses[i].TurnsLeft < 1)//i.e. status should disappear
             {
-                character.Statuses.Remove(character.Statuses[i]);//TODO cannot edit loop while in loop baka
+                character.Statuses.Remove(character.Statuses[i]);
+                i--;
             }
         }
     }
     public void CreateStatus(Character attacker, Character attackee, Status status)
     {
-        if (attackee.Statuses.Contains(status))
-        {//already has status just update damage and duration if necessary
-            int num = attackee.Statuses.IndexOf(status);
-            if (attackee.Statuses[num].StatusDamage >= status.StatusDamage && attackee.Statuses[num].TurnsLeft >= status.TurnsLeft)
-            {
-                //do nothing
-            }
-            else if (attackee.Statuses[num].StatusDamage >= status.StatusDamage && attackee.Statuses[num].TurnsLeft < status.TurnsLeft)
-            {
-                attackee.Statuses[num].TurnsLeft = status.TurnsLeft;
-            }
-            else if(attackee.Statuses[num].StatusDamage < status.StatusDamage && attackee.Statuses[num].TurnsLeft >= status.TurnsLeft)
-            {
-                attackee.Statuses[num].StatusDamage = status.StatusDamage;
-            }
-            else//both are less
-            {
-                attackee.Statuses[num].TurnsLeft = status.TurnsLeft;
-                attackee.Statuses[num].StatusDamage = status.StatusDamage;
-            }
-        }
-        else
+        bool duplicate = false;
+        int pos=0;
+        foreach(Status statuss in attackee.Statuses)
         {
+            if(statuss.StatusEffect == status.StatusEffect)
+            {
+                duplicate = true;
+                DuplicateStatus(attackee, status, pos);
+                break;
+                
+            }
+            pos++;
+        }
+        if(!duplicate)
+        {//i.e. status doesn't already exist
             attackee.Statuses.Add(status);
         }
         followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
 
         //handle animation
+    }
+    public void DuplicateStatus(Character attackee, Status status, int num)
+    {
+        
+        //already has status just update damage and duration if necessary
+        if (attackee.Statuses[num].StatusDamage >= status.StatusDamage && attackee.Statuses[num].TurnsLeft >= status.TurnsLeft)
+        {
+            //do nothing
+        }
+        else if (attackee.Statuses[num].StatusDamage >= status.StatusDamage && attackee.Statuses[num].TurnsLeft < status.TurnsLeft)
+        {
+            attackee.Statuses[num].TurnsLeft = status.TurnsLeft;
+        }
+        else if (attackee.Statuses[num].StatusDamage < status.StatusDamage && attackee.Statuses[num].TurnsLeft >= status.TurnsLeft)
+        {
+            attackee.Statuses[num].StatusDamage = status.StatusDamage;
+        }
+        else//both are less
+        {
+            attackee.Statuses[num].TurnsLeft = status.TurnsLeft;
+            attackee.Statuses[num].StatusDamage = status.StatusDamage;
+        }
     }
     public void Heal(Character character, Status status)
     {

@@ -75,7 +75,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         }
         //add more for when player is dead
         //todo determine if need following destroy code
-        Destroy(this);
+        //Destroy(this);
     }
 
     #region Getters and Setters
