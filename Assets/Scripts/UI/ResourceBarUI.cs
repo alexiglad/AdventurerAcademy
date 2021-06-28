@@ -5,32 +5,42 @@ using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
-    [SerializeField] FloatValueSO currentValue;
-    [SerializeField] FloatValueSO maxValue;
+    [SerializeField] bool isHealth;
+    [SerializeField] float currentValue;
+    [SerializeField] float maxValue;
+    [SerializeField] Character character;
+
     Image bar;
 
     protected void Start()
     {
         bar = transform.GetComponent<Image>();
+        if (character == null)
+            character = gameObject.GetComponentInParent<Character>();
+        if (isHealth) 
+        {
+            currentValue = character.GetHealth();
+            maxValue = character.GetMaxHealth();
+        }
+        else
+        {
+            currentValue = character.GetEnergy();
+            maxValue = character.GetMaxEnergy();
+        }
     }
 
     protected void Update()
     {
-        SetSize(currentValue.GetFloatValue() / maxValue.GetFloatValue()); 
+        if(isHealth)
+            currentValue = character.GetHealth();
+        else
+            currentValue = character.GetEnergy();
+
+        SetSize(currentValue / maxValue); 
     }
 
     public void SetSize(float sizeNormalized)
     {
         bar.fillAmount = sizeNormalized;
-        /*
-        if (sizeNormalized>=0 && sizeNormalized<=1)
-            bar.fillAmount = sizeNormalized;
-        else
-            switch (sizeNormalized<0)
-            {
-                case true: bar.fillAmount = 0; break;
-                case false: bar.fillAmount = 1; break;
-            }
-        */
     }
 }

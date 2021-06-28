@@ -22,15 +22,14 @@ public class TouchOfDeath : Ability
     {
         damageDivider = (FloatValueSO)CreateInstance("FloatValueSO");
         damageDivider.SetFloatValue(3f);
-
     }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        float maxDamage = attackee.GetMaxHealth().GetFloatValue()/damageDivider.GetFloatValue();//max damage is 1/3 of health
+        float maxDamage = attackee.GetMaxHealth()/damageDivider.GetFloatValue();//max damage is 1/3 of health
         float damagePercent = 1 - attacker.GetPercentHealth();
         abilityProcessor.Damage(attackee, maxDamage * damagePercent);
-        attacker.DecrementHealth(attacker.GetMaxHealth().GetFloatValue());//kill user
+        attacker.DecrementHealth(attacker.GetMaxHealth());//kill user
     }
 }

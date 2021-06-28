@@ -46,7 +46,7 @@ public class MovementProcessor : ScriptableObject
     public List<Character> GetCharactersInRange(Vector3 position, float range)
     {
         List<Character> charactersInRange = new List<Character>();
-        CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         foreach (Character character in tempRef.Characters)
         {
             if(Vector3.Distance(character.transform.position, position) <= range)

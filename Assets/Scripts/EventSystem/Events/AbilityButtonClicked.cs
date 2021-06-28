@@ -37,7 +37,7 @@ public class AbilityButtonClicked : MonoBehaviour
         
         if (character.IsPlayer())
         {
-            abilityButtonAbilities = character.InUseAbilities;
+            abilityButtonAbilities = character.GetCharacterData().GetInUseAbilities();
             UpdateButtonUI();
             for (int i = 0; i < abilityButtonAbilities.Count; i++)
             {

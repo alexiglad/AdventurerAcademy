@@ -31,12 +31,12 @@ public class StatusProcessor : ScriptableObject
             }
             else if (status.StatusEffect == StatusTypeEnum.Sleep)
             {
-                CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.IterateCharacters();
             }
             else if(status.StatusEffect == StatusTypeEnum.Knocked)
             {
-                CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.Turn.SetMovement(new Vector3(character.GetMaxMovement(), 0, 0));//TODO deterine if this works
             }
 
@@ -71,7 +71,7 @@ public class StatusProcessor : ScriptableObject
         {//i.e. status doesn't already exist
             attackee.Statuses.Add(status);
         }
-        if(gameStateManager.GetGameStateManager().GetType() == typeof(CombatManager))
+        if(gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
         }

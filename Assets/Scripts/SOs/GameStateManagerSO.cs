@@ -28,7 +28,7 @@ public class GameStateManagerSO : ScriptableObject
         return currentGameState.GetGameState();
     }
 
-    public GameStateManager GetGameStateManager()
+    public GameStateManager GetCurrentGameStateManager()
     {
         return currentGameStateManager;
     }
@@ -36,8 +36,8 @@ public class GameStateManagerSO : ScriptableObject
     {
         currentGameState.SetGameState(gameState);
         SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
-        GetGameStateManager().AddCharacters(characters);
-        GetGameStateManager().Start();
+        GetCurrentGameStateManager().AddCharacters(characters);
+        GetCurrentGameStateManager().Start();
 
         
         //input system code

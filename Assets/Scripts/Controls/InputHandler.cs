@@ -36,7 +36,7 @@ public class InputHandler : ScriptableObject
         Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
-            CombatManager tempref = (CombatManager)gameStateManager.GetGameStateManager();
+            CombatManager tempref = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempref.GetTargeting() == true)
             {
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 

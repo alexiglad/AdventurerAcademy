@@ -11,10 +11,10 @@ public class BasicAI
     }
     public Turn DetermineTurn(Character character)
     {
-        CombatManager tempRef = (CombatManager)gameStateManager.GetGameStateManager();
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
 
-        int num1 = Random.Range(0, character.InUseAbilities.Count);
-        Ability ability = character.InUseAbilities[num1];
+        int num1 = Random.Range(0, character.GetCharacterData().GetInUseAbilities().Count);
+        Ability ability = character.GetCharacterData().GetInUseAbilities()[num1];
 
         List<Character> players = new List<Character>();
         foreach (Character characterE in tempRef.Characters)

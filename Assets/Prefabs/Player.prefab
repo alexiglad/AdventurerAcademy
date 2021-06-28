@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ecddbf9eaa3e147b143277bffee706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: {fileID: 11400000, guid: a9df193cdb829c54cab976b4132a5116, type: 2}
+  moveSpeed: {fileID: 0}
   playerRidgidbody: {fileID: 278963244808596924}
   currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
 --- !u!114 &3985113315341915328
@@ -114,24 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fcbc545518e32d4f8b44aa429877f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 11400000, guid: 8bfd3e64f5873ed48aeab817e61381de, type: 2}
-  energy: {fileID: 11400000, guid: 96bbc131f6754544cbf2804ed700b5bf, type: 2}
-  maxHealth: {fileID: 11400000, guid: 6b64eed63433f77438af46b764d67678, type: 2}
-  maxEnergy: {fileID: 11400000, guid: 4b83ddc6fdfaca2478c6f5b3e383f05f, type: 2}
-  isPlayer: {fileID: 11400000, guid: 0fb772db2d7801c418f0c6533430f1c1, type: 2}
-  maxMovement: {fileID: 11400000, guid: 3a062be4aa7ccdf46ba2b0f3282b2902, type: 2}
-  initiative: {fileID: 11400000, guid: f3fb04e7c1ae7d64fa1b1207b7acda0a, type: 2}
-  moveSpeed: {fileID: 11400000, guid: a9df193cdb829c54cab976b4132a5116, type: 2}
-  name: {fileID: 11400000, guid: c3567491e53d2e54fadbc3753e52ee69, type: 2}
-  damage: {fileID: 0}
-  damageMultiplier: {fileID: 0}
-  damageRange: {fileID: 0}
-  followUps: []
-  inUseAbilities:
-  - {fileID: 11400000, guid: f34d8d01c190d9745b2059a7057c9986, type: 2}
-  - {fileID: 11400000, guid: 63ee7c142aeeb1c469b767799c31ed93, type: 2}
-  - {fileID: 11400000, guid: 2c2cf49c2804ccd43a877b81e358b91a, type: 2}
-  - {fileID: 11400000, guid: f30d141a7a7dde84d84d2c2f28393dab, type: 2}
+  characterData: {fileID: 11400000, guid: dac3971c79c59a449a9e4123da4d209c, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   knownAbilities: []
 --- !u!95 &943975715
@@ -164,11 +147,11 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &8463161761263775771
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -177,7 +160,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6499003185554428563}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.640625, y: 0.92163664, z: 0.2}
