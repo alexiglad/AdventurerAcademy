@@ -11,7 +11,9 @@ public class UIHandler : ScriptableObject
     private void OnEnable()
     {
         onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//get these for all buttons/UI
+        onAbilityButtonClicked.ManualAwake();
         onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
+        onFinishTurnButtonClicked.ManualAwake();
     }
     public void UpdateCombatTurnUI(Character character)
     {

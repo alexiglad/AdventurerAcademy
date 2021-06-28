@@ -18,7 +18,7 @@ public class AbilityButtonClicked : MonoBehaviour
 
 
 
-    void OnEnable()
+    public void ManualAwake()
     {
         abilityButtons[0] = GameObject.Find("AbilityOne");
         abilityButtons[1] = GameObject.Find("AbilityTwo");
