@@ -115,7 +115,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ee27dcc46f368e4386d25147e247d87, type: 2}
   - {fileID: 11400000, guid: 0d1c022c6d2bd50429b279242d51cab3, type: 2}
   - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
-  gameStateManager: {fileID: 0}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!54 &1872274231488310998
 Rigidbody:
   m_ObjectHideFlags: 0
