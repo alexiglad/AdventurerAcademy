@@ -7,6 +7,9 @@ public class CombatManager : GameStateManager
 {
     #region Local Variables
     private SortedSet<Character> characters = new SortedSet<Character>();
+    private SortedSet<Character> userCharacters = new SortedSet<Character>();
+    private SortedSet<Character> enemyCharacters = new SortedSet<Character>();
+
 
     private IEnumerator<Character> enumerator;
     bool characterType;
@@ -46,8 +49,17 @@ public class CombatManager : GameStateManager
         abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
         statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
         movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
-
-
+        //get player list
+        
+        foreach (Character characterE in characters)
+        {
+            if (characterE.IsPlayer())
+                userCharacters.Add(characterE);
+            else
+            {
+                enemyCharacters.Add(characterE);
+            }
+        }
 
 
     }
