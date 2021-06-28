@@ -9,11 +9,14 @@ public class SplashDamageRange : MonoBehaviour
     [Range(0, 5)]
     public float radius;
     LineRenderer line;
-
+    public void Awake()
+    {
+        line = gameObject.GetComponent<LineRenderer>();
+        line.positionCount = 0;
+    }
     public void Run(Vector3 position, float radius)
     {
         this.radius = radius;
-        line = gameObject.GetComponent<LineRenderer>();
         line.positionCount = segments + 1;
         line.useWorldSpace = false;
         CreatePoints(position);
@@ -41,7 +44,10 @@ public class SplashDamageRange : MonoBehaviour
     }
     public void Kill()
     {
-        Destroy(line.gameObject);
-        line = gameObject.GetComponent<LineRenderer>();
+        //Destroy(line.gameObject);
+        line.positionCount = 0;
+        
+        //line = new LineRenderer();
+        //line = gameObject.GetComponent<LineRenderer>();
     }
 }
