@@ -18,6 +18,7 @@ public class AbilityProcessor : ScriptableObject
     }
     /////////////////////////////////
     public void SplashDamage(Character character, float damage, float range){
+        Vector3 pos = character.transform.position;
         List<Character> charactersWithinRange = new List<Character>();
         charactersWithinRange = movementProcessor.GetCharactersInRange(character.transform.position, range);
         foreach(Character character1 in charactersWithinRange)
@@ -27,9 +28,7 @@ public class AbilityProcessor : ScriptableObject
 
         //display circle around splash damage area temporarily
         SplashDamageRange splashDamageRange = SplashDamageRange.FindObjectOfType<SplashDamageRange>();
-        splashDamageRange.Run(character.transform.position, range);
-        //Invoke("splashDamageRange.Kill", 2);
-        //TODO finish implementing this
+        splashDamageRange.Run(pos, range);
     }
     public void Damage(Character character, float damage){
 
