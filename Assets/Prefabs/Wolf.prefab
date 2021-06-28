@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6174382709882193808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.496, y: 1.505, z: 0}
+  m_LocalPosition: {x: 5.491, y: 1.505, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5808658113107602728}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: 196ab648263513448843271bac04cfb1, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  health: 0
 --- !u!54 &1872274231488310998
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,6 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHealth: 1
+  currentValue: 0
+  maxValue: 0
+  character: {fileID: 0}
 --- !u!1001 &7922063381943094852
 PrefabInstance:
   m_ObjectHideFlags: 0
