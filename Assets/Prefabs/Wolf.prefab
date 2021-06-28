@@ -98,7 +98,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7930216a9b4714cb5fbbb96d9b07b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   characterData: {fileID: 11400000, guid: 196ab648263513448843271bac04cfb1, type: 2}
+=======
+  health: {fileID: 11400000, guid: 8bfd3e64f5873ed48aeab817e61381de, type: 2}
+  energy: {fileID: 11400000, guid: 087ca8bd3441edd4fa3dfecc469aade7, type: 2}
+  maxHealth: {fileID: 11400000, guid: 6b64eed63433f77438af46b764d67678, type: 2}
+  maxEnergy: {fileID: 11400000, guid: 45805b514359835479559692bc130b86, type: 2}
+  isPlayer: {fileID: 11400000, guid: 995e04b2661dcea489f7864dfe5c9c96, type: 2}
+  maxMovement: {fileID: 11400000, guid: 3a062be4aa7ccdf46ba2b0f3282b2902, type: 2}
+  initiative: {fileID: 11400000, guid: 77829b91102459e4c99cfc940cb4fc6f, type: 2}
+  moveSpeed: {fileID: 11400000, guid: a9df193cdb829c54cab976b4132a5116, type: 2}
+  name: {fileID: 11400000, guid: b2a6f3e41575b734880e906e1e6b8cab, type: 2}
+  damage: {fileID: 0}
+  damageMultiplier: {fileID: 0}
+  damageRange: {fileID: 0}
+  followUps: []
+  inUseAbilities:
+  - {fileID: 11400000, guid: 9ee27dcc46f368e4386d25147e247d87, type: 2}
+  - {fileID: 11400000, guid: 0d1c022c6d2bd50429b279242d51cab3, type: 2}
+  - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
+>>>>>>> Implementing-Actions
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!54 &1872274231488310998
 Rigidbody:
