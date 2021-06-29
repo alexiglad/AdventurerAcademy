@@ -29,6 +29,7 @@ public class CombatManager : GameStateManager
     public bool CharacterType { get => characterType; set => characterType = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
     public Turn Turn { get => turn; set => turn = value; }
+    public SortedSet<Character> UserCharacters { get => userCharacters; set => userCharacters = value; }
 
 
     #endregion
@@ -66,11 +67,12 @@ public class CombatManager : GameStateManager
 
     public void UpdateIteration(Turn turnChange)
     {
-        UpdateTurn(turnChange);//this just adjusts the global variable turn appropriately
-        if (ValidTurn(turnChange))
+        bool updated = UpdateTurn(turnChange);//this just adjusts the global variable turn appropriately
+        if (ValidTurn(turnChange) && updated)
         {
             UpdateCharacters(turnChange);
         }
+        
 
         if (TurnFinished())
             IterateCharacters();
@@ -93,21 +95,26 @@ public class CombatManager : GameStateManager
         return character.EnemyAI.DetermineTurn(character);
     }
 
-    public void UpdateTurn(Turn turnChange)
+    public bool UpdateTurn(Turn turnChange)
     {//TODO check if movement and ability are valid additions to the turn
-        if (turnChange.GetMovement() != Vector3.zero)
-        {//add x and y components to turn
+        bool updated = false;
+        if (turnChange.GetMovement() != Vector3.zero && turn.GetMovement().magnitude <= character.GetMaxMovement())
+        {//add x and y components to turn only if the movement is less than the max movement
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());
+            updated = true;
         }
-        if (turnChange.GetAbility() != null)
-        {
+        if (turnChange.GetAbility() != null && turn.GetTarget() == null)//once they've invoked target with ability they cant do it again
+        {//only update if current ability hasn't been handled on a target yet
             targeting = true;
             turn.SetAbility(turnChange.GetAbility());
+            updated = true;
         }
-        if (turnChange.GetTarget() != null)//has to be target
-        {
+        if (turnChange.GetTarget() != null && turn.GetTarget() == null)
+        {//can't have already invoked an ability on a target yet
             turn.SetTarget(turnChange.GetTarget());
+            updated = true;
         }
+        return updated;
     }
     public void UpdateCharacters(Turn turnChange)
     {
@@ -257,9 +264,6 @@ public class CombatManager : GameStateManager
     #region Event Listeners
     void ImportListeners()
     {
-        //TODO work on these with cedric
-        LeftClicked onLeftClicked = FindObjectOfType<LeftClicked>();
-        onLeftClicked.OnLeftClicked += CombatMove;
 
         FinishTurnButtonClicked onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
@@ -267,8 +271,6 @@ public class CombatManager : GameStateManager
         AbilityButtonClicked onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
         onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
 
-        //TargetButtonClicked onTargetButtonClicked = FindObjectOfType<TargetButtonClicked>();
-        //onTargetButtonClicked.OnTargetButtonClicked += CombatTarget;
     }
     void CombatMove(object sender, EventArgs e)
     {

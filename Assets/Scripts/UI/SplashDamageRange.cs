@@ -21,7 +21,7 @@ public class SplashDamageRange : MonoBehaviour
         line.useWorldSpace = false;
         CreatePoints(position);
         //wait 2 seconds
-        Invoke("Kill", 2);
+        Invoke("Kill", 1);
     }
 
     void CreatePoints(Vector3 position)

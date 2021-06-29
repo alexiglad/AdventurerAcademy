@@ -5,8 +5,8 @@ using System;
 
 public class ToRoamingListener : MonoBehaviour
 {
-    [SerializeField] private GameStateManagerSO currentGameStateManager;
-    [SerializeField] private GameStateSO currentGameState;
+    [SerializeField] private GameStateManagerSO gameStateManager;
+    [SerializeField] private GameStateSO gameState;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +23,24 @@ public class ToRoamingListener : MonoBehaviour
 
     void ToRoaming(object sender, BoolEventArgs e)
     {
+        SortedSet<Character> userCharacters = new SortedSet<Character>();
+        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            userCharacters = tempRef.UserCharacters;
+        }
+        else
+        {
+            Debug.Log("problem occured");
+        }
         if (e.NewBool)//true so means they won, act normally display win screen eventually
         {
             //display win screen code here
-            currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, null);
+            gameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);
         }
-        else//lost so has to act accordingly; TEMP loading screen
+        else//lost so has to act accordingly; TEMP back to roaming with no repercussions
         {
-            currentGameStateManager.CreateStateInstance(GameStateEnum.Loading, null);
+            gameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);
         }
     }
 }
