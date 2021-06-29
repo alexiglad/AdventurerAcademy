@@ -6,18 +6,27 @@ using UnityEngine.UI;
 public class ResourceBarUI : MonoBehaviour
 {
     [SerializeField] bool isHealth;
+    [SerializeField] bool findCharacterInParent;
     [SerializeField] float currentValue;
     [SerializeField] float maxValue;
-    [SerializeField] Character character;
-
+    
+    Character character;
     Image bar;
 
-    protected void Start()
+    void Start()
     {
         bar = transform.GetComponent<Image>();
-        if (character == null)
+
+        if (findCharacterInParent)
+        {
             character = gameObject.GetComponentInParent<Character>();
-        if (isHealth) 
+            UpdateValues();
+        }                   
+    }
+
+    void UpdateValues()
+    {
+        if (isHealth)
         {
             currentValue = character.GetHealth();
             maxValue = character.GetMaxHealth();
@@ -29,18 +38,19 @@ public class ResourceBarUI : MonoBehaviour
         }
     }
 
-    protected void Update()
+    void Update()
     {
-        if(isHealth)
-            currentValue = character.GetHealth();
-        else
-            currentValue = character.GetEnergy();
-
+        UpdateValues();
         SetSize(currentValue / maxValue); 
     }
 
-    public void SetSize(float sizeNormalized)
+    void SetSize(float sizeNormalized)
     {
         bar.fillAmount = sizeNormalized;
+    }
+
+    public void SetCharacter(Character value)
+    {
+        character = value;
     }
 }
