@@ -5,8 +5,12 @@ using UnityEngine;
 public class Turn
 {
     Vector3 movement;
+    float amountMoved;
     Ability ability;
     Character target;
+
+    public float AmountMoved { get => amountMoved; set => amountMoved = value; }
+
     public Turn() { }
     public Turn(Vector2 movement)
     {
