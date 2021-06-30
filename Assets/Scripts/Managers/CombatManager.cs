@@ -94,6 +94,10 @@ public class CombatManager : GameStateManager
     {
         return character.EnemyAI.DetermineTurn(character);
     }
+    public float GetRemainingMovement()
+    {
+        return this.character.GetMaxMovement() - this.turn.GetMovement().magnitude;
+    }
 
     public bool UpdateTurn(Turn turnChange)
     {//TODO check if movement and ability are valid additions to the turn

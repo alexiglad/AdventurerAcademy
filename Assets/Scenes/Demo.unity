@@ -516,8 +516,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505fcda43ab83c84eafd12983ddaa04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
-  currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  gameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
 --- !u!1 &491352099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1977,7 +1977,9 @@ PrefabInstance:
       propertyPath: endTurn
       value: 
       objectReference: {fileID: 1014851838}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3472908912550295075, guid: 642cd09155b10e148967733e38509db6, type: 3}
+    - {fileID: 6930172580800213771, guid: 642cd09155b10e148967733e38509db6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 642cd09155b10e148967733e38509db6, type: 3}
 --- !u!1 &2126365801
 GameObject:
