@@ -106,7 +106,7 @@ public class CombatManager : GameStateManager
         bool updated = false;
         if (turnChange.GetMovement() != Vector3.zero && turn.GetMovement().magnitude <= character.GetMaxMovement())
         {//add x and y components to turn only if the movement is less than the max movement
-            turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());
+            turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());//TODO have to add magnitudes
             updated = true;
         }
         if (turnChange.GetAbility() != null && turn.GetTarget() == null)//once they've invoked target with ability they cant do it again
@@ -143,7 +143,7 @@ public class CombatManager : GameStateManager
 
     bool ValidTurn(Turn pushTurn)
     {
-        if (pushTurn.GetMovement() != Vector3.zero)//TODO update all vector 2's to vector 3's
+        if (pushTurn.GetMovement() != Vector3.zero)
         {
             return true;
         }
@@ -298,14 +298,15 @@ public class CombatManager : GameStateManager
     }
     public void CombatMovement(Vector3 destination)
     {
-        //NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
         NavMeshPath path = new NavMeshPath();
-        //Debug.Log(agent.remainingDistance);
         if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete && destination.magnitude <= GetRemainingMovement())
         {
+            UpdateIteration(new Turn(destination));
+            /*
             Debug.Log("Agent Distance to travel " + destination.magnitude);
             Debug.Log("Player Remaining Movement " + GetRemainingMovement());
-            character.Agent.SetDestination(destination);
+            character.Agent.SetDestination(destination);*/
+            
         }              
     }
     void FinishTurn(object sender, EventArgs e)
