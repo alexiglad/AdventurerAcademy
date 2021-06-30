@@ -17,6 +17,7 @@ public class MovementProcessor : ScriptableObject
         //NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
         character.Agent.SetDestination(movement);
         Debug.Log(character + " traveled " + movement + " tiles at " + Vector3.Angle(Vector3.zero, movement) + " degrees");
+        //TODO add followUpProcessor thingy
     }
     public List<Character> GetCharactersInRange(Vector3 position, float range)
     {

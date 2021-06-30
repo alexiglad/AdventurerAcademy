@@ -37,7 +37,7 @@ public class StatusProcessor : ScriptableObject
             else if(status.StatusEffect == StatusTypeEnum.Knocked)
             {
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                tempRef.Turn.SetMovement(new Vector3(character.GetMaxMovement(), 0, 0));//TODO deterine if this works
+                tempRef.Turn.AmountMoved = character.GetMaxMovement();
             }
 
 

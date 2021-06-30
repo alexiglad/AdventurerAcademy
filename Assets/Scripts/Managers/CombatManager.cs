@@ -98,15 +98,16 @@ public class CombatManager : GameStateManager
     }
     public float GetRemainingMovement()
     {
-        return this.character.GetMaxMovement() - this.turn.GetMovement().magnitude;
+        return this.character.GetMaxMovement() - this.turn.AmountMoved;
     }
 
     public bool UpdateTurn(Turn turnChange)
     {//TODO check if movement and ability are valid additions to the turn
         bool updated = false;
-        if (turnChange.GetMovement() != Vector3.zero && turn.GetMovement().magnitude <= character.GetMaxMovement())
+        if (turnChange.GetMovement() != Vector3.zero && turn.AmountMoved <= character.GetMaxMovement())
         {//add x and y components to turn only if the movement is less than the max movement
-            turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());//TODO have to add magnitudes
+            turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());//all turn.movement does is just store the total movement done on a given turn
+            turn.AmountMoved += turnChange.GetMovement().magnitude;
             updated = true;
         }
         if (turnChange.GetAbility() != null && turn.GetTarget() == null)//once they've invoked target with ability they cant do it again
@@ -160,7 +161,7 @@ public class CombatManager : GameStateManager
 
     bool TurnFinished()
     {
-        if (turn.GetMovement().magnitude >= character.GetMaxMovement() && turn.GetAbility() != null && turn.GetTarget() != null)
+        if (turn.AmountMoved >= character.GetMaxMovement() && turn.GetAbility() != null && turn.GetTarget() != null)
         {
             return true;
         }
