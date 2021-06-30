@@ -52,7 +52,6 @@ public class InputHandler : ScriptableObject
 
     void OnSelect()
     {
-        Debug.Log("Running On Select");
         Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>();
         Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)

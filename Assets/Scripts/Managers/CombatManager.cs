@@ -63,7 +63,7 @@ public class CombatManager : GameStateManager
                 enemyCharacters.Add(characterE);
             }
         }
-        Debug.Log(character.name + "'s Turn!");
+        Debug.Log(character.name + " 's Turn!");
     }
 
     public void UpdateIteration(Turn turnChange)
@@ -106,7 +106,7 @@ public class CombatManager : GameStateManager
         if (turnChange.GetMovement() != Vector3.zero && turn.AmountMoved <= character.GetMaxMovement())
         {//add x and y components to turn only if the movement is less than the max movement
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());//all turn.movement does is just store the total movement done on a given turn
-            turn.AmountMoved += turnChange.GetMovement().magnitude;
+            turn.AmountMoved += Math.Abs(turnChange.GetMovement().magnitude - character.transform.position.magnitude);
             updated = true;
         }
         if (turnChange.GetAbility() != null && turn.GetTarget() == null)//once they've invoked target with ability they cant do it again
@@ -300,10 +300,6 @@ public class CombatManager : GameStateManager
             if (destination.magnitude <= GetRemainingMovement())
             {
                 UpdateIteration(new Turn(destination));
-                /*
-                Debug.Log("Agent Distance to travel " + destination.magnitude);
-                Debug.Log("Player Remaining Movement " + GetRemainingMovement());
-                character.Agent.SetDestination(destination);*/
 
             }
             else
@@ -341,6 +337,41 @@ public class CombatManager : GameStateManager
 
             }
         }
+    }
+    public void DisplayPath(NavMeshPath path)
+    {
+        List<Vector3> validPath = new List<Vector3>();
+        List<Vector3> invalidPath = new List<Vector3>();
+        float distanceTraveled = 0;
+        bool over = false;
+        for(int i=0; i<path.corners.Length; i++)
+        {
+            if (over)
+            {
+                invalidPath.Add(path.corners[i]);
+            }
+            else if (distanceTraveled + path.corners[i].magnitude > GetRemainingMovement())
+            {
+                Vector3 temp = path.corners[i];
+                path.corners[i].Normalize();
+                Vector3 lastValidPath = (GetRemainingMovement() - distanceTraveled) * path.corners[i];
+                validPath.Add(lastValidPath);
+                Vector3 firstInvalidPath = temp - lastValidPath;
+                Debug.Log("first invalid path is: " + firstInvalidPath);
+                invalidPath.Add(firstInvalidPath);
+                over = true;
+                //Debug.Log("last path is" + lastPath);
+                //create new path based on paths used
+            }
+            else
+            {
+                distanceTraveled += path.corners[i].magnitude;
+                validPath.Add(path.corners[i]);
+                //Debug.Log(path.corners[i]);
+            }
+        }
+        
+
     }
     void FinishTurn(object sender, EventArgs e)
     {

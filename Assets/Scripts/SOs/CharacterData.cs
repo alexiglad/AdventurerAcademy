@@ -19,6 +19,8 @@ public class CharacterData : ScriptableObject
     [SerializeField] float damageMultiplier;
     [SerializeField] float damageRange;
 
+    [SerializeField] float yOffset;
+
     [SerializeField] List<Ability> inUseAbilities = new List<Ability>();//size 5
     [SerializeField] List<FollowUp> followUps = new List<FollowUp>();
 
