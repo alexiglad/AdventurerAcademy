@@ -15,8 +15,8 @@ MonoBehaviour:
   name: Lava Wolf
   maxHealth: 100
   maxEnergy: 100
-  maxMovement: 100
-  moveSpeed: 5
+  maxMovement: 3
+  moveSpeed: 3
   initiative: 15
   damage: 1
   damageMultiplier: 1

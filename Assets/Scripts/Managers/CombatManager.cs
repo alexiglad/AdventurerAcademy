@@ -279,12 +279,6 @@ public class CombatManager : GameStateManager
         onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
 
     }
-    void CombatMove(object sender, EventArgs e)
-    {
-        Turn turnUpdate = new Turn(new Vector3(1, 1, 0));//TODO eventually replace with with generated vector based on mouse pos
-        UpdateIteration(turnUpdate);
-        Debug.Log("Theoretically movedCombat");
-    }
     void CombatAbility(object sender, AbilityEventArgs e)
     {
         Turn turnUpdate = new Turn(e.NewAbility);
@@ -325,6 +319,7 @@ public class CombatManager : GameStateManager
                         vector.Normalize();
                         Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * vector;
                         location += lastPath;
+                        Debug.Log("last path is" + lastPath);
                         //create new path based on paths used
                         break;
                     }
@@ -333,6 +328,7 @@ public class CombatManager : GameStateManager
                     {
                         distanceTraveled += vector.magnitude;
                         location += vector;
+                        Debug.Log(vector);
                     }
                 }
                 NavMeshPath path2 = new NavMeshPath();
