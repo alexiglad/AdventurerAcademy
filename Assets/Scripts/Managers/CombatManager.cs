@@ -298,14 +298,14 @@ public class CombatManager : GameStateManager
     }
     public void CombatMovement(Vector3 destination)
     {
-        NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
+        //NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
         NavMeshPath path = new NavMeshPath();
         //Debug.Log(agent.remainingDistance);
-        if (agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete && destination.magnitude <= GetRemainingMovement())
+        if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete && destination.magnitude <= GetRemainingMovement())
         {
             Debug.Log("Agent Distance to travel " + destination.magnitude);
             Debug.Log("Player Remaining Movement " + GetRemainingMovement());
-            agent.SetDestination(destination);
+            character.Agent.SetDestination(destination);
         }              
     }
     void FinishTurn(object sender, EventArgs e)

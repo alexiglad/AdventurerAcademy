@@ -45,7 +45,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         //Resets Character's Health,and Energy to maximum on runtime
         health = characterData.GetMaxHealth();
         energy = characterData.GetMaxEnergy();
-        agent = GetComponent<NavMeshAgent>();
+        agent = transform.GetComponent<NavMeshAgent>();
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
     }
     

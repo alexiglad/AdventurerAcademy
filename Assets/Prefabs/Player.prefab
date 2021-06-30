@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 943975715}
   - component: {fileID: 278963244808596924}
   - component: {fileID: 8463161761263775771}
+  - component: {fileID: -5657599166074267914}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -116,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: dac3971c79c59a449a9e4123da4d209c, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  health: 0
   knownAbilities: []
 --- !u!95 &943975715
 Animator:
@@ -165,3 +167,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.640625, y: 0.92163664, z: 0.2}
   m_Center: {x: 0, y: 0.0079316795, z: 0}
+--- !u!195 &-5657599166074267914
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499003185554428563}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.3203125
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.9375
+  m_BaseOffset: 0.46875
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
