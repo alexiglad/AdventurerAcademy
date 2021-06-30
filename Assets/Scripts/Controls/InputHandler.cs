@@ -29,9 +29,9 @@ public class InputHandler : ScriptableObject
         return controls;
     }
 
-    private void OnSelect()
+    void OnSelect()
     {
-        RaycastHit hit; 
+        Debug.Log("Running On Select");
         Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>();
         Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
@@ -39,18 +39,40 @@ public class InputHandler : ScriptableObject
             CombatManager tempref = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempref.GetTargeting() == true)
             {
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
-                { 
-                    if (hit.transform != null)
-                    { 
-                        if (hit.transform.GetComponent<Character>() != null)
-                        {
-                            //debugging commented out
-                            //Character debug = hit.transform.GetComponent<Character>();
-                            //Debug.Log("Ability was selected on: " + debug.GetName());
-                            tempref.CombatTarget(hit.transform.GetComponent<Character>());
-                        }
-                    }
+                SendTarget(ray, tempref);
+            }
+            else
+            {
+                SendLocation(ray, tempref);
+            }
+        }
+    }
+
+    void SendLocation(Ray ray, CombatManager tempref)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            if (hit.transform != null)
+            {
+                tempref.CombatMovement(hit.point);                
+            }
+        }
+    }
+
+    void SendTarget(Ray ray, CombatManager tempref)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            if (hit.transform != null)
+            {
+                if (hit.transform.GetComponent<Character>() != null)
+                {
+                    //debugging commented out
+                    //Character debug = hit.transform.GetComponent<Character>();
+                    //Debug.Log("Ability was selected on: " + debug.GetName());
+                    tempref.CombatTarget(hit.transform.GetComponent<Character>());
                 }
             }
         }

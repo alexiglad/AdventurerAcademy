@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CombatManager : GameStateManager
 {
@@ -294,6 +295,18 @@ public class CombatManager : GameStateManager
         Turn turnUpdate = new Turn(target);
         UpdateIteration(turnUpdate);
 
+    }
+    public void CombatMovement(Vector3 destination)
+    {
+        NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
+        NavMeshPath path = new NavMeshPath();
+        //Debug.Log(agent.remainingDistance);
+        if (agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete && destination.magnitude <= GetRemainingMovement())
+        {
+            Debug.Log("Agent Distance to travel " + destination.magnitude);
+            Debug.Log("Player Remaining Movement " + GetRemainingMovement());
+            agent.SetDestination(destination);
+        }              
     }
     void FinishTurn(object sender, EventArgs e)
     {

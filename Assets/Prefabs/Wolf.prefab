@@ -112,11 +112,11 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &6595897052179444929
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6174382709882193808}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.9458437, y: 0.73804593, z: 0.2}
@@ -146,7 +146,6 @@ MonoBehaviour:
   findCharacterInParent: 1
   currentValue: 0
   maxValue: 0
-  gameStateManager: {fileID: 0}
 --- !u!1001 &7922063381943094852
 PrefabInstance:
   m_ObjectHideFlags: 0
