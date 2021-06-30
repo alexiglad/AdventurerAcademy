@@ -143,9 +143,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHealth: 1
+  findCharacterInParent: 1
   currentValue: 0
   maxValue: 0
-  character: {fileID: 0}
+  gameStateManager: {fileID: 0}
 --- !u!1001 &7922063381943094852
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class CombatManager : GameStateManager
     public Character Character { get => character; set => character = value; }
     public bool CharacterType { get => characterType; set => characterType = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
+
     public Turn Turn { get => turn; set => turn = value; }
     public SortedSet<Character> UserCharacters { get => userCharacters; set => userCharacters = value; }
 
