@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Character : MonoBehaviour, IComparable<Character>
 {
@@ -17,9 +18,12 @@ public class Character : MonoBehaviour, IComparable<Character>
     private List<Status> statuses = new List<Status>();
 
     protected Rigidbody2D characterRigidBody;
+
+    NavMeshAgent agent;
     
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }    
-    public List<Status> Statuses { get => statuses; set => statuses = value; }    
+    public List<Status> Statuses { get => statuses; set => statuses = value; }
+    public NavMeshAgent Agent { get => agent; set => agent = value; }
 
     #endregion
 
@@ -41,6 +45,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         //Resets Character's Health,and Energy to maximum on runtime
         health = characterData.GetMaxHealth();
         energy = characterData.GetMaxEnergy();
+        agent = GetComponent<NavMeshAgent>();
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
     }
     
