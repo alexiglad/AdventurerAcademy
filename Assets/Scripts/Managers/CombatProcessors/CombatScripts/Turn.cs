@@ -12,7 +12,7 @@ public class Turn
     public float AmountMoved { get => amountMoved; set => amountMoved = value; }
 
     public Turn() { }
-    public Turn(Vector2 movement)
+    public Turn(Vector3 movement)
     {
         this.movement = movement;
     }

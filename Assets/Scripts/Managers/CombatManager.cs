@@ -300,15 +300,51 @@ public class CombatManager : GameStateManager
     public void CombatMovement(Vector3 destination)
     {
         NavMeshPath path = new NavMeshPath();
-        if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete && destination.magnitude <= GetRemainingMovement())
+        //TODO bug fix it so you update the amount they move by the difference between the destination and their current position
+        if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete) 
         {
-            UpdateIteration(new Turn(destination));
-            /*
-            Debug.Log("Agent Distance to travel " + destination.magnitude);
-            Debug.Log("Player Remaining Movement " + GetRemainingMovement());
-            character.Agent.SetDestination(destination);*/
-            
-        }              
+            if (destination.magnitude <= GetRemainingMovement())
+            {
+                UpdateIteration(new Turn(destination));
+                /*
+                Debug.Log("Agent Distance to travel " + destination.magnitude);
+                Debug.Log("Player Remaining Movement " + GetRemainingMovement());
+                character.Agent.SetDestination(destination);*/
+
+            }
+            else
+            {
+                float distanceTraveled = 0;
+                Vector3 location = new Vector3();
+                
+                //TODO make nav mesh find closest position if outside of range
+                foreach (Vector3 vector in path.corners)
+                {
+                    if (distanceTraveled + vector.magnitude > GetRemainingMovement())
+                    {
+                        vector.Normalize();
+                        Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * vector;
+                        location += lastPath;
+                        //create new path based on paths used
+                        break;
+                    }
+
+                    else 
+                    {
+                        distanceTraveled += vector.magnitude;
+                        location += vector;
+                    }
+                }
+                NavMeshPath path2 = new NavMeshPath();
+                if (character.Agent.CalculatePath(location, path2) && path2.status == NavMeshPathStatus.PathComplete)
+                {
+                    //this is creating the movement in the case of being outside the radius
+                    UpdateIteration(new Turn(location));
+                    Debug.Log("used path generating code");
+                }
+
+            }
+        }
     }
     void FinishTurn(object sender, EventArgs e)
     {
