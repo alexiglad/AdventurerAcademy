@@ -24,6 +24,7 @@ public class CharacterData : ScriptableObject
 
     [SerializeField] bool isPlayer;
 
+
     #region Getters and Setters
 
     public bool IsPlayer()

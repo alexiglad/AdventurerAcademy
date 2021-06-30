@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7028208667455939956}
   - component: {fileID: 1920612305812629198}
   - component: {fileID: 8584422525252277912}
+  - component: {fileID: 257286925}
+  - component: {fileID: 257286926}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -83,3 +85,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endTurn: {fileID: 0}
+--- !u!114 &257286925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042687888691199788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a80ab650f630564680c5f6f8c53c46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &257286926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042687888691199788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505fcda43ab83c84eafd12983ddaa04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  gameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}

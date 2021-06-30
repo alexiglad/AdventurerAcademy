@@ -15,6 +15,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] protected float health;
     private float energy;
 
+    Animator animator;
+
     private List<Status> statuses = new List<Status>();
 
     protected Rigidbody2D characterRigidBody;
@@ -24,6 +26,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }    
     public List<Status> Statuses { get => statuses; set => statuses = value; }
     public NavMeshAgent Agent { get => agent; set => agent = value; }
+    public Animator Animator { get => animator; set => animator = value; }
 
     #endregion
 
@@ -46,9 +49,18 @@ public class Character : MonoBehaviour, IComparable<Character>
         health = characterData.GetMaxHealth();
         energy = characterData.GetMaxEnergy();
         agent = transform.GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
     }
-    
+
+    void LateUpdate()
+    {
+        if(Vector3.Distance(transform.position, agent.destination) <= 1f)
+        {
+            animator.SetBool("walking", false);
+        }
+    }
+
 
     public void Dead(){
         //create event?

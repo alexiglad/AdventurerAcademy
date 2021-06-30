@@ -63,8 +63,7 @@ public class CombatManager : GameStateManager
                 enemyCharacters.Add(characterE);
             }
         }
-
-
+        Debug.Log(character.name + "'s Turn!");
     }
 
     public void UpdateIteration(Turn turnChange)
@@ -148,15 +147,14 @@ public class CombatManager : GameStateManager
         {
             return true;
         }
-        else if (turn.GetAbility() != null && turn.GetTarget() != null)
+        if (turn.GetAbility() != null && turn.GetTarget() != null)
         {
-            
+            character.Animator.SetBool("walking", false);
             return true;
-        }
-        else
-        {
-            return false;
-        }
+        }       
+        character.Animator.SetBool("walking", false);
+        Debug.Log("Invalid Turn");
+        return false;        
     }
 
     bool TurnFinished()
@@ -223,6 +221,7 @@ public class CombatManager : GameStateManager
             {
                 character = enumerator.Current;
                 characterType = GetCharacterType();
+                Debug.Log(character.name + "'s Turn!");
             }
             else
             {//TODO check if this works
@@ -230,6 +229,7 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 character = enumerator.Current;
                 characterType = GetCharacterType();
+                Debug.Log(character.name + "'s Turn!");
             }
 
             uiHandler.UpdateCombatTurnUI(character);
