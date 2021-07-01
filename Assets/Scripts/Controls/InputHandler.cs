@@ -59,44 +59,39 @@ public class InputHandler : ScriptableObject
             CombatManager tempref = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempref.GetTargeting() == true)
             {
-                SendTarget(ray, tempref);
+                SendTarget(GetRaycastHit(), tempref);
             }
             else
             {
-                SendLocation(ray, tempref);
+                SendLocation(GetRaycastHit(), tempref);
             }
         }
+    }    
+
+    public RaycastData GetRaycastHit()
+    {
+        Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>();
+        Ray ray = activeCamera.ScreenPointToRay(mousePosition);
+        RaycastHit hit;
+        return new RaycastData(Physics.Raycast(ray, out hit, Mathf.Infinity), hit);
     }
 
-    void SendLocation(Ray ray, CombatManager tempref)
+    public bool VerifyTag(RaycastData data, string tag)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        {
-            Debug.Log("Tag: " + hit.collider.tag);
-            if (hit.collider.tag == "Terrain" && !EventSystem.current.IsPointerOverGameObject() && hit.transform != null)
-            {
-                tempref.CombatMovement(hit.point);                
-            }
-        }
+        if (data.Hit.collider.tag == tag && !EventSystem.current.IsPointerOverGameObject() && data.Hit.transform != null)
+            return true;
+        return false;
     }
 
-    void SendTarget(Ray ray, CombatManager tempref)
+    void SendLocation(RaycastData ray, CombatManager tempref)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        {
-            Debug.Log("Tag: " + hit.collider.tag);
-            if (hit.collider.tag == "Character" && !EventSystem.current.IsPointerOverGameObject() && hit.transform != null)
-            {
-                if (hit.transform.GetComponent<Character>() != null)
-                {
-                    //debugging commented out
-                    //Character debug = hit.transform.GetComponent<Character>();
-                    //Debug.Log("Ability was selected on: " + debug.GetName());
-                    tempref.CombatTarget(hit.transform.GetComponent<Character>());
-                }
-            }
-        }
+        if (ray.HitBool && VerifyTag(ray, "Terrain"))                  
+            tempref.CombatMovement(ray.Hit.point);                      
+    }
+
+    void SendTarget(RaycastData ray, CombatManager tempref)
+    {
+        if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null)
+            tempref.CombatTarget(ray.Hit.transform.GetComponent<Character>());     
     }
 }

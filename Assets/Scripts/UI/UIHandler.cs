@@ -5,9 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/UIHandler")]
 
 public class UIHandler : ScriptableObject
-{
+{    
     AbilityButtonClicked onAbilityButtonClicked;
     FinishTurnButtonClicked onFinishTurnButtonClicked;
+
+    LineRenderer validPathRenderer;
+    LineRenderer invalidPathRenderer;
     private void OnEnable()
     {
         onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//get these for all buttons/UI
@@ -19,8 +22,11 @@ public class UIHandler : ScriptableObject
     {
         onAbilityButtonClicked.UpdateAbilities(character);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
-
     }
+
+
+
+
     //TODO automatically turn off and on UI based off the manager being switched
     public void DisplayAbility()
     {
