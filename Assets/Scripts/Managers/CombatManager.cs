@@ -107,6 +107,7 @@ public class CombatManager : GameStateManager
         {//add x and y components to turn only if the movement is less than the max movement
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());//all turn.movement does is just store the total movement done on a given turn
             turn.AmountMoved += Math.Abs(turnChange.GetMovement().magnitude - character.transform.position.magnitude);
+            //turn.AmountMoved += Vector3.Distance(turnChange.GetMovement(), character.transform.position);
             updated = true;
         }
         if (turnChange.GetAbility() != null && turn.GetTarget() == null)//once they've invoked target with ability they cant do it again
@@ -293,11 +294,12 @@ public class CombatManager : GameStateManager
     }
     public void CombatMovement(Vector3 destination)
     {
+        Debug.Log("destination is" + destination);
+        destination = new Vector3(destination.x, destination.y + character.GetCharacterData().YOffset, destination.z);
         NavMeshPath path = new NavMeshPath();
-        //TODO bug fix it so you update the amount they move by the difference between the destination and their current position
         if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete) 
         {
-            if (destination.magnitude <= GetRemainingMovement())
+            if (Vector3.Distance(destination, character.transform.position) <= GetRemainingMovement())
             {
                 UpdateIteration(new Turn(destination));
 
@@ -306,33 +308,32 @@ public class CombatManager : GameStateManager
             {
                 float distanceTraveled = 0;
                 Vector3 location = new Vector3();
-                
-                //TODO make nav mesh find closest position if outside of range
+                Vector3 prev = character.transform.position;
+                prev.y -= character.GetCharacterData().YOffset;
+                //TODO fix nav mesh bug of always being off by 0.0633 on y axis
                 foreach (Vector3 vector in path.corners)
                 {
-                    if (distanceTraveled + vector.magnitude > GetRemainingMovement())
+                    if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())
                     {
+                        //if(GetRemainingMovement() - distanceTraveled    )
                         vector.Normalize();
                         Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * vector;
                         location += lastPath;
-                        Debug.Log("last path is" + lastPath);
-                        //create new path based on paths used
                         break;
                     }
 
                     else 
                     {
-                        distanceTraveled += vector.magnitude;
+                        distanceTraveled += Vector3.Distance(vector, prev);
                         location += vector;
-                        Debug.Log(vector);
                     }
+                    prev = vector;
                 }
                 NavMeshPath path2 = new NavMeshPath();
                 if (character.Agent.CalculatePath(location, path2) && path2.status == NavMeshPathStatus.PathComplete)
                 {
                     //this is creating the movement in the case of being outside the radius
                     UpdateIteration(new Turn(location));
-                    Debug.Log("used path generating code");
                 }
 
             }

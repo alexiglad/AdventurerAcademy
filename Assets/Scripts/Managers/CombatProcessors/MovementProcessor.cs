@@ -17,11 +17,12 @@ public class MovementProcessor : ScriptableObject
         //NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
         character.Agent.SetDestination(movement);
         Vector3 actualMovement = movement - character.transform.position;
+        actualMovement.y += character.GetCharacterData().YOffset;
         character.Animator.SetFloat("moveX" , actualMovement.x);
         character.Animator.SetFloat("moveZ", actualMovement.z);
         character.Animator.SetBool("walking", true);
-        Debug.Log(character + " traveled " + actualMovement + " tiles at " + Vector3.Angle(new Vector3(1, 0, 1), actualMovement) + " degrees");
-        //TODO add followUpProcessor thingy
+        Debug.Log(character + " traveled " + actualMovement + " tiles with magnitude " + actualMovement.magnitude + " at " + Vector3.Angle(new Vector3(1, character.GetCharacterData().YOffset, 0), actualMovement) + " degrees");
+        //TODO add followUpProcessor during navmesh path traversal!!!
     }
     public List<Character> GetCharactersInRange(Vector3 position, float range)
     {
