@@ -10,23 +10,27 @@ public class PathRenderer : MonoBehaviour
     [SerializeField] bool isValid;
 
     RaycastData data;
-    Color lineColor;
     NavMeshAgent agent;
-    LineRenderer line;
+    //LineRenderer line;
+    //LineRenderer line2;
+    LineRenderer[] line = new LineRenderer [2];
 
     void Start()
     {
-        line = GetComponent<LineRenderer>();
-        line.useWorldSpace = false;
-        if (isValid)
-            lineColor = Color.green;
-        else
-            lineColor = Color.red;
+        //line = GetComponent<LineRenderer>();
+        //line2 = GetComponent<LineRenderer>();
+        line[0] = GetComponent<LineRenderer>();
+        line[1] = GetComponentInChildren<LineRenderer>();
+        line[0].useWorldSpace = false;
+        line[1].useWorldSpace = false;
+        line[0].startColor = Color.blue;
+        line[1].startColor = Color.red;
     }
 
     void Update()
     {
-        line.positionCount = 0;
+        line[0].positionCount = 0;
+        line[1].positionCount = 0;
         data = controls.GetRaycastHit();
         if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
             if (data.HitBool && controls.VerifyTag(data, "Terrain"))
@@ -36,22 +40,28 @@ public class PathRenderer : MonoBehaviour
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
                 transform.position = tempRef.Character.transform.position;
-                DisplayPath(tempRef.DisplayPath(path, isValid), lineColor, tempRef.Character);
+                DisplayPath(tempRef.DisplayPath(path), tempRef.Character);
             }
     }
 
-    public void DisplayPath(List<Vector3> path, Color color, Character character)
+    public void DisplayPath(Path path, Character character)
     {
-        line.positionCount = path.Count;
+        line[0].positionCount = path.ValidPath.Count;
 
-        for (int i = 1; i < path.Count; i++)
+        for (int i = 1; i < path.ValidPath.Count; i++)
         {
-            Debug.Log(path[i] - character.transform.position);
-            line.SetPosition(i, path[i] - character.transform.position);
+            Debug.Log("Valid path" + (path.ValidPath[i] - character.transform.position));
+            line[0].SetPosition(i, path.ValidPath[i] - character.transform.position);
         }
 
+        line[1].positionCount = path.ValidPath.Count;
+        line[1].SetPosition(0, path.ValidPath[path.ValidPath.Count - 1] - character.transform.position);
 
-        line.startColor = color;
-        line.endColor = color;
+        for (int i = 1; i < path.ValidPath.Count; i++)
+        {
+            //Debug.Log(path.ValidPath[i] - character.transform.position);
+            line[1].SetPosition(i, path.ValidPath[i] - character.transform.position);
+        }
+
     }
 }

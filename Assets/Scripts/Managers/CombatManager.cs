@@ -339,7 +339,7 @@ public class CombatManager : GameStateManager
             }
         }
     }
-    public List<Vector3> DisplayPath(NavMeshPath path, bool wantsValidPath)
+    public Path DisplayPath(NavMeshPath path)
     {
         List<Vector3> validPath = new List<Vector3>();
         List<Vector3> invalidPath = new List<Vector3>();
@@ -371,10 +371,8 @@ public class CombatManager : GameStateManager
                 //Debug.Log(path.corners[i]);
             }
         }
-        if (wantsValidPath)
-            return validPath;
 
-        return invalidPath;
+        return new Path(validPath, invalidPath);
     }
     void FinishTurn(object sender, EventArgs e)
     {
