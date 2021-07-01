@@ -29,11 +29,8 @@ public class PathRenderer : MonoBehaviour
 
     void Update()
     {
-<<<<<<< HEAD
         line[0].positionCount = 0;
         line[1].positionCount = 0;
-=======
->>>>>>> 32d941b2d29c7c8b3651870ea5eb762d7a46684b
         data = controls.GetRaycastHit();
         if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
             if (data.HitBool && controls.VerifyTag(data, "Terrain"))
@@ -42,7 +39,7 @@ public class PathRenderer : MonoBehaviour
                 NavMeshPath path = new NavMeshPath();
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
-                transform.position = tempRef.Character.transform.position;
+                line[0].SetPosition(0, tempRef.Character.transform.position);
                 DisplayPath(tempRef.DisplayPath(path), tempRef.Character);
             }
     }
