@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 344027032}
   - component: {fileID: 344027033}
   - component: {fileID: 344027034}
+  - component: {fileID: 344027035}
   m_Layer: 0
   m_Name: Valid Path
   m_TagString: Untagged
@@ -585,7 +586,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05714286
+        value: 0.10000479
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -632,6 +633,21 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &344027035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344027031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5327b4a874209c64a8cdfe8991aa4af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  isValid: 1
 --- !u!1 &491352099
 GameObject:
   m_ObjectHideFlags: 0
