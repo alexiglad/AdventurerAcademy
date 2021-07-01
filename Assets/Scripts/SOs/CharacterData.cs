@@ -75,5 +75,6 @@ public class CharacterData : ScriptableObject
 
     public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
     public string Name { get => name; set => name = value; }
+    public float YOffset { get => yOffset; set => yOffset = value; }
     #endregion
 }
