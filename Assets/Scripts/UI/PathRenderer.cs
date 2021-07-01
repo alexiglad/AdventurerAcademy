@@ -29,8 +29,11 @@ public class PathRenderer : MonoBehaviour
 
     void Update()
     {
+<<<<<<< HEAD
         line[0].positionCount = 0;
         line[1].positionCount = 0;
+=======
+>>>>>>> 32d941b2d29c7c8b3651870ea5eb762d7a46684b
         data = controls.GetRaycastHit();
         if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
             if (data.HitBool && controls.VerifyTag(data, "Terrain"))
