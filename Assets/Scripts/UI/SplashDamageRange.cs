@@ -20,7 +20,7 @@ public class SplashDamageRange : MonoBehaviour
         line.positionCount = segments + 1;
         line.useWorldSpace = false;
         CreatePoints(position);
-        //wait 2 seconds
+        //wait 1 second
         Invoke("Kill", 1);
     }
 

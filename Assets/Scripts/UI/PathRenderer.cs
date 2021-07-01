@@ -17,6 +17,7 @@ public class PathRenderer : MonoBehaviour
     void Start()
     {
         line = GetComponent<LineRenderer>();
+        line.useWorldSpace = false;
         if (isValid)
             lineColor = Color.green;
         else
@@ -35,18 +36,18 @@ public class PathRenderer : MonoBehaviour
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
                 transform.position = tempRef.Character.transform.position;
-                DisplayPath(tempRef.DisplayPath(path, isValid), lineColor);
+                DisplayPath(tempRef.DisplayPath(path, isValid), lineColor, tempRef.Character);
             }
     }
 
-    public void DisplayPath(List<Vector3> path, Color color)
+    public void DisplayPath(List<Vector3> path, Color color, Character character)
     {
         line.positionCount = path.Count;
 
         for (int i = 1; i < path.Count; i++)
         {
-            Debug.Log(path[i] - path[i - 1]);
-            line.SetPosition(i, path[i] - path[i - 1]);
+            Debug.Log(path[i] - character.transform.position);
+            line.SetPosition(i, path[i] - character.transform.position);
         }
 
 

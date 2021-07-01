@@ -358,7 +358,7 @@ public class CombatManager : GameStateManager
                 Vector3 lastValidPath = (GetRemainingMovement() - distanceTraveled) * path.corners[i];
                 validPath.Add(lastValidPath);
                 Vector3 firstInvalidPath = temp - lastValidPath;
-                Debug.Log("first invalid path is: " + firstInvalidPath);
+                //Debug.Log("first invalid path is: " + firstInvalidPath);
                 invalidPath.Add(firstInvalidPath);
                 over = true;
                 //Debug.Log("last path is" + lastPath);
