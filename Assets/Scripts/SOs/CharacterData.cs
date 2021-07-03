@@ -19,8 +19,6 @@ public class CharacterData : ScriptableObject
     [SerializeField] float damageMultiplier;
     [SerializeField] float damageRange;
 
-    [SerializeField] float yOffset;
-
     [SerializeField] List<Ability> inUseAbilities = new List<Ability>();//size 5
     [SerializeField] List<FollowUp> followUps = new List<FollowUp>();
 
@@ -75,6 +73,5 @@ public class CharacterData : ScriptableObject
 
     public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
     public string Name { get => name; set => name = value; }
-    public float YOffset { get => yOffset; set => yOffset = value; }
     #endregion
 }

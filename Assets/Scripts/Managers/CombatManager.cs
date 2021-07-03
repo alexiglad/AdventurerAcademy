@@ -305,21 +305,23 @@ public class CombatManager : GameStateManager
     }
     public void CombatMovement(Vector3 destination)
     {
+        Vector3 characterBottom = character.BoxCollider.bounds.center;
+        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
         Debug.Log("destination is" + destination);
-        destination = new Vector3(destination.x, destination.y + character.GetCharacterData().YOffset, destination.z);
+        Debug.Log("character position is" + characterBottom);
         NavMeshPath path = new NavMeshPath();
         if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete) 
         {
-            if (Vector3.Distance(destination, character.transform.position) <= GetRemainingMovement())
+            if (Vector3.Distance(destination, characterBottom) <= GetRemainingMovement())
             {
                 UpdateIteration(new Turn(destination));
             }
             else
             {
+                
                 float distanceTraveled = 0;
                 Vector3 location = new Vector3();
-                Vector3 prev = character.transform.position;
-                prev.y -= character.GetCharacterData().YOffset;
+                Vector3 prev = characterBottom;
                 //TODO fix nav mesh bug of always being off by 0.0633 on y axis
                 foreach (Vector3 vector in path.corners)
                 {
@@ -334,16 +336,24 @@ public class CombatManager : GameStateManager
 
                     else 
                     {
+                        
                         distanceTraveled += Vector3.Distance(vector, prev);
                         location += vector;
                     }
                     prev = vector;
                 }
+                Debug.Log(location);
                 NavMeshPath path2 = new NavMeshPath();
+
                 if (character.Agent.CalculatePath(location, path2) && path2.status == NavMeshPathStatus.PathComplete)
                 {
                     //this is creating the movement in the case of being outside the radius
                     UpdateIteration(new Turn(location));
+                }
+                else
+                {
+                    Debug.Log(path2.status == NavMeshPathStatus.PathComplete);
+                    Debug.Log("error occured");
                 }
 
             }
@@ -352,11 +362,13 @@ public class CombatManager : GameStateManager
 
     public void CombatMovementTwo(Vector3 destination)
     {
-        Vector3 adjustedDestination = new Vector3(destination.x, destination.y + character.GetCharacterData().YOffset, destination.z);
+        Vector3 characterBottom = character.BoxCollider.bounds.center;
+        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        Vector3 adjustedDestination = new Vector3(destination.x, destination.y , destination.z);
         NavMeshPath path = new NavMeshPath();
         if (character.Agent.CalculatePath(adjustedDestination, path) && path.status == NavMeshPathStatus.PathComplete)
         {
-            if (Vector3.Distance(adjustedDestination, character.transform.position) <= GetRemainingMovement())
+            if (Vector3.Distance(adjustedDestination, characterBottom) <= GetRemainingMovement())
             {
                 //If the destination is valid, move to destination
                 UpdateIteration(new Turn(adjustedDestination));
@@ -364,9 +376,9 @@ public class CombatManager : GameStateManager
             else
             {
                 //If the destination is not valid, find the closest point to the destination within range
-                Vector3 newDestination = (adjustedDestination - character.transform.position);
+                Vector3 newDestination = (adjustedDestination - characterBottom);
                 newDestination.Normalize();
-                newDestination = (character.transform.position + (GetRemainingMovement()*newDestination));
+                newDestination = (characterBottom + (GetRemainingMovement()*newDestination));
                 NavMeshPath newPath = new NavMeshPath();
                 if(character.Agent.CalculatePath(newDestination, newPath) && newPath.status ==  NavMeshPathStatus.PathComplete)
                 {
@@ -414,8 +426,10 @@ public class CombatManager : GameStateManager
 
     public bool IsInvalidPath(Vector3 destination)
     {
-        Vector3 adjustedDestination = new Vector3(destination.x, destination.y + character.GetCharacterData().YOffset, destination.z);
-        if (Vector3.Distance(adjustedDestination, character.transform.position) <= GetRemainingMovement())
+        Vector3 characterBottom = character.BoxCollider.bounds.center;
+        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        Vector3 adjustedDestination = new Vector3(destination.x, destination.y, destination.z);
+        if (Vector3.Distance(adjustedDestination, characterBottom) <= GetRemainingMovement())
         {
             return false;
         }
