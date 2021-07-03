@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private FloatValueSO moveSpeed;
     [SerializeField] private Rigidbody playerRidgidbody;
     [SerializeField] private GameStateSO currentGameState;
-    private Vector2 moveDirection;
+    //private Vector2 moveDirection;
 
     // Update is called once per frame 
     void Update()
@@ -48,8 +48,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Move() 
     {
-        playerRidgidbody.velocity = new Vector2(moveDirection.x * moveSpeed.GetFloatValue(),
-            moveDirection.y * moveSpeed.GetFloatValue());
+        //playerRidgidbody.velocity = new Vector2(moveDirection.x * moveSpeed.GetFloatValue(),
+            //moveDirection.y * moveSpeed.GetFloatValue());
     }
 
     void Stop()

@@ -17,6 +17,8 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     Animator animator;
 
+    BoxCollider boxCollider;
+
     private List<Status> statuses = new List<Status>();
 
     protected Rigidbody2D characterRigidBody;
@@ -27,6 +29,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public List<Status> Statuses { get => statuses; set => statuses = value; }
     public NavMeshAgent Agent { get => agent; set => agent = value; }
     public Animator Animator { get => animator; set => animator = value; }
+    public BoxCollider BoxCollider { get => boxCollider; set => boxCollider = value; }
 
     #endregion
 
@@ -50,6 +53,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         energy = characterData.GetMaxEnergy();
         agent = transform.GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider>();
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
     }
 

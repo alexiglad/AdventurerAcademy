@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,7 +18,7 @@ public class CombatManager : GameStateManager
     Turn turn;
     Character character;
     bool targeting;
-
+    bool hasMovement = true;
 
 
     [SerializeField] AbilityProcessor abilityProcessorInstance;
@@ -32,6 +33,7 @@ public class CombatManager : GameStateManager
 
     public Turn Turn { get => turn; set => turn = value; }
     public SortedSet<Character> UserCharacters { get => userCharacters; set => userCharacters = value; }
+    public bool HasMovement { get => hasMovement; set => hasMovement = value; }
 
 
     #endregion
@@ -97,18 +99,25 @@ public class CombatManager : GameStateManager
     }
     public float GetRemainingMovement()
     {
+        //Debug.Log("Character Max Movement: " + this.character.GetMaxMovement() + " - Ammount Moved this turn: " + this.turn.AmountMoved+ " = " + (this.character.GetMaxMovement() - this.turn.AmountMoved));
         return this.character.GetMaxMovement() - this.turn.AmountMoved;
     }
 
     public bool UpdateTurn(Turn turnChange)
     {//TODO check if movement and ability are valid additions to the turn
         bool updated = false;
-        if (turnChange.GetMovement() != Vector3.zero && turn.AmountMoved <= character.GetMaxMovement())
+        if (turnChange.GetMovement() != Vector3.zero && turn.AmountMoved <= character.GetMaxMovement() && hasMovement)
         {//add x and y components to turn only if the movement is less than the max movement
             turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());//all turn.movement does is just store the total movement done on a given turn
-            turn.AmountMoved += Math.Abs(turnChange.GetMovement().magnitude - character.transform.position.magnitude);
-            //turn.AmountMoved += Vector3.Distance(turnChange.GetMovement(), character.transform.position);
+            //turn.AmountMoved += Math.Abs(turnChange.GetMovement().magnitude - character.transform.position.magnitude);
+            turn.AmountMoved += Vector3.Distance(character.transform.position, turnChange.GetMovement());
             updated = true;
+        }
+        float error = .1f;
+        if (GetRemainingMovement() <= error)
+        {
+            Debug.Log("User had used up movement for turn");
+            hasMovement = false;
         }
         if (turnChange.GetAbility() != null && turn.GetTarget() == null)//once they've invoked target with ability they cant do it again
         {//only update if current ability hasn't been handled on a target yet
@@ -223,6 +232,7 @@ public class CombatManager : GameStateManager
                 character = enumerator.Current;
                 characterType = GetCharacterType();
                 Debug.Log(character.name + "'s Turn!");
+                hasMovement = true;
             }
             else
             {//TODO check if this works
@@ -231,6 +241,7 @@ public class CombatManager : GameStateManager
                 character = enumerator.Current;
                 characterType = GetCharacterType();
                 Debug.Log(character.name + "'s Turn!");
+                hasMovement = true;
             }
 
             uiHandler.UpdateCombatTurnUI(character);
@@ -302,7 +313,6 @@ public class CombatManager : GameStateManager
             if (Vector3.Distance(destination, character.transform.position) <= GetRemainingMovement())
             {
                 UpdateIteration(new Turn(destination));
-
             }
             else
             {
@@ -339,6 +349,33 @@ public class CombatManager : GameStateManager
             }
         }
     }
+
+    public void CombatMovementTwo(Vector3 destination)
+    {
+        Vector3 adjustedDestination = new Vector3(destination.x, destination.y + character.GetCharacterData().YOffset, destination.z);
+        NavMeshPath path = new NavMeshPath();
+        if (character.Agent.CalculatePath(adjustedDestination, path) && path.status == NavMeshPathStatus.PathComplete)
+        {
+            if (Vector3.Distance(adjustedDestination, character.transform.position) <= GetRemainingMovement())
+            {
+                //If the destination is valid, move to destination
+                UpdateIteration(new Turn(adjustedDestination));
+            }
+            else
+            {
+                //If the destination is not valid, find the closest point to the destination within range
+                Vector3 newDestination = (adjustedDestination - character.transform.position);
+                newDestination.Normalize();
+                newDestination = (character.transform.position + (GetRemainingMovement()*newDestination));
+                NavMeshPath newPath = new NavMeshPath();
+                if(character.Agent.CalculatePath(newDestination, newPath) && newPath.status ==  NavMeshPathStatus.PathComplete)
+                {
+                    UpdateIteration(new Turn(newDestination));
+                }
+            }
+        }
+
+    }
     public Path DisplayPath(NavMeshPath path)
     {
         List<Vector3> validPath = new List<Vector3>();
@@ -374,13 +411,21 @@ public class CombatManager : GameStateManager
 
         return new Path(validPath, invalidPath);
     }
+
+    public bool IsInvalidPath(Vector3 destination)
+    {
+        Vector3 adjustedDestination = new Vector3(destination.x, destination.y + character.GetCharacterData().YOffset, destination.z);
+        if (Vector3.Distance(adjustedDestination, character.transform.position) <= GetRemainingMovement())
+        {
+            return false;
+        }
+        return true;
+    }
+
     void FinishTurn(object sender, EventArgs e)
     {
         IterateCharacters();
     }
-
-
-
 
     #endregion
 }

@@ -86,7 +86,7 @@ public class InputHandler : ScriptableObject
     void SendLocation(RaycastData ray, CombatManager tempref)
     {
         if (ray.HitBool && VerifyTag(ray, "Terrain"))                  
-            tempref.CombatMovement(ray.Hit.point);                      
+            tempref.CombatMovementTwo(ray.Hit.point);                      
     }
 
     void SendTarget(RaycastData ray, CombatManager tempref)

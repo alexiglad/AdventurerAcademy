@@ -7,61 +7,79 @@ public class PathRenderer : MonoBehaviour
 {
     [SerializeField] InputHandler controls;
     [SerializeField] GameStateManagerSO gameStateManager;
-    [SerializeField] bool isValid;
+    [SerializeField] float startWidth;
+    [SerializeField] float endWidth;
 
     RaycastData data;
     NavMeshAgent agent;
-    //LineRenderer line;
-    //LineRenderer line2;
-    LineRenderer[] line = new LineRenderer [2];
+    LineRenderer line;
+
 
     void Start()
     {
-        //line = GetComponent<LineRenderer>();
-        //line2 = GetComponent<LineRenderer>();
-        line[0] = GetComponent<LineRenderer>();
-        line[1] = GetComponentInChildren<LineRenderer>();
-        line[0].useWorldSpace = false;
-        line[1].useWorldSpace = false;
-        line[0].startColor = Color.blue;
-        line[1].startColor = Color.red;
+        line = GetComponent<LineRenderer>();
+        line.startWidth = startWidth;
+        line.endWidth = endWidth;
     }
 
     void Update()
     {
-        line[0].positionCount = 0;
-        line[1].positionCount = 0;
+        line.positionCount = 0;
         data = controls.GetRaycastHit();
         if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
             if (data.HitBool && controls.VerifyTag(data, "Terrain"))
             {
+                line.startColor = Color.blue;
+                line.endColor = Color.blue;
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 NavMeshPath path = new NavMeshPath();
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
-                line[0].SetPosition(0, tempRef.Character.transform.position);
-                DisplayPath(tempRef.DisplayPath(path), tempRef.Character);
+                if (tempRef.Character.Animator.GetBool("walking"))
+                    DisplayActivePath(tempRef.Character);
+                else if (tempRef.HasMovement)
+                    DisplayPath(path, tempRef.Character, tempRef);
             }
     }
 
-    public void DisplayPath(Path path, Character character)
+    public void DisplayActivePath(Character character)
     {
-        line[0].positionCount = path.ValidPath.Count;
+        line.positionCount = agent.path.corners.Length;
+        line.SetPosition(0, character.BoxCollider.bounds.center);
 
-        for (int i = 1; i < path.ValidPath.Count; i++)
+        if (agent.path.corners.Length < 2)
+            return;
+
+        for (int i = 1; i < agent.path.corners.Length; i++)
         {
-            Debug.Log("Valid path" + (path.ValidPath[i] - character.transform.position));
-            line[0].SetPosition(i, path.ValidPath[i] - character.transform.position);
+            line.SetPosition(i, agent.path.corners[i]);
         }
+        
+    }
 
-        line[1].positionCount = path.ValidPath.Count;
-        line[1].SetPosition(0, path.ValidPath[path.ValidPath.Count - 1] - character.transform.position);
-
-        for (int i = 1; i < path.ValidPath.Count; i++)
+    public void DisplayPath(NavMeshPath path, Character character, CombatManager tempRef)
+    {
+        line.positionCount = path.corners.Length;
+        
+        if(line.positionCount != 0)
         {
-            //Debug.Log(path.ValidPath[i] - character.transform.position);
-            line[1].SetPosition(i, path.ValidPath[i] - character.transform.position);
-        }
+            line.SetPosition(0, character.BoxCollider.bounds.center);
+        }            
 
+        if (path.corners.Length < 2)
+            return;
+
+        for (int i = 1; i < path.corners.Length; i++)
+        {
+            line.SetPosition(i, path.corners[i]);
+        }
+        
+        if(tempRef.IsInvalidPath(data.Hit.point))
+        {
+            //TODO Show visual that path is not valid
+            //Debug.Log("INVALID PATH! WILL MOVE TO CLOSEST POINT! Attepted Destination: " + path.corners[path.corners.Length - 1]);
+            line.startColor = Color.red;
+            line.endColor = Color.red;
+        }
     }
 }
