@@ -9,8 +9,8 @@ using UnityEngine;
 /// 
 /// 
 /// </summary>
-[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Default")]
-public class Default : Ability
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/DefaultAbility")]
+public class DefaultAbility : Ability
 {
     private FloatValueSO damage;
     // Start is called before the first frame update

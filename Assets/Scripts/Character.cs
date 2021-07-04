@@ -11,6 +11,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] private BasicAI enemyAI;
     [SerializeField] private CharacterData characterData;
     [SerializeField] GameStateManagerSO gameStateManager;
+    [SerializeField] FollowUpProcessor followUpProcessor;
+
 
     [SerializeField] protected float health;
     private float energy;
@@ -59,9 +61,19 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     void LateUpdate()
     {
-        if(Vector3.Distance(transform.position, agent.destination) <= 1f)
+        Vector3 realPos = this.BoxCollider.bounds.center;
+        realPos.y -= this.BoxCollider.bounds.size.y / 2;
+        /*Debug.Log("real pos y " + realPos.y);
+        Debug.Log("transform position " +this.transform.position.y);
+        Debug.Log("agent destination y " + agent.destination.y);
+        Debug.Log("distance is " + Vector3.Distance(realPos, agent.destination));*/
+        if (Vector3.Distance(realPos, agent.destination) <= .2f)
         {
             animator.SetBool("walking", false);
+        }
+        else
+        {
+            followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, this.transform.position));
         }
     }
 

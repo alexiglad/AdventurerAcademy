@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum StatusTypeEnum
 {
+    Default, 
     Regen,//heal
     Burn,//deal damage
     Poison,//

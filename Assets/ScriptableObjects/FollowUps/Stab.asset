@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac2f5e9c310fb249be23f00bd53f482, type: 3}
   m_Name: Stab
   m_EditorClassIdentifier: 
-  abilityProcessorInstance: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
-  statusProcessorInstance: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
+  abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
+  statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
+  movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}

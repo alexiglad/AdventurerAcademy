@@ -20,6 +20,7 @@ public class FollowUpProcessor : ScriptableObject
                 {
                     if (followUp.IsValid(followUpAction, character))//only need this for checking otherwise you have the info you need
                     {//this info is deductible from the IsValid method (whether you are using the attacker/attackee inflicting the followUp
+
                         followUp.HandleFollowUp(followUpAction);
                         return;
                     }

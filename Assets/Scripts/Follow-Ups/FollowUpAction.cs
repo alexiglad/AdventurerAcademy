@@ -17,12 +17,15 @@ public class FollowUpAction
         this.attacker = attacker;
         this.attackee = attackee;
         this.ability = ability;
+
     }
 
     public FollowUpAction(Character attacker, Vector2 movement)
     {
         this.attacker = attacker;
         this.movement = movement;
+
+
     }
 
     public FollowUpAction(Character attacker, Character attackee, FollowUp individualFollowUp)
@@ -30,6 +33,7 @@ public class FollowUpAction
         this.attacker = attacker;
         this.attackee = attackee;
         this.followUp = individualFollowUp;
+
     }
 
     public FollowUpAction(Character attacker, Character attackee, StatusTypeEnum statusEffect)
@@ -37,6 +41,7 @@ public class FollowUpAction
         this.statusEffect = statusEffect;
         this.attacker = attacker;
         this.attackee = attackee;
+
     }
 
     public Ability Ability { get => ability; set => ability = value; }
