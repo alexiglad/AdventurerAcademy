@@ -163,7 +163,6 @@ public class CombatManager : GameStateManager
             return true;
         }       
         character.Animator.SetBool("walking", false);
-        Debug.Log("Invalid Turn");
         return false;        
     }
 

@@ -1656,7 +1656,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -3033667219593020291, guid: 6f5a2ee51ab681e4dbe405c90a1dbb46, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2498,6 +2498,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 93057738442255784, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 93057738442255784, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.628
+      objectReference: {fileID: 0}
+    - target: {fileID: 93057738442255784, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
       propertyPath: m_AutoBraking
       value: 1
       objectReference: {fileID: 0}
@@ -2513,6 +2521,10 @@ PrefabInstance:
       propertyPath: characterData
       value: 
       objectReference: {fileID: 11400000, guid: 0cd47a36b7a0dbf4c8fd1fd1d2c0a6f1, type: 2}
+    - target: {fileID: 539103194363015070, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
+      propertyPath: followUpProcessor
+      value: 
+      objectReference: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
     - target: {fileID: 7640261090172070347, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2570,10 +2582,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 139448979937482619, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
-      propertyPath: m_BaseOffset
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_Name
       value: Lava Wolf One
@@ -2584,11 +2592,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.45
+      value: -3.15
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.263
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2632,9 +2640,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -5657599166074267914, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.573
+      objectReference: {fileID: 0}
+    - target: {fileID: -5657599166074267914, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
       propertyPath: m_StoppingDistance
       value: 0.09
       objectReference: {fileID: 0}
+    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
+      propertyPath: followUpProcessor
+      value: 
+      objectReference: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
     - target: {fileID: 6499003185554428563, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
       propertyPath: m_Name
       value: Witch
@@ -2645,7 +2661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6499003185554428565, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6499003185554428565, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
       propertyPath: m_LocalPosition.y
