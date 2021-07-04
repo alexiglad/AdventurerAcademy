@@ -9,8 +9,9 @@ using UnityEngine;
 public class FieryBite : Ability
 {
     private FloatValueSO damage;
-    private new AbilityTypeEnum abilityType;
-
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");

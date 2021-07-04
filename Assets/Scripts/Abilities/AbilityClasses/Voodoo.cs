@@ -11,8 +11,9 @@ using UnityEngine;
 
 public class Voodoo : Ability
 {
-    private new AbilityTypeEnum abilityType;
-
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
     private Character target;
     private void OnEnable()
     {

@@ -13,8 +13,9 @@ using UnityEngine;
 public class DefaultAbility : Ability
 {
     private FloatValueSO damage;
-    private new AbilityTypeEnum abilityType;
-    // Start is called before the first frame update
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore    
     void OnEnable()
     {
         /*damage = (FloatValueSO)CreateInstance("FloatValueSO");

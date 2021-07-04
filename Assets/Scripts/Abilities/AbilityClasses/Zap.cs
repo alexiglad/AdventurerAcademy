@@ -14,8 +14,9 @@ using UnityEngine;
 public class Zap : Ability
 {
     private FloatValueSO damage;
-    private new AbilityTypeEnum abilityType;
-
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
     // Start is called before the first frame update
     void OnEnable()
     {

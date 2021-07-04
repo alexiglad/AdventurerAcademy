@@ -9,7 +9,9 @@ using UnityEngine;
 public class Trip : Ability
 {
     private FloatValueSO damage;
-    private new AbilityTypeEnum abilityType;
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
 
     private void OnEnable()
     {

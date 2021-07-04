@@ -10,8 +10,9 @@ public class MoltenBite : Ability
 {
     private FloatValueSO damage;
     private FloatValueSO range;
-    private new AbilityTypeEnum abilityType;
-
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
