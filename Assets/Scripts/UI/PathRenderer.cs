@@ -36,6 +36,7 @@ public class PathRenderer : MonoBehaviour
                 NavMeshPath path = new NavMeshPath();
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
+
                 if (tempRef.Character.Animator.GetBool("walking"))
                     DisplayActivePath(tempRef.Character);
                 else if (tempRef.HasMovement)
