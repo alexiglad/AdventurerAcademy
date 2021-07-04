@@ -8,9 +8,13 @@ public abstract class FollowUp : ScriptableObject
 {
     [SerializeField] protected AbilityProcessor abilityProcessor;
     [SerializeField] protected StatusProcessor statusProcessor;
-    [SerializeField] protected MovementProcessor movementProcessor;
+    [SerializeField] protected FollowUpProcessor followUpProcessor;
 
     public abstract bool IsValid(FollowUpAction followUpAction, Character character);
     public abstract void HandleFollowUp(FollowUpAction followUpAction);
 
+    public void FollowUpFollowUp(FollowUpAction followUpAction)
+    {
+        followUpProcessor.HandleFollowUpAction(new FollowUpAction(followUpAction.Attacker, followUpAction.Attackee, this));
+    }
 }

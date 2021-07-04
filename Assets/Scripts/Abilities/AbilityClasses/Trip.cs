@@ -9,10 +9,15 @@ using UnityEngine;
 public class Trip : Ability
 {
     private FloatValueSO damage;
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
+
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(6f);
+        abilityType = AbilityTypeEnum.Melee;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

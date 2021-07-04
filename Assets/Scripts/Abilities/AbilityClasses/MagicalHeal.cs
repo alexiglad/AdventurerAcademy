@@ -15,6 +15,9 @@ public class MagicalHeal : Ability
 {
     private FloatValueSO damage;
     private FloatValueSO regen;
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -22,9 +25,7 @@ public class MagicalHeal : Ability
         damage.SetFloatValue(5f);
         regen = (FloatValueSO)CreateInstance("FloatValueSO");
         regen.SetFloatValue(2f);
-
-
-
+        abilityType = AbilityTypeEnum.Heal;
     }
 
 

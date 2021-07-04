@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/Stab")]
+///this ability is a "counter" to the zap ability
+///if an attacker zaps another player within 1 meter of that player that player will
+///automatically stab the attacker as a follow-up
+///attacker must be within 1 tile of attackee
+///base damage is 10
 public class Stab : FollowUp
 {
-    //this ability is a "counter" to the zap ability
-    //if an attacker zaps another player within 1 meter of that player that player will
-    //automatically stab the attacker as a follow-up
-    //attacker must be within 1 tile of attackee
-    //base damage is 10
+    
     FloatValueSO damage;
     FloatValueSO range;
     void OnEnable()
@@ -27,7 +28,7 @@ public class Stab : FollowUp
 
         //this is where you bring your idea of what makes a follow-up trigger to life
         //in this case for simplicities sake im going to make it when a character uses zap and is within 2 unit
-        if (followUpAction.Ability != null && followUpAction.Attackee != null && followUpAction.Attacker != null)
+        if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.Ability)
         {
             if (followUpAction.Ability.ToString().Equals("Zap (Zap)") &&
                 followUpAction.Attackee == character &&
@@ -44,5 +45,6 @@ public class Stab : FollowUp
         abilityProcessor.Damage(followUpAction.Attacker, damage.GetFloatValue());
         Debug.Log("Stab Ability done on " + followUpAction.Attackee);
 
+        FollowUpFollowUp(followUpAction);
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/DefaultFollowUp")]
-///description
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FULifeCling")]
+///when witch is going to die uses life cling which heals her back to half health
 ///
 ///
 ///
 ///
-public class DefaultFollowUp : FollowUp
+public class FULifeCling : FollowUp
 {
     FloatValueSO damage;
     FloatValueSO range;
@@ -24,11 +24,11 @@ public class DefaultFollowUp : FollowUp
     {
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
 
-        /*if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.TYPE && followUpAction.Attackee == character)
-        {
-            if (condition)
-                return true;
-        }*/
+
+
+        //if (condition)
+            //return true;
+        //TODO implement
 
 
         return false;

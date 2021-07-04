@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/DefaultFollowUp")]
-///description
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FUBirdSlam")]
+///Birb picks up a knocked opponent (if an opponent is knocked) and flies 
+///them into the air then body slams them
 ///
 ///
 ///
 ///
-public class DefaultFollowUp : FollowUp
+public class FUBirdSlam : FollowUp
 {
     FloatValueSO damage;
     FloatValueSO range;
@@ -24,7 +25,8 @@ public class DefaultFollowUp : FollowUp
     {
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
 
-        /*if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.TYPE && followUpAction.Attackee == character)
+
+        /*if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.TYPE)
         {
             if (condition)
                 return true;

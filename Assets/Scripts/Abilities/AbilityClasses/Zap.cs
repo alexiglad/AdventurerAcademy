@@ -14,14 +14,15 @@ using UnityEngine;
 public class Zap : Ability
 {
     private FloatValueSO damage;
-
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
     // Start is called before the first frame update
     void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(5f);
-
-        //TODO find a better way to do this eventually
+        abilityType = AbilityTypeEnum.Ranged;
     }
 
 

@@ -23,8 +23,6 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     private List<Status> statuses = new List<Status>();
 
-    protected Rigidbody2D characterRigidBody;
-
     NavMeshAgent agent;
     
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }    
@@ -63,17 +61,14 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         Vector3 realPos = this.BoxCollider.bounds.center;
         realPos.y -= this.BoxCollider.bounds.size.y / 2;
-        /*Debug.Log("real pos y " + realPos.y);
-        Debug.Log("transform position " +this.transform.position.y);
-        Debug.Log("agent destination y " + agent.destination.y);
-        Debug.Log("distance is " + Vector3.Distance(realPos, agent.destination));*/
         if (Vector3.Distance(realPos, agent.destination) <= .2f)
         {
             animator.SetBool("walking", false);
         }
         else
         {
-            followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, this.transform.position));
+            followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
+            //a way to use this is if(Vector3.Angle(velocity vector, target character))
         }
     }
 
@@ -128,11 +123,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public string GetName()
     {
         return characterData.GetName();
-    }
-    public Rigidbody2D GetCharacterRigidBody()
-    {
-        return characterRigidBody;
-    }
+    } 
 
     public CharacterData GetCharacterData()
     {

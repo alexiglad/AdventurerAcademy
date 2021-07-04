@@ -9,10 +9,14 @@ using UnityEngine;
 public class FieryBite : Ability
 {
     private FloatValueSO damage;
+#pragma warning disable
+    private AbilityTypeEnum abilityType;
+#pragma warning restore
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(3f);
+        abilityType = AbilityTypeEnum.Melee;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

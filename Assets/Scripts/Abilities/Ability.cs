@@ -5,10 +5,10 @@ using UnityEngine;
 [Serializable]
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Ability")]
 public abstract class Ability : ScriptableObject
-{
+{  
     [SerializeField] protected AbilityProcessor abilityProcessor;
     [SerializeField] protected StatusProcessor statusProcessor;
-
+    readonly AbilityTypeEnum abilityType;
 
     public abstract void HandleAbility(Character attacker, Character attackee, Ability ability);
 
