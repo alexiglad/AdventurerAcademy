@@ -13,12 +13,13 @@ using UnityEngine;
 public class DefaultAbility : Ability
 {
     private FloatValueSO damage;
+    private new AbilityTypeEnum abilityType;
     // Start is called before the first frame update
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(5f);
-        
+        /*damage = (FloatValueSO)CreateInstance("FloatValueSO");
+        damage.SetFloatValue(DAMAGEf);
+        abilityType = AbilityTypeEnum.TYPE*/
     }
 
 

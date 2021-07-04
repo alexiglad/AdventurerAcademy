@@ -2525,6 +2525,10 @@ PrefabInstance:
       propertyPath: followUpProcessor
       value: 
       objectReference: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
+    - target: {fileID: 3740700848869578466, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7640261090172070347, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
       propertyPath: m_RootOrder
       value: 4

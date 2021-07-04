@@ -10,12 +10,15 @@ public class MoltenBite : Ability
 {
     private FloatValueSO damage;
     private FloatValueSO range;
+    private new AbilityTypeEnum abilityType;
+
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(4f);
         range = (FloatValueSO)CreateInstance("FloatValueSO");
         range.SetFloatValue(2f);
+        abilityType = AbilityTypeEnum.Melee;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

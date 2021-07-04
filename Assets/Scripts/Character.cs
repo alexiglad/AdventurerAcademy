@@ -67,13 +67,15 @@ public class Character : MonoBehaviour, IComparable<Character>
         Debug.Log("transform position " +this.transform.position.y);
         Debug.Log("agent destination y " + agent.destination.y);
         Debug.Log("distance is " + Vector3.Distance(realPos, agent.destination));*/
+        Debug.Log(GetComponent<Rigidbody>());
+        Debug.Log(GetComponent<Rigidbody>().velocity);
         if (Vector3.Distance(realPos, agent.destination) <= .2f)
         {
             animator.SetBool("walking", false);
         }
         else
         {
-            followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, this.transform.position));
+            followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<Rigidbody>().velocity));//TODO FIX THIS
         }
     }
 
@@ -132,7 +134,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public Rigidbody2D GetCharacterRigidBody()
     {
         return characterRigidBody;
-    }
+    }//TODO DELETE THIS??
 
     public CharacterData GetCharacterData()
     {

@@ -7,7 +7,6 @@ using UnityEngine.AI;
 
 public class MovementProcessor : ScriptableObject
 {
-    float moveSpeed;
     [SerializeField] FollowUpProcessor followUpProcessor;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
