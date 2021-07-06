@@ -7,7 +7,7 @@ using UnityEngine;
 ///automatically stab the attacker as a follow-up
 ///attacker must be within 1 tile of attackee
 ///base damage is 10
-public class Stab : FollowUp
+public class FUStab : FollowUp
 {
     
     FloatValueSO damage;
@@ -28,9 +28,9 @@ public class Stab : FollowUp
 
         //this is where you bring your idea of what makes a follow-up trigger to life
         //in this case for simplicities sake im going to make it when a character uses zap and is within 2 unit
-        if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.Ability)
+        if (followUpAction.FollowUpActionType == followUpType)
         {
-            if (followUpAction.Ability.ToString().Equals("Zap (Zap)") &&
+            if (followUpAction.Ability.ToString().Equals("Zap (AZap)") &&
                 followUpAction.Attackee == character &&
                 Vector3.Distance(character.transform.position, followUpAction.Attacker.transform.position) <= 2)
                 return true;
@@ -43,7 +43,6 @@ public class Stab : FollowUp
     {
         //this ability just hurts the 
         abilityProcessor.Damage(followUpAction.Attacker, damage.GetFloatValue());
-        Debug.Log("Stab Ability done on " + followUpAction.Attackee);
 
         FollowUpFollowUp(followUpAction);
     }

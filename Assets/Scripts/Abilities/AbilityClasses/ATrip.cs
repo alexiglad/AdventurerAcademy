@@ -6,19 +6,14 @@ using UnityEngine;
 /// fire damage (6) with a chance to knock-down enemy (50%)
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Trip")]
-public class Trip : Ability
+public class ATrip : Ability
 {
     private FloatValueSO damage;
-#pragma warning disable
-    private AbilityTypeEnum abilityType;
-#pragma warning restore
 
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(6f);
-        abilityType = AbilityTypeEnum.Melee;
-    }
+        damage.SetFloatValue(6f);    }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {

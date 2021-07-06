@@ -23,6 +23,8 @@ MonoBehaviour:
   damageRange: 1
   inUseAbilities:
   - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
-  followUps: []
+  followUps:
+  - {fileID: 11400000, guid: b13501bc39df94e47b4b4df6fbeb1b34, type: 2}
+  - {fileID: 11400000, guid: 8092cb7be42ccf04080181a196243a22, type: 2}
   isPlayer: 1
   portrait: {fileID: 21300000, guid: af710563a6d5aeb4c8045017bfa66e9a, type: 3}

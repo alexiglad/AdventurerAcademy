@@ -9,7 +9,7 @@ public class FollowUpAction
     FollowUp followUp;
     StatusTypeEnum statusEffect;
 
-    FollowUpActionTypeEnum followUpActionType;
+    FollowUpTypeEnum followUpActionType;
 
     Character attacker;
     Character attackee;
@@ -19,7 +19,7 @@ public class FollowUpAction
         this.attacker = attacker;
         this.attackee = attackee;
         this.ability = ability;
-        followUpActionType = FollowUpActionTypeEnum.Ability;
+        followUpActionType = FollowUpTypeEnum.Ability;
     }
 
     public FollowUpAction(Character attacker, Vector3 direction)
@@ -27,7 +27,7 @@ public class FollowUpAction
         this.attacker = attacker;
         this.direction = direction;
 
-        followUpActionType = FollowUpActionTypeEnum.Movement;
+        followUpActionType = FollowUpTypeEnum.Movement;
     }
 
     public FollowUpAction(Character attacker, Character attackee, FollowUp individualFollowUp)
@@ -36,7 +36,7 @@ public class FollowUpAction
         this.attackee = attackee;
         this.followUp = individualFollowUp;
 
-        followUpActionType = FollowUpActionTypeEnum.FollowUp;
+        followUpActionType = FollowUpTypeEnum.FollowUp;
     }
 
     public FollowUpAction(Character attacker, Character attackee, StatusTypeEnum statusEffect)
@@ -45,7 +45,13 @@ public class FollowUpAction
         this.attacker = attacker;
         this.attackee = attackee;
 
-        followUpActionType = FollowUpActionTypeEnum.Status;
+        followUpActionType = FollowUpTypeEnum.Status;
+    }
+    public FollowUpAction(Character attackee)
+    {
+        this.attackee = attackee;
+
+        followUpActionType = FollowUpTypeEnum.Death;
     }
 
     public Ability Ability { get => ability; set => ability = value; }
@@ -54,5 +60,5 @@ public class FollowUpAction
     public Character Attacker { get => attacker; set => attacker = value; }
     public Character Attackee { get => attackee; set => attackee = value; }
     public StatusTypeEnum StatusEffect { get => statusEffect; set => statusEffect = value; }
-    public FollowUpActionTypeEnum FollowUpActionType { get => followUpActionType; set => followUpActionType = value; }
+    public FollowUpTypeEnum FollowUpActionType { get => followUpActionType; set => followUpActionType = value; }
 }

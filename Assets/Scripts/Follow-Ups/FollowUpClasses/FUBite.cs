@@ -15,7 +15,7 @@ public class FUBite : FollowUp
     void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
+        damage.SetFloatValue(5f);
         range = (FloatValueSO)CreateInstance("FloatValueSO");
         range.SetFloatValue(1f);
     }
@@ -24,20 +24,18 @@ public class FUBite : FollowUp
     public override bool IsValid(FollowUpAction followUpAction, Character character)//the character passes is from the followUp list
     {
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
-
-
-        /*if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.TYPE)
+        if (followUpAction.FollowUpActionType == followUpType && character == followUpAction.Attackee)
         {
-            if (condition)
+            if (Vector3.Distance(followUpAction.Attacker.transform.position, character.transform.position)<=range.GetFloatValue())
                 return true;
-        }*/
+        }
 
 
         return false;
     }
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
-
+        abilityProcessor.Damage(followUpAction.Attacker, damage.GetFloatValue());
 
         FollowUpFollowUp(followUpAction);
     }

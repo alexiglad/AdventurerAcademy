@@ -14,18 +14,14 @@ using UnityEngine;
 /// 
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/TouchOfDeath")]
-public class TouchOfDeath : Ability
+public class ATouchOfDeath : Ability
 {
     private FloatValueSO damageDivider;
-#pragma warning disable
-    private AbilityTypeEnum abilityType;
-#pragma warning restore
     // Start is called before the first frame update
     void OnEnable()
     {
         damageDivider = (FloatValueSO)CreateInstance("FloatValueSO");
         damageDivider.SetFloatValue(3f);
-        abilityType = AbilityTypeEnum.Miscellaneous;
     }
 
 

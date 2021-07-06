@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum FollowUpActionTypeEnum
+public enum FollowUpTypeEnum
 {
     Movement,
     Ability,
     FollowUp,
-    Status
+    Status,
+    Death
 }

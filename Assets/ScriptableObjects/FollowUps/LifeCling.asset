@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ac2f5e9c310fb249be23f00bd53f482, type: 3}
-  m_Name: Stab
+  m_Script: {fileID: 11500000, guid: d8b0cfde14698fe4687a9e4c3964fb4b, type: 3}
+  m_Name: LifeCling
   m_EditorClassIdentifier: 
   abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
   statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
-  followUpType: 1
+  followUpType: 4

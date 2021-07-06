@@ -6,17 +6,13 @@ using UnityEngine;
 /// also inflicts a burn affect onto target with a turn range from 3-4
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/FieryBite")]
-public class FieryBite : Ability
+public class AFieryBite : Ability
 {
     private FloatValueSO damage;
-#pragma warning disable
-    private AbilityTypeEnum abilityType;
-#pragma warning restore
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(3f);
-        abilityType = AbilityTypeEnum.Melee;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

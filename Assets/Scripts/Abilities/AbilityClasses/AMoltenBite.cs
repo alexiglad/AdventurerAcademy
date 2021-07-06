@@ -6,20 +6,16 @@ using UnityEngine;
 /// character within a range of 5 (this is temporary lol)
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/MoltenBite")]
-public class MoltenBite : Ability
+public class AMoltenBite : Ability
 {
     private FloatValueSO damage;
     private FloatValueSO range;
-#pragma warning disable
-    private AbilityTypeEnum abilityType;
-#pragma warning restore
     private void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(4f);
         range = (FloatValueSO)CreateInstance("FloatValueSO");
         range.SetFloatValue(2f);
-        abilityType = AbilityTypeEnum.Melee;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
