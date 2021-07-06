@@ -28,13 +28,13 @@ public class PathRenderer : MonoBehaviour
         counter++;
         line.positionCount = 0;
         data = controls.GetRaycastHit();
-        
-        if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat && !tempRef.GetTargeting())
             if (data.HitBool && controls.VerifyTag(data, "Terrain"))
             {
                 line.startColor = Color.blue;
                 line.endColor = Color.blue;
-                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                
                 NavMeshPath path = new NavMeshPath();
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
