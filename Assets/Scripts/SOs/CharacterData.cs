@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "CharacterData", menuName = "ScriptableObjects/CharacterData")]
 public class CharacterData : ScriptableObject
@@ -23,6 +24,8 @@ public class CharacterData : ScriptableObject
     [SerializeField] List<FollowUp> followUps = new List<FollowUp>();
 
     [SerializeField] bool isPlayer;
+
+    [SerializeField] Sprite portrait;
 
 
     #region Getters and Setters
@@ -73,5 +76,6 @@ public class CharacterData : ScriptableObject
 
     public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
     public string Name { get => name; set => name = value; }
+    public Sprite Portrait { get => portrait; set => portrait = value; }
     #endregion
 }

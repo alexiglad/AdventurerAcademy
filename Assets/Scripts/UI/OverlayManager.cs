@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OverlayManager : MonoBehaviour
 {
     [SerializeField] GameStateManagerSO gameStateManager;
-    List<Character> overlayCharacters;
-    List<ResourceBarUI> bars = new List<ResourceBarUI>();
+    [SerializeField] List<Character> overlayCharacters;
+    [SerializeField] List<ResourceBarUI> bars = new List<ResourceBarUI>();
+    [SerializeField] List<Image> portraits = new List<Image>();
 
     void Start()
     {        
@@ -17,6 +19,12 @@ public class OverlayManager : MonoBehaviour
     void Update()
     {
         UpdateOverlay();
+    }
+
+    void OnDisable()
+    {
+        overlayCharacters.Clear();
+        portraits.Clear();
     }
 
     public void UpdateOverlay()
@@ -29,14 +37,41 @@ public class OverlayManager : MonoBehaviour
                 break;
         }//Can add more cases if we want to use the overlay in other managers besides combat
 
-        if (bars.Count <= 0)
-            bars = transform.GetComponentsInChildren<ResourceBarUI>().ToList();
+        List<Image> temp = GetComponentsInChildren<Image>(true).ToList();
+        if (portraits.Count <= 0)
+        {
+            for(int i = 0; i < temp.Count; i++)
+            {
+                if(temp[i].gameObject.name.Contains("CharacterPortrait"))
+                {
+                    portraits.Add(temp[i]);
+                }
+            }
+        }
 
+        for (int i = 0; i < portraits.Count && i < overlayCharacters.Count; i++)
+        {
+            portraits[i].sprite = overlayCharacters[i].GetCharacterData().Portrait;          
+        }
+        
+        for (int i = 0; i < portraits.Count; i++)
+        {
+            if (portraits[i].gameObject.name.Contains("CharacterPortrait"))
+            {
+                portraits[i].gameObject.transform.parent.gameObject.SetActive(true);
+            }
+        }
+
+        bars = GetComponentsInChildren<ResourceBarUI>(true).ToList();
         float index = 0;
         foreach (ResourceBarUI bar in bars)
         {
-            bar.SetCharacter(overlayCharacters[(int)index]);
-            index += 0.5f;
+            //Every Seccond bar            
+            if (bar.transform.parent.parent.gameObject.activeSelf)
+            {
+                bar.SetCharacter(overlayCharacters[(int)index]);
+                index += 0.5f;
+            }            
         }
     }
 }

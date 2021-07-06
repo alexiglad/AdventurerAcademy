@@ -15,7 +15,7 @@ public class Character : MonoBehaviour, IComparable<Character>
 
 
     [SerializeField] protected float health;
-    private float energy;
+    [SerializeField] protected float energy;
 
     Animator animator;
 
@@ -167,5 +167,4 @@ public class Character : MonoBehaviour, IComparable<Character>
         else
             return base.GetHashCode().CompareTo(character.GetHashCode());
     }
-
 }

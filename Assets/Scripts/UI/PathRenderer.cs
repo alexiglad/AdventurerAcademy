@@ -41,8 +41,8 @@ public class PathRenderer : MonoBehaviour
                     DisplayActivePath(tempRef.Character);
                 else if (tempRef.HasMovement)
                 {
-                    //DisplayPath(path, tempRef.Character, tempRef);
-                    DisplayPathTwo(tempRef.Character, data.Hit.point, tempRef);
+                    DisplayPath(path, tempRef.Character, tempRef);
+                    //DisplayPathTwo(tempRef.Character, data.Hit.point, tempRef);
                 }
             }
     }
@@ -100,7 +100,11 @@ public class PathRenderer : MonoBehaviour
         NavMeshPath path = new NavMeshPath();
         line.positionCount = path.corners.Length;
 
-        
+        if (path.corners.Length < 2)
+        {
+            return;
+        }
+
         if (character.Agent.CalculatePath(adjustedDestination, path) && path.status == NavMeshPathStatus.PathComplete)
         {
             line.positionCount = path.corners.Length;
