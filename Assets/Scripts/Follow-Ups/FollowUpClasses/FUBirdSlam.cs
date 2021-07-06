@@ -15,7 +15,7 @@ public class FUBirdSlam : FollowUp
     void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
+        damage.SetFloatValue(15f);
         range = (FloatValueSO)CreateInstance("FloatValueSO");
         range.SetFloatValue(1f);
     }
@@ -26,18 +26,18 @@ public class FUBirdSlam : FollowUp
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
 
 
-        /*if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.TYPE)
+        if (followUpAction.FollowUpActionType == followUpType)
         {
-            if (condition)
+            if (followUpAction.StatusEffect == StatusTypeEnum.Knocked && character.DifferentSides(followUpAction.Attackee))
                 return true;
-        }*/
+        }
 
 
         return false;
     }
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
-
+        abilityProcessor.Damage(followUpAction.Attackee, damage.GetFloatValue());
 
         FollowUpFollowUp(followUpAction);
     }

@@ -16,6 +16,7 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     [SerializeField] protected float health;
     private float energy;
+    private bool revived;
 
     Animator animator;
 
@@ -30,6 +31,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public NavMeshAgent Agent { get => agent; set => agent = value; }
     public Animator Animator { get => animator; set => animator = value; }
     public BoxCollider BoxCollider { get => boxCollider; set => boxCollider = value; }
+    public bool Revived { get => revived; set => revived = value; }
 
     #endregion
 
@@ -51,6 +53,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         //Resets Character's Health,and Energy to maximum on runtime
         health = characterData.GetMaxHealth();
         energy = characterData.GetMaxEnergy();
+        revived = false;
         agent = transform.GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
@@ -79,8 +82,25 @@ public class Character : MonoBehaviour, IComparable<Character>
         Debug.Log(this + " died!");
         if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.RemoveCharacter(this);
+            bool revive = false;
+            foreach(FollowUp followUp in this.characterData.GetFollowUps())
+            {
+                if(followUp.FollowUpType == FollowUpTypeEnum.Death && !this.Revived)
+                {
+                    revive = true;
+                    this.Revived = true;
+                }
+            }
+            if (revive) 
+            {
+                followUpProcessor.HandleFollowUpAction(new FollowUpAction(this));
+            }
+            else
+            {
+                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                tempRef.RemoveCharacter(this);
+            }
+                
         }
         else
         {
@@ -94,6 +114,10 @@ public class Character : MonoBehaviour, IComparable<Character>
     #region Getters and Setters
     public bool IsPlayer() {
         return characterData.IsPlayer();
+    }
+    public bool DifferentSides(Character character)
+    {
+        return this.IsPlayer() ^ character.IsPlayer();
     }
     public float GetHealth() {
         return health;

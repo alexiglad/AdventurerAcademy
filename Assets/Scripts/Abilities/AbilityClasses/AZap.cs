@@ -11,18 +11,14 @@ using UnityEngine;
 /// Zap is available to Wizard type characters
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Zap")]
-public class Zap : Ability
+public class AZap : Ability
 {
     private FloatValueSO damage;
-#pragma warning disable
-    private AbilityTypeEnum abilityType;
-#pragma warning restore
     // Start is called before the first frame update
     void OnEnable()
     {
         damage = (FloatValueSO)CreateInstance("FloatValueSO");
         damage.SetFloatValue(5f);
-        abilityType = AbilityTypeEnum.Ranged;
     }
 
 

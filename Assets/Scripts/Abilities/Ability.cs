@@ -8,7 +8,7 @@ public abstract class Ability : ScriptableObject
 {  
     [SerializeField] protected AbilityProcessor abilityProcessor;
     [SerializeField] protected StatusProcessor statusProcessor;
-    readonly AbilityTypeEnum abilityType;
+    [SerializeField] protected AbilityTypeEnum abilityType;
 
     public abstract void HandleAbility(Character attacker, Character attackee, Ability ability);
 

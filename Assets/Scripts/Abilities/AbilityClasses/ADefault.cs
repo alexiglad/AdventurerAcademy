@@ -10,17 +10,13 @@ using UnityEngine;
 /// 
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/DefaultAbility")]
-public class DefaultAbility : Ability
+public class ADefault : Ability
 {
     private FloatValueSO damage;
-#pragma warning disable
-    private AbilityTypeEnum abilityType;
-#pragma warning restore    
     void OnEnable()
     {
         /*damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(DAMAGEf);
-        abilityType = AbilityTypeEnum.TYPE*/
+        damage.SetFloatValue(DAMAGEf);*/
     }
 
 

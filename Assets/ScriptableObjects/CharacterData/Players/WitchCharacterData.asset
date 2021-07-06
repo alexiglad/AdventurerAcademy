@@ -21,11 +21,11 @@ MonoBehaviour:
   damage: 1
   damageMultiplier: 1
   damageRange: 1
-  yOffset: 0.5320834
   inUseAbilities:
   - {fileID: 11400000, guid: f34d8d01c190d9745b2059a7057c9986, type: 2}
   - {fileID: 11400000, guid: 63ee7c142aeeb1c469b767799c31ed93, type: 2}
   - {fileID: 11400000, guid: 2c2cf49c2804ccd43a877b81e358b91a, type: 2}
   - {fileID: 11400000, guid: f30d141a7a7dde84d84d2c2f28393dab, type: 2}
-  followUps: []
+  followUps:
+  - {fileID: 11400000, guid: abf3589bd34c930429445faa6f9040a1, type: 2}
   isPlayer: 1

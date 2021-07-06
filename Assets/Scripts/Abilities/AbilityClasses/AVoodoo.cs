@@ -9,15 +9,11 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Voodoo")]
 
-public class Voodoo : Ability
+public class AVoodoo : Ability
 {
-#pragma warning disable
-    private AbilityTypeEnum abilityType;
-#pragma warning restore
     private Character target;
     private void OnEnable()
     {
-        abilityType = AbilityTypeEnum.Miscellaneous;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

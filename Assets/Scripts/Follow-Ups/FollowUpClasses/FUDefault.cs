@@ -7,7 +7,7 @@ using UnityEngine;
 ///
 ///
 ///
-public class DefaultFollowUp : FollowUp
+public class FUDefault : FollowUp
 {
     FloatValueSO damage;
     FloatValueSO range;
@@ -24,9 +24,9 @@ public class DefaultFollowUp : FollowUp
     {
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
 
-        /*if (followUpAction.FollowUpActionType == FollowUpActionTypeEnum.TYPE && followUpAction.Attackee == character)
+        /*if (followUpAction.FollowUpActionType == followUpType)
         {
-            if (condition)
+            if (condition)/* && followUpAction.Attackee == character
                 return true;
         }*/
 
