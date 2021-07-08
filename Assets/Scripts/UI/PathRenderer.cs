@@ -64,6 +64,7 @@ public class PathRenderer : MonoBehaviour
         
         Vector3 bottom = character.BoxCollider.bounds.center;
         bottom.y -= character.BoxCollider.bounds.size.y / 2;
+        //bottom.y -= character.BoxCollider.bounds.size.y+100;
         line.SetPosition(0, bottom);
 
         if (agent.path.corners.Length < 2)
@@ -87,17 +88,22 @@ public class PathRenderer : MonoBehaviour
             }
         }*/
         line.positionCount = path.corners.Length;
-        
-        if(line.positionCount != 0)
+
+        Vector3 bottom = character.BoxCollider.bounds.center;
+        bottom.y -= character.BoxCollider.bounds.size.y / 2;
+        //bottom.y -= character.BoxCollider.bounds.size.y+100;
+
+        if (line.positionCount != 0)
         {
-            line.SetPosition(0, character.BoxCollider.bounds.center);
+            line.SetPosition(0, bottom);
         }            
 
         if (path.corners.Length < 2)
         {
             return;
         }
-            
+
+
 
         for (int i = 1; i < path.corners.Length; i++)
         {
@@ -115,7 +121,8 @@ public class PathRenderer : MonoBehaviour
     public void DisplayPathTwo(Character character, Vector3 destination, CombatManager tempRef)
     {
         Vector3 characterBottom = character.BoxCollider.bounds.center;
-        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        //characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        characterBottom.y -= character.BoxCollider.bounds.size.y;
         NavMeshPath path = new NavMeshPath();
         line.positionCount = path.corners.Length;
 

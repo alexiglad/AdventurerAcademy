@@ -119,7 +119,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: dac3971c79c59a449a9e4123da4d209c, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  followUpProcessor: {fileID: 0}
   health: 0
+  energy: 0
   knownAbilities: []
 --- !u!95 &3474157735592367741
 Animator:
@@ -167,8 +169,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4952441, y: 0.16579479, z: 0.2}
-  m_Center: {x: 0.05959037, y: -0.5433041, z: 0}
+  m_Size: {x: 0.58195496, y: 1.2424417, z: 0.2}
+  m_Center: {x: 0.016235352, y: -0.0049806833, z: 0}
 --- !u!195 &93057738442255784
 NavMeshAgent:
   m_ObjectHideFlags: 0

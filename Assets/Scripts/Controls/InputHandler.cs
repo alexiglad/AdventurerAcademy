@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.Composites;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/InputHandler")]
 public class InputHandler : ScriptableObject
@@ -85,8 +86,15 @@ public class InputHandler : ScriptableObject
 
     void SendLocation(RaycastData ray, CombatManager tempref)
     {
-        if (ray.HitBool && VerifyTag(ray, "Terrain"))                  
-            tempref.CombatMovementTwo(ray.Hit.point);                      
+        NavMeshHit hit;
+        if (ray.HitBool && VerifyTag(ray, "Terrain") && NavMesh.SamplePosition(ray.Hit.point, out hit, 100, -1))
+        {
+            tempref.CombatMovementTwo(hit.position);
+        }
+        else
+        {
+            tempref.CombatMovementTwo(ray.Hit.point);
+        }                                      
     }
 
     void SendTarget(RaycastData ray, CombatManager tempref)

@@ -54,7 +54,7 @@ public class OverlayManager : MonoBehaviour
             portraits[i].sprite = overlayCharacters[i].GetCharacterData().Portrait;          
         }
         
-        for (int i = 0; i < portraits.Count; i++)
+        for (int i = 0; i < overlayCharacters.Count; i++)
         {
             if (portraits[i].gameObject.name.Contains("CharacterPortrait"))
             {

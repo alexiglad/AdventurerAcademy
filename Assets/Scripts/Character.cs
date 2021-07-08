@@ -100,8 +100,7 @@ public class Character : MonoBehaviour, IComparable<Character>
             {
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.RemoveCharacter(this);
-            }
-                
+            }                
         }
         else
         {

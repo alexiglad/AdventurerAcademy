@@ -20,7 +20,7 @@ public class CharacterData : ScriptableObject
     [SerializeField] float damageMultiplier;
     [SerializeField] float damageRange;
 
-    [SerializeField] List<Ability> inUseAbilities = new List<Ability>();//size 5
+    [SerializeField] protected List<Ability> inUseAbilities = new List<Ability>();//size 5
     [SerializeField] List<FollowUp> followUps = new List<FollowUp>();
 
     [SerializeField] bool isPlayer;
