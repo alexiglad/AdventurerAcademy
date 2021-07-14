@@ -98,7 +98,6 @@ public class InputHandler : ScriptableObject
             tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
         {
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
-                (ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()) &&
                 movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
             {
                 if(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())
@@ -117,7 +116,6 @@ public class InputHandler : ScriptableObject
         else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
         {
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
-                (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())) &&
                 movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
             {
                 if (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()))
@@ -136,15 +134,33 @@ public class InputHandler : ScriptableObject
             tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
         {
             //create method to create character at set position
-            SendTargetTwo(GetRaycastHit(), tempRef);
-            return;
+            if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
+                movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
+            {
+                if (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()))
+                {
+                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
+                }
+                else
+                {
+                    Debug.Log("Selected incorrectly verify target");//TODO implement this UI check
+                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
+                }
+                return;
+            }
+            else if(ray.HitBool && VerifyTag(ray, "Terrain"))
+            {
+                Character temp1;
+                GameObject temp2 = new GameObject("Character");
+                temp2.transform.position = ray.Hit.point;
+                temp1 = temp2.AddComponent<Character>();
+                tempRef.CombatTarget(temp1);//TODO CHECK IF THIS WORKS
+                Debug.Log("this may cause errors");
+                return;
+            }
         }
         //returns in every other case where it worked
-        Debug.Log("something went wrong");
+        Debug.Log("something went wrong or user selected incorrectly");
         //display to user that they are selecting incorrectly   
-    }
-    void SendTargetTwo(RaycastData ray, CombatManager tempref)
-    {
-        //TODO implement make character at raycast position
     }
 }

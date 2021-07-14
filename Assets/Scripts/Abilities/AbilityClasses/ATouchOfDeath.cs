@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Touch Of Death is an ability that sacrifices the user but does more damage
+/// Touch Of Death is an ability that does more damage
 /// the lower the user's health is, as the user inflicts all their remaining might into the
 /// attack
 /// 
@@ -32,6 +32,6 @@ public class ATouchOfDeath : Ability
         float maxDamage = attackee.GetMaxHealth()/damageDivider.GetFloatValue();//max damage is 1/3 of health
         float damagePercent = 1 - attacker.GetPercentHealth();
         abilityProcessor.Damage(attackee, maxDamage * damagePercent);
-        attacker.DecrementHealth(attacker.GetMaxHealth());//kill user
+        //attacker.DecrementHealth(attacker.GetMaxHealth());//kill user
     }
 }

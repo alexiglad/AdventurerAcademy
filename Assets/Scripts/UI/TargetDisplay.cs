@@ -46,7 +46,7 @@ public class TargetDisplay : MonoBehaviour
                     DisplayPointsWithinRange(tempRef);
                 }
             }
-            else if(data.HitBool && tempRef.GetTargeting())//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
+            else if(data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character"))//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
                 HoverTarget(tempRef);
             }
@@ -57,11 +57,9 @@ public class TargetDisplay : MonoBehaviour
     {
         foreach (Character charactere in tempRef.Characters)
         {
-            if ((charactere.IsPlayer() ^ tempRef.Character.IsPlayer()) &&
-                movementProcessor.WithinRange(tempRef, charactere))
+            if (movementProcessor.WithinRange(tempRef, charactere))
             {//character is valid to display
                 //charactere.GetComponent<>
-
             }
             else
             {//character is invalid to display
@@ -73,8 +71,7 @@ public class TargetDisplay : MonoBehaviour
     {
         foreach (Character charactere in tempRef.Characters)
         {
-            if (!(charactere.IsPlayer() ^ tempRef.Character.IsPlayer()) &&
-                movementProcessor.WithinRange(tempRef, charactere))
+            if (movementProcessor.WithinRange(tempRef, charactere))
             {//character is valid to display
 
             }
@@ -86,7 +83,7 @@ public class TargetDisplay : MonoBehaviour
     }
     public void DisplayPointsWithinRange(CombatManager tempRef)
     {
-        //display circle around user's character
+        //display pulsating ring that locks onto characters
 
     }
 

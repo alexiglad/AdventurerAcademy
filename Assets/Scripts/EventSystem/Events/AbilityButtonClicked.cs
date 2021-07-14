@@ -28,8 +28,13 @@ public class AbilityButtonClicked : MonoBehaviour
 
 
     }
+    public void StopDisplaying()
+    {
+        abilityButtons[0].transform.parent.gameObject.SetActive(false);
+    }
     public void UpdateAbilities(Character character)
     {
+        abilityButtons[0].transform.parent.gameObject.SetActive(true);
         for (int i = 0; i<abilityButtons.Length; i++)
         {
             abilityButtons[i].SetActive(false); 
@@ -43,6 +48,10 @@ public class AbilityButtonClicked : MonoBehaviour
             {
                 abilityButtons[i].SetActive(true);
             }
+        }
+        else
+        {
+            StopDisplaying();
         }
     }
     void UpdateButtonUI()

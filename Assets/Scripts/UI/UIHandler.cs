@@ -23,6 +23,12 @@ public class UIHandler : ScriptableObject
         onAbilityButtonClicked.UpdateAbilities(character);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
+    public void StopDisplayingCombat()
+    {
+        StopDisplayingAbilities();
+        StopDisplayingEndTurn();
+    }
+
 
 
 
@@ -35,6 +41,14 @@ public class UIHandler : ScriptableObject
     public void DisplayStatus()
     {
 
+    }
+    public void StopDisplayingEndTurn()
+    {
+        onFinishTurnButtonClicked.StopDisplay();
+    }
+    public void StopDisplayingAbilities()
+    {
+        onAbilityButtonClicked.StopDisplaying();
     }
 
 }
