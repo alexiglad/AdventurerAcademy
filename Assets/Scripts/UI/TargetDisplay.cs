@@ -46,7 +46,7 @@ public class TargetDisplay : MonoBehaviour
                     DisplayPointsWithinRange(tempRef);
                 }
             }
-            else if(data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character"))//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
+            else if(data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
                 HoverTarget(tempRef);
             }
@@ -90,7 +90,7 @@ public class TargetDisplay : MonoBehaviour
     public void HoverTarget(CombatManager tempRef)
     {
         //pulsate selected target quickly
-
+        
     }
     
 }
