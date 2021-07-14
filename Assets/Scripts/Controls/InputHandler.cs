@@ -60,44 +60,7 @@ public class InputHandler : ScriptableObject
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempRef.GetTargeting() == true)
             {
-                RaycastData ray = GetRaycastHit();
-                if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
-                    tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
-                {
-                    if(ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
-                        (ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()) &&
-                        movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
-                    {
-                        SendTarget(GetRaycastHit(), tempRef);
-                        return;
-                    }
-                    else
-                    {
-                        Debug.Log("Debug thing " + ray.Hit.transform.GetComponent<Character>() != null);
-                    }
-                }
-                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
-                {
-                    if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
-                        (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())) &&
-                        movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
-                    {
-                        
-                        SendTarget(GetRaycastHit(), tempRef);
-                        return;
-                    }
-                }
-                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Miscellaneous ||
-                    tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
-                {
-                    //create method to create character at set position
-                    SendTargetTwo(GetRaycastHit(), tempRef);
-                    return;
-                }
-                //returns in every other case where it worked
-                Debug.Log("something went wrong");
-                //display to user that they are selecting incorrectly
-
+                SendTarget(GetRaycastHit(), tempRef);
             }
             else
             {
@@ -129,12 +92,59 @@ public class InputHandler : ScriptableObject
         }
     }
 
-    void SendTarget(RaycastData ray, CombatManager tempref)
+    void SendTarget(RaycastData ray, CombatManager tempRef)
     {
-        tempref.CombatTarget(ray.Hit.transform.GetComponent<Character>());     
+        if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
+            tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
+        {
+            if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
+                (ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()) &&
+                movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
+            {
+                if(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())
+                {
+                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
+                }
+                else
+                {
+                    Debug.Log("Selected incorrectly verify target");//TODO implement this UI check
+                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
+                }
+                return;
+            }
+
+        }
+        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
+        {
+            if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
+                (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())) &&
+                movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
+            {
+                if (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()))
+                {
+                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
+                }
+                else
+                {
+                    Debug.Log("Selected incorrectly verify target");//TODO implement this UI check
+                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
+                }
+                return;
+            }
+        }
+        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Miscellaneous ||
+            tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
+        {
+            //create method to create character at set position
+            SendTargetTwo(GetRaycastHit(), tempRef);
+            return;
+        }
+        //returns in every other case where it worked
+        Debug.Log("something went wrong");
+        //display to user that they are selecting incorrectly   
     }
     void SendTargetTwo(RaycastData ray, CombatManager tempref)
     {
-        //TODO implement
+        //TODO implement make character at raycast position
     }
 }
