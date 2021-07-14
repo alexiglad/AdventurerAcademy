@@ -512,7 +512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &224356730
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -583,7 +583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224356729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.28, y: -4.64, z: -4.62}
+  m_LocalPosition: {x: 62.29, y: 1.13, z: -4.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -646,6 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
   startWidth: 0.02
   endWidth: 0.05
 --- !u!120 &344027034
@@ -945,7 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 967259f5ef6dc724e8c928dec85d1019, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 967259f5ef6dc724e8c928dec85d1019, type: 3}
       propertyPath: m_TagString
@@ -1015,6 +1016,10 @@ PrefabInstance:
       propertyPath: currentValue
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1839741198964814505, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1872274231488310998, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_UseGravity
       value: 1
@@ -1045,15 +1050,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 68.048004
+      value: 68.6
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1364,7 +1369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 890816a2530c88c4a82277b499c0f767, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: 890816a2530c88c4a82277b499c0f767, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1817,7 +1822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1029542892
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1850,7 +1855,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1888,7 +1893,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029542891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 66.35, y: -5.01, z: 0}
+  m_LocalPosition: {x: 66.35, y: 0, z: 0}
   m_LocalScale: {x: 30.05, y: 1, z: 26.3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2504,6 +2509,10 @@ PrefabInstance:
       propertyPath: currentValue
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1839741198964814505, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1872274231488310998, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_UseGravity
       value: 1
@@ -2913,6 +2922,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1839741198964814505, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_Name
       value: Lava Wolf One

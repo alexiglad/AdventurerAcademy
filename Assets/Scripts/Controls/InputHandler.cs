@@ -54,32 +54,33 @@ public class InputHandler : ScriptableObject
 
     void OnSelect()
     {
-        Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>();
-        Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempRef.GetTargeting() == true)
             {
-                
-                RaycastData rayy = GetRaycastHit();
+                RaycastData ray = GetRaycastHit();
                 if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
                     tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
                 {
-                    if(rayy.HitBool && VerifyTag(rayy, "Character") && rayy.Hit.transform.GetComponent<Character>() != null &&
-                        (rayy.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()) &&
-                        movementProcessor.WithinRange(tempRef, rayy.Hit.transform.GetComponent<Character>()))
+                    if(ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
+                        (ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()) &&
+                        movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
                     {
                         SendTarget(GetRaycastHit(), tempRef);
                         return;
                     }
+                    else
+                    {
+                        Debug.Log("Debug thing " + ray.Hit.transform.GetComponent<Character>() != null);
+                    }
                 }
                 else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
                 {
-                    if (rayy.HitBool && VerifyTag(rayy, "Character") && rayy.Hit.transform.GetComponent<Character>() != null &&
-                        (!(rayy.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())) &&
-                        movementProcessor.WithinRange(tempRef, rayy.Hit.transform.GetComponent<Character>()))
+                    if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
+                        (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())) &&
+                        movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
                     {
                         
                         SendTarget(GetRaycastHit(), tempRef);

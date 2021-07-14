@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Input Handler
   m_EditorClassIdentifier: 
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
