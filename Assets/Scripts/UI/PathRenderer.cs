@@ -7,6 +7,7 @@ public class PathRenderer : MonoBehaviour
 {
     [SerializeField] InputHandler controls;
     [SerializeField] GameStateManagerSO gameStateManager;
+    [SerializeField] MovementProcessor movementProcessor;
     [SerializeField] float startWidth;
     [SerializeField] float endWidth;
 
@@ -28,13 +29,15 @@ public class PathRenderer : MonoBehaviour
         counter++;
         line.positionCount = 0;
         data = controls.GetRaycastHit();
-        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat && !tempRef.GetTargeting())
-            if (data.HitBool && controls.VerifyTag(data, "Terrain"))
+        
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            if (!tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain"))
             {
                 line.startColor = Color.blue;
                 line.endColor = Color.blue;
-                
+
                 NavMeshPath path = new NavMeshPath();
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
@@ -47,8 +50,60 @@ public class PathRenderer : MonoBehaviour
                     //DisplayPathTwo(tempRef.Character, data.Hit.point, tempRef);
                 }
             }
-    }
+            else if (data.HitBool && tempRef.GetTargeting())//user is targeting and is on terrain 
+            {
+                if(tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
+                    tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
+                {//display enemy characters within range
+                    DisplayEnemiesWithinRange(tempRef);
+                }
+                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
+                {//display teammates within range
+                    DisplayTeammatesWithinRange(tempRef);
+                }
+                else
+                {//dont display people display selected point for misc/splash
+                    DisplayPointsWithinRange(tempRef);
+                }
+            }
+            else//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
+            {
 
+            }
+        }
+            
+    }
+    public void DisplayEnemiesWithinRange(CombatManager tempRef)
+    {
+        foreach(Character charactere in tempRef.Characters)
+        {
+            if((charactere.IsPlayer() ^ tempRef.Character.IsPlayer()) &&
+                movementProcessor.WithinRange(tempRef, charactere))
+            {//character is valid to display
+                //charactere.GetComponent<>
+
+            }
+            else
+            {//character is invalid to display
+
+            }
+        }
+    }
+    public void DisplayTeammatesWithinRange(CombatManager tempRef)
+    {
+        foreach (Character charactere in tempRef.Characters)
+        {
+            if (!(charactere.IsPlayer() ^ tempRef.Character.IsPlayer()) &&
+                movementProcessor.WithinRange(tempRef, charactere))
+            {//character is valid to display
+
+            }
+        }
+    }
+    public void DisplayPointsWithinRange(CombatManager tempRef)
+    {
+        //display circle around user's character
+    }
     public void DisplayActivePath(Character character)
     {
         /*if(counter%10 == 0) 

@@ -17,6 +17,7 @@ public class InputHandler : ScriptableObject
     float zoom;
 
     [SerializeField] GameStateManagerSO gameStateManager;
+    [SerializeField] MovementProcessor movementProcessor;
 
     public Camera ActiveCamera { get => activeCamera;}
     public Vector2 Pan { get => pan;}
@@ -57,14 +58,49 @@ public class InputHandler : ScriptableObject
         Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
-            CombatManager tempref = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempref.GetTargeting() == true)
+            
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            if (tempRef.GetTargeting() == true)
             {
-                SendTarget(GetRaycastHit(), tempref);
+                
+                RaycastData rayy = GetRaycastHit();
+                if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
+                    tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
+                {
+                    if(rayy.HitBool && VerifyTag(rayy, "Character") && rayy.Hit.transform.GetComponent<Character>() != null &&
+                        (rayy.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()) &&
+                        movementProcessor.WithinRange(tempRef, rayy.Hit.transform.GetComponent<Character>()))
+                    {
+                        SendTarget(GetRaycastHit(), tempRef);
+                        return;
+                    }
+                }
+                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
+                {
+                    if (rayy.HitBool && VerifyTag(rayy, "Character") && rayy.Hit.transform.GetComponent<Character>() != null &&
+                        (!(rayy.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer())) &&
+                        movementProcessor.WithinRange(tempRef, rayy.Hit.transform.GetComponent<Character>()))
+                    {
+                        
+                        SendTarget(GetRaycastHit(), tempRef);
+                        return;
+                    }
+                }
+                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Miscellaneous ||
+                    tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
+                {
+                    //create method to create character at set position
+                    SendTargetTwo(GetRaycastHit(), tempRef);
+                    return;
+                }
+                //returns in every other case where it worked
+                Debug.Log("something went wrong");
+                //display to user that they are selecting incorrectly
+
             }
             else
             {
-                SendLocation(GetRaycastHit(), tempref);
+                SendLocation(GetRaycastHit(), tempRef);
             }
         }
     }    
@@ -86,20 +122,18 @@ public class InputHandler : ScriptableObject
 
     void SendLocation(RaycastData ray, CombatManager tempref)
     {
-        NavMeshHit hit;
-        if (ray.HitBool && VerifyTag(ray, "Terrain") && NavMesh.SamplePosition(ray.Hit.point, out hit, 100, -1))
-        {
-            tempref.CombatMovementTwo(hit.position);
-        }
-        else
+        if (ray.HitBool && VerifyTag(ray, "Terrain"))
         {
             tempref.CombatMovementTwo(ray.Hit.point);
-        }                                      
+        }
     }
 
     void SendTarget(RaycastData ray, CombatManager tempref)
     {
-        if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null)
-            tempref.CombatTarget(ray.Hit.transform.GetComponent<Character>());     
+        tempref.CombatTarget(ray.Hit.transform.GetComponent<Character>());     
+    }
+    void SendTargetTwo(RaycastData ray, CombatManager tempref)
+    {
+        //TODO implement
     }
 }

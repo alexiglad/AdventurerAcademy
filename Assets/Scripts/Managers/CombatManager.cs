@@ -142,6 +142,7 @@ public class CombatManager : GameStateManager
         if(turn.GetAbility() != null && turn.GetTarget() != null)//ability turn
         {
             abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());
+            targeting = false;
         }
     }
 

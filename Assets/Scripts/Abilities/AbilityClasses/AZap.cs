@@ -13,12 +13,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Zap")]
 public class AZap : Ability
 {
-    private FloatValueSO damage;
-    // Start is called before the first frame update
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(5f);
+        damage = 5;
+        range = 5;
     }
 
 
@@ -31,7 +29,7 @@ public class AZap : Ability
         //handle all ability stuff here, including the amount of damage to deal
         //also handle elemental stuff as well as status stuff
 
-        abilityProcessor.Damage(attackee, damage.GetFloatValue());
+        base.abilityProcessor.Damage(attackee, damage);
 
 
     }

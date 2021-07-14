@@ -13,25 +13,23 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/MagicalHeal")]
 public class AMagicalHeal : Ability
 {
-    private FloatValueSO damage;
-    private FloatValueSO regen;
+    private float regen;
     // Start is called before the first frame update
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(5f);
-        regen = (FloatValueSO)CreateInstance("FloatValueSO");
-        regen.SetFloatValue(2f);
+        damage = 5;
+        range = 8;
+        regen = 2;
     }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessor.Heal(attackee, damage.GetFloatValue());
+        abilityProcessor.Heal(attackee, damage);
 
         if (Random.value >= 0.5)//give target regen
         {
-            Status status = new Status(regen.GetFloatValue(), StatusTypeEnum.Regen, 3);
+            Status status = new Status(regen, StatusTypeEnum.Regen, 3);
             statusProcessor.CreateStatus(attacker, attackee, status);
         }
     }

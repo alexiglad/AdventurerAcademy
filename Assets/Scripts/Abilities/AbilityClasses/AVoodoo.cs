@@ -14,6 +14,8 @@ public class AVoodoo : Ability
     private Character target;
     private void OnEnable()
     {
+        damage = 0;
+        range = 0;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

@@ -22,6 +22,8 @@ public class ATouchOfDeath : Ability
     {
         damageDivider = (FloatValueSO)CreateInstance("FloatValueSO");
         damageDivider.SetFloatValue(3f);
+        damage = 0;//TODO FIX THIS
+        range = 20;
     }
 
 

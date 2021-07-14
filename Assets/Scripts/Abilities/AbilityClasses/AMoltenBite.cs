@@ -8,19 +8,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/MoltenBite")]
 public class AMoltenBite : Ability
 {
-    private FloatValueSO damage;
-    private FloatValueSO range;
+
     private void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(4f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(2f);
+        damage = 4;
+        range = 2;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessor.SplashDamage(attackee, damage.GetFloatValue(), range.GetFloatValue());
+        abilityProcessor.SplashDamage(attackee, damage, range);
 
     }
 }

@@ -37,5 +37,9 @@ public class MovementProcessor : ScriptableObject
         }
         return charactersInRange;
     }
+    public bool WithinRange(CombatManager tempref, Character character2)
+    {
+        return Vector3.Distance(tempref.Character.transform.position, character2.transform.position) <= tempref.Turn.GetAbility().Range ;
+    }
 
 }

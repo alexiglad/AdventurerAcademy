@@ -12,11 +12,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/DefaultAbility")]
 public class ADefault : Ability
 {
-    private FloatValueSO damage;
     void OnEnable()
     {
-        /*damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(DAMAGEf);*/
+        damage = 0;
+        range = 0;
     }
 
 

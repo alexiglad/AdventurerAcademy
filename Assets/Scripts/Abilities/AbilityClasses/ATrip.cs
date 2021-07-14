@@ -8,16 +8,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Trip")]
 public class ATrip : Ability
 {
-    private FloatValueSO damage;
-
-    private void OnEnable()
+    void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(6f);    }
+        damage = 6;
+        range = 3;
+
+    }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessor.Damage(attackee, damage.GetFloatValue());
+        abilityProcessor.Damage(attackee, damage);
         if (Random.value > 0.5)
         {
             Status status = new Status(StatusTypeEnum.Knocked, 1);
