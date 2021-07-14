@@ -139,8 +139,7 @@ public class CombatManager : GameStateManager
         if(turn.AmountMoved <= character.GetMaxMovement() && hasMovement)
         {
             turn.SetMovement(movement + turn.GetMovement());
-            turn.AmountMoved += Vector3.Distance(character.transform.position, movement);
-            Debug.Log("amount moved " + turn.AmountMoved);
+            turn.AmountMoved += movement.magnitude;
             float error = .1f;
             if (GetRemainingMovement() <= error)
             {
@@ -215,7 +214,7 @@ public class CombatManager : GameStateManager
 
     bool TurnFinished()
     {
-        if (turn.AmountMoved >= character.GetMaxMovement() && turn.GetAbility() != null && turn.GetTarget() != null)
+        if (!hasMovement && attacked)
         {
             return true;
         }
@@ -420,8 +419,8 @@ public class CombatManager : GameStateManager
             if (Vector3.Distance(adjustedDestination, characterBottom) <= GetRemainingMovement())
             {
                 //If the destination is valid, move to destination
-                UpdateMovement(adjustedDestination);
-                UpdateIteration(new Turn(adjustedDestination), false);
+                UpdateMovement(adjustedDestination - characterBottom);
+                UpdateIteration(new Turn(adjustedDestination - characterBottom), false);
             }
             else
             {
@@ -432,8 +431,8 @@ public class CombatManager : GameStateManager
                 NavMeshPath newPath = new NavMeshPath();
                 if(character.Agent.CalculatePath(newDestination, newPath) && newPath.status ==  NavMeshPathStatus.PathComplete)
                 {
-                    UpdateMovement(adjustedDestination);
-                    UpdateIteration(new Turn(newDestination), false);
+                    UpdateMovement(newDestination - characterBottom);
+                    UpdateIteration(new Turn(newDestination - characterBottom), false);
                 }
             }
         }

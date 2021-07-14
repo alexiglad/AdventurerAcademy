@@ -24,7 +24,7 @@ MonoBehaviour:
   inUseAbilities:
   - {fileID: 11400000, guid: 9ee27dcc46f368e4386d25147e247d87, type: 2}
   - {fileID: 11400000, guid: 0d1c022c6d2bd50429b279242d51cab3, type: 2}
-  - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
   followUps:
   - {fileID: 11400000, guid: 401d49fa51190e24ca79051682fab6a7, type: 2}
   isPlayer: 0
+  portrait: {fileID: 0}

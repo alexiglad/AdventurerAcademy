@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 public class BasicAI
 {
-    [SerializeField] protected GameStateManagerSO gameStateManager;
+    protected GameStateManagerSO gameStateManager;
+    protected MovementProcessor movementProcessor;
+
     public BasicAI()
     {
         GameStateManagerSO[]  temp = Resources.FindObjectsOfTypeAll<GameStateManagerSO>();
+        MovementProcessor[] temp1 = Resources.FindObjectsOfTypeAll<MovementProcessor>();
+
         gameStateManager = temp[0];
+        movementProcessor = temp1[0];
     }
     public Turn DetermineTurn(Character character)
     {
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
 
-        int num1 = Random.Range(0, character.GetCharacterData().GetInUseAbilities().Count);
-        Ability ability = character.GetCharacterData().GetInUseAbilities()[num1];
-
+        //selecting character
         List<Character> players = new List<Character>();
         foreach (Character characterE in tempRef.Characters)
         {
@@ -25,8 +28,28 @@ public class BasicAI
         int num2 = Random.Range(0, players.Count);
         Character target = players[num2];
 
-        Turn turn = new Turn(ability, target);//ability need target code now
-        return (turn);//no movement as of right now :/
+        //selecting ability
+        List<Ability> abilities = new List<Ability>();
+        foreach(Ability ability in character.GetCharacterData().GetInUseAbilities())
+        {
+            if(movementProcessor.WithinRange(character, target, ability)){
+                abilities.Add(ability);
+            }
+        }
+        if (abilities.Count != 0)
+        {
+            int num1 = Random.Range(0, abilities.Count);
+            Ability abilitySelected = character.GetCharacterData().GetInUseAbilities()[num1];
+            Turn turn = new Turn(abilitySelected, target);
+            return turn;
+        }
+        else
+        {
+            Vector3 direction = target.transform.position - character.transform.position; 
+            Turn turn = new Turn(direction.normalized/* + character.transform.position*/);//move 1 tile towards selected character
+            return turn;
+        }
+
         
     }
 
