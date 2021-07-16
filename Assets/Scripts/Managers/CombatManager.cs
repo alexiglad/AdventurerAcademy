@@ -21,6 +21,7 @@ public class CombatManager : GameStateManager
     bool targeting;
     bool attacked;
     bool hasMovement;
+    bool doubleMovement;
 
 
     [SerializeField] AbilityProcessor abilityProcessorInstance;
@@ -49,6 +50,7 @@ public class CombatManager : GameStateManager
         targeting = false;
         attacked = false;
         hasMovement = true;
+        doubleMovement = false;
 
         ImportListeners();
         uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
@@ -308,6 +310,7 @@ public class CombatManager : GameStateManager
             targeting = false;
             attacked = false;
             hasMovement = true;
+            doubleMovement = false;
             if (!characterType)
             {//only do this if is an enemy
                 UpdateIteration(DetermineEnemyTurn(character), true);
@@ -359,6 +362,15 @@ public class CombatManager : GameStateManager
             UpdateIteration(turnUpdate, false) ;
         }
     }
+    public void CombatAbilityDeselect()
+    {
+        if (UpdateAbility(null))
+        {
+            AbilityEventArgs e = new AbilityEventArgs(null);
+            Turn turnUpdate = new Turn(e.NewAbility);
+            UpdateIteration(turnUpdate, false);
+        }
+    }
     public void CombatTarget(Character target)
     {
         if (UpdateTarget(target))
@@ -366,6 +378,10 @@ public class CombatManager : GameStateManager
             Turn turnUpdate = new Turn(target);
             UpdateIteration(turnUpdate, false);
         }
+    }
+    public void CombatDoubleMove(bool value)
+    {
+        doubleMovement = true;
     }
     public void CombatMovement(Vector3 destination)
     {

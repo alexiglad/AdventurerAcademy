@@ -9,9 +9,9 @@ public class TurnOrderScroll : MonoBehaviour
     {
         
     }
-    public void UpdateTurnOrder()
+    public void UpdateTurnOrder(List<Character> turnOrder)
     {
-
+        //TODO
     }
     public void StopDisplayingTurnOrder()
     {

@@ -161,6 +161,14 @@
                     "expectedControlType": "Axis",
                     "processors": "Normalize(min=-1,max=1)",
                     "interactions": ""
+                },
+                {
+                    "name": "Deselect",
+                    "type": "Button",
+                    "id": "b8336885-e669-4a74-8787-9f0e6fbd61fa",
+                    "expectedControlType": "Button",
+                    "processors": "Normalize(min=-1,max=1)",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -304,6 +312,17 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0853cf55-50e4-4966-b7c2-4855d031a20d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Deselect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

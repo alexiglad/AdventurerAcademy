@@ -174,6 +174,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": ""Normalize(min=-1,max=1)"",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Deselect"",
+                    ""type"": ""Button"",
+                    ""id"": ""b8336885-e669-4a74-8787-9f0e6fbd61fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -317,6 +325,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0853cf55-50e4-4966-b7c2-4855d031a20d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Deselect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -524,6 +543,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Combat_MousePosition = m_Combat.FindAction("MousePosition", throwIfNotFound: true);
         m_Combat_Pan = m_Combat.FindAction("Pan", throwIfNotFound: true);
         m_Combat_Zoom = m_Combat.FindAction("Zoom", throwIfNotFound: true);
+        m_Combat_Deselect = m_Combat.FindAction("Deselect", throwIfNotFound: true);
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_Navigate = m_Dialogue.FindAction("Navigate", throwIfNotFound: true);
@@ -636,6 +656,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Combat_MousePosition;
     private readonly InputAction m_Combat_Pan;
     private readonly InputAction m_Combat_Zoom;
+    private readonly InputAction m_Combat_Deselect;
     public struct CombatActions
     {
         private @Controls m_Wrapper;
@@ -646,6 +667,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Combat_MousePosition;
         public InputAction @Pan => m_Wrapper.m_Combat_Pan;
         public InputAction @Zoom => m_Wrapper.m_Combat_Zoom;
+        public InputAction @Deselect => m_Wrapper.m_Combat_Deselect;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -673,6 +695,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Zoom.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
+                @Deselect.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
+                @Deselect.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
+                @Deselect.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
             }
             m_Wrapper.m_CombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -695,6 +720,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
+                @Deselect.started += instance.OnDeselect;
+                @Deselect.performed += instance.OnDeselect;
+                @Deselect.canceled += instance.OnDeselect;
             }
         }
     }
@@ -804,6 +832,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnPan(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnDeselect(InputAction.CallbackContext context);
     }
     public interface IDialogueActions
     {

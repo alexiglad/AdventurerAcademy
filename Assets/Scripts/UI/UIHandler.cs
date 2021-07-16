@@ -47,7 +47,7 @@ public class UIHandler : ScriptableObject
     }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
-        //TODO implement
+        turnOrderScroll.UpdateTurnOrder(turnOrder);
     }
     public void StopDisplayingEndTurn()
     {

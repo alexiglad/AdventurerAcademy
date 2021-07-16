@@ -27,6 +27,7 @@ public class InputHandler : ScriptableObject
     {
         controls = new Controls();
         controls.Combat.Select.performed += _ => OnSelect();
+        controls.Combat.Deselect.performed += _ => OnDeselect();
         defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         activeCamera = defaultCamera;
     }
@@ -66,7 +67,15 @@ public class InputHandler : ScriptableObject
                 SendLocation(GetRaycastHit(), tempRef);
             }
         }
-    }    
+    } 
+    public void OnDeselect()
+    {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.CombatAbilityDeselect();
+        }
+    }
 
     public RaycastData GetRaycastHit()
     {
