@@ -45,6 +45,10 @@ public class UIHandler : ScriptableObject
     {
 
     }
+    public void UnselectAbilities()
+    {
+        onAbilityButtonClicked.UnselectAbilities();
+    }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
         turnOrderScroll.UpdateTurnOrder(turnOrder);

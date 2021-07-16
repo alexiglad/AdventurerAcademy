@@ -370,6 +370,7 @@ public class CombatManager : GameStateManager
             Turn turnUpdate = new Turn(e.NewAbility);
             UpdateIteration(turnUpdate, false);
         }
+        uiHandler.UnselectAbilities();
     }
     public void CombatTarget(Character target)
     {

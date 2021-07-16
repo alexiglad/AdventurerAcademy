@@ -26,18 +26,14 @@ public class AbilityImageDrawer : MonoBehaviour
             {
                 abilityImage = child.GetComponent<Image>();
                 abilityTransform = child.GetComponent<RectTransform>();
-                Debug.Log("abilityImage: " + abilityImage.gameObject.name);
-                Debug.Log("abilityTransform: " + abilityTransform.gameObject.name);
             }
             if(child.gameObject.name.Equals("AbilityImage"))
             {
                 abilityCanvas = child.GetComponent<CanvasGroup>();
-                Debug.Log("abilityCanvas: " + abilityCanvas.gameObject.name);
             }
             if (child.gameObject.name.Equals("Background"))
             {
                 backgroundCanvas = child.GetComponent<CanvasGroup>();
-                Debug.Log("backgroundCanvas: " + backgroundCanvas.gameObject.name);
             }
         }
     }

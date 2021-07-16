@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class AbilityButtonClicked : MonoBehaviour
 {
@@ -37,13 +37,12 @@ public class AbilityButtonClicked : MonoBehaviour
         abilityButtons[0].transform.parent.gameObject.SetActive(true);
         for (int i = 0; i<abilityButtons.Length; i++)
         {
-            abilityButtons[i].SetActive(false); 
+            abilityButtons[i].SetActive(false);
         }
         
         if (character.IsPlayer())
         {
             abilityButtonAbilities = character.GetCharacterData().GetInUseAbilities();
-            UpdateButtonUI();
             for (int i = 0; i < abilityButtonAbilities.Count; i++)
             {
                 abilityButtons[i].SetActive(true);
@@ -54,17 +53,29 @@ public class AbilityButtonClicked : MonoBehaviour
             StopDisplaying();
         }
     }
-    void UpdateButtonUI()
-    {//uses abilityButtonAbilities to correctly update button UI (I.e. text/images of buttons)
-        //TODO
+    
+    public void UnselectAbilities()
+    {
+        for (int i = 0; i < abilityButtons.Length; i++)
+        {
+            abilityButtons[i].GetComponent<Image>().color = Color.white;
+        }
     }
-
 
     public void OnAblityButtonPressed(int pos)
     {
+        for(int i = 0; i<abilityButtons.Length; i++)
+        {
+            if(i == pos)
+            {
+                abilityButtons[i].GetComponent<Image>().color = Color.green;
+            }
+            else
+            {
+                abilityButtons[i].GetComponent<Image>().color = Color.white;
+            }
+        }
         OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos]));
-        //temporarily debug ability clicked
-        Debug.Log("Ability " + abilityButtonAbilities[pos] + " invoked");
     }
 
 }

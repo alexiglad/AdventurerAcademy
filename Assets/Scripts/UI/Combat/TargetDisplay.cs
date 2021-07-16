@@ -50,6 +50,11 @@ public class TargetDisplay : MonoBehaviour
             {
                 HoverTarget(tempRef);
             }
+            else
+            {
+                //display nothing
+                ResetTargeting(tempRef);
+            }
         }
 
     }
@@ -59,7 +64,7 @@ public class TargetDisplay : MonoBehaviour
         {
             if (movementProcessor.WithinRange(tempRef, charactere))
             {//character is valid to display
-                charactere.GetComponent<SpriteRenderer>().color = Color.yellow;
+                charactere.GetComponent<SpriteRenderer>().color = Color.green;
             }
             else
             {//character is invalid to display
@@ -69,14 +74,21 @@ public class TargetDisplay : MonoBehaviour
     }
     public void DisplayPointsWithinRange(CombatManager tempRef)
     {
-        //display pulsating ring that locks onto characters
-
+        //display pulsating ring around mouse position that locks onto characters, color changes based on validity
+        //TODO when have shaders
     }
 
     public void HoverTarget(CombatManager tempRef)
     {
         //pulsate selected target quickly
-        
+        //TODO when have shaders
+    }
+    public void ResetTargeting(CombatManager tempRef)
+    {
+        foreach (Character charactere in tempRef.Characters)
+        {
+            charactere.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
     
 }
