@@ -179,14 +179,17 @@ public class CombatManager : GameStateManager
 
     public void UpdateCharacters(Turn turnChange)
     {
+        Ability currentAbility = turn.GetAbility();
+        Vector3 currentMovement = turn.GetMovement();
         //call ability or move method if necessary
-        if (turnChange.GetMovement() != Vector3.zero)//move turn
+        if (currentMovement != Vector3.zero)//move turn
         {
-            movementProcesssor.HandleMovement(character, turnChange.GetMovement());
+            movementProcesssor.HandleMovement(character, currentMovement);
         }
-        if(turn.GetAbility() != null && turn.GetTarget() != null)//ability turn
+        if(currentAbility != null && currentAbility != null)//ability turn
         {
-            abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());
+            uiHandler.DisplayAbility(currentAbility);
+            abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), currentAbility);
             targeting = false;
             attacked = true;
             uiHandler.StopDisplayingAbilities();

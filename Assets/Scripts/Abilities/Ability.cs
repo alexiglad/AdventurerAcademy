@@ -14,13 +14,24 @@ public class Ability : ScriptableObject
     [SerializeField] protected float range;
 
 
-    [SerializeField] private AbilityTypeEnum abilityType;
-    [SerializeField] private Sprite icon;
+    [SerializeField] AbilityTypeEnum abilityType;
 
-    public Sprite Icon { get => icon; set => icon = value; }
+    //UI
+    [SerializeField] Sprite icon;
+    [SerializeField] Sprite image;
+    [SerializeField] AbilityImageTweenEnum direction;
+    [SerializeField] float dimWidth;
+    [SerializeField] float dimHeight;
+    //UI
+
+    public Sprite Icon { get => icon;}
     public AbilityTypeEnum AbilityType { get => abilityType; set => abilityType = value; }
     public float Damage { get => damage; set => damage = value; }
     public float Range { get => range; set => range = value; }
+    public Sprite Image { get => image;}
+    public AbilityImageTweenEnum Direction { get => direction; }
+    public float DimWidth { get => dimWidth;}
+    public float DimHeight { get => dimHeight;}
 
     private void Awake()
     {

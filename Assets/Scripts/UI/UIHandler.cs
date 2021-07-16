@@ -8,6 +8,7 @@ public class UIHandler : ScriptableObject
 {    
     AbilityButtonClicked onAbilityButtonClicked;
     FinishTurnButtonClicked onFinishTurnButtonClicked;
+    AbilityImageDrawer abilityImageDrawer;
 
     LineRenderer validPathRenderer;
     LineRenderer invalidPathRenderer;
@@ -17,6 +18,7 @@ public class UIHandler : ScriptableObject
         onAbilityButtonClicked.ManualAwake();
         onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
         onFinishTurnButtonClicked.ManualAwake();
+        abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
     }
     public void UpdateCombatTurnUI(Character character)
     {
@@ -34,9 +36,12 @@ public class UIHandler : ScriptableObject
 
 
     //TODO automatically turn off and on UI based off the manager being switched
-    public void DisplayAbility()
+    public void DisplayAbility(Ability ability)
     {
-
+        abilityImageDrawer.SetSprite(ability.Image);
+        abilityImageDrawer.SetDirection(ability.Direction);
+        abilityImageDrawer.SetDimensions(ability.DimWidth, ability.DimHeight);
+        abilityImageDrawer.PlayAnimation();
     }
     public void DisplayStatus()
     {
