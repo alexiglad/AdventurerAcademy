@@ -35,11 +35,11 @@ public class TargetDisplay : MonoBehaviour
                 if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
                     tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
                 {//display enemy characters within range
-                    DisplayEnemiesWithinRange(tempRef);
+                    DisplayWithinRange(tempRef);
                 }
                 else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
                 {//display teammates within range
-                    DisplayTeammatesWithinRange(tempRef);
+                    DisplayWithinRange(tempRef);
                 }
                 else
                 {//dont display people display selected point for misc/splash
@@ -53,31 +53,17 @@ public class TargetDisplay : MonoBehaviour
         }
 
     }
-    public void DisplayEnemiesWithinRange(CombatManager tempRef)
+    public void DisplayWithinRange(CombatManager tempRef)
     {
         foreach (Character charactere in tempRef.Characters)
         {
             if (movementProcessor.WithinRange(tempRef, charactere))
             {//character is valid to display
-                //charactere.GetComponent<>
+                charactere.GetComponent<SpriteRenderer>().color = Color.yellow;
             }
             else
             {//character is invalid to display
-
-            }
-        }
-    }
-    public void DisplayTeammatesWithinRange(CombatManager tempRef)
-    {
-        foreach (Character charactere in tempRef.Characters)
-        {
-            if (movementProcessor.WithinRange(tempRef, charactere))
-            {//character is valid to display
-
-            }
-            else
-            {//character is invalid to display
-
+                charactere.GetComponent<SpriteRenderer>().color = Color.black;
             }
         }
     }
