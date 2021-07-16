@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OverlayManager : MonoBehaviour
+public class PortraitManager : MonoBehaviour
 {
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] List<Character> overlayCharacters;

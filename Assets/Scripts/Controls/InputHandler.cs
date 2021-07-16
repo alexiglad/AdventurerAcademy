@@ -70,7 +70,7 @@ public class InputHandler : ScriptableObject
 
     public RaycastData GetRaycastHit()
     {
-        Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>();
+        Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>(); 
         Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         RaycastHit hit;
         return new RaycastData(Physics.Raycast(ray, out hit, Mathf.Infinity), hit);

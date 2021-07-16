@@ -9,9 +9,7 @@ public class UIHandler : ScriptableObject
     AbilityButtonClicked onAbilityButtonClicked;
     FinishTurnButtonClicked onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
-
-    LineRenderer validPathRenderer;
-    LineRenderer invalidPathRenderer;
+    TurnOrderScroll turnOrderScroll;
     private void OnEnable()
     {
         onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//get these for all buttons/UI
@@ -19,7 +17,11 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
+        turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
+
     }
+
+    #region combatUI
     public void UpdateCombatTurnUI(Character character)
     {
         onAbilityButtonClicked.UpdateAbilities(character);
@@ -29,13 +31,9 @@ public class UIHandler : ScriptableObject
     {
         StopDisplayingAbilities();
         StopDisplayingEndTurn();
+        StopDisplayingTurnOrder();
     }
 
-
-
-
-
-    //TODO automatically turn off and on UI based off the manager being switched
     public void DisplayAbility(Ability ability)
     {
         abilityImageDrawer.SetSprite(ability.Image);
@@ -59,5 +57,9 @@ public class UIHandler : ScriptableObject
     {
         onAbilityButtonClicked.StopDisplaying();
     }
-
+    public void StopDisplayingTurnOrder()
+    {
+        turnOrderScroll.StopDisplayingTurnOrder();
+    }
+    #endregion
 }
