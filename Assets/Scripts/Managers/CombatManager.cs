@@ -11,6 +11,7 @@ public class CombatManager : GameStateManager
     private SortedSet<Character> characters = new SortedSet<Character>();
     private SortedSet<Character> userCharacters = new SortedSet<Character>();
     private SortedSet<Character> enemyCharacters = new SortedSet<Character>();
+    private List<Character> turnOrder = new List<Character>();
 
 
     private IEnumerator<Character> enumerator;
@@ -35,6 +36,7 @@ public class CombatManager : GameStateManager
     public Turn Turn { get => turn; set => turn = value; }
     public SortedSet<Character> UserCharacters { get => userCharacters; set => userCharacters = value; }
     public bool HasMovement { get => hasMovement; set => hasMovement = value; }
+    public List<Character> TurnOrder { get => turnOrder; set => turnOrder = value; }
 
 
     #endregion
@@ -69,6 +71,11 @@ public class CombatManager : GameStateManager
             }
         }
         Debug.Log(character.name + " 's Turn!");
+
+        foreach(Character characterE in characters)
+        {
+            turnOrder.Add(characterE);
+        }
     }
 
     public void UpdateIteration(Turn turnChange, bool enemy)
@@ -186,7 +193,7 @@ public class CombatManager : GameStateManager
         {
             movementProcesssor.HandleMovement(character, currentMovement);
         }
-        if(currentAbility != null && currentAbility != null)//ability turn
+        if(currentAbility != null && currentAbility != null && !attacked)//ability turn
         {
             uiHandler.DisplayAbility(currentAbility);
             abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), currentAbility);
@@ -233,6 +240,8 @@ public class CombatManager : GameStateManager
 
     public void RemoveCharacter(Character character)
     {
+        turnOrder.Remove(character);
+        uiHandler.UpdateTurnOrder(turnOrder);
         Character tempCharacter = enumerator.Current;
         if(character == tempCharacter)//i.e. current character is dying get next character
         {
@@ -273,6 +282,10 @@ public class CombatManager : GameStateManager
 
     public void IterateCharacters()
     {
+        turnOrder.Remove(character);
+        turnOrder.Add(character);
+        uiHandler.UpdateTurnOrder(turnOrder);
+        Debug.Log(turnOrder);
         if (MoreThanOneSideIsAlive())
         {
             turn = new Turn();
@@ -282,7 +295,7 @@ public class CombatManager : GameStateManager
                 characterType = GetCharacterType();
             }
             else
-            {//TODO check if this works
+            {
                 enumerator.Reset();
                 enumerator.MoveNext();
                 character = enumerator.Current;

@@ -47,6 +47,10 @@ public class UIHandler : ScriptableObject
     {
 
     }
+    public void UpdateTurnOrder(List<Character> turnOrder)
+    {
+        //TODO implement
+    }
     public void StopDisplayingEndTurn()
     {
         onFinishTurnButtonClicked.StopDisplay();
