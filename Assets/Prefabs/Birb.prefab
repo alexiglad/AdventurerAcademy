@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3740700848869578466}
   - component: {fileID: 4991537348746447685}
   - component: {fileID: 93057738442255784}
-  - component: {fileID: 7799189504745952330}
   - component: {fileID: 3474157735186255623}
   m_Layer: 3
   m_Name: Birb
@@ -122,6 +121,7 @@ MonoBehaviour:
   followUpProcessor: {fileID: 0}
   health: 0
   energy: 0
+  inanimate: 0
   knownAbilities: []
 --- !u!95 &3474157735592367741
 Animator:
@@ -193,19 +193,6 @@ NavMeshAgent:
   m_BaseOffset: 0.57
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7799189504745952330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7640261090172070349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1410642a97988384cb6bb14774229011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
 --- !u!114 &3474157735186255623
 MonoBehaviour:
   m_ObjectHideFlags: 0
