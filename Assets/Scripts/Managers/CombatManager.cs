@@ -200,11 +200,9 @@ public class CombatManager : GameStateManager
         if(currentAbility != null && currentAbility != null && !attacked)//ability turn
         {
             uiHandler.DisplayAbility(currentAbility);
-            if (turn.GetTarget().name == "voodoo")
+            if (turn.GetTarget().Inanimate)
             {
-                Debug.Log("enemy attacked voodoo");
-                RemoveCharacter(turn.GetTarget());
-                abilityProcessorInstance.HandleAbility(character, turn.GetTarget().VoodooTarget, currentAbility);//TODO MAKE GET TARGET OF VOODOO
+                HandleInanimateTarget(turnChange);
             }
             else
             {
@@ -213,6 +211,15 @@ public class CombatManager : GameStateManager
             targeting = false;
             attacked = true;
             uiHandler.StopDisplayingAbilities();
+        }
+    }
+    public void HandleInanimateTarget(Turn turnChange)
+    {
+        if (turn.GetTarget().name == "voodoo")
+        {
+            Debug.Log("Voodoo ability used from " + character  + " onto " + turn.GetTarget().VoodooTarget);
+            RemoveCharacter(turn.GetTarget());
+            abilityProcessorInstance.HandleAbility(character, turn.GetTarget().VoodooTarget, turn.GetAbility());//TODO MAKE GET TARGET OF VOODOO
         }
     }
 
@@ -343,7 +350,7 @@ public class CombatManager : GameStateManager
             hasMovement = true;
             doubleMovement = false;
             character.GetComponent<SpriteRenderer>().color = Color.blue;//TODO implement shaders
-            if(character.name == "voodoo")
+            if(character.Inanimate)
             {
                 IterateCharacters();//verify this works
             }

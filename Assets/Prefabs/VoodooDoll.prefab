@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6970702080184995233}
   - component: {fileID: -7400613964587833111}
   - component: {fileID: -8808179081154686961}
+  - component: {fileID: -4853913250380915931}
   m_Layer: 3
   m_Name: VoodooDoll
   m_TagString: Character
@@ -94,9 +95,9 @@ BoxCollider:
   m_GameObject: {fileID: 4163493473619836582}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Size: {x: 0, y: 0, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &-7400613964587833111
 NavMeshAgent:
@@ -105,7 +106,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4163493473619836582}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.3203125
   m_Speed: 3.5
@@ -139,3 +140,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4853913250380915931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4163493473619836582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7930216a9b4714cb5fbbb96d9b07b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: 299beeb7bfc79e744a74133618be7a70, type: 2}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
+  health: 0
+  energy: 0
+  inanimate: 1

@@ -17,6 +17,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] protected float health;
     [SerializeField] protected float energy;    
     private bool revived;
+    [SerializeField] private bool inanimate;
     private Character voodooTarget;
     
 
@@ -35,6 +36,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public BoxCollider BoxCollider { get => boxCollider; set => boxCollider = value; }
     public bool Revived { get => revived; set => revived = value; }
     public Character VoodooTarget { get => voodooTarget; set => voodooTarget = value; }
+    public bool Inanimate { get => inanimate; set => inanimate = value; }
 
     #endregion
 
@@ -44,7 +46,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     private void OnEnable()
     {
-        if(this.name != "VoodooDoll(Clone)")//TODO make this not sketch
+        if(!inanimate)//TODO make this not sketch
         {
             FindObjectOfType<GameController>().AddCharacter(this);
             enemyAI = new BasicAI();
@@ -69,16 +71,19 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     void LateUpdate()
     {
-        Vector3 realPos = this.BoxCollider.bounds.center;
-        realPos.y -= this.BoxCollider.bounds.size.y / 2;
-        if (Vector3.Distance(realPos, agent.destination) <= .2f)
+        if (!inanimate)
         {
-            animator.SetBool("walking", false);
-        }
-        else
-        {
-            followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
-            //a way to use this is if(Vector3.Angle(velocity vector, target character))
+            Vector3 realPos = this.BoxCollider.bounds.center;
+            realPos.y -= this.BoxCollider.bounds.size.y / 2;
+            if (Vector3.Distance(realPos, agent.destination) <= .2f)
+            {
+                animator.SetBool("walking", false);
+            }
+            else
+            {
+                followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
+                //a way to use this is if(Vector3.Angle(velocity vector, target character))
+            }
         }
     }
 

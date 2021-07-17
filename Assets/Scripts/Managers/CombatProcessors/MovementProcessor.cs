@@ -24,7 +24,7 @@ public class MovementProcessor : ScriptableObject
             character.Animator.SetBool("walking", true);
         }
         
-        Debug.Log(character + " traveled " + movement + " tiles with magnitude " + movement.magnitude + " at " + Vector3.Angle(new Vector3(1, 0, 0), movement) + " degrees");
+        //Debug.Log(character + " traveled " + movement + " tiles with magnitude " + movement.magnitude + " at " + Vector3.Angle(new Vector3(1, 0, 0), movement) + " degrees");
         //TODO add followUpProcessor during navmesh path traversal!!!
     }
     public List<Character> GetCharactersInRange(Vector3 position, float range)

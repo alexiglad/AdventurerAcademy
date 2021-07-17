@@ -34,6 +34,7 @@ public class AbilityButtonClicked : MonoBehaviour
     }
     public void UpdateAbilities(Character character)
     {
+        UnselectAbilities();
         abilityButtons[0].transform.parent.gameObject.SetActive(true);
         for (int i = 0; i<abilityButtons.Length; i++)
         {
