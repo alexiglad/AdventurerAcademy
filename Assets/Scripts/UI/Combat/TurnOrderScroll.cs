@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TurnOrderScroll : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -11,7 +12,7 @@ public class TurnOrderScroll : MonoBehaviour
     }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
-        //TODO
+        
     }
     public void StopDisplayingTurnOrder()
     {
