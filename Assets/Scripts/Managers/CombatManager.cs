@@ -288,7 +288,7 @@ public class CombatManager : GameStateManager
                 tempCharacter = characters.Min;
             }
         }
-        character.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        character.gameObject.SetActive(false);
         characters.Remove(character);
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();//FIX THIS HAVE TO ITERATE!!
