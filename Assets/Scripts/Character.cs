@@ -17,6 +17,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] protected float health;
     [SerializeField] protected float energy;    
     private bool revived;
+    private Character voodooTarget;
     
 
     Animator animator;
@@ -33,6 +34,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public Animator Animator { get => animator; set => animator = value; }
     public BoxCollider BoxCollider { get => boxCollider; set => boxCollider = value; }
     public bool Revived { get => revived; set => revived = value; }
+    public Character VoodooTarget { get => voodooTarget; set => voodooTarget = value; }
 
     #endregion
 
@@ -42,8 +44,12 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     private void OnEnable()
     {
-        FindObjectOfType<GameController>().AddCharacter(this);
-        enemyAI = new BasicAI();
+        if(this.name != "VoodooDoll(Clone)")//TODO make this not sketch
+        {
+            FindObjectOfType<GameController>().AddCharacter(this);
+            enemyAI = new BasicAI();
+        }
+
     }
     private void OnDisable()
     {
@@ -84,7 +90,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             bool revive = false;
-            foreach(FollowUp followUp in this.characterData.GetFollowUps())
+            foreach(FollowUp followUp in this.characterData.GetFollowUps())//TODO make this more efficient
             {
                 if(followUp.FollowUpType == FollowUpTypeEnum.Death && !this.Revived)
                 {
@@ -153,6 +159,10 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return characterData;
     }
+    public void SetCharacterData(CharacterData characterData)
+    {
+        this.characterData = characterData;
+    }
 
     public virtual void SetHealth(float value)
     {
@@ -164,7 +174,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public bool DecrementHealth(float value)
     {
-        Debug.Log("Decremented " + this + " health by: " + value);
+        //Debug.Log("Decremented " + this + " health by: " + value);
         health -= value;
         if (this.health <= 0)
         {

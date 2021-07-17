@@ -47,6 +47,8 @@ public class CombatManager : GameStateManager
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
         character = enumerator.Current;
+        character.GetComponent<SpriteRenderer>().color = Color.blue;
+        //TODO add shader for character
         targeting = false;
         attacked = false;
         hasMovement = true;
@@ -198,7 +200,16 @@ public class CombatManager : GameStateManager
         if(currentAbility != null && currentAbility != null && !attacked)//ability turn
         {
             uiHandler.DisplayAbility(currentAbility);
-            abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), currentAbility);
+            if (turn.GetTarget().name == "voodoo")
+            {
+                Debug.Log("enemy attacked voodoo");
+                RemoveCharacter(turn.GetTarget());
+                abilityProcessorInstance.HandleAbility(character, turn.GetTarget().VoodooTarget, currentAbility);//TODO MAKE GET TARGET OF VOODOO
+            }
+            else
+            {
+                abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), currentAbility);
+            }
             targeting = false;
             attacked = true;
             uiHandler.StopDisplayingAbilities();
@@ -239,7 +250,21 @@ public class CombatManager : GameStateManager
             return false;
         }
     }
-
+    public void ResetEnumerator()
+    {
+        enumerator = characters.GetEnumerator();
+        enumerator.MoveNext();
+        while(enumerator.Current != character)
+        {
+            if (!enumerator.MoveNext())//failsafe code
+            {
+                enumerator.Reset();
+                enumerator.MoveNext();
+                Debug.Log("ERROR REMOVING CHARACTER");
+                break;
+            }
+        }
+    }
     public void RemoveCharacter(Character character)
     {
         turnOrder.Remove(character);
@@ -256,9 +281,10 @@ public class CombatManager : GameStateManager
                 tempCharacter = characters.Min;
             }
         }
+        character.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         characters.Remove(character);
         enumerator = characters.GetEnumerator();
-        enumerator.MoveNext();
+        enumerator.MoveNext();//FIX THIS HAVE TO ITERATE!!
         while (enumerator.Current != tempCharacter)//exit when tempCharacter pos is found
         {
             if (!enumerator.MoveNext())//failsafe code
@@ -284,12 +310,17 @@ public class CombatManager : GameStateManager
 
     public void IterateCharacters()
     {
-        turnOrder.Remove(character);
-        turnOrder.Add(character);
-        uiHandler.UpdateTurnOrder(turnOrder);
-        Debug.Log(turnOrder);
+        
+        if (turnOrder.Remove(character))
+        {
+            turnOrder.Add(character);
+            uiHandler.UpdateTurnOrder(turnOrder);
+        }
+
         if (MoreThanOneSideIsAlive())
         {
+            character.GetComponent<SpriteRenderer>().color = Color.white;//todo fix with shaders
+
             turn = new Turn();
             if (enumerator.MoveNext())
             {
@@ -311,7 +342,12 @@ public class CombatManager : GameStateManager
             attacked = false;
             hasMovement = true;
             doubleMovement = false;
-            if (!characterType)
+            character.GetComponent<SpriteRenderer>().color = Color.blue;//TODO implement shaders
+            if(character.name == "voodoo")
+            {
+                IterateCharacters();//verify this works
+            }
+            else if (!characterType)
             {//only do this if is an enemy
                 UpdateIteration(DetermineEnemyTurn(character), true);
             }

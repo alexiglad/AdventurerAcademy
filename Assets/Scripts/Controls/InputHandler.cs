@@ -138,8 +138,7 @@ public class InputHandler : ScriptableObject
                 return;
             }
         }
-        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Miscellaneous ||
-            tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
+        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
         {
             //create method to create character at set position
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&

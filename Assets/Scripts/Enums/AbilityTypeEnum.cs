@@ -8,5 +8,4 @@ public enum AbilityTypeEnum
     Ranged,
     Splash,
     Heal,
-    Miscellaneous
 }

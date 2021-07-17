@@ -9,6 +9,8 @@ public class Ability : ScriptableObject
 {  
     [SerializeField] protected AbilityProcessor abilityProcessor;
     [SerializeField] protected StatusProcessor statusProcessor;
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+
 
     [SerializeField] protected float damage;
     [SerializeField] protected float range;
