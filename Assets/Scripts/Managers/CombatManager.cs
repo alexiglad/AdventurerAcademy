@@ -47,7 +47,7 @@ public class CombatManager : GameStateManager
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
         character = enumerator.Current;
-        character.GetComponent<SpriteRenderer>().color = Color.blue;
+        character.GetComponent<SpriteRenderer>().color = Color.white;//eventually add shaders
         //TODO add shader for character
         targeting = false;
         attacked = false;
@@ -81,6 +81,8 @@ public class CombatManager : GameStateManager
         {
             turnOrder.Add(characterE);
         }
+        character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+        character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
         if (!character.IsPlayer())
         {//only do this if is an enemy
             UpdateIteration(DetermineEnemyTurn(character), true);
@@ -163,7 +165,7 @@ public class CombatManager : GameStateManager
     }
     public bool UpdateMovement(Vector3 movement)
     {
-        if(turn.AmountMoved <= character.GetMaxMovement() && hasMovement)
+        if(hasMovement && turn.AmountMoved + movement.magnitude <= character.GetMaxMovement() )
         {
             turn.SetMovement(movement + turn.GetMovement());
             turn.AmountMoved += movement.magnitude;
@@ -206,9 +208,8 @@ public class CombatManager : GameStateManager
 
     public void UpdateCharacters(Turn turnChange)
     {
-        //Debug.Log("turnChange " + turnChange.GetMovement());
         Ability currentAbility = turn.GetAbility();
-        Vector3 currentMovement = turn.GetMovement();
+        Vector3 currentMovement = turnChange.GetMovement();
         //call ability or move method if necessary
         if (currentMovement != Vector3.zero)//move turn
         {
@@ -330,6 +331,8 @@ public class CombatManager : GameStateManager
 
     public void IterateCharacters()
     {
+        character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
         if (turnOrder.Remove(character))
         {
             turnOrder.Add(character);
@@ -359,6 +362,8 @@ public class CombatManager : GameStateManager
             hasMovement = true;
             doubleMovement = false;
             character.GetComponent<SpriteRenderer>().color = Color.blue;//TODO implement shaders
+            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+            character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
             if (character.Inanimate)
             {
                 IterateCharacters();//verify this works
@@ -503,10 +508,17 @@ public class CombatManager : GameStateManager
             if (Vector3.Distance(adjustedDestination, characterBottom) <= GetRemainingMovement())
             {
                 //If the destination is valid, move to destination
-                UpdateMovement(adjustedDestination - characterBottom);
-                UpdateIteration(new Turn(adjustedDestination - characterBottom), false);
+                if(UpdateMovement(adjustedDestination - characterBottom))
+                {
+                    UpdateIteration(new Turn(adjustedDestination - characterBottom), false);
+                }
+
             }
             else
+            {
+                Debug.Log("temporarily halted for testing");
+            }
+            /*else
             {
                 //If the destination is not valid, find the closest point to the destination within range
                 Vector3 newDestination = (adjustedDestination - characterBottom);
@@ -518,7 +530,7 @@ public class CombatManager : GameStateManager
                     UpdateMovement(newDestination - characterBottom);
                     UpdateIteration(new Turn(newDestination - characterBottom), false);
                 }
-            }
+            }*/
         }
 
     }

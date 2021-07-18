@@ -40,7 +40,7 @@ public class UIHandler : ScriptableObject
     {
         abilityImageDrawer.SetSprite(ability.Image);
         abilityImageDrawer.SetDirection(ability.Direction);
-        abilityImageDrawer.SetPosition(ability.StartX, ability.StartY);
+        //abilityImageDrawer.SetPosition(ability.StartX, ability.StartY);//TODO FIX THIS CEDRIC NEED TO ADD METHOD
         //Debug.Log(gameStateManager);
         //CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         abilityImageDrawer.PlayAnimation();        

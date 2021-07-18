@@ -32,15 +32,18 @@ public class PathRenderer : MonoBehaviour
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain"))
             {
-                line.startColor = Color.blue;
-                line.endColor = Color.blue;
+
 
                 NavMeshPath path = new NavMeshPath();
                 agent = tempRef.Character.Agent;
                 agent.CalculatePath(data.Hit.point, path);
 
                 if (tempRef.Character.Animator.GetBool("walking"))
+                {
+                    line.startColor = Color.blue;
+                    line.endColor = Color.blue;
                     DisplayActivePath(tempRef.Character);
+                }
                 else if (tempRef.HasMovement)
                 {
                     DisplayPath(path, tempRef.Character, tempRef);
@@ -52,21 +55,11 @@ public class PathRenderer : MonoBehaviour
     }
 
     public void DisplayActivePath(Character character)
-    {
-        /*if(counter%10 == 0) 
-        {
-            Debug.Log("active path");
-            foreach (Vector3 corner in agent.path.corners)
-            {
-                Debug.Log(corner);
-            }
-        }*/
-        
+    {        
         line.positionCount = agent.path.corners.Length;
         
         Vector3 bottom = character.BoxCollider.bounds.center;
         bottom.y -= character.BoxCollider.bounds.size.y / 2;
-        //bottom.y -= character.BoxCollider.bounds.size.y+100;
         line.SetPosition(0, bottom);
 
         if (agent.path.corners.Length < 2)
@@ -81,19 +74,11 @@ public class PathRenderer : MonoBehaviour
 
     public void DisplayPath(NavMeshPath path, Character character, CombatManager tempRef)
     {
-        /*if (counter % 10 == 0)
-        {
-            Debug.Log("just display; corners length is " + path.corners.Length );
-            foreach (Vector3 corner in path.corners)
-            {
-                Debug.Log(corner);
-            }
-        }*/
+ 
         line.positionCount = path.corners.Length;
 
         Vector3 bottom = character.BoxCollider.bounds.center;
         bottom.y -= character.BoxCollider.bounds.size.y / 2;
-        //bottom.y -= character.BoxCollider.bounds.size.y+100;
 
         if (line.positionCount != 0)
         {
@@ -105,8 +90,6 @@ public class PathRenderer : MonoBehaviour
             return;
         }
 
-
-
         for (int i = 1; i < path.corners.Length; i++)
         {
             line.SetPosition(i, path.corners[i]);
@@ -114,10 +97,19 @@ public class PathRenderer : MonoBehaviour
         
         if(tempRef.IsInvalidPath(data.Hit.point))
         {
+            Debug.Log("invalid");
             //TODO Show visual that path is not valid
             //Debug.Log("INVALID PATH! WILL MOVE TO CLOSEST POINT! Attepted Destination: " + path.corners[path.corners.Length - 1]);
             line.startColor = Color.red;
             line.endColor = Color.red;
+        }
+        else
+        {
+            //line.GetComponent<Material>().color = Color.blue;
+
+            //line.SetColors(Color.blue, blue);
+            line.startColor = Color.blue;
+            line.endColor = Color.blue;
         }
     }
     public void DisplayPathTwo(Character character, Vector3 destination, CombatManager tempRef)

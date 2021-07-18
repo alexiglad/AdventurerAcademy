@@ -12,7 +12,7 @@ public class TurnOrderScroll : MonoBehaviour
     }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
-        
+
     }
     public void StopDisplayingTurnOrder()
     {

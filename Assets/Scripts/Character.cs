@@ -44,12 +44,22 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return this.characterData.GetName();
     }
+    /*private void Awake()
+    {
+        if (!inanimate)//TODO make this not sketch
+        {
+            this.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            this.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+        }
+    }*/
     private void OnEnable()
     {
         if(!inanimate)//TODO make this not sketch
         {
             FindObjectOfType<GameController>().AddCharacter(this);
             enemyAI = new BasicAI();
+            this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            this.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
         }
 
     }
@@ -81,9 +91,6 @@ public class Character : MonoBehaviour, IComparable<Character>
                     animator.SetBool("walking", false);
                     if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
                     {
-                        this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                        this.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
-
                         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                         if (this == tempRef.Character)
                         {
