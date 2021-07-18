@@ -489,7 +489,6 @@ public class CombatManager : GameStateManager
                 }
                 else
                 {
-                    Debug.Log(path2.status == NavMeshPathStatus.PathComplete);
                     Debug.Log("error occured");
                 }
 
@@ -516,7 +515,42 @@ public class CombatManager : GameStateManager
             }
             else
             {
-                Debug.Log("temporarily halted for testing");
+                float distanceTraveled = 0;
+                Vector3 location = new Vector3();
+                Vector3 prev = characterBottom;
+                foreach (Vector3 vector in path.corners)
+                {
+                    if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())
+                    {
+                        vector.Normalize();
+                        Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * vector;
+                        location += lastPath;
+                        break;
+                    }
+
+                    else
+                    {
+
+                        distanceTraveled += Vector3.Distance(vector, prev);
+                        location += vector;
+                    }
+                    prev = vector;
+                }
+                NavMeshPath path2 = new NavMeshPath();
+
+                if (character.Agent.CalculatePath(location, path2) && path2.status == NavMeshPathStatus.PathComplete)
+                {
+                    //this is creating the movement in the case of being outside the radius
+                    if (UpdateMovement(location - characterBottom))
+                    {
+                        UpdateIteration(new Turn(location - characterBottom), false);
+                    }
+                    //UpdateIteration(new Turn(location), false);
+                }
+                else
+                {
+                    Debug.Log("error occured");
+                }
             }
             /*else
             {

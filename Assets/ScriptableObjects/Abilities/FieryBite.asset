@@ -14,3 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
   statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
+  gameStateManager: {fileID: 0}
+  damage: 3
+  range: 3
+  abilityType: 0
+  icon: {fileID: 0}
+  image: {fileID: 0}
+  direction: 2
+  dimWidth: 0
+  dimHeight: 0
+  startX: 0
+  startY: 0

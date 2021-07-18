@@ -105,7 +105,7 @@ public class PathRenderer : MonoBehaviour
         }
         else
         {
-            //line.GetComponent<Material>().color = Color.blue;
+            //line.GetComponent<LineRenderer>().color = Color.blue;
 
             //line.SetColors(Color.blue, blue);
             line.startColor = Color.blue;
