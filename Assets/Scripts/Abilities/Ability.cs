@@ -24,6 +24,8 @@ public class Ability : ScriptableObject
     [SerializeField] AbilityImageTweenEnum direction;
     [SerializeField] float dimWidth;
     [SerializeField] float dimHeight;
+    [SerializeField] float startX;
+    [SerializeField] float startY;
     //UI
 
     public Sprite Icon { get => icon;}
@@ -34,6 +36,8 @@ public class Ability : ScriptableObject
     public AbilityImageTweenEnum Direction { get => direction; }
     public float DimWidth { get => dimWidth;}
     public float DimHeight { get => dimHeight;}
+    public float StartX { get => startX;}
+    public float StartY { get => startY; }
 
     private void Awake()
     {

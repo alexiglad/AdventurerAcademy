@@ -40,11 +40,10 @@ public class UIHandler : ScriptableObject
     {
         abilityImageDrawer.SetSprite(ability.Image);
         abilityImageDrawer.SetDirection(ability.Direction);
-        abilityImageDrawer.SetDimensions(ability.DimWidth, ability.DimHeight);
+        abilityImageDrawer.SetPosition(ability.StartX, ability.StartY);
         //Debug.Log(gameStateManager);
         //CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-        abilityImageDrawer.PlayAnimation();
- 
+        abilityImageDrawer.PlayAnimation();        
     }
     public void DisplayStatus()
     {
