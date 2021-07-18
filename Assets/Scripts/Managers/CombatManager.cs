@@ -15,7 +15,6 @@ public class CombatManager : GameStateManager
 
 
     private IEnumerator<Character> enumerator;
-    bool characterType;
     Turn turn;
     Character character;
     bool targeting;
@@ -32,7 +31,6 @@ public class CombatManager : GameStateManager
 
 
     public Character Character { get => character; set => character = value; }
-    public bool CharacterType { get => characterType; set => characterType = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
 
     public Turn Turn { get => turn; set => turn = value; }
@@ -82,6 +80,10 @@ public class CombatManager : GameStateManager
         foreach(Character characterE in characters)
         {
             turnOrder.Add(characterE);
+        }
+        if (!character.IsPlayer())
+        {//only do this if is an enemy
+            UpdateIteration(DetermineEnemyTurn(character), true);
         }
     }
 
@@ -248,15 +250,9 @@ public class CombatManager : GameStateManager
         }
         if (turn.GetAbility() != null && turn.GetTarget() != null)
         {
-            character.Animator.SetBool("walking", false);
             return true;
         }       
-        character.Animator.SetBool("walking", false);
         return false;        
-    }
-        bool GetCharacterType()
-    {
-        return character.IsPlayer();
     }
 
     bool TurnFinished()
@@ -347,14 +343,12 @@ public class CombatManager : GameStateManager
             if (enumerator.MoveNext())
             {
                 character = enumerator.Current;
-                characterType = GetCharacterType();
             }
             else
             {
                 enumerator.Reset();
                 enumerator.MoveNext();
                 character = enumerator.Current;
-                characterType = GetCharacterType();
             }
             Debug.Log(character.name + "'s Turn!");
 
@@ -369,7 +363,7 @@ public class CombatManager : GameStateManager
             {
                 IterateCharacters();//verify this works
             }
-            else if (!characterType)
+            else if (!character.IsPlayer())
             {//only do this if is an enemy
                 UpdateIteration(DetermineEnemyTurn(character), true);
             }

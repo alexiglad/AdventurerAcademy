@@ -81,6 +81,9 @@ public class Character : MonoBehaviour, IComparable<Character>
                     animator.SetBool("walking", false);
                     if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
                     {
+                        this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                        this.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+
                         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                         if (this == tempRef.Character)
                         {

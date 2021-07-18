@@ -76,8 +76,12 @@ public class AbilityImageDrawer : MonoBehaviour
         yield return new WaitForSeconds(imageAnimationTime);
         backgroundCanvas.LeanAlpha(0, fadeOutTime);
         abilityCanvas.LeanAlpha(0, fadeOutTime);
-        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-        tempRef.CanContinue = true;
+        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.CanContinue = true;
+        }
+
     }
     
     public void SetSprite(Sprite sprite)

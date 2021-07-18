@@ -16,42 +16,45 @@ public class BasicAI
     }
     public Turn DetermineTurn(Character character)
     {
-        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-
-        //selecting character
-        List<Character> players = new List<Character>();
-        foreach (Character characterE in tempRef.Characters)
+        if(gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
-            if (characterE.IsPlayer())
-                players.Add(characterE);
-        }
-        int num2 = Random.Range(0, players.Count);
-        Character target = players[num2];
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
 
-        //selecting ability
-        List<Ability> abilities = new List<Ability>();
-        foreach(Ability ability in character.GetCharacterData().GetInUseAbilities())
-        {
-            if(movementProcessor.WithinRange(character, target, ability)){
-                abilities.Add(ability);
+            //selecting character
+            List<Character> players = new List<Character>();
+            foreach (Character characterE in tempRef.Characters)
+            {
+                if (characterE.IsPlayer())
+                    players.Add(characterE);
+            }
+            int num2 = Random.Range(0, players.Count);
+            Character target = players[num2];
+
+            //selecting ability
+            List<Ability> abilities = new List<Ability>();
+            foreach (Ability ability in character.GetCharacterData().GetInUseAbilities())
+            {
+                if (movementProcessor.WithinRange(character, target, ability))
+                {
+                    abilities.Add(ability);
+                }
+            }
+            if (abilities.Count != 0)
+            {
+                int num1 = Random.Range(0, abilities.Count);
+                Ability abilitySelected = character.GetCharacterData().GetInUseAbilities()[num1];
+                Turn turn = new Turn(abilitySelected, target);
+                return turn;
+            }
+            else
+            {
+                character.Animator.SetBool("walking", true);
+                Vector3 direction = target.transform.position - character.transform.position;
+                Turn turn = new Turn(direction.normalized/* + character.transform.position*/);//move 1 tile towards selected character
+                return turn;
             }
         }
-        if (abilities.Count != 0)
-        {
-            int num1 = Random.Range(0, abilities.Count);
-            Ability abilitySelected = character.GetCharacterData().GetInUseAbilities()[num1];
-            Turn turn = new Turn(abilitySelected, target);
-            return turn;
-        }
-        else
-        {
-            character.Animator.SetBool("walking", true);
-            Vector3 direction = target.transform.position - character.transform.position; 
-            Turn turn = new Turn(direction.normalized/* + character.transform.position*/);//move 1 tile towards selected character
-            return turn;
-        }
-
-        
+        return null;
     }
 
 

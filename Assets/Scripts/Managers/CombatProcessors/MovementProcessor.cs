@@ -13,6 +13,8 @@ public class MovementProcessor : ScriptableObject
 
     public void HandleMovement(Character character, Vector3 movement)
     {
+        character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+        character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
         //NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
         Vector3 characterBottom = character.BoxCollider.bounds.center;
         characterBottom.y -= character.BoxCollider.bounds.size.y / 2;

@@ -30,7 +30,7 @@ public class PathRenderer : MonoBehaviour
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (!tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain"))
+            if (tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain"))
             {
                 line.startColor = Color.blue;
                 line.endColor = Color.blue;

@@ -31,7 +31,7 @@ public class TargetDisplay : MonoBehaviour
         {
 
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
+            if (tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
                 HoverTarget(tempRef);
             }
