@@ -22,8 +22,9 @@ public class CombatManager : GameStateManager
     bool attacked;
     bool hasMovement;
     bool doubleMovement;
+    bool canContinue;
 
-
+    [SerializeField] GameController gameController;
     [SerializeField] AbilityProcessor abilityProcessorInstance;
     [SerializeField] StatusProcessor statusProcessorInstance;
     [SerializeField] MovementProcessor movementProcesssor;
@@ -38,6 +39,7 @@ public class CombatManager : GameStateManager
     public SortedSet<Character> UserCharacters { get => userCharacters; set => userCharacters = value; }
     public bool HasMovement { get => hasMovement; set => hasMovement = value; }
     public List<Character> TurnOrder { get => turnOrder; set => turnOrder = value; }
+    public bool CanContinue { get => canContinue; set => canContinue = value; }
 
 
     #endregion
@@ -53,13 +55,14 @@ public class CombatManager : GameStateManager
         attacked = false;
         hasMovement = true;
         doubleMovement = false;
+        canContinue = true;
 
         ImportListeners();
         uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
         uiHandler.UpdateCombatTurnUI(character);
 
-        
 
+        gameController = FindObjectOfType<GameController>();
         abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
         statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
         movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
@@ -94,7 +97,18 @@ public class CombatManager : GameStateManager
         }
         
         if (TurnFinished())
-            IterateCharacters();
+        {
+
+            gameController.StartCoroutineCustom(IterateCharacters);
+            /*StartCoroutine(test())
+            WaitUntil(CanContinue());*/
+            //IterateCharacters();
+
+        }
+    }
+    public bool CanContinueMethod()
+    {
+        return canContinue;
     }
     public void UpdateEnemyTurn(Turn turnChange)
     {
@@ -190,15 +204,18 @@ public class CombatManager : GameStateManager
 
     public void UpdateCharacters(Turn turnChange)
     {
+        //Debug.Log("turnChange " + turnChange.GetMovement());
         Ability currentAbility = turn.GetAbility();
         Vector3 currentMovement = turn.GetMovement();
         //call ability or move method if necessary
         if (currentMovement != Vector3.zero)//move turn
         {
+            canContinue = false;
             movementProcesssor.HandleMovement(character, currentMovement);
         }
         if(currentAbility != null && currentAbility != null && !attacked)//ability turn
         {
+            canContinue = false;
             uiHandler.DisplayAbility(currentAbility);
             if (turn.GetTarget().Inanimate)
             {
@@ -317,13 +334,11 @@ public class CombatManager : GameStateManager
 
     public void IterateCharacters()
     {
-        
         if (turnOrder.Remove(character))
         {
             turnOrder.Add(character);
             uiHandler.UpdateTurnOrder(turnOrder);
         }
-
         if (MoreThanOneSideIsAlive())
         {
             character.GetComponent<SpriteRenderer>().color = Color.white;//todo fix with shaders
@@ -350,7 +365,7 @@ public class CombatManager : GameStateManager
             hasMovement = true;
             doubleMovement = false;
             character.GetComponent<SpriteRenderer>().color = Color.blue;//TODO implement shaders
-            if(character.Inanimate)
+            if (character.Inanimate)
             {
                 IterateCharacters();//verify this works
             }
@@ -359,7 +374,6 @@ public class CombatManager : GameStateManager
                 UpdateIteration(DetermineEnemyTurn(character), true);
             }
         }
-        
     }
     bool MoreThanOneSideIsAlive()
     {

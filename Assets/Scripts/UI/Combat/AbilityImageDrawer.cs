@@ -10,6 +10,8 @@ public class AbilityImageDrawer : MonoBehaviour
     [SerializeField] float fadeInTime;
     [SerializeField] float fadeOutTime;
     [SerializeField] float imageAnimationTime;
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+
 
     Image abilityImage;
     RectTransform abilityTransform;
@@ -38,7 +40,7 @@ public class AbilityImageDrawer : MonoBehaviour
         }
     }
 
-    public void PlayAnimation()
+    public bool PlayAnimation()
     {
         backgroundCanvas.alpha = 0;
         abilityCanvas.alpha = 0;
@@ -66,6 +68,7 @@ public class AbilityImageDrawer : MonoBehaviour
         }
 
         StartCoroutine(Deactivate());
+        return true;
     }
     
     IEnumerator Deactivate()
@@ -73,6 +76,8 @@ public class AbilityImageDrawer : MonoBehaviour
         yield return new WaitForSeconds(imageAnimationTime);
         backgroundCanvas.LeanAlpha(0, fadeOutTime);
         abilityCanvas.LeanAlpha(0, fadeOutTime);
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+        tempRef.CanContinue = true;
     }
     
     public void SetSprite(Sprite sprite)

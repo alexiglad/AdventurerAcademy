@@ -10,6 +10,8 @@ public class UIHandler : ScriptableObject
     FinishTurnButtonClicked onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
     TurnOrderScroll turnOrderScroll;
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+
     private void OnEnable()
     {
         onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//get these for all buttons/UI
@@ -39,7 +41,10 @@ public class UIHandler : ScriptableObject
         abilityImageDrawer.SetSprite(ability.Image);
         abilityImageDrawer.SetDirection(ability.Direction);
         abilityImageDrawer.SetDimensions(ability.DimWidth, ability.DimHeight);
+        //Debug.Log(gameStateManager);
+        //CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         abilityImageDrawer.PlayAnimation();
+ 
     }
     public void DisplayStatus()
     {

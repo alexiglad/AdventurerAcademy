@@ -60,6 +60,24 @@ public class GameController : MonoBehaviour
         //controls.Combat.
     }
 
+    public void StartCoroutineCustom(Action action)
+    {
+        StartCoroutine(Routine(action));
+    }
+    IEnumerator Routine(Action action)
+    {
+        if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            yield return new WaitUntil(tempRef.CanContinueMethod);
+            //eventually add animation here for switching turns
+            action.Invoke();
+        }
+        else
+        {
+
+        }
+    }
 
     public void AddCharacter(Character character)
     {

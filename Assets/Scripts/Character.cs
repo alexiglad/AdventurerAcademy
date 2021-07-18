@@ -77,7 +77,18 @@ public class Character : MonoBehaviour, IComparable<Character>
             realPos.y -= this.BoxCollider.bounds.size.y / 2;
             if (Vector3.Distance(realPos, agent.destination) <= .2f)
             {
-                animator.SetBool("walking", false);
+                if (animator.GetBool("walking")){
+                    animator.SetBool("walking", false);
+                    if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+                    {
+                        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                        if (this == tempRef.Character)
+                        {
+                            tempRef.CanContinue = true;
+                        }
+                    }
+                }
+                
             }
             else
             {
@@ -85,6 +96,7 @@ public class Character : MonoBehaviour, IComparable<Character>
                 //a way to use this is if(Vector3.Angle(velocity vector, target character))
             }
         }
+        
     }
 
 

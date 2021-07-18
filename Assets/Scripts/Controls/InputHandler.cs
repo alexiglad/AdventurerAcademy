@@ -58,13 +58,16 @@ public class InputHandler : ScriptableObject
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.GetTargeting() == true)
+            if (tempRef.CanContinue)
             {
-                SendTarget(GetRaycastHit(), tempRef);
-            }
-            else
-            {
-                SendLocation(GetRaycastHit(), tempRef);
+                if (tempRef.GetTargeting() == true)
+                {
+                    SendTarget(GetRaycastHit(), tempRef);
+                }
+                else
+                {
+                    SendLocation(GetRaycastHit(), tempRef);
+                }
             }
         }
     } 
