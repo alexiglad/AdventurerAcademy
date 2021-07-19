@@ -88,9 +88,9 @@ public class GameController : MonoBehaviour
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             tempRef.CanContinue = false;
-            yield return new WaitForSeconds(1);
-            tempRef.FinishIterating();
+            yield return new WaitForSeconds(.5f);
             tempRef.CanContinue = true;
+            tempRef.FinishIterating();
             //eventually add animation here for switching turns
         }
         else

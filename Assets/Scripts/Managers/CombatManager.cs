@@ -177,7 +177,7 @@ public class CombatManager : GameStateManager
         {
             turn.SetMovement(movement + turn.GetMovement());
             turn.AmountMoved += movement.magnitude;
-            float error = .1f;
+            float error = .2f;
             if (GetRemainingMovement() <= error)
             {
                 Debug.Log("User has used up movement for turn");
@@ -210,7 +210,6 @@ public class CombatManager : GameStateManager
     }
     public float GetRemainingMovement()
     {
-        //Debug.Log("Character Max Movement: " + this.character.GetMaxMovement() + " - Ammount Moved this turn: " + this.turn.AmountMoved+ " = " + (this.character.GetMaxMovement() - this.turn.AmountMoved));
         return this.character.GetMaxMovement() - this.turn.AmountMoved;
     }
 
@@ -382,14 +381,15 @@ public class CombatManager : GameStateManager
             else
             {
                 character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-                //gameController.StartCoroutineWait();
-                FinishIterating();
+                gameController.StartCoroutineWait();
+                //FinishIterating();
             }
             
         }
     }
     public void FinishIterating()
     {
+        Debug.Log(character + "here");
         character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
         if (!character.IsPlayer())
         {//only do this if is an enemy
