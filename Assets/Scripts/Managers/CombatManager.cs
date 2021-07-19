@@ -81,8 +81,16 @@ public class CombatManager : GameStateManager
         {
             turnOrder.Add(characterE);
         }
-        character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-        character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        if (!character.Inanimate)
+        {
+            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+            character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        }
+        else
+        {
+            IterateCharacters();
+        }
+
         if (!character.IsPlayer())
         {//only do this if is an enemy
             UpdateIteration(DetermineEnemyTurn(character), true);
@@ -331,8 +339,12 @@ public class CombatManager : GameStateManager
 
     public void IterateCharacters()
     {
-        character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-        character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+        if (!character.Inanimate)
+        {
+            character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+        }
+
         if (turnOrder.Remove(character))
         {
             turnOrder.Add(character);
@@ -362,16 +374,26 @@ public class CombatManager : GameStateManager
             hasMovement = true;
             doubleMovement = false;
             character.GetComponent<SpriteRenderer>().color = Color.blue;//TODO implement shaders
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-            character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            
             if (character.Inanimate)
             {
                 IterateCharacters();//verify this works
             }
-            else if (!character.IsPlayer())
-            {//only do this if is an enemy
-                UpdateIteration(DetermineEnemyTurn(character), true);
+            else
+            {
+                character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+                //gameController.StartCoroutineWait();
+                FinishIterating();
             }
+            
+        }
+    }
+    public void FinishIterating()
+    {
+        character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        if (!character.IsPlayer())
+        {//only do this if is an enemy
+            UpdateIteration(DetermineEnemyTurn(character), true);
         }
     }
     bool MoreThanOneSideIsAlive()
@@ -440,61 +462,6 @@ public class CombatManager : GameStateManager
     {
         doubleMovement = true;
     }
-    public void CombatMovement(Vector3 destination)
-    {
-        Vector3 characterBottom = character.BoxCollider.bounds.center;
-        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
-        Debug.Log("destination is" + destination);
-        Debug.Log("character position is" + characterBottom);
-        NavMeshPath path = new NavMeshPath();
-        if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete) 
-        {
-            if (Vector3.Distance(destination, characterBottom) <= GetRemainingMovement())
-            {
-                UpdateIteration(new Turn(destination), false);
-            }
-            else
-            {
-                
-                float distanceTraveled = 0;
-                Vector3 location = new Vector3();
-                Vector3 prev = characterBottom;
-                //TODO fix nav mesh bug of always being off by 0.0633 on y axis
-                foreach (Vector3 vector in path.corners)
-                {
-                    if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())
-                    {
-                        //if(GetRemainingMovement() - distanceTraveled    )
-                        vector.Normalize();
-                        Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * vector;
-                        location += lastPath;
-                        break;
-                    }
-
-                    else 
-                    {
-                        
-                        distanceTraveled += Vector3.Distance(vector, prev);
-                        location += vector;
-                    }
-                    prev = vector;
-                }
-                Debug.Log(location);
-                NavMeshPath path2 = new NavMeshPath();
-
-                if (character.Agent.CalculatePath(location, path2) && path2.status == NavMeshPathStatus.PathComplete)
-                {
-                    //this is creating the movement in the case of being outside the radius
-                    UpdateIteration(new Turn(location), false);
-                }
-                else
-                {
-                    Debug.Log("error occured");
-                }
-
-            }
-        }
-    }
 
     public void CombatMovementTwo(Vector3 destination)
     {
@@ -518,12 +485,14 @@ public class CombatManager : GameStateManager
                 float distanceTraveled = 0;
                 Vector3 location = new Vector3();
                 Vector3 prev = characterBottom;
+                prev.y += 0.08448386f;//TODO investigate why this helps eventually
                 foreach (Vector3 vector in path.corners)
                 {
                     if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())
                     {
-                        vector.Normalize();
-                        Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * vector;
+                        //vector.Normalize();
+                        Vector3 temp = vector - prev;
+                        Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * (temp.normalized);
                         location += lastPath;
                         break;
                     }
@@ -532,41 +501,32 @@ public class CombatManager : GameStateManager
                     {
 
                         distanceTraveled += Vector3.Distance(vector, prev);
-                        location += vector;
+                        location += vector - prev;
                     }
+                    
                     prev = vector;
                 }
                 NavMeshPath path2 = new NavMeshPath();
-
-                if (character.Agent.CalculatePath(location, path2) && path2.status == NavMeshPathStatus.PathComplete)
+                Vector3 realMovement = location;
+                if (character.Agent.CalculatePath(realMovement + characterBottom, path2) && path2.status == NavMeshPathStatus.PathComplete)
                 {
                     //this is creating the movement in the case of being outside the radius
-                    if (UpdateMovement(location - characterBottom))
+                    if (UpdateMovement(realMovement))
                     {
-                        UpdateIteration(new Turn(location - characterBottom), false);
+                        UpdateIteration(new Turn(realMovement), false);
+                    }
+                    else
+                    {
+                        Debug.Log("another error occured");
                     }
                     //UpdateIteration(new Turn(location), false);
                 }
                 else
                 {
-                    Debug.Log("error occured");
+                    Debug.Log("error occured");//TODO figure out why this happens
                 }
             }
-            /*else
-            {
-                //If the destination is not valid, find the closest point to the destination within range
-                Vector3 newDestination = (adjustedDestination - characterBottom);
-                newDestination.Normalize();
-                newDestination = (characterBottom + (GetRemainingMovement()*newDestination));
-                NavMeshPath newPath = new NavMeshPath();
-                if(character.Agent.CalculatePath(newDestination, newPath) && newPath.status ==  NavMeshPathStatus.PathComplete)
-                {
-                    UpdateMovement(newDestination - characterBottom);
-                    UpdateIteration(new Turn(newDestination - characterBottom), false);
-                }
-            }*/
         }
-
     }
 
     public bool IsInvalidPath(Vector3 destination)

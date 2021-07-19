@@ -26,7 +26,7 @@ public class FUBite : FollowUp
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
         if (followUpAction.FollowUpActionType == followUpType && character == followUpAction.Attackee)
         {
-            if (Vector3.Distance(followUpAction.Attacker.transform.position, character.transform.position)<=range.GetFloatValue())
+            if (Vector3.Distance(followUpAction.Attacker.transform.position, character.transform.position)<=range.GetFloatValue() && followUpAction.Attackee ^ followUpAction.Attacker)
                 return true;
         }
 

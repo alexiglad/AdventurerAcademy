@@ -50,7 +50,7 @@ public class BasicAI
             {
                 character.Animator.SetBool("walking", true);
                 Vector3 direction = target.transform.position - character.transform.position;//TODO add code to verify this movement
-                Turn turn = new Turn(direction.normalized/* + character.transform.position*/);//move 1 tile towards selected character
+                Turn turn = new Turn(3*direction.normalized/* + character.transform.position*/);//move 1 tile towards selected character
                 return turn;
             }
         }

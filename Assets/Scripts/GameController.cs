@@ -64,6 +64,10 @@ public class GameController : MonoBehaviour
     {
         StartCoroutine(Routine(action));
     }
+    public void StartCoroutineWait()
+    {
+        StartCoroutine(Routine2());
+    }
     IEnumerator Routine(Action action)
     {
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
@@ -72,6 +76,22 @@ public class GameController : MonoBehaviour
             yield return new WaitUntil(tempRef.CanContinueMethod);
             //eventually add animation here for switching turns
             action.Invoke();
+        }
+        else
+        {
+
+        }
+    }
+    IEnumerator Routine2()
+    {
+        if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            tempRef.CanContinue = false;
+            yield return new WaitForSeconds(1);
+            tempRef.FinishIterating();
+            tempRef.CanContinue = true;
+            //eventually add animation here for switching turns
         }
         else
         {

@@ -32,20 +32,17 @@ public class PathRenderer : MonoBehaviour
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain"))
             {
-
-
-                NavMeshPath path = new NavMeshPath();
-                agent = tempRef.Character.Agent;
-                agent.CalculatePath(data.Hit.point, path);
-
                 if (tempRef.Character.Animator.GetBool("walking"))
                 {
                     line.startColor = Color.blue;
                     line.endColor = Color.blue;
                     DisplayActivePath(tempRef.Character);
                 }
-                else if (tempRef.HasMovement)
+                else if (tempRef.HasMovement && tempRef.CanContinue)
                 {
+                    NavMeshPath path = new NavMeshPath();
+                    agent = tempRef.Character.Agent;
+                    agent.CalculatePath(data.Hit.point, path);
                     DisplayPath(path, tempRef.Character, tempRef);
                     //DisplayPathTwo(tempRef.Character, data.Hit.point, tempRef);
                 }
@@ -97,7 +94,6 @@ public class PathRenderer : MonoBehaviour
         
         if(tempRef.IsInvalidPath(data.Hit.point))
         {
-            Debug.Log("invalid");
             //TODO Show visual that path is not valid
             //Debug.Log("INVALID PATH! WILL MOVE TO CLOSEST POINT! Attepted Destination: " + path.corners[path.corners.Length - 1]);
             line.startColor = Color.red;
