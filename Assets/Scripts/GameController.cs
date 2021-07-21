@@ -19,23 +19,10 @@ public class GameController : MonoBehaviour
         //instantiate all processor instances!! 
         //instantiate all follow-ups and abilities
         controls.ManualAwake();
-        //CreateAllProcessorInstances();
-
-        //Ability.CreateInstance("Ability");
-        UIHandler.CreateInstance("UIHandler");
-
         //temporary code creates combat manager with characters
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
         //controls
-        
-        /////////////////////////////
-        //controls.Combat.Select.started += ctx => 
-        //use context to distinguish between movement and a target
-        //target is only done when an ability has been selected?
-        //this overwrites the movement raycast until either a target has been selected or the user
-        //right clicks allowing for moving again and canceling ability
-        //controls.Combat.Select
-        //
+
         
 
 
@@ -57,18 +44,13 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         float movementInput = controls.GetControls().Roaming.Movement.ReadValue<float>();
-        //controls.Combat.
     }
 
-    public void StartCoroutineCustom(Action action)
+    public void StartCoroutineCC(Action action)
     {
-        StartCoroutine(Routine(action));
+        StartCoroutine(Routine1(action));
     }
-    public void StartCoroutineWait()
-    {
-        StartCoroutine(Routine2());
-    }
-    IEnumerator Routine(Action action)
+    IEnumerator Routine1(Action action)
     {
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
@@ -82,15 +64,19 @@ public class GameController : MonoBehaviour
 
         }
     }
-    IEnumerator Routine2()
+    public void StartCoroutineNMA(Action action)
+    {
+        StartCoroutine(Routine2(action));
+    }
+    IEnumerator Routine2(Action action)
     {
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             tempRef.CanContinue = false;
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.25f);
             tempRef.CanContinue = true;
-            tempRef.FinishIterating();
+            action.Invoke();
             //eventually add animation here for switching turns
         }
         else
@@ -108,14 +94,6 @@ public class GameController : MonoBehaviour
     {
         characters.Remove(character);
     }
-    private void CreateAllProcessorInstances()
-    {
-        //Cedric Edit
-        //create instances of all processors
-        //FollowUpProcessor.CreateInstance("FollowUpProcessor");
-        //AbilityProcessor.CreateInstance("AbilityProcessor");
-        //MovementProcessor.CreateInstance("MovementProcessor");
-        //StatusProcessor.CreateInstance("StatusProcessor");
-    }
+
 
 }

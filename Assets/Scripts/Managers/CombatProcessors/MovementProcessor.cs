@@ -41,6 +41,12 @@ public class MovementProcessor : ScriptableObject
         }
         return charactersInRange;
     }
+    public float DetermineDifferenceInHeights(Character character1, Character character2)
+    {
+        float character1y = character1.transform.position.y - character1.BoxCollider.bounds.size.y / 2;
+        float character2y = character2.transform.position.y - character2.BoxCollider.bounds.size.y / 2;
+        return character1y - character2y;
+    }
     public bool WithinRange(CombatManager tempref, Character character2)
     {
         return Vector3.Distance(tempref.Character.transform.position, character2.transform.position) <= tempref.Turn.GetAbility().Range ;

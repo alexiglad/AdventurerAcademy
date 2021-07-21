@@ -4,10 +4,11 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - gameController: {instanceID: 0}
   - abilityProcessorInstance: {instanceID: 0}
   - statusProcessorInstance: {instanceID: 0}
   - movementProcesssor: {instanceID: 0}
-  - uiHandler: {instanceID: 0}
+  - uiHandler: {fileID: 11400000, guid: 08c25b36159924a45be1c4c3fab99d26, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

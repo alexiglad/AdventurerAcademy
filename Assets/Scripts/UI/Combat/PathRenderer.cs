@@ -42,7 +42,7 @@ public class PathRenderer : MonoBehaviour
                 {
                     NavMeshPath path = new NavMeshPath();
                     agent = tempRef.Character.Agent;
-                    agent.CalculatePath(data.Hit.point, path);
+                    agent.CalculatePath(data.Hit.point, path);//TODO bug still occurred here somehow
                     DisplayPath(path, tempRef.Character, tempRef);
                     //DisplayPathTwo(tempRef.Character, data.Hit.point, tempRef);
                 }

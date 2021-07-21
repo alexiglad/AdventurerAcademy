@@ -117,7 +117,7 @@ public class InputHandler : ScriptableObject
                 }
                 else
                 {
-                    Debug.Log("Selected incorrectly verify target");//TODO implement this UI check
+                    Debug.Log("Non recomended choice verify target");//TODO implement this UI check
                     tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
                 }
                 return;
@@ -135,7 +135,7 @@ public class InputHandler : ScriptableObject
                 }
                 else
                 {
-                    Debug.Log("Selected incorrectly verify target");//TODO implement this UI check
+                    Debug.Log("Non recomended choice verify target");//TODO implement this UI check
                     tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
                 }
                 return;

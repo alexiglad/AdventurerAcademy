@@ -54,18 +54,15 @@ public class CombatManager : GameStateManager
         hasMovement = true;
         doubleMovement = false;
         canContinue = true;
-
-        ImportListeners();
-        uiHandler = (UIHandler)FindObjectOfType(typeof(UIHandler));
+        uiHandler = Resources.FindObjectsOfTypeAll<UIHandler>()[0];
+        uiHandler.EnableCombat();
         uiHandler.UpdateCombatTurnUI(character);
-
-
         gameController = FindObjectOfType<GameController>();
         abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
         statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
         movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
         //get player list
-        
+
         foreach (Character characterE in characters)
         {
             if (characterE.IsPlayer())
@@ -111,7 +108,7 @@ public class CombatManager : GameStateManager
         if (TurnFinished())
         {
 
-            gameController.StartCoroutineCustom(IterateCharacters);
+            gameController.StartCoroutineCC(IterateCharacters);
             /*StartCoroutine(test())
             WaitUntil(CanContinue());*/
             //IterateCharacters();
@@ -331,7 +328,7 @@ public class CombatManager : GameStateManager
         if (!MoreThanOneSideIsAlive())
         {
             Debug.Log("Battle Ended!");
-            uiHandler.StopDisplayingCombat();
+            uiHandler.DisableCombat();
             EndBattle(character.IsPlayer());//if true is a win if false is a loss
         }
     }
@@ -372,7 +369,6 @@ public class CombatManager : GameStateManager
             attacked = false;
             hasMovement = true;
             doubleMovement = false;
-            character.GetComponent<SpriteRenderer>().color = Color.blue;//TODO implement shaders
             
             if (character.Inanimate)
             {
@@ -381,15 +377,13 @@ public class CombatManager : GameStateManager
             else
             {
                 character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-                gameController.StartCoroutineWait();
-                //FinishIterating();
+                gameController.StartCoroutineNMA(FinishIterating);
             }
             
         }
     }
     public void FinishIterating()
     {
-        Debug.Log(character + "here");
         character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
         if (!character.IsPlayer())
         {//only do this if is an enemy
@@ -422,17 +416,8 @@ public class CombatManager : GameStateManager
     #endregion
 
     #region Event Listeners
-    void ImportListeners()
-    {
 
-        FinishTurnButtonClicked onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
-        onFinishTurnButtonClicked.OnFinishTurnButtonClicked += FinishTurn;
-
-        AbilityButtonClicked onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();
-        onAbilityButtonClicked.OnAbilityButtonClicked += CombatAbility;
-
-    }
-    void CombatAbility(object sender, AbilityEventArgs e)
+    public void CombatAbility(object sender, AbilityEventArgs e)
     {
         if (UpdateAbility(e.NewAbility))
         {
@@ -541,7 +526,7 @@ public class CombatManager : GameStateManager
         return true;
     }
 
-    void FinishTurn(object sender, EventArgs e)
+    public void FinishTurn(object sender, EventArgs e)
     {
         IterateCharacters();
     }

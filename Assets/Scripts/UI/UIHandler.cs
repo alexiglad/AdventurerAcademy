@@ -12,7 +12,8 @@ public class UIHandler : ScriptableObject
     TurnOrderScroll turnOrderScroll;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
-    private void OnEnable()
+
+    public void EnableCombat()
     {
         onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//get these for all buttons/UI
         onAbilityButtonClicked.ManualAwake();
@@ -20,7 +21,17 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+        onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
+        onAbilityButtonClicked.OnAbilityButtonClicked += tempRef.CombatAbility;
 
+
+    }
+    public void DisableCombat()
+    {
+        StopDisplayingAbilities();
+        StopDisplayingEndTurn();
+        StopDisplayingTurnOrder();
     }
 
     #region combatUI
@@ -29,20 +40,13 @@ public class UIHandler : ScriptableObject
         onAbilityButtonClicked.UpdateAbilities(character);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
-    public void StopDisplayingCombat()
-    {
-        StopDisplayingAbilities();
-        StopDisplayingEndTurn();
-        StopDisplayingTurnOrder();
-    }
+
 
     public void DisplayAbility(Ability ability)
     {
         abilityImageDrawer.SetSprite(ability.Image);
         abilityImageDrawer.SetDirection(ability.Direction);
         //abilityImageDrawer.SetPosition(ability.StartX, ability.StartY);//TODO FIX THIS CEDRIC NEED TO ADD METHOD
-        //Debug.Log(gameStateManager);
-        //CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         abilityImageDrawer.PlayAnimation();        
     }
     public void DisplayStatus()

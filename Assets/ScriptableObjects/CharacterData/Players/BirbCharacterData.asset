@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Birb
   maxHealth: 20
   maxEnergy: 100
-  maxMovement: 10
+  maxMovement: 3
   moveSpeed: 5
   initiative: 25
   damage: 1

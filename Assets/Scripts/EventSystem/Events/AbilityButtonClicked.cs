@@ -26,7 +26,6 @@ public class AbilityButtonClicked : MonoBehaviour
         abilityButtons[3] = GameObject.Find("AbilityFour");
         abilityButtons[4] = GameObject.Find("AbilityFive");
 
-
     }
     public void StopDisplaying()
     {

@@ -49,8 +49,10 @@ public class BasicAI
             else
             {
                 character.Animator.SetBool("walking", true);
-                Vector3 direction = target.transform.position - character.transform.position;//TODO add code to verify this movement
-                Turn turn = new Turn(direction.normalized/* + character.transform.position*/);//move 1 tile towards selected character
+                Vector3 direction = target.transform.position - character.transform.position;
+                direction.y -= movementProcessor.DetermineDifferenceInHeights(target, character);
+                //TODO finish evening out heights (need cedric to make it so gravity works at start)
+                Turn turn = new Turn(2*direction.normalized/* + character.transform.position*/);//move 1 tile towards selected character
                 return turn;
             }
         }
