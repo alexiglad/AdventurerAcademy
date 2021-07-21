@@ -11,6 +11,11 @@ public class GameStateManagerSO : ScriptableObject
     private GameStateManager currentGameStateManager;
     //Controls controls;
     [SerializeField] InputHandler controls;
+    [SerializeField] CombatManager combatManager;
+    [SerializeField] DialogueManager dialogueManager;
+    [SerializeField] RoamingManager roamingManager;
+    [SerializeField] LoadingManager loadingManager;
+    [SerializeField] MenuManager menuManager;
     void OnEnable()
     {
         FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
@@ -19,7 +24,29 @@ public class GameStateManagerSO : ScriptableObject
     public void SetGameStateManager(Type manager)
     {
         Destroy(currentGameStateManager);
-        currentGameStateManager = (GameStateManager)CreateInstance(manager.ToString()); 
+        //currentGameStateManager = (GameStateManager)CreateInstance(manager.ToString());
+        String managerType = manager.ToString();
+        switch (managerType)
+        {
+            case "CombatManager":
+                currentGameStateManager = Instantiate(combatManager);
+                break;
+            case "DialogueManager":
+                currentGameStateManager = Instantiate(dialogueManager);
+                break;
+            case "RoamingManager":
+                currentGameStateManager = Instantiate(roamingManager);
+                break;
+            case "LoadingManager":
+                currentGameStateManager = Instantiate(loadingManager);
+                break;
+            case "MenuManager":
+                currentGameStateManager = Instantiate(menuManager);
+                break;
+            default:
+                Debug.Log("error switching game states please investigate");
+                break;
+        }
         Debug.Log("Switched game state to " + currentGameStateManager.ToString());//Debug
     }
 

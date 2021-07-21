@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "ScriptableObjects/LoadingManager")]
 public class LoadingManager : GameStateManager
 {
     public SortedSet<Character> characters = new SortedSet<Character>();

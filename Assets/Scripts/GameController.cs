@@ -16,21 +16,16 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        //instantiate all processor instances!! 
-        //instantiate all follow-ups and abilities
         controls.ManualAwake();
         //temporary code creates combat manager with characters
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
-        //controls
-
-        
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
 
 
 
     }
 
-    /*
-    private void OnEnable()
+    //TODO remove ASK CEDRIC
+    /*private void OnEnable()
     {
         controls.GetControls().Enable();
     }
@@ -39,12 +34,12 @@ public class GameController : MonoBehaviour
     {
         controls.GetControls().Disable();
     }
-    */
+    
 
     private void Update()
     {
         float movementInput = controls.GetControls().Roaming.Movement.ReadValue<float>();
-    }
+    }*/
 
     public void StartCoroutineCC(Action action)
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "ScriptableObjects/DialogueManager")]
 public class DialogueManager : GameStateManager
 {
     public SortedSet<Character> characters = new SortedSet<Character>();

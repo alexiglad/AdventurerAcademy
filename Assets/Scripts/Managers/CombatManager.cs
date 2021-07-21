@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
+[CreateAssetMenu(menuName = "ScriptableObjects/CombatManager")]
 public class CombatManager : GameStateManager
 {
     #region Local Variables
@@ -54,15 +55,14 @@ public class CombatManager : GameStateManager
         hasMovement = true;
         doubleMovement = false;
         canContinue = true;
-        uiHandler = Resources.FindObjectsOfTypeAll<UIHandler>()[0];
+        //uiHandler = Resources.FindObjectsOfTypeAll<UIHandler>()[0];
         uiHandler.EnableCombat();
         uiHandler.UpdateCombatTurnUI(character);
         gameController = FindObjectOfType<GameController>();
-        abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
-        statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
-        movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
+        //abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
+        //statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
+        //movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
         //get player list
-
         foreach (Character characterE in characters)
         {
             if (characterE.IsPlayer())
@@ -203,7 +203,7 @@ public class CombatManager : GameStateManager
 
     public Turn DetermineEnemyTurn(Character character)//TODO
     {
-        return character.EnemyAI.DetermineTurn(character);
+        return character.EnemyAI.DetermineTurn(character, this);
     }
     public float GetRemainingMovement()
     {
@@ -362,9 +362,8 @@ public class CombatManager : GameStateManager
                 character = enumerator.Current;
             }
             Debug.Log(character.name + "'s Turn!");
-
-            uiHandler.UpdateCombatTurnUI(character);
             statusProcessorInstance.HandleStatuses(character);
+            uiHandler.UpdateCombatTurnUI(character);
             targeting = false;
             attacked = false;
             hasMovement = true;
