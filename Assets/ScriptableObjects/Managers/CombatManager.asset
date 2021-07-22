@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CombatManager
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
-  abilityProcessorInstance: {fileID: 0}
-  statusProcessorInstance: {fileID: 0}
-  movementProcesssor: {fileID: 0}
-  uiHandler: {fileID: 0}
+  abilityProcessorInstance: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
+  statusProcessorInstance: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
+  movementProcesssor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
+  uiHandler: {fileID: 11400000, guid: 08c25b36159924a45be1c4c3fab99d26, type: 2}

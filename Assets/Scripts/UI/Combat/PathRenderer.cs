@@ -30,7 +30,7 @@ public class PathRenderer : MonoBehaviour
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain"))
+            if (tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain") && tempRef.Character.GetComponent<NavMeshAgent>().enabled)
             {
                 if (tempRef.Character.Animator.GetBool("walking"))
                 {
@@ -44,7 +44,6 @@ public class PathRenderer : MonoBehaviour
                     agent = tempRef.Character.Agent;
                     agent.CalculatePath(data.Hit.point, path);//TODO bug still occurred here somehow
                     DisplayPath(path, tempRef.Character, tempRef);
-                    Debug.Log(path.corners.Length);
                 }
             }
         }

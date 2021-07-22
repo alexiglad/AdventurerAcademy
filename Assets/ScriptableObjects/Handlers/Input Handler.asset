@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850ce9f56a22d314fbffd0389139d991, type: 3}
   m_Name: Input Handler
   m_EditorClassIdentifier: 
+  tempCharacter: {fileID: 636752297361656699, guid: 0aaf91d77bbb3134f8877ed00ed28074, type: 3}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}

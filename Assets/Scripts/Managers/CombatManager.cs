@@ -55,14 +55,10 @@ public class CombatManager : GameStateManager
         hasMovement = true;
         doubleMovement = false;
         canContinue = true;
-        //uiHandler = Resources.FindObjectsOfTypeAll<UIHandler>()[0];
         uiHandler.EnableCombat();
         uiHandler.UpdateCombatTurnUI(character);
         gameController = FindObjectOfType<GameController>();
-        //abilityProcessorInstance = Resources.FindObjectsOfTypeAll<AbilityProcessor>()[0];
-        //statusProcessorInstance = Resources.FindObjectsOfTypeAll<StatusProcessor>()[0];
-        //movementProcesssor = Resources.FindObjectsOfTypeAll<MovementProcessor>()[0];
-        //get player list
+
         foreach (Character characterE in characters)
         {
             if (characterE.IsPlayer())
@@ -107,11 +103,7 @@ public class CombatManager : GameStateManager
         
         if (TurnFinished())
         {
-
             gameController.StartCoroutineCC(IterateCharacters);
-            /*StartCoroutine(test())
-            WaitUntil(CanContinue());*/
-            //IterateCharacters();
 
         }
     }

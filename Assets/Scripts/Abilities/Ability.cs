@@ -14,6 +14,8 @@ public class Ability : ScriptableObject
 
     [SerializeField] protected float damage;
     [SerializeField] protected float range;
+    [SerializeField] protected float radius;
+
 
 
     [SerializeField] AbilityTypeEnum abilityType;
@@ -38,12 +40,13 @@ public class Ability : ScriptableObject
     public float DimHeight { get => dimHeight;}
     public float StartX { get => startX;}
     public float StartY { get => startY; }
+    public float Radius { get => radius; set => radius = value; }
 
     private void Awake()
     {
         damage = 0;
         range = 0;
-
+        radius = 0;
     }
 
     public virtual void HandleAbility(Character attacker, Character attackee, Ability ability) { }

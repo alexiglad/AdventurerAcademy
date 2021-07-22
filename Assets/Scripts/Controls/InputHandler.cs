@@ -15,6 +15,8 @@ public class InputHandler : ScriptableObject
     Controls controls;
     Vector2 pan;
     float zoom;
+    [SerializeField] private GameObject tempCharacter;
+
 
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] MovementProcessor movementProcessor;
@@ -153,17 +155,15 @@ public class InputHandler : ScriptableObject
                 }
                 else
                 {
-                    Debug.Log("Selected incorrectly verify target");//TODO implement this UI check
+                    Debug.Log("Non recomended choice verify target");//TODO implement this UI check
                     tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
                 }
                 return;
             }
             else if(ray.HitBool && VerifyTag(ray, "Terrain"))
             {
-                Character temp1;
-                GameObject temp2 = new GameObject("Character");
-                temp2.transform.position = ray.Hit.point;
-                temp1 = temp2.AddComponent<Character>();
+                GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
+                Character temp1 = temp2.GetComponent<Character>();
                 tempRef.CombatTarget(temp1);//TODO CHECK IF THIS WORKS
                 Debug.Log("this may cause errors");
                 return;

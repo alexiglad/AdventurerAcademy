@@ -19,9 +19,6 @@ public class GameController : MonoBehaviour
         controls.ManualAwake();
         //temporary code creates combat manager with characters
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
-
-
-
     }
 
 

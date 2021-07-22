@@ -26,13 +26,13 @@ public class MovementProcessor : ScriptableObject
         
         Debug.Log(character + " traveled " + movement + " tiles with magnitude " + movement.magnitude + " at " + Vector3.Angle(new Vector3(1, 0, 0), movement) + " degrees");
     }
-    public List<Character> GetCharactersInRange(Vector3 position, float range)
+    public List<Character> GetCharactersInRange(Vector3 position, float range, Vector3 position2, float radius)
     {
         List<Character> charactersInRange = new List<Character>();
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         foreach (Character character in tempRef.Characters)
         {
-            if(Vector3.Distance(character.transform.position, position) <= range)
+            if(Vector3.Distance(position2, position) <= range && (Vector3.Distance(character.transform.position, position2) <= radius))
             {//this character is within range of ability/follow up
                 charactersInRange.Add(character);
             }
@@ -41,8 +41,16 @@ public class MovementProcessor : ScriptableObject
     }
     public bool WithinRange(CombatManager tempref, Character character2)
     {
-        return Vector3.Distance(tempref.Character.transform.position, character2.transform.position) <= tempref.Turn.GetAbility().Range ;
+        return Vector3.Distance(tempref.Character.transform.position, character2.transform.position) <= tempref.Turn.GetAbility().Range + tempref.Turn.GetAbility().Radius;
     }
-
+    public bool WithinRange(CombatManager tempref, Character character, Vector3 pos)
+    {
+        return Vector3.Distance(character.transform.position, pos) <= tempref.Turn.GetAbility().Radius &&
+            Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.Turn.GetAbility().Range;
+    }
+    public bool WithinSplashRange(CombatManager tempref, Vector3 pos)
+    {
+        return Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.Turn.GetAbility().Range;
+    }
 
 }

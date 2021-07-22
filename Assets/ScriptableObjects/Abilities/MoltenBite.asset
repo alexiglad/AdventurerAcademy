@@ -16,7 +16,7 @@ MonoBehaviour:
   statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
   gameStateManager: {fileID: 0}
   damage: 4
-  range: 2
+  range: 4
   abilityType: 2
   icon: {fileID: 0}
   image: {fileID: 0}
@@ -25,3 +25,4 @@ MonoBehaviour:
   dimHeight: 0
   startX: 0
   startY: 0
+  radius: 2
