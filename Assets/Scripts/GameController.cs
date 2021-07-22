@@ -24,22 +24,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    //TODO remove ASK CEDRIC
-    /*private void OnEnable()
-    {
-        controls.GetControls().Enable();
-    }
 
-    private void OnDisable()
-    {
-        controls.GetControls().Disable();
-    }
-    
-
-    private void Update()
-    {
-        float movementInput = controls.GetControls().Roaming.Movement.ReadValue<float>();
-    }*/
 
     public void StartCoroutineCC(Action action)
     {

@@ -39,12 +39,12 @@ public class PathRenderer : MonoBehaviour
                     DisplayActivePath(tempRef.Character);
                 }
                 else if (tempRef.HasMovement && tempRef.CanContinue)
-                {
+                {                  
                     NavMeshPath path = new NavMeshPath();
                     agent = tempRef.Character.Agent;
                     agent.CalculatePath(data.Hit.point, path);//TODO bug still occurred here somehow
                     DisplayPath(path, tempRef.Character, tempRef);
-                    //DisplayPathTwo(tempRef.Character, data.Hit.point, tempRef);
+                    Debug.Log(path.corners.Length);
                 }
             }
         }
@@ -106,52 +106,6 @@ public class PathRenderer : MonoBehaviour
             //line.SetColors(Color.blue, blue);
             line.startColor = Color.blue;
             line.endColor = Color.blue;
-        }
-    }
-    public void DisplayPathTwo(Character character, Vector3 destination, CombatManager tempRef)
-    {
-        Vector3 characterBottom = character.BoxCollider.bounds.center;
-        //characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
-        characterBottom.y -= character.BoxCollider.bounds.size.y;
-        NavMeshPath path = new NavMeshPath();
-        line.positionCount = path.corners.Length;
-
-        
-        if (character.Agent.CalculatePath(destination, path) && path.status == NavMeshPathStatus.PathComplete)
-        {
-            line.positionCount = path.corners.Length;
-            if (line.positionCount != 0)
-            {
-                line.SetPosition(0, character.BoxCollider.bounds.center);
-            }
-            if (path.corners.Length < 2)
-            {
-                return;
-            }
-            if (Vector3.Distance(destination, characterBottom) <= tempRef.GetRemainingMovement())
-            {
-                for (int i = 1; i < path.corners.Length; i++)
-                {
-                    line.SetPosition(i, path.corners[i]);
-                }
-            }
-            else
-            {
-                line.startColor = Color.red;
-                line.endColor = Color.red;
-                //If the destination is not valid, find the closest point to the destination within range
-                Vector3 newDestination = (destination - characterBottom);
-                newDestination.Normalize();
-                newDestination = (characterBottom + (tempRef.GetRemainingMovement() * newDestination));
-                NavMeshPath newPath = new NavMeshPath();
-                if (character.Agent.CalculatePath(newDestination, newPath) && newPath.status == NavMeshPathStatus.PathComplete)
-                {
-                    for (int i = 1; i < newPath.corners.Length; i++)
-                    {
-                        line.SetPosition(i, newPath.corners[i]);
-                    }
-                }
-            }
         }
     }
 }
