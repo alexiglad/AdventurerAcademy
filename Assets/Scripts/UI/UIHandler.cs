@@ -28,13 +28,13 @@ public class UIHandler : ScriptableObject
         onAbilityButtonClicked.OnAbilityButtonClicked += tempRef.CombatAbility;
         doubleMovement = GameObject.Find("DoubleMovement").GetComponent<Image>();
         doubleMovement.enabled = false;
-
+        turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
     }
-    public void DisableCombat()
+    public void DisableCombat(List<Character> turnOrder)
     {
         StopDisplayingAbilities();
         StopDisplayingEndTurn();
-        StopDisplayingTurnOrder();
+        StopDisplayingTurnOrder(turnOrder);
         doubleMovement.enabled = false;
 
     }
@@ -85,9 +85,9 @@ public class UIHandler : ScriptableObject
     {
         onAbilityButtonClicked.StopDisplaying();
     }
-    public void StopDisplayingTurnOrder()
+    public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {
-        turnOrderScroll.StopDisplayingTurnOrder();
+        turnOrderScroll.StopDisplayingTurnOrder(turnOrder);
     }
     #endregion
 }

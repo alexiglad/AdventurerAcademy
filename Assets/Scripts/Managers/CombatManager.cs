@@ -55,8 +55,6 @@ public class CombatManager : GameStateManager
         hasMovement = true;
         doubleMovement = false;
         canContinue = true;
-        uiHandler.EnableCombat();
-        uiHandler.UpdateCombatTurnUI(character);
         gameController = FindObjectOfType<GameController>();
 
         foreach (Character characterE in characters)
@@ -83,6 +81,9 @@ public class CombatManager : GameStateManager
         {
             IterateCharacters();
         }
+
+        uiHandler.EnableCombat();
+        uiHandler.UpdateCombatTurnUI(character);
 
         if (!character.IsPlayer())
         {//only do this if is an enemy
@@ -339,7 +340,7 @@ public class CombatManager : GameStateManager
         if (!MoreThanOneSideIsAlive())
         {
             Debug.Log("Battle Ended!");
-            uiHandler.DisableCombat();
+            uiHandler.DisableCombat(turnOrder);
             EndBattle(character.IsPlayer());//if true is a win if false is a loss
         }
     }

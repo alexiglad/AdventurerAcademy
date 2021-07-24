@@ -437,7 +437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642550544635036941, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1642550544635036941, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
       propertyPath: m_TagString
@@ -1002,6 +1002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lava Wolf Three
       objectReference: {fileID: 0}
+    - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1083,6 +1087,10 @@ PrefabInstance:
     - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_Name
       value: Lava Wolf Four
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_RootOrder
@@ -1251,6 +1259,7 @@ RectTransform:
   - {fileID: 1014851839}
   - {fileID: 87036817}
   - {fileID: 2021141267}
+  - {fileID: 1013460435}
   m_Father: {fileID: 79111930}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1543,7 +1552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1642550544635036941, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1642550544635036941, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
       propertyPath: m_TagString
@@ -2828,6 +2837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lava Wolf Two
       objectReference: {fileID: 0}
+    - target: {fileID: 6174382709882193808, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3321,7 +3334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 846811220105343804, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 645.0643
+      value: 41.4386
       objectReference: {fileID: 0}
     - target: {fileID: 846811220105343804, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3357,11 +3370,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 846811220105343804, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 53.381466
+      value: -0.000005722
       objectReference: {fileID: 0}
     - target: {fileID: 846811220105343804, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 193.21298
+      value: 195.8
       objectReference: {fileID: 0}
     - target: {fileID: 846811220105343804, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

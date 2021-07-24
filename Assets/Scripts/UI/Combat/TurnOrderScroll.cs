@@ -5,45 +5,73 @@ using UnityEngine.UI;
 
 public class TurnOrderScroll : MonoBehaviour
 {
-    //Increase x while decreasing width. Do opposite for unfurling
-    //
-    Transform scroll;
+    RectTransform scroll;
     Transform container;
-    List<Image> portraits;
+    List<GameObject> portraits = new List<GameObject>();
 
-    float furlTime;
+    [SerializeField] float furlTime;
     float cellX;
     float spacing;
-
-    void Start()
-    {
-        scroll = gameObject.transform;
-        container = GetComponentInChildren<Transform>();
-        FlexibleGridLayout grid = container.GetComponent<FlexibleGridLayout>();
-        cellX = grid.cellWidth;
-        spacing = grid.spacing.x;
-    }
+    float defaultWidth;
+    float defaultHeight;
 
     public void StartTurnOrder(List<Character> turnOrder)
     {
-        foreach(Character character in turnOrder)
-        {
-            GameObject temp = new GameObject();
-            temp.transform.parent = container;
-            Image temp2 = temp.AddComponent<Image>();
-            temp2.sprite = character.GetCharacterData().Portrait;
-            portraits.Add(temp2);
-        }
-        scroll.LeanScaleX((turnOrder.Count * (cellX + spacing)), furlTime);
-        scroll.LeanMoveX(-(turnOrder.Count * (cellX + spacing)), furlTime);
+        scroll = (RectTransform)gameObject.transform;
+        container = scroll.GetChild(0);
+        FlexibleGridLayout grid = container.GetComponent<FlexibleGridLayout>();
+        cellX = grid.cellSize.x;
+        spacing = grid.spacing.x;
+        container.gameObject.SetActive(true);
+        defaultWidth = scroll.rect.width;
+        defaultHeight = scroll.rect.height;
+        StartCoroutine(Unfurl(turnOrder));
     }
-
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
-
+        StartCoroutine(UpdateTurnOrderCorutine(turnOrder));
     }
-    public void StopDisplayingTurnOrder()
+    public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {
+        StartCoroutine(Furl(turnOrder, false));
+        container.gameObject.SetActive(false);
+    }
+    private IEnumerator UpdateTurnOrderCorutine(List<Character> turnOrder)
+    {
+        yield return StartCoroutine(Furl(turnOrder, true));        
+    }
 
+
+    IEnumerator Furl(List<Character> turnOrder, bool ctx)
+    {
+        Debug.Log("Furling...");
+        scroll.LeanSize(new Vector2(defaultWidth, defaultHeight), furlTime);
+        foreach (GameObject element in portraits)
+        {            
+            element.GetComponent<CanvasGroup>().LeanAlpha(0, furlTime / turnOrder.Count);
+            Destroy(element);
+            yield return new WaitForSeconds(furlTime / turnOrder.Count);
+        }
+        if(ctx)
+            StartCoroutine(Unfurl(turnOrder));
+    }
+
+    IEnumerator Unfurl(List<Character> turnOrder)
+    {
+        Debug.Log("Unfurling...");
+        scroll.LeanSize(new Vector2(defaultWidth + (turnOrder.Count * (cellX + spacing)), defaultHeight), furlTime);
+        foreach (Character character in turnOrder)
+        {
+            yield return new WaitForSeconds(furlTime / turnOrder.Count);
+            GameObject obj = new GameObject();
+            obj.transform.parent = container;
+            Image image = obj.AddComponent<Image>();
+            image.sprite = character.GetCharacterData().Portrait;
+            CanvasGroup canvas = obj.AddComponent<CanvasGroup>();
+            canvas.alpha = 0;
+            canvas.LeanAlpha(1, .5f);
+            obj.transform.localScale = new Vector3(1, 1, 1);
+            portraits.Add(obj);
+        }
     }
 }
