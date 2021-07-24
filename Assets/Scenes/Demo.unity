@@ -136,6 +136,8 @@ GameObject:
   - component: {fileID: 8613143}
   - component: {fileID: 8613145}
   - component: {fileID: 8613146}
+  - component: {fileID: 8613147}
+  - component: {fileID: 8613148}
   m_Layer: 5
   m_Name: AbilityGrid
   m_TagString: UI
@@ -249,6 +251,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   allImages: []
+--- !u!225 &8613147
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613141}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &8613148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f41e5a50db84b4990480b24c546384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 1
 --- !u!1 &79111929
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +835,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6174382709882193814, guid: d3e059fb61ddd994bbffbf0ecd44ef55, type: 3}
   m_PrefabInstance: {fileID: 1694642492}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &381375831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 846811220105343805, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
+  m_PrefabInstance: {fileID: 846811218630514735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &381375835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381375831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f41e5a50db84b4990480b24c546384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 0.5
+--- !u!225 &381375836
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381375831}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &468944680 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6499003185554428563, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
@@ -1756,6 +1813,8 @@ GameObject:
   - component: {fileID: 1014851842}
   - component: {fileID: 1014851841}
   - component: {fileID: 1014851840}
+  - component: {fileID: 1014851844}
+  - component: {fileID: 1014851843}
   m_Layer: 5
   m_Name: EndTurn
   m_TagString: UI
@@ -1876,6 +1935,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014851838}
   m_CullTransparentMesh: 1
+--- !u!225 &1014851843
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014851838}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1014851844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014851838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f41e5a50db84b4990480b24c546384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 1
 --- !u!1 &1018883887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2513,6 +2597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
+  uiHandler: {fileID: 11400000, guid: 08c25b36159924a45be1c4c3fab99d26, type: 2}
   controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
 --- !u!4 &1551305133
 Transform:
@@ -3459,7 +3544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640261090172070347, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.38
+      value: -2.42
       objectReference: {fileID: 0}
     - target: {fileID: 7640261090172070347, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
       propertyPath: m_LocalPosition.y

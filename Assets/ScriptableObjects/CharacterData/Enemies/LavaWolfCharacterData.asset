@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LavaWolfCharacterData
   m_EditorClassIdentifier: 
   name: Lava Wolf
-  maxHealth: 20
+  maxHealth: 1
   maxEnergy: 100
   maxMovement: 3
   moveSpeed: 3

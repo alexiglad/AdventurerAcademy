@@ -305,7 +305,10 @@ public class CombatManager : GameStateManager
     public void RemoveCharacter(Character character)
     {
         turnOrder.Remove(character);
-        uiHandler.UpdateTurnOrder(turnOrder);
+        if (MoreThanOneSideIsAlive())
+            uiHandler.UpdateTurnOrder(turnOrder);
+        else
+            uiHandler.StopDisplayingTurnOrder(turnOrder);
         Character tempCharacter = enumerator.Current;
         if(character == tempCharacter)//i.e. current character is dying get next character
         {
