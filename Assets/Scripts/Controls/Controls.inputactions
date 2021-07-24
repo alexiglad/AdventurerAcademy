@@ -169,6 +169,14 @@
                     "expectedControlType": "Button",
                     "processors": "Normalize(min=-1,max=1)",
                     "interactions": ""
+                },
+                {
+                    "name": "DoubleMovement",
+                    "type": "Button",
+                    "id": "bcf00b55-43cd-4838-8e20-7ec29b0edfb7",
+                    "expectedControlType": "Button",
+                    "processors": "Normalize(min=-1,max=1)",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -323,6 +331,17 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3346a2e-7cae-466a-82eb-62583c23268d",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

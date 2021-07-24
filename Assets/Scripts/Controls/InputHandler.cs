@@ -30,6 +30,7 @@ public class InputHandler : ScriptableObject
         controls = new Controls();
         controls.Combat.Select.performed += _ => OnSelect();
         controls.Combat.Deselect.performed += _ => OnDeselect();
+        controls.Combat.DoubleMovement.performed += _ => OnDoubleMovement();
         defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         activeCamera = defaultCamera;
     }
@@ -79,6 +80,15 @@ public class InputHandler : ScriptableObject
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             tempRef.CombatAbilityDeselect();
+        }
+    }
+    public void OnDoubleMovement()
+    {
+        Debug.Log("here");
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.CombatDoubleMove();
         }
     }
 

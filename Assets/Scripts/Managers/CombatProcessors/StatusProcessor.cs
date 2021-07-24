@@ -14,6 +14,7 @@ public class StatusProcessor : ScriptableObject
     public void HandleStatuses(Character character)
     {
         foreach (Status status in character.Statuses) {
+            Debug.Log(character + " was affected by " + status.StatusEffect);
             status.TurnsLeft--;
             if (status.StatusEffect == StatusTypeEnum.Regen)
             {

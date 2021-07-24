@@ -182,6 +182,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": ""Normalize(min=-1,max=1)"",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""DoubleMovement"",
+                    ""type"": ""Button"",
+                    ""id"": ""bcf00b55-43cd-4838-8e20-7ec29b0edfb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -336,6 +344,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Deselect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3346a2e-7cae-466a-82eb-62583c23268d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -544,6 +563,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Combat_Pan = m_Combat.FindAction("Pan", throwIfNotFound: true);
         m_Combat_Zoom = m_Combat.FindAction("Zoom", throwIfNotFound: true);
         m_Combat_Deselect = m_Combat.FindAction("Deselect", throwIfNotFound: true);
+        m_Combat_DoubleMovement = m_Combat.FindAction("DoubleMovement", throwIfNotFound: true);
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_Navigate = m_Dialogue.FindAction("Navigate", throwIfNotFound: true);
@@ -657,6 +677,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Combat_Pan;
     private readonly InputAction m_Combat_Zoom;
     private readonly InputAction m_Combat_Deselect;
+    private readonly InputAction m_Combat_DoubleMovement;
     public struct CombatActions
     {
         private @Controls m_Wrapper;
@@ -668,6 +689,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Pan => m_Wrapper.m_Combat_Pan;
         public InputAction @Zoom => m_Wrapper.m_Combat_Zoom;
         public InputAction @Deselect => m_Wrapper.m_Combat_Deselect;
+        public InputAction @DoubleMovement => m_Wrapper.m_Combat_DoubleMovement;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -698,6 +720,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Deselect.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
                 @Deselect.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
                 @Deselect.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
+                @DoubleMovement.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
+                @DoubleMovement.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
+                @DoubleMovement.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
             }
             m_Wrapper.m_CombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -723,6 +748,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Deselect.started += instance.OnDeselect;
                 @Deselect.performed += instance.OnDeselect;
                 @Deselect.canceled += instance.OnDeselect;
+                @DoubleMovement.started += instance.OnDoubleMovement;
+                @DoubleMovement.performed += instance.OnDoubleMovement;
+                @DoubleMovement.canceled += instance.OnDoubleMovement;
             }
         }
     }
@@ -833,6 +861,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnPan(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnDeselect(InputAction.CallbackContext context);
+        void OnDoubleMovement(InputAction.CallbackContext context);
     }
     public interface IDialogueActions
     {

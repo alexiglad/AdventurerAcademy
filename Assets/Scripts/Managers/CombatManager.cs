@@ -68,7 +68,7 @@ public class CombatManager : GameStateManager
                 enemyCharacters.Add(characterE);
             }
         }
-        Debug.Log(character.name + " 's Turn!");
+        Debug.Log(character.name + "'s Turn!");
 
         foreach(Character characterE in characters)
         {
@@ -199,7 +199,14 @@ public class CombatManager : GameStateManager
     }
     public float GetRemainingMovement()
     {
-        return this.character.GetMaxMovement() - this.turn.AmountMoved;
+        if (doubleMovement)
+        {
+            return 2*(this.character.GetMaxMovement() - this.turn.AmountMoved);
+        }
+        else
+        {
+            return this.character.GetMaxMovement() - this.turn.AmountMoved;
+        }
     }
 
     public void UpdateCharacters(Turn turnChange)
@@ -434,9 +441,40 @@ public class CombatManager : GameStateManager
             UpdateIteration(turnUpdate, false);
         }
     }
-    public void CombatDoubleMove(bool value)
+    public void CombatDoubleMove()
     {
-        doubleMovement = true;
+        if (doubleMovement)
+        {
+            if(turn.AmountMoved >= character.GetMaxMovement())
+            {
+                Debug.Log("cannot disable double movement you have already moved too much");
+            }
+            else
+            {
+                doubleMovement = false;
+                uiHandler.DisplayDoubleMovement(doubleMovement);
+            }
+        }
+        else
+        {
+            if(!attacked && !targeting)
+            {
+                doubleMovement = true;
+                hasMovement = true;
+                uiHandler.DisplayDoubleMovement(doubleMovement);
+            }
+            else
+            {
+                if (attacked)
+                {
+                    Debug.Log("cannot enable double movement you have already attacked");
+                }
+                else
+                {
+                    Debug.Log("cannot enable double movement while targeting");
+                }
+            }
+        }
     }
 
     public void CombatMovementTwo(Vector3 destination)

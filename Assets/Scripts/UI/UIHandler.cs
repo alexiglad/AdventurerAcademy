@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/UIHandler")]
 
@@ -10,6 +11,7 @@ public class UIHandler : ScriptableObject
     FinishTurnButtonClicked onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
     TurnOrderScroll turnOrderScroll;
+    Image doubleMovement;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
 
@@ -24,7 +26,8 @@ public class UIHandler : ScriptableObject
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
         onAbilityButtonClicked.OnAbilityButtonClicked += tempRef.CombatAbility;
-
+        doubleMovement = GameObject.Find("DoubleMovement").GetComponent<Image>();
+        doubleMovement.enabled = false;
 
     }
     public void DisableCombat()
@@ -32,6 +35,8 @@ public class UIHandler : ScriptableObject
         StopDisplayingAbilities();
         StopDisplayingEndTurn();
         StopDisplayingTurnOrder();
+        doubleMovement.enabled = false;
+
     }
 
     #region combatUI
@@ -56,6 +61,17 @@ public class UIHandler : ScriptableObject
     public void UnselectAbilities()
     {
         onAbilityButtonClicked.UnselectAbilities();
+    }
+    public void DisplayDoubleMovement(bool doubleM)
+    {
+        if (doubleM)
+        {
+            doubleMovement.enabled = true;
+        }
+        else
+        {
+            doubleMovement.enabled = false;
+        }
     }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
