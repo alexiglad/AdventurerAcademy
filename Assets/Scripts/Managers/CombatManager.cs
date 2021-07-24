@@ -352,11 +352,12 @@ public class CombatManager : GameStateManager
             character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
             character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
         }
-
+        bool changed = false;
         if (turnOrder.Remove(character))
         {
             turnOrder.Add(character);
-            uiHandler.UpdateTurnOrder(turnOrder);
+            changed = true;
+            //uiHandler.UpdateTurnOrder(turnOrder);
         }
         if (MoreThanOneSideIsAlive())
         {
@@ -376,6 +377,8 @@ public class CombatManager : GameStateManager
             Debug.Log(character.name + "'s Turn!");
             statusProcessorInstance.HandleStatuses(character);
             uiHandler.UpdateCombatTurnUI(character);
+            uiHandler.StopDisplayingEndTurn();
+            uiHandler.StopDisplayingAbilities();
             targeting = false;
             attacked = false;
             hasMovement = true;
@@ -388,7 +391,8 @@ public class CombatManager : GameStateManager
             else
             {
                 character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-                gameController.StartCoroutineNMA(FinishIterating);
+                if(changed)
+                    gameController.StartCoroutineNMA(FinishIterating, turnOrder);
             }
             
         }
@@ -400,6 +404,7 @@ public class CombatManager : GameStateManager
         {//only do this if is an enemy
             UpdateIteration(DetermineEnemyTurn(character), true);
         }
+        uiHandler.UpdateCombatTurnUI(character);
     }
     bool MoreThanOneSideIsAlive()
     {

@@ -10,13 +10,16 @@ public class TurnOrderScroll : MonoBehaviour
     List<GameObject> portraits = new List<GameObject>();
 
     [SerializeField] float furlTime;
+    private bool canContinue;
     float cellX;
     float spacing;
     float defaultWidth;
     float defaultHeight;
 
+
     public void StartTurnOrder(List<Character> turnOrder)
     {
+        canContinue = false;
         scroll = (RectTransform)gameObject.transform;
         container = scroll.GetChild(0);
         FlexibleGridLayout grid = container.GetComponent<FlexibleGridLayout>();
@@ -29,7 +32,9 @@ public class TurnOrderScroll : MonoBehaviour
     }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
+        canContinue = false;
         StartCoroutine(UpdateTurnOrderCorutine(turnOrder));
+
     }
     public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {
@@ -80,5 +85,10 @@ public class TurnOrderScroll : MonoBehaviour
             obj.transform.localScale = new Vector3(1, 1, 1);
             portraits.Add(obj);
         }
+        canContinue = true;
+    }
+    public bool CanContinue()
+    {
+        return this.canContinue;
     }
 }

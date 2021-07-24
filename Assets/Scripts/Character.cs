@@ -44,17 +44,13 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return this.characterData.GetName();
     }
-    /*private void Awake()
+    public void Update()
     {
-        if (!inanimate)//TODO make this not sketch
-        {
-            this.gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            this.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-        }
-    }*/
+        
+    }
     private void OnEnable()
     {
-        if(!inanimate)//TODO make this not sketch
+        if(!inanimate)
         {
             FindObjectOfType<GameController>().AddCharacter(this);
             enemyAI = new BasicAI();

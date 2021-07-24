@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameStateManagerSO currentGameStateManager;
     [SerializeField] private GameStateSO currentGameState;
     private SortedSet<Character> characters = new SortedSet<Character>();
+    [SerializeField] UIHandler uiHandler;
 
     [SerializeField] InputHandler controls;
     //static Controls controls;
@@ -18,6 +19,8 @@ public class GameController : MonoBehaviour
     {
         controls.ManualAwake();
         //temporary code creates combat manager with characters
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);
+
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
     }
 
@@ -38,27 +41,30 @@ public class GameController : MonoBehaviour
         }
         else
         {
-
+            Debug.Log("error");
         }
     }
-    public void StartCoroutineNMA(Action action)
+    public void StartCoroutineNMA(Action action, List<Character> turnOrder)
     {
-        StartCoroutine(Routine2(action));
+        StartCoroutine(Routine2(action, turnOrder));
     }
-    IEnumerator Routine2(Action action)
+    IEnumerator Routine2(Action action, List<Character> turnOrder)
     {
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             tempRef.CanContinue = false;
-            yield return new WaitForSeconds(.25f);
+            uiHandler.StopDisplayingEndTurn();
+            uiHandler.UpdateTurnOrder(turnOrder);
+            yield return new WaitUntil(uiHandler.TurnOrderScroll.CanContinue);
+            //uiHandler.UpdateCombatTurnUI(tempRef.Character);
             tempRef.CanContinue = true;
             action.Invoke();
             //eventually add animation here for switching turns
         }
         else
         {
-
+            Debug.Log("error");
         }
     }
 

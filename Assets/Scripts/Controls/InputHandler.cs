@@ -28,23 +28,22 @@ public class InputHandler : ScriptableObject
     public void ManualAwake()
     {
         controls = new Controls();
-        controls.Combat.Select.performed += _ => OnSelect();
-        controls.Combat.Deselect.performed += _ => OnDeselect();
-        controls.Combat.DoubleMovement.performed += _ => OnDoubleMovement();
         defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         activeCamera = defaultCamera;
+
+        //combat
+        controls.Combat.Select.performed += _ => CombatOnSelect();
+        controls.Combat.Deselect.performed += _ => CombatOnDeselect();
+        controls.Combat.DoubleMovement.performed += _ => CombatOnDoubleMovement();
+
+
+        //roaming
+        controls.Roaming.Interact.performed += _ => RoamingInteract();
+        controls.Roaming.Inventory.performed += _ => RoamingInventory();
+        controls.Roaming.Movement.performed += _ => RoamingMovement(controls.Roaming.Movement);
+
     }
 
-    public void SetZoom()
-    {
-        zoom = controls.Combat.Zoom.ReadValue<float>();
-    }
-
-    public void SetPan()
-    {
-        //Debug.Log("Panning");
-        pan = controls.Combat.Pan.ReadValue<Vector2>();
-    }
 
     public void SetActiveCamera(Camera active)
     {
@@ -56,44 +55,9 @@ public class InputHandler : ScriptableObject
         return controls;
     }
 
-    void OnSelect()
-    {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.CanContinue)
-            {
-                if (tempRef.GetTargeting() == true)
-                {
-                    SendTarget(GetRaycastHit(), tempRef);
-                }
-                else
-                {
-                    SendLocation(GetRaycastHit(), tempRef);
-                }
-            }
-        }
-    } 
-    public void OnDeselect()
-    {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.CombatAbilityDeselect();
-        }
-    }
-    public void OnDoubleMovement()
-    {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.CombatDoubleMove();
-        }
-    }
-
     public RaycastData GetRaycastHit()
     {
-        Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>(); 
+        Vector2 mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>();
         Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         RaycastHit hit;
         return new RaycastData(Physics.Raycast(ray, out hit, Mathf.Infinity), hit);
@@ -105,8 +69,71 @@ public class InputHandler : ScriptableObject
             return true;
         return false;
     }
+    void DisplayError()
+    {
+        Debug.Log("error occurred");
+    }
+    #region CombatMethods
 
-    void SendLocation(RaycastData ray, CombatManager tempref)
+    public void SetZoom()
+    {
+        zoom = controls.Combat.Zoom.ReadValue<float>();
+    }
+
+    public void SetPan()
+    {
+        pan = controls.Combat.Pan.ReadValue<Vector2>();
+    }
+    void CombatOnSelect()
+    {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            if (tempRef.CanContinue)
+            {
+                if (tempRef.GetTargeting() == true)
+                {
+                    CombatSendTarget(GetRaycastHit(), tempRef);
+                }
+                else
+                {
+                    CombatSendLocation(GetRaycastHit(), tempRef);
+                }
+            }
+        }
+        else
+        {
+            DisplayError();
+        }
+    } 
+    public void CombatOnDeselect()
+    {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.CombatAbilityDeselect();
+        }
+        else
+        {
+            DisplayError();
+        }
+    }
+    public void CombatOnDoubleMovement()
+    {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.CombatDoubleMove();
+        }
+        else
+        {
+            DisplayError();
+        }
+    }
+
+ 
+
+    void CombatSendLocation(RaycastData ray, CombatManager tempref)
     {
         if (ray.HitBool && VerifyTag(ray, "Terrain"))
         {
@@ -114,7 +141,7 @@ public class InputHandler : ScriptableObject
         }
     }
 
-    void SendTarget(RaycastData ray, CombatManager tempRef)
+    void CombatSendTarget(RaycastData ray, CombatManager tempRef)
     {
         if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
             tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
@@ -174,7 +201,6 @@ public class InputHandler : ScriptableObject
                 GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
                 Character temp1 = temp2.GetComponent<Character>();
                 tempRef.CombatTarget(temp1);//TODO CHECK IF THIS WORKS
-                Debug.Log("this may cause errors");
                 return;
             }
         }
@@ -182,4 +208,41 @@ public class InputHandler : ScriptableObject
         Debug.Log("something went wrong or user selected incorrectly");
         //display to user that they are selecting incorrectly   
     }
+    #endregion
+    #region RoamingMethods
+
+    void RoamingMovement(InputAction inputAction)
+    {
+        Vector2 movement = inputAction.ReadValue<Vector2>();
+        Debug.Log(movement);
+    }
+    void RoamingInteract()
+    {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Roaming)
+        {
+            RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.Interact();
+        }
+        else
+        {
+            DisplayError();
+        }
+
+    }
+    void RoamingInventory()
+    {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Roaming)
+        {
+            RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.OpenInventory();
+        }
+        else
+        {
+            DisplayError();
+        }
+    }
+
+
+    #endregion
+
 }

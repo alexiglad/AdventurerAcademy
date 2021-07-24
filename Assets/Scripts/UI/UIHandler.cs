@@ -14,6 +14,8 @@ public class UIHandler : ScriptableObject
     Image doubleMovement;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
+    public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
+    public FinishTurnButtonClicked OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
 
     public void EnableCombat()
     {
