@@ -46,13 +46,20 @@ public class TurnOrderScroll : MonoBehaviour
     {
         Debug.Log("Furling...");
         scroll.LeanSize(new Vector2(defaultWidth, defaultHeight), furlTime);
+        portraits.Reverse();
+
         foreach (GameObject element in portraits)
         {            
-            element.GetComponent<CanvasGroup>().LeanAlpha(0, furlTime / turnOrder.Count);
-            Destroy(element);
-            yield return new WaitForSeconds(furlTime / turnOrder.Count);
+            element.GetComponent<CanvasGroup>().LeanAlpha(0, .03f);
+            yield return new WaitForSeconds(furlTime / turnOrder.Count);            
         }
-        if(ctx)
+
+        foreach(GameObject element in portraits)
+            Destroy(element);
+
+        portraits.Clear();
+
+        if (ctx)
             StartCoroutine(Unfurl(turnOrder));
     }
 
