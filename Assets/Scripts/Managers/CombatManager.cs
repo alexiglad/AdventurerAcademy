@@ -376,9 +376,6 @@ public class CombatManager : GameStateManager
             }
             Debug.Log(character.name + "'s Turn!");
             statusProcessorInstance.HandleStatuses(character);
-            uiHandler.UpdateCombatTurnUI(character);
-            uiHandler.StopDisplayingEndTurn();
-            uiHandler.StopDisplayingAbilities();
             targeting = false;
             attacked = false;
             hasMovement = true;
@@ -403,6 +400,8 @@ public class CombatManager : GameStateManager
         if (!character.IsPlayer())
         {//only do this if is an enemy
             UpdateIteration(DetermineEnemyTurn(character), true);
+            uiHandler.StopDisplayingAbilities();
+            uiHandler.StopDisplayingEndTurn();
         }
         uiHandler.UpdateCombatTurnUI(character);
     }
