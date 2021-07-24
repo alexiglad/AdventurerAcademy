@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// MoltenBite is a low damage attack (2) that does 3 splash damage to every
-/// character within a range of 5 (this is temporary lol)
+/// Splash damage attack that spreads fire on target
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/MoltenBite")]
-public class AMoltenBite : Ability
+public class AInfernoBreath : Ability
 {
     private void OnEnable()
     {
