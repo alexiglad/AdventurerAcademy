@@ -84,7 +84,6 @@ public class InputHandler : ScriptableObject
     }
     public void OnDoubleMovement()
     {
-        Debug.Log("here");
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();

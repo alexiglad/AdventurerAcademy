@@ -130,7 +130,7 @@ public class CombatManager : GameStateManager
     }
     public bool UpdateAbility(Ability ability)
     {
-        if (!attacked)
+        if (!attacked && !doubleMovement)
         {
             turn.SetAbility(ability);
             if(ability == null)
@@ -150,7 +150,7 @@ public class CombatManager : GameStateManager
     }
     public bool UpdateTarget(Character target)
     {
-        if (!attacked && targeting)
+        if (!attacked && targeting && !doubleMovement)
         {
             turn.SetTarget(target);
             return true;
@@ -162,7 +162,19 @@ public class CombatManager : GameStateManager
     }
     public bool UpdateMovement(Vector3 movement)
     {
-        if(hasMovement && turn.AmountMoved + movement.magnitude <= character.GetMaxMovement() )
+        if (doubleMovement && hasMovement && turn.AmountMoved + movement.magnitude <= 2* character.GetMaxMovement())
+        {
+            turn.SetMovement(movement + turn.GetMovement());
+            turn.AmountMoved += movement.magnitude;
+            float error = .2f;
+            if (GetRemainingMovement() <= error)
+            {
+                Debug.Log("User has used up movement for turn");
+                hasMovement = false;
+            }
+            return true;
+        }
+        else if(hasMovement && turn.AmountMoved + movement.magnitude <= character.GetMaxMovement() )
         {
             turn.SetMovement(movement + turn.GetMovement());
             turn.AmountMoved += movement.magnitude;
@@ -453,6 +465,7 @@ public class CombatManager : GameStateManager
             {
                 doubleMovement = false;
                 uiHandler.DisplayDoubleMovement(doubleMovement);
+                uiHandler.UpdateCombatTurnUI(character);
             }
         }
         else
@@ -462,6 +475,7 @@ public class CombatManager : GameStateManager
                 doubleMovement = true;
                 hasMovement = true;
                 uiHandler.DisplayDoubleMovement(doubleMovement);
+                uiHandler.StopDisplayingAbilities();
             }
             else
             {
@@ -488,7 +502,7 @@ public class CombatManager : GameStateManager
             if (Vector3.Distance(adjustedDestination, characterBottom) <= GetRemainingMovement())
             {
                 //If the destination is valid, move to destination
-                if(UpdateMovement(adjustedDestination - characterBottom))
+                if (UpdateMovement(adjustedDestination - characterBottom))
                 {
                     UpdateIteration(new Turn(adjustedDestination - characterBottom), false);
                 }
