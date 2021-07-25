@@ -38,8 +38,12 @@ public class TurnOrderScroll : MonoBehaviour
     }
     public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {
-        StartCoroutine(Furl(turnOrder, false));
-        container.gameObject.SetActive(false);
+        StartCoroutine(StopDisplayingTurnOrderCorutine(turnOrder));
+    }
+
+    private IEnumerator StopDisplayingTurnOrderCorutine(List<Character> turnOrder)
+    {
+        yield return StartCoroutine(Furl(turnOrder, false));
     }
     private IEnumerator UpdateTurnOrderCorutine(List<Character> turnOrder)
     {
@@ -49,19 +53,17 @@ public class TurnOrderScroll : MonoBehaviour
 
     IEnumerator Furl(List<Character> turnOrder, bool ctx)
     {
-        Debug.Log("Furling...");
         scroll.LeanSize(new Vector2(defaultWidth, defaultHeight), furlTime);
         portraits.Reverse();
 
         foreach (GameObject element in portraits)
         {
-            element.GetComponent<CanvasGroup>().LeanAlpha(0, .03f);
-            yield return new WaitForSeconds(furlTime / turnOrder.Count);            
-        }
-        foreach(GameObject element in portraits)
             Destroy(element);
+        }                  
 
         portraits.Clear();
+
+        yield return new WaitForSeconds(furlTime);
 
         if (ctx)
             StartCoroutine(Unfurl(turnOrder));
@@ -69,7 +71,6 @@ public class TurnOrderScroll : MonoBehaviour
 
     IEnumerator Unfurl(List<Character> turnOrder)
     {
-        Debug.Log("Unfurling...");
         scroll.LeanSize(new Vector2(defaultWidth + (turnOrder.Count * (cellX + spacing)), defaultHeight), furlTime);
         foreach (Character character in turnOrder)
         {
@@ -82,6 +83,7 @@ public class TurnOrderScroll : MonoBehaviour
             canvas.alpha = 0;
             canvas.LeanAlpha(1, .5f);
             obj.transform.localScale = new Vector3(1, 1, 1);
+            obj.name = "Scroll Portrait " + portraits.Count;
             portraits.Add(obj);
         }
         canContinue = true;

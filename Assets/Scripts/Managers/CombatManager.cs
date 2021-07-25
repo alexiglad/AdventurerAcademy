@@ -306,12 +306,13 @@ public class CombatManager : GameStateManager
     //TODO figure out why it is iterating after bird's turn
     public void RemoveCharacter(Character character)
     {
-        if (turnOrder.Remove(character) && !TurnFinished())//dont double up
+        if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
             //IDEA dont redisplay turn order after removing characters just draw red X's
         {
                 Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
                 gameController.StartCoroutineCC(action);            
         }
+
         Character tempCharacter = enumerator.Current;
         if(character == tempCharacter)//i.e. current character is dying get next character
         {
