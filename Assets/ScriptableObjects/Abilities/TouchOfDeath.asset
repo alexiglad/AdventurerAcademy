@@ -24,8 +24,8 @@ MonoBehaviour:
   direction: 3
   dimWidth: 800.8687
   dimHeight: 590.114
-  startX: -150
+  startX: -175
   startY: 0
-  targetX: -115
+  targetX: -95
   targetY: 0
   damageDivider: 3
