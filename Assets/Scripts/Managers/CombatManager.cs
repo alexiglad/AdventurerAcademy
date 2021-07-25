@@ -66,8 +66,6 @@ public class CombatManager : GameStateManager
                 enemyCharacters.Add(characterE);
             }
         }
-        Debug.Log(character.name + "'s Turn!");
-
         foreach(Character characterE in characters)
         {
             turnOrder.Add(characterE);
@@ -256,6 +254,11 @@ public class CombatManager : GameStateManager
             Debug.Log("Voodoo ability used from " + character  + " onto " + turn.GetTarget().VoodooTarget);
             RemoveCharacter(turn.GetTarget());
             abilityProcessorInstance.HandleAbility(character, turn.GetTarget().VoodooTarget, turn.GetAbility());//TODO MAKE GET TARGET OF VOODOO
+        }
+        else if(turn.GetTarget().name == "TempCharacter(Clone)")
+        {
+            RemoveCharacter(turn.GetTarget());
+            abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());//TODO MAKE GET TARGET OF VOODOO
         }
     }
 
@@ -537,7 +540,7 @@ public class CombatManager : GameStateManager
                 float distanceTraveled = 0;
                 Vector3 location = new Vector3();
                 Vector3 prev = characterBottom;
-                prev.y += 0.08448386f;//TODO investigate why this helps eventually
+                //prev.y += 0.08448386f;//TODO investigate why this helps eventually
                 foreach (Vector3 vector in path.corners)
                 {
                     if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())

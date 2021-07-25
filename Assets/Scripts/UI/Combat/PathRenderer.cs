@@ -74,7 +74,6 @@ public class PathRenderer : MonoBehaviour
 
     public void DisplayPath(NavMeshPath path, Character character, CombatManager tempRef)
     {
- 
         line.positionCount = path.corners.Length;
 
         Vector3 bottom = character.BoxCollider.bounds.center;

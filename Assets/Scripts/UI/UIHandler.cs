@@ -11,7 +11,7 @@ public class UIHandler : ScriptableObject
     FinishTurnButtonClicked onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
     TurnOrderScroll turnOrderScroll;
-    Image doubleMovement;
+    GameObject doubleMovement;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
@@ -29,8 +29,8 @@ public class UIHandler : ScriptableObject
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
         onAbilityButtonClicked.OnAbilityButtonClicked += tempRef.CombatAbility;
-        doubleMovement = GameObject.Find("DoubleMovement").GetComponent<Image>();
-        doubleMovement.enabled = false;
+        doubleMovement = GameObject.Find("DoubleMovement");
+        doubleMovement.SetActive(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
     }
@@ -39,7 +39,7 @@ public class UIHandler : ScriptableObject
         StopDisplayingAbilities();
         StopDisplayingEndTurn();
         StopDisplayingTurnOrder(turnOrder);
-        doubleMovement.enabled = false;
+        doubleMovement.SetActive(false);
 
     }
 
@@ -72,11 +72,11 @@ public class UIHandler : ScriptableObject
     {
         if (doubleM)
         {
-            doubleMovement.enabled = true;
+            doubleMovement.SetActive(true);
         }
         else
         {
-            doubleMovement.enabled = false;
+            doubleMovement.SetActive(false);
         }
     }
     public void UpdateTurnOrder(List<Character> turnOrder)

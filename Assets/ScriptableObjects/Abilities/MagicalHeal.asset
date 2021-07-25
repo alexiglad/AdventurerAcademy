@@ -19,7 +19,7 @@ MonoBehaviour:
   range: 8
   radius: 0
   abilityType: 3
-  icon: {fileID: 21300000, guid: e50a4b542a22f8f429423e8d6905d71f, type: 3}
+  icon: {fileID: 21300000, guid: caf2c0912931ab24daf622164e792e68, type: 3}
   image: {fileID: 21300000, guid: 05163c8f2c9cab04b81dc833e484a5d2, type: 3}
   direction: 0
   dimWidth: 797.29
