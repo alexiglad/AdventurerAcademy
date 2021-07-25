@@ -20,12 +20,17 @@ public class AbilityButtonClicked : MonoBehaviour
 
     public void ManualAwake()
     {
-        abilityButtons[0] = GameObject.Find("AbilityOne");
+        /*abilityButtons[0] = GameObject.Find("AbilityOne");
         abilityButtons[1] = GameObject.Find("AbilityTwo");
         abilityButtons[2] = GameObject.Find("AbilityThree");
         abilityButtons[3] = GameObject.Find("AbilityFour");
-        abilityButtons[4] = GameObject.Find("AbilityFive");
+        abilityButtons[4] = GameObject.Find("AbilityFive");*/
 
+        Button[] buttons = gameObject.GetComponentsInChildren<Button>();
+        for (int i = 0; i < abilityButtons.Length; i++)
+        {
+            abilityButtons[i] = buttons[i].gameObject;
+        }
     }
     public void StopDisplaying()
     {
@@ -50,8 +55,10 @@ public class AbilityButtonClicked : MonoBehaviour
             for (int i = 0; i < abilityButtonAbilities.Count; i++)
             {
                 abilityButtons[i].SetActive(true);
+                abilityButtons[i].GetComponent<Image>().sprite = character.GetCharacterData().InUseAbilities[i].Icon;
             }
             abilityButtons[0].transform.parent.gameObject.SetActive(true);
+
         }
         else
         {

@@ -52,14 +52,22 @@ public class TurnOrderScroll : MonoBehaviour
 
 
     IEnumerator Furl(List<Character> turnOrder, bool ctx)
-    {
-        scroll.LeanSize(new Vector2(defaultWidth, defaultHeight), furlTime);
+    {        
         portraits.Reverse();
 
         foreach (GameObject element in portraits)
         {
+            element.GetComponent<CanvasGroup>().LeanAlpha(0, furlTime / 2);            
+        }
+
+        yield return new WaitForSeconds(furlTime/3);
+
+        foreach (GameObject element in portraits)
+        {
             Destroy(element);
-        }                  
+        }
+
+        scroll.LeanSize(new Vector2(defaultWidth, defaultHeight), furlTime);
 
         portraits.Clear();
 

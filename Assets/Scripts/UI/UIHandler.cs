@@ -12,6 +12,7 @@ public class UIHandler : ScriptableObject
     AbilityImageDrawer abilityImageDrawer;
     TurnOrderScroll turnOrderScroll;
     Image doubleMovement;
+    AbilityBarWidthAdjuster abilityBarWidthAdjuster;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
@@ -31,6 +32,7 @@ public class UIHandler : ScriptableObject
         doubleMovement = GameObject.Find("DoubleMovement").GetComponent<Image>();
         doubleMovement.enabled = false;
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
+        abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
     }
     public void DisableCombat(List<Character> turnOrder)
     {
@@ -45,6 +47,7 @@ public class UIHandler : ScriptableObject
     public void UpdateCombatTurnUI(Character character)
     {
         onAbilityButtonClicked.UpdateAbilities(character);
+        abilityBarWidthAdjuster.DrawAbilityBar();
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
 
