@@ -29,6 +29,10 @@ public class FinishTurnButtonClicked : MonoBehaviour
     {
         endTurn.SetActive(false);
     }
+    public void Display()
+    {
+        endTurn.SetActive(true);
+    }
     public void OnFinishTurnButtonPressed()
     {
         OnFinishTurnButtonClicked?.Invoke(this, EventArgs.Empty);

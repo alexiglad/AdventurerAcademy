@@ -17,6 +17,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] protected float health;
     [SerializeField] protected float energy;    
     private bool revived;
+    private bool died;
     [SerializeField] private bool inanimate;
     private Character voodooTarget;
     
@@ -69,6 +70,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         health = characterData.GetMaxHealth();
         energy = characterData.GetMaxEnergy();
         revived = false;
+        died = false;
         agent = transform.GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
@@ -109,6 +111,10 @@ public class Character : MonoBehaviour, IComparable<Character>
     public void Dead(){
         //create event?
         //TODO fix
+        if (died)
+        {
+            return;
+        }
         Debug.Log(this + " died!");
         if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
@@ -129,6 +135,7 @@ public class Character : MonoBehaviour, IComparable<Character>
             {
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.RemoveCharacter(this);
+                died = true;
             }                
         }
         else

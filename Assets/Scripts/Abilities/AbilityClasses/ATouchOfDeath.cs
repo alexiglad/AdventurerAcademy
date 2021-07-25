@@ -21,7 +21,7 @@ public class ATouchOfDeath : Ability
     void OnEnable()
     {
         damageDivider = 3;
-        damage = 0;//TODO FIX THIS
+        damage = 0;
         range = 20;
     }
 

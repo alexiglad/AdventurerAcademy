@@ -54,8 +54,11 @@ public class GameController : MonoBehaviour
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             tempRef.CanContinue = false;
-            uiHandler.StopDisplayingEndTurn();
+            uiHandler.UpdateCombatTurnUI(tempRef.Character);
+
+            //yield return new WaitForSeconds(.01f);
             uiHandler.StopDisplayingAbilities();
+            uiHandler.StopDisplayingEndTurn();
             uiHandler.UpdateTurnOrder(turnOrder);
             yield return new WaitUntil(uiHandler.TurnOrderScroll.CanContinue);
             //uiHandler.UpdateCombatTurnUI(tempRef.Character);

@@ -87,6 +87,14 @@ public class UIHandler : ScriptableObject
     {
         onAbilityButtonClicked.StopDisplaying();
     }
+    public void DisplayEndTurn()
+    {
+        onFinishTurnButtonClicked.Display();
+    }
+    public void DisplayAbilities()
+    {
+        onAbilityButtonClicked.Display();
+    }
     public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {
         turnOrderScroll.StopDisplayingTurnOrder(turnOrder);

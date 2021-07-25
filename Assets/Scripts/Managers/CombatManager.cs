@@ -236,6 +236,8 @@ public class CombatManager : GameStateManager
         {
             canContinue = false;
             uiHandler.DisplayAbility(currentAbility);
+            targeting = false;
+            attacked = true;
             if (turn.GetTarget().Inanimate)
             {
                 HandleInanimateTarget(turnChange);
@@ -244,8 +246,6 @@ public class CombatManager : GameStateManager
             {
                 abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), currentAbility);
             }
-            targeting = false;
-            attacked = true;
             uiHandler.StopDisplayingAbilities();
         }
     }
@@ -302,14 +302,20 @@ public class CombatManager : GameStateManager
             }
         }
     }
+
+    //TODO figure out why it is iterating after bird's turn
     public void RemoveCharacter(Character character)
     {
-        turnOrder.Remove(character);
-        uiHandler.UpdateTurnOrder(turnOrder);
+        if (turnOrder.Remove(character) && !TurnFinished())//dont double up
+            //IDEA dont redisplay turn order after removing characters just draw red X's
+        {
+                Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
+                gameController.StartCoroutineCC(action);            
+        }
         Character tempCharacter = enumerator.Current;
         if(character == tempCharacter)//i.e. current character is dying get next character
         {
-            if (enumerator.MoveNext())
+            if (enumerator.MoveNext())//todo fix this
             {
                 tempCharacter = enumerator.Current;
             }
@@ -399,11 +405,16 @@ public class CombatManager : GameStateManager
         character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
         if (!character.IsPlayer())
         {//only do this if is an enemy
-            UpdateIteration(DetermineEnemyTurn(character), true);
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
+            UpdateIteration(DetermineEnemyTurn(character), true);
         }
-        uiHandler.UpdateCombatTurnUI(character);
+        else
+        {
+            uiHandler.DisplayAbilities();
+            uiHandler.DisplayEndTurn();
+        }
+
     }
     bool MoreThanOneSideIsAlive()
     {
@@ -576,7 +587,10 @@ public class CombatManager : GameStateManager
 
     public void FinishTurn(object sender, EventArgs e)
     {
-        IterateCharacters();
+        if (canContinue)
+        {
+            IterateCharacters();
+        }
     }
 
     #endregion

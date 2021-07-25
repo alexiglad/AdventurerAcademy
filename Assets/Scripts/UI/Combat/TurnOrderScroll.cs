@@ -54,11 +54,10 @@ public class TurnOrderScroll : MonoBehaviour
         portraits.Reverse();
 
         foreach (GameObject element in portraits)
-        {            
+        {
             element.GetComponent<CanvasGroup>().LeanAlpha(0, .03f);
             yield return new WaitForSeconds(furlTime / turnOrder.Count);            
         }
-
         foreach(GameObject element in portraits)
             Destroy(element);
 
@@ -87,6 +86,7 @@ public class TurnOrderScroll : MonoBehaviour
         }
         canContinue = true;
     }
+
     public bool CanContinue()
     {
         return this.canContinue;

@@ -51,20 +51,24 @@ public class PathRenderer : MonoBehaviour
     }
 
     public void DisplayActivePath(Character character)
-    {        
-        line.positionCount = agent.path.corners.Length;
-        
-        Vector3 bottom = character.BoxCollider.bounds.center;
-        bottom.y -= character.BoxCollider.bounds.size.y / 2;
-        line.SetPosition(0, bottom);
-
-        if (agent.path.corners.Length < 2)
-            return;
-
-        for (int i = 1; i < agent.path.corners.Length; i++)
+    {
+        if (agent.hasPath)
         {
-            line.SetPosition(i, agent.path.corners[i]);
+            line.positionCount = agent.path.corners.Length;
+
+            Vector3 bottom = character.BoxCollider.bounds.center;
+            bottom.y -= character.BoxCollider.bounds.size.y / 2;
+            line.SetPosition(0, bottom);
+
+            if (agent.path.corners.Length < 2)
+                return;
+
+            for (int i = 1; i < agent.path.corners.Length; i++)
+            {
+                line.SetPosition(i, agent.path.corners[i]);
+            }
         }
+        
         
     }
 
