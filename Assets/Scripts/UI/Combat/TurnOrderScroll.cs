@@ -8,9 +8,10 @@ public class TurnOrderScroll : MonoBehaviour
     RectTransform scroll;
     Transform container;
     List<GameObject> portraits = new List<GameObject>();
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+
 
     [SerializeField] float furlTime;
-    private bool canContinue;
     float cellX;
     float spacing;
     float defaultWidth;
@@ -19,7 +20,6 @@ public class TurnOrderScroll : MonoBehaviour
 
     public void StartTurnOrder(List<Character> turnOrder)
     {
-        canContinue = false;
         scroll = (RectTransform)gameObject.transform;
         container = scroll.GetChild(0);
         FlexibleGridLayout grid = container.GetComponent<FlexibleGridLayout>();
@@ -32,7 +32,6 @@ public class TurnOrderScroll : MonoBehaviour
     }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
-        canContinue = false;
         StartCoroutine(UpdateTurnOrderCorutine(turnOrder));
 
     }
@@ -74,7 +73,14 @@ public class TurnOrderScroll : MonoBehaviour
         yield return new WaitForSeconds(furlTime);
 
         if (ctx)
+        {
+            Debug.Log("here");
             StartCoroutine(Unfurl(turnOrder));
+        }
+        else
+        {
+            //cedric here
+        }
     }
 
     IEnumerator Unfurl(List<Character> turnOrder)
@@ -94,11 +100,10 @@ public class TurnOrderScroll : MonoBehaviour
             obj.name = "Scroll Portrait " + portraits.Count;
             portraits.Add(obj);
         }
-        canContinue = true;
-    }
-
-    public bool CanContinue()
-    {
-        return this.canContinue;
+        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.EnableCombatInput();
+        }
     }
 }

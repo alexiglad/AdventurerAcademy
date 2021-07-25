@@ -53,18 +53,37 @@ public class GameController : MonoBehaviour
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
-            tempRef.CanContinue = false;
+            tempRef.DisableCombatInput();
             uiHandler.UpdateCombatTurnUI(tempRef.Character);
 
             //yield return new WaitForSeconds(.01f);
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
             uiHandler.UpdateTurnOrder(turnOrder);
-            yield return new WaitUntil(uiHandler.TurnOrderScroll.CanContinue);
+            yield return new WaitUntil(tempRef.CanContinueMethod);
             //uiHandler.UpdateCombatTurnUI(tempRef.Character);
-            tempRef.CanContinue = true;
+            tempRef.EnableCombatInput();
             action.Invoke();
             //eventually add animation here for switching turns
+        }
+        else
+        {
+            Debug.Log("error");
+        }
+    }
+    public void StartCoroutineTOS(Action action)
+    {
+        StartCoroutine(Routine3(action));
+    }
+    IEnumerator Routine3(Action action)
+    {
+        if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            action.Invoke();
+            tempRef.DisableCombatInput();
+            yield return new WaitUntil(tempRef.CanContinueMethod);
+            tempRef.EnableCombatInput();
         }
         else
         {

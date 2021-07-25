@@ -79,7 +79,7 @@ public class AbilityImageDrawer : MonoBehaviour
         if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.CanContinue = true;
+            tempRef.EnableCombatInput();
         }
 
     }

@@ -92,7 +92,7 @@ public class Character : MonoBehaviour, IComparable<Character>
                         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                         if (this == tempRef.Character)
                         {
-                            tempRef.CanContinue = true;
+                            tempRef.EnableCombatInput();
                         }
                     }
                 }

@@ -229,12 +229,13 @@ public class CombatManager : GameStateManager
         //call ability or move method if necessary
         if (currentMovement != Vector3.zero)//move turn
         {
-            canContinue = false;
+            DisableCombatInput();
             movementProcesssor.HandleMovement(character, currentMovement);
         }
         if(currentAbility != null && currentAbility != null && !attacked)//ability turn
         {
-            canContinue = false;
+            DisableCombatInput();
+            uiHandler.StopDisplayingAbilities();
             uiHandler.DisplayAbility(currentAbility);
             targeting = false;
             attacked = true;
@@ -246,7 +247,6 @@ public class CombatManager : GameStateManager
             {
                 abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), currentAbility);
             }
-            uiHandler.StopDisplayingAbilities();
         }
     }
     public void HandleInanimateTarget(Turn turnChange)
@@ -303,15 +303,8 @@ public class CombatManager : GameStateManager
         }
     }
 
-    //TODO figure out why it is iterating after bird's turn
     public void RemoveCharacter(Character character)
     {
-        if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
-            //IDEA dont redisplay turn order after removing characters just draw red X's
-        {
-                Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
-                gameController.StartCoroutineCC(action);            
-        }
 
         Character tempCharacter = enumerator.Current;
         if(character == tempCharacter)//i.e. current character is dying get next character
@@ -342,7 +335,12 @@ public class CombatManager : GameStateManager
         this.character = tempCharacter;
         //should effectively exit on correct position
 
-
+        if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
+        {
+            DisableCombatInput();
+            Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
+            gameController.StartCoroutineTOS(action);
+        }
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
@@ -351,7 +349,16 @@ public class CombatManager : GameStateManager
             EndBattle(character.IsPlayer());//if true is a win if false is a loss
         }
     }
-
+    public void EnableCombatInput()
+    {
+        canContinue = true;
+        uiHandler.DisplayEndTurn();
+    }
+    public void DisableCombatInput()
+    {
+        canContinue = false;
+        uiHandler.StopDisplayingEndTurn();
+    }
     public void IterateCharacters()
     {
         if (!character.Inanimate)
@@ -588,10 +595,7 @@ public class CombatManager : GameStateManager
 
     public void FinishTurn(object sender, EventArgs e)
     {
-        if (canContinue)
-        {
-            IterateCharacters();
-        }
+        IterateCharacters();
     }
 
     #endregion

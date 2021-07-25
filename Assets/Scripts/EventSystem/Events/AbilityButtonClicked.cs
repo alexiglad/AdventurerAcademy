@@ -20,11 +20,6 @@ public class AbilityButtonClicked : MonoBehaviour
 
     public void ManualAwake()
     {
-        /*abilityButtons[0] = GameObject.Find("AbilityOne");
-        abilityButtons[1] = GameObject.Find("AbilityTwo");
-        abilityButtons[2] = GameObject.Find("AbilityThree");
-        abilityButtons[3] = GameObject.Find("AbilityFour");
-        abilityButtons[4] = GameObject.Find("AbilityFive");*/
 
         Button[] buttons = gameObject.GetComponentsInChildren<Button>();
         for (int i = 0; i < abilityButtons.Length; i++)
