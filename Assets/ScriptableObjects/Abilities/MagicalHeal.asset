@@ -17,6 +17,7 @@ MonoBehaviour:
   gameStateManager: {fileID: 0}
   damage: 5
   range: 8
+  radius: 0
   abilityType: 3
   icon: {fileID: 21300000, guid: e50a4b542a22f8f429423e8d6905d71f, type: 3}
   image: {fileID: 21300000, guid: 05163c8f2c9cab04b81dc833e484a5d2, type: 3}
@@ -24,4 +25,6 @@ MonoBehaviour:
   dimWidth: 797.29
   dimHeight: 629.4325
   startX: 0
-  startY: 89.7222
+  startY: -45
+  targetX: 0
+  targetY: 0

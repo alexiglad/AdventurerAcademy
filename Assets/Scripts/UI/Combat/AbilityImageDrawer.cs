@@ -12,12 +12,12 @@ public class AbilityImageDrawer : MonoBehaviour
     [SerializeField] float imageAnimationTime;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
-
     Image abilityImage;
     RectTransform abilityTransform;
     CanvasGroup abilityCanvas;
     CanvasGroup backgroundCanvas;
     AbilityImageTweenEnum direction;
+    Vector2 targetPosition;
 
     void Start()
     {
@@ -44,26 +44,23 @@ public class AbilityImageDrawer : MonoBehaviour
     {
         backgroundCanvas.alpha = 0;
         abilityCanvas.alpha = 0;
+        backgroundCanvas.blocksRaycasts = true;
         backgroundCanvas.LeanAlpha(backgroundTargatAlpha, fadeInTime);
         abilityCanvas.LeanAlpha(1, fadeInTime);
 
         switch (direction)
         {
             case AbilityImageTweenEnum.Up:
-                abilityTransform.localPosition = new Vector2(0, -100);
-                abilityTransform.LeanMoveLocalY(0, imageAnimationTime);
+                abilityTransform.LeanMoveLocal(targetPosition, imageAnimationTime);
                 break;
             case AbilityImageTweenEnum.Down:
-                abilityTransform.localPosition = new Vector2(0, 100);
-                abilityTransform.LeanMoveLocalY(0, imageAnimationTime);
+                abilityTransform.LeanMoveLocal(targetPosition, imageAnimationTime);
                 break;
             case AbilityImageTweenEnum.Left:
-                abilityTransform.localPosition = new Vector2(100, 0);
-                abilityTransform.LeanMoveLocalX(0, imageAnimationTime);
+                abilityTransform.LeanMoveLocal(targetPosition, imageAnimationTime);
                 break;
             case AbilityImageTweenEnum.Right:
-                abilityTransform.localPosition = new Vector2(-100, 0);
-                abilityTransform.LeanMoveLocalX(0, imageAnimationTime);
+                abilityTransform.LeanMoveLocal(targetPosition, imageAnimationTime);
                 break;
         }
 
@@ -81,7 +78,7 @@ public class AbilityImageDrawer : MonoBehaviour
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             tempRef.EnableCombatInput();
         }
-
+        backgroundCanvas.blocksRaycasts = false;
     }
     
     public void SetSprite(Sprite sprite)
@@ -97,5 +94,15 @@ public class AbilityImageDrawer : MonoBehaviour
     public void SetDimensions(float width, float height)
     {
         abilityTransform.sizeDelta = new Vector2(width, height);
+    }
+
+    public void SetStartingPosition(float x, float y)
+    {
+        abilityTransform.localPosition = new Vector2(x, y);
+    }
+
+    public void SetTargetPosition(float x, float y)
+    {
+        targetPosition = new Vector2(x, y);
     }
 }

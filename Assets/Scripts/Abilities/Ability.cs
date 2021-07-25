@@ -28,6 +28,8 @@ public class Ability : ScriptableObject
     [SerializeField] float dimHeight;
     [SerializeField] float startX;
     [SerializeField] float startY;
+    [SerializeField] float targetX;
+    [SerializeField] float targetY;
     //UI
 
     public Sprite Icon { get => icon;}
@@ -41,6 +43,8 @@ public class Ability : ScriptableObject
     public float StartX { get => startX;}
     public float StartY { get => startY; }
     public float Radius { get => radius; set => radius = value; }
+    public float TargetX { get => targetX; }
+    public float TargetY { get => targetY; }
 
     private void Awake()
     {

@@ -56,7 +56,8 @@ public class UIHandler : ScriptableObject
     {
         abilityImageDrawer.SetSprite(ability.Image);
         abilityImageDrawer.SetDirection(ability.Direction);
-        //abilityImageDrawer.SetPosition(ability.StartX, ability.StartY);//TODO FIX THIS CEDRIC NEED TO ADD METHOD
+        abilityImageDrawer.SetStartingPosition(ability.StartX, ability.StartY);
+        abilityImageDrawer.SetTargetPosition(ability.TargetX, ability.TargetY);
         abilityImageDrawer.PlayAnimation();        
     }
     public void DisplayStatus()
