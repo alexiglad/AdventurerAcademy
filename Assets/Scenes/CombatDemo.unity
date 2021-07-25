@@ -3722,6 +3722,10 @@ PrefabInstance:
       propertyPath: followUpProcessor
       value: 
       objectReference: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
+    - target: {fileID: 3985113315341915328, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
+      propertyPath: knownAbilities.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6499003185554428562, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
       propertyPath: m_Color.a
       value: 1
