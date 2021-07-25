@@ -3479,6 +3479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scroll
       objectReference: {fileID: 0}
+    - target: {fileID: 5569058441541652806, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
+      propertyPath: gameStateManager
+      value: 
+      objectReference: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 469cc9e232164674cb0329b53c2816bc, type: 3}
 --- !u!1001 &3474157735812876741

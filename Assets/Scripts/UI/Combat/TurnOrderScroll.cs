@@ -74,7 +74,6 @@ public class TurnOrderScroll : MonoBehaviour
 
         if (ctx)
         {
-            Debug.Log("here");
             StartCoroutine(Unfurl(turnOrder));
         }
         else
