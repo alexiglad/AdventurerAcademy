@@ -150,6 +150,46 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c6415255-8b19-492b-80b5-b2868e9fc308"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pan"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c857e682-0c1d-475e-9d9b-68d12e8b9a14"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""b935760a-5c83-4d3f-8a96-01d684af64c5"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Deselect"",
+                    ""type"": ""Button"",
+                    ""id"": ""b8336885-e669-4a74-8787-9f0e6fbd61fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DoubleMovement"",
+                    ""type"": ""Button"",
+                    ""id"": ""bcf00b55-43cd-4838-8e20-7ec29b0edfb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -183,6 +223,138 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Submenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53758380-0380-4b95-aa27-c8befd8efd1a"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""KeyboardPan"",
+                    ""id"": ""8455d1b6-bcc7-4916-ac1d-783cf7054f38"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""groups"": """",
+                    ""action"": ""Pan"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f7f11a86-aa8b-438b-a24a-606e252c8f60"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""06ebe74e-dfdb-45e7-9120-1d9f44bcd5c9"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""bf3d06d7-0d92-44ce-ab93-51429e178007"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""31c6e826-8ea0-4c39-95cc-0749da9a8574"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""KeyboardZoom"",
+                    ""id"": ""ee01a20d-bbd6-401b-b8bb-eed5d37cbc31"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""dc85648d-611f-4a55-b6e9-b3e6e9412546"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""98136378-4059-41fb-b3e9-01ed1ec340aa"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa7c9673-4c8c-4c2b-a810-571d32130205"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0853cf55-50e4-4966-b7c2-4855d031a20d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Deselect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3346a2e-7cae-466a-82eb-62583c23268d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -234,44 +406,11 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Up and Down (Mouse)"",
-                    ""id"": ""421343c9-b996-4c9f-910a-5ef169aa7c13"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""352f1b6e-1036-43bd-9f76-0ccb62260c6f"",
-                    ""path"": ""<Mouse>/scroll"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""e87f9aa4-a7e5-446a-8756-52b9d0e7f659"",
-                    ""path"": ""<Mouse>/scroll"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         },
         {
-            ""name"": ""Inventory"",
+            ""name"": ""Menu"",
             ""id"": ""26f87b3a-14c6-4d79-b5ec-adcbe35a68e6"",
             ""actions"": [
                 {
@@ -420,14 +559,19 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Combat_Select = m_Combat.FindAction("Select", throwIfNotFound: true);
         m_Combat_Submenu = m_Combat.FindAction("Submenu", throwIfNotFound: true);
         m_Combat_Inventory = m_Combat.FindAction("Inventory", throwIfNotFound: true);
+        m_Combat_MousePosition = m_Combat.FindAction("MousePosition", throwIfNotFound: true);
+        m_Combat_Pan = m_Combat.FindAction("Pan", throwIfNotFound: true);
+        m_Combat_Zoom = m_Combat.FindAction("Zoom", throwIfNotFound: true);
+        m_Combat_Deselect = m_Combat.FindAction("Deselect", throwIfNotFound: true);
+        m_Combat_DoubleMovement = m_Combat.FindAction("DoubleMovement", throwIfNotFound: true);
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_Navigate = m_Dialogue.FindAction("Navigate", throwIfNotFound: true);
-        // Inventory
-        m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
-        m_Inventory_Escape = m_Inventory.FindAction("Escape", throwIfNotFound: true);
-        m_Inventory_Select = m_Inventory.FindAction("Select", throwIfNotFound: true);
-        m_Inventory_Navigate = m_Inventory.FindAction("Navigate", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
+        m_Menu_Select = m_Menu.FindAction("Select", throwIfNotFound: true);
+        m_Menu_Navigate = m_Menu.FindAction("Navigate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -529,6 +673,11 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Combat_Select;
     private readonly InputAction m_Combat_Submenu;
     private readonly InputAction m_Combat_Inventory;
+    private readonly InputAction m_Combat_MousePosition;
+    private readonly InputAction m_Combat_Pan;
+    private readonly InputAction m_Combat_Zoom;
+    private readonly InputAction m_Combat_Deselect;
+    private readonly InputAction m_Combat_DoubleMovement;
     public struct CombatActions
     {
         private @Controls m_Wrapper;
@@ -536,6 +685,11 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Select => m_Wrapper.m_Combat_Select;
         public InputAction @Submenu => m_Wrapper.m_Combat_Submenu;
         public InputAction @Inventory => m_Wrapper.m_Combat_Inventory;
+        public InputAction @MousePosition => m_Wrapper.m_Combat_MousePosition;
+        public InputAction @Pan => m_Wrapper.m_Combat_Pan;
+        public InputAction @Zoom => m_Wrapper.m_Combat_Zoom;
+        public InputAction @Deselect => m_Wrapper.m_Combat_Deselect;
+        public InputAction @DoubleMovement => m_Wrapper.m_Combat_DoubleMovement;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -554,6 +708,21 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Inventory.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
+                @MousePosition.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
+                @Pan.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnPan;
+                @Pan.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnPan;
+                @Pan.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnPan;
+                @Zoom.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
+                @Deselect.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
+                @Deselect.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
+                @Deselect.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
+                @DoubleMovement.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
+                @DoubleMovement.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
+                @DoubleMovement.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
             }
             m_Wrapper.m_CombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -567,6 +736,21 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
+                @Pan.started += instance.OnPan;
+                @Pan.performed += instance.OnPan;
+                @Pan.canceled += instance.OnPan;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
+                @Deselect.started += instance.OnDeselect;
+                @Deselect.performed += instance.OnDeselect;
+                @Deselect.canceled += instance.OnDeselect;
+                @DoubleMovement.started += instance.OnDoubleMovement;
+                @DoubleMovement.performed += instance.OnDoubleMovement;
+                @DoubleMovement.canceled += instance.OnDoubleMovement;
             }
         }
     }
@@ -605,39 +789,39 @@ public class @Controls : IInputActionCollection, IDisposable
     }
     public DialogueActions @Dialogue => new DialogueActions(this);
 
-    // Inventory
-    private readonly InputActionMap m_Inventory;
-    private IInventoryActions m_InventoryActionsCallbackInterface;
-    private readonly InputAction m_Inventory_Escape;
-    private readonly InputAction m_Inventory_Select;
-    private readonly InputAction m_Inventory_Navigate;
-    public struct InventoryActions
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_Escape;
+    private readonly InputAction m_Menu_Select;
+    private readonly InputAction m_Menu_Navigate;
+    public struct MenuActions
     {
         private @Controls m_Wrapper;
-        public InventoryActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Escape => m_Wrapper.m_Inventory_Escape;
-        public InputAction @Select => m_Wrapper.m_Inventory_Select;
-        public InputAction @Navigate => m_Wrapper.m_Inventory_Navigate;
-        public InputActionMap Get() { return m_Wrapper.m_Inventory; }
+        public MenuActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Escape => m_Wrapper.m_Menu_Escape;
+        public InputAction @Select => m_Wrapper.m_Menu_Select;
+        public InputAction @Navigate => m_Wrapper.m_Menu_Navigate;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
-        public void SetCallbacks(IInventoryActions instance)
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
         {
-            if (m_Wrapper.m_InventoryActionsCallbackInterface != null)
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
             {
-                @Escape.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnEscape;
-                @Escape.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnEscape;
-                @Escape.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnEscape;
-                @Select.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSelect;
-                @Navigate.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnNavigate;
+                @Escape.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
+                @Select.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                @Navigate.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
+                @Navigate.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
+                @Navigate.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
             }
-            m_Wrapper.m_InventoryActionsCallbackInterface = instance;
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Escape.started += instance.OnEscape;
@@ -652,7 +836,7 @@ public class @Controls : IInputActionCollection, IDisposable
             }
         }
     }
-    public InventoryActions @Inventory => new InventoryActions(this);
+    public MenuActions @Menu => new MenuActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -673,12 +857,17 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnSelect(InputAction.CallbackContext context);
         void OnSubmenu(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnPan(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
+        void OnDeselect(InputAction.CallbackContext context);
+        void OnDoubleMovement(InputAction.CallbackContext context);
     }
     public interface IDialogueActions
     {
         void OnNavigate(InputAction.CallbackContext context);
     }
-    public interface IInventoryActions
+    public interface IMenuActions
     {
         void OnEscape(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);

@@ -3,7 +3,12 @@ guid: 634c002832a18a947b7ea68baeaff11a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gameController: {instanceID: 0}
+  - abilityProcessorInstance: {instanceID: 0}
+  - statusProcessorInstance: {instanceID: 0}
+  - movementProcesssor: {instanceID: 0}
+  - uiHandler: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d322518c4c8424a94d53b0e1c5492c, type: 3}
   m_Name: StatusProcessor
   m_EditorClassIdentifier: 
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  followUpProcessorInstance: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}

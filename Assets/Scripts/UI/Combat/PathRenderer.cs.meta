@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5327b4a874209c64a8cdfe8991aa4af8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - controls: {instanceID: 0}
+  - gameStateManager: {instanceID: 0}
+  - movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "ScriptableObjects/MenuManager")]
 public class MenuManager : GameStateManager
 {
     public SortedSet<Character> characters = new SortedSet<Character>();
@@ -13,5 +14,9 @@ public class MenuManager : GameStateManager
     public override void AddCharacters(SortedSet<Character> characters)
     {
         this.characters = characters;
+    }
+    public override void Start()
+    {
+
     }
 }

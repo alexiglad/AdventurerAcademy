@@ -6,19 +6,27 @@ using UnityEngine;
 
 public class AbilityProcessor : ScriptableObject
 {
-    MovementProcessor movementProcessor;
-    private void OnEnable()
+    [SerializeField] MovementProcessor movementProcessor;
+    [SerializeField] FollowUpProcessor followUpProcessor;
+
+    public void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        movementProcessor = (MovementProcessor)FindObjectOfType(typeof(MovementProcessor));
+        Debug.Log(attacker + " attacked " + attackee + " with " + ability);
+        ability.HandleAbility(attacker, attackee, ability);//format is always attacker, attackee
+
+        //must check follow up after every ability
+        followUpProcessor.HandleFollowUpAction(new FollowUpAction(attacker, attackee, ability));
     }
     /////////////////////////////////
-    public void SplashDamage(Character character, float damage, float range){
-        List<Character> charactersWithinRange = new List<Character>();
-        charactersWithinRange = movementProcessor.GetCharactersInRange(character.transform.position, range);
+    public void SplashDamage(Character attacker, Character attackee, float damage, float range, float radius){
+        List<Character> charactersWithinRange = movementProcessor.GetCharactersInRange(attacker.transform.position, range, attackee.transform.position, radius);
         foreach(Character character1 in charactersWithinRange)
         {
             character1.DecrementHealth(damage);
         }
+        //display circle around splash damage area temporarily
+        //SplashDamageRange splashDamageRange = SplashDamageRange.FindObjectOfType<SplashDamageRange>();
+        //splashDamageRange.Run(pos, range);
     }
     public void Damage(Character character, float damage){
 
@@ -30,9 +38,10 @@ public class AbilityProcessor : ScriptableObject
         character.IncrementHealth(heal);
 
     }
-    public void SplashHeal(Character character, float heal, float range){
+    public void SplashHeal(Character attacker, Character attackee, float heal, float range, float radius)
+    {
         List<Character> charactersWithinRange = new List<Character>();
-        charactersWithinRange = movementProcessor.GetCharactersInRange(character.transform.position, range);
+        charactersWithinRange = movementProcessor.GetCharactersInRange(attacker.transform.position, range, attackee.transform.position, radius);
         foreach (Character character1 in charactersWithinRange)
         {
             character1.IncrementHealth(heal);

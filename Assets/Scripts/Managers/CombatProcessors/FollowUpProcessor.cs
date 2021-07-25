@@ -6,25 +6,28 @@ using UnityEngine;
 
 public class FollowUpProcessor : ScriptableObject
 {
-    CombatManager combatManager;
-    public void OnEnable()
-    {
-        combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
-    }
+    [SerializeField] protected GameStateManagerSO gameStateManager;
+
 
     public void HandleFollowUpAction(FollowUpAction followUpAction)
     {
-        foreach(Character character in combatManager.Characters)//this is sorted properly on initiative
+        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
-            foreach(FollowUp followUp in character.followUps)
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            foreach (Character character in tempRef.Characters)//this is sorted properly on initiative
             {
-                if(followUp.IsValid(followUpAction, character))//only need this for checking otherwise you have the info you need
-                {//this info is deductible from the IsValid method (whether you are using the attacker/attackee inflicting the followUp
-                    followUp.HandleFollowUp(followUpAction);
-                    return;
+                foreach (FollowUp followUp in character.GetCharacterData().GetFollowUps())
+                {
+                    if (followUp.IsValid(followUpAction, character))//only need this for checking otherwise you have the info you need
+                    {//this info is deductible from the IsValid method (whether you are using the attacker/attackee inflicting the followUp
+                        followUp.HandleFollowUp(followUpAction);
+                        Debug.Log("Follow Up triggered: " + followUp);
+                        return;
+                    }
                 }
             }
         }
+        
     }
 
 }

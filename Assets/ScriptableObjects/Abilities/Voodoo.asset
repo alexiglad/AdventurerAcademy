@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae005777cdc0d174bb311af866650f29, type: 3}
+  m_Name: Voodoo
+  m_EditorClassIdentifier: 
+  abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
+  statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  damage: 0
+  range: 10
+  radius: 0
+  abilityType: 1
+  icon: {fileID: 21300000, guid: 6cd6762eaf559fb42b3100118ea180a1, type: 3}
+  image: {fileID: 0}
+  direction: 1
+  dimWidth: 0
+  dimHeight: 0
+  startX: 0
+  startY: 0
+  targetX: 0
+  targetY: 0
+  voodooPrefab: {fileID: 4163493473619836582, guid: 7e07694dd0762cd4f84e79eedbf0335a, type: 3}
+  characterData: {fileID: 11400000, guid: 299beeb7bfc79e744a74133618be7a70, type: 2}
+  target: {fileID: 0}

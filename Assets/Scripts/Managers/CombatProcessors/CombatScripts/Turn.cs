@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Turn
 {
-    Vector2 movement;
+    Vector3 movement;
+    float amountMoved;
     Ability ability;
     Character target;
+
+    public float AmountMoved { get => amountMoved; set => amountMoved = value; }
+
     public Turn() { }
-    public Turn(Vector2 movement)
+    public Turn(Vector3 movement)
     {
         this.movement = movement;
     }
@@ -31,13 +35,13 @@ public class Turn
 
     public bool IsEmpty()
     {
-        return this.movement == Vector2.zero && this.ability == null && this.target == null;
+        return this.movement == Vector3.zero && this.ability == null && this.target == null;
     }
 
-    public Vector2 GetMovement(){
+    public Vector3 GetMovement(){
         return movement;
     }
-    public void SetMovement(Vector2 movement){
+    public void SetMovement(Vector3 movement){
         this.movement = movement;
     }
     public Ability GetAbility(){

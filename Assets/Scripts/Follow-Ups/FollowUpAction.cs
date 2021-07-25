@@ -5,9 +5,11 @@ using UnityEngine;
 public class FollowUpAction
 {
     Ability ability;
-    Vector2 movement;
+    Vector3 direction;//TODO determine how to implement this
     FollowUp followUp;
     StatusTypeEnum statusEffect;
+
+    FollowUpTypeEnum followUpActionType;
 
     Character attacker;
     Character attackee;
@@ -17,12 +19,15 @@ public class FollowUpAction
         this.attacker = attacker;
         this.attackee = attackee;
         this.ability = ability;
+        followUpActionType = FollowUpTypeEnum.Ability;
     }
 
-    public FollowUpAction(Character attacker, Vector2 movement)
+    public FollowUpAction(Character attacker, Vector3 direction)
     {
         this.attacker = attacker;
-        this.movement = movement;
+        this.direction = direction;
+
+        followUpActionType = FollowUpTypeEnum.Movement;
     }
 
     public FollowUpAction(Character attacker, Character attackee, FollowUp individualFollowUp)
@@ -30,6 +35,8 @@ public class FollowUpAction
         this.attacker = attacker;
         this.attackee = attackee;
         this.followUp = individualFollowUp;
+
+        followUpActionType = FollowUpTypeEnum.FollowUp;
     }
 
     public FollowUpAction(Character attacker, Character attackee, StatusTypeEnum statusEffect)
@@ -37,12 +44,21 @@ public class FollowUpAction
         this.statusEffect = statusEffect;
         this.attacker = attacker;
         this.attackee = attackee;
+
+        followUpActionType = FollowUpTypeEnum.Status;
+    }
+    public FollowUpAction(Character attackee)
+    {
+        this.attackee = attackee;
+
+        followUpActionType = FollowUpTypeEnum.Death;
     }
 
     public Ability Ability { get => ability; set => ability = value; }
-    public Vector2 Movement { get => movement; set => movement = value; }
+    public Vector2 Movement { get => direction; set => direction = value; }
     public FollowUp IndividualFollowUp { get => followUp; set => followUp = value; }
     public Character Attacker { get => attacker; set => attacker = value; }
     public Character Attackee { get => attackee; set => attackee = value; }
     public StatusTypeEnum StatusEffect { get => statusEffect; set => statusEffect = value; }
+    public FollowUpTypeEnum FollowUpActionType { get => followUpActionType; set => followUpActionType = value; }
 }

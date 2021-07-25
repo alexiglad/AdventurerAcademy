@@ -1,49 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/MovementProcessor")]
 
 public class MovementProcessor : ScriptableObject
 {
-    float moveSpeed;
-    FollowUpProcessor followUpProcessor;
-    CombatManager combatManager;
-    public void OnEnable()
-    {
-        followUpProcessor = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
-        combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
-    }
-     
-    public Vector2 UpdatePosition(Character character, Vector2 movement)
-    {
-        //TODO convert all to vector 3's
-        Vector2 actualMovement = NormalizeMovement(movement);
-        //incorporate speed and other factors into actualMovement here 
-        moveSpeed = character.GetMoveSpeed();
-        //update character position here
-        actualMovement *= moveSpeed;
-        character.GetCharacterRigidBody().velocity = new Vector2(actualMovement.x , actualMovement.y );
+    [SerializeField] FollowUpProcessor followUpProcessor;
+    [SerializeField] protected GameStateManagerSO gameStateManager;
 
-        followUpProcessor.HandleFollowUpAction(new FollowUpAction(character, actualMovement));
-        return movement - actualMovement;
-    }
-    public Vector2 NormalizeMovement(Vector2 movement)
+
+    public void HandleMovement(Character character, Vector3 movement)
     {
-        movement.Normalize();
-        return movement;
+        
+        Vector3 characterBottom = character.BoxCollider.bounds.center;
+        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        character.Agent.SetDestination(movement + characterBottom);
+        if (character.IsPlayer())//TEMPORARY BUG FIX TODO
+        {
+            character.Animator.SetFloat("moveX", movement.x);
+            character.Animator.SetFloat("moveZ", movement.z);
+            character.Animator.SetBool("walking", true);
+        }
+        
+        Debug.Log(character + " traveled " + movement + " tiles with magnitude " + movement.magnitude + " at " + Vector3.Angle(new Vector3(1, 0, 0), movement) + " degrees");
     }
-    public List<Character> GetCharactersInRange(Vector3 position, float range)
+    public List<Character> GetCharactersInRange(Vector3 position, float range, Vector3 position2, float radius)
     {
         List<Character> charactersInRange = new List<Character>();
-        foreach(Character character in combatManager.Characters)
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+        foreach (Character character in tempRef.Characters)
         {
-            if(Vector3.Distance(character.transform.position, position) <= range)
+            if(Vector3.Distance(position2, position) <= range && (Vector3.Distance(character.transform.position, position2) <= radius))
             {//this character is within range of ability/follow up
                 charactersInRange.Add(character);
             }
         }
         return charactersInRange;
+    }
+    public bool WithinRange(CombatManager tempref, Character character2)
+    {
+        return Vector3.Distance(tempref.Character.transform.position, character2.transform.position) <= tempref.Turn.GetAbility().Range + tempref.Turn.GetAbility().Radius;
+    }
+    public bool WithinRange(CombatManager tempref, Character character, Vector3 pos)
+    {
+        return Vector3.Distance(character.transform.position, pos) <= tempref.Turn.GetAbility().Radius &&
+            Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.Turn.GetAbility().Range;
+    }
+    public bool WithinSplashRange(CombatManager tempref, Vector3 pos)
+    {
+        return Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.Turn.GetAbility().Range;
     }
 
 }

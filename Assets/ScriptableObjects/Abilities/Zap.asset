@@ -7,8 +7,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4337e638dfbb9b64ea2e7bd14e7e0167, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c57020678a295f47aea05b65c9c42eb, type: 3}
   m_Name: Zap
   m_EditorClassIdentifier: 
+  abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
+  statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
+  gameStateManager: {fileID: 0}
+  damage: 5
+  range: 5
+  radius: 0
+  abilityType: 1
+  icon: {fileID: 21300000, guid: 3fd59ef28f591ff4ab680001d0be51e7, type: 3}
+  image: {fileID: 0}
+  direction: 3
+  dimWidth: 0
+  dimHeight: 0
+  startX: 0
+  startY: 0
+  targetX: 0
+  targetY: 0

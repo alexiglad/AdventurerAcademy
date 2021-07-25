@@ -9,42 +9,88 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameStateManagerSO currentGameStateManager;
     [SerializeField] private GameStateSO currentGameState;
     private SortedSet<Character> characters = new SortedSet<Character>();
+    [SerializeField] UIHandler uiHandler;
 
+    [SerializeField] InputHandler controls;
+    //static Controls controls;
+    //public static Controls Controls { get => controls; set => controls = value; }
 
-    void Start()
+    void Awake()
     {
-        //instantiate all processor instances!! 
-        //instantiate all follow-ups and abilities
-
-        CreateAllProcessorInstances();
-        CreateAllFollowUpInstances();
-        CreateAllAbilityInstances();
-
-
-
+        controls.ManualAwake();
         //temporary code creates combat manager with characters
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);
-        //temporary default
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);
 
-
-    }
-
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
-        //currentGameStateManager.GetGameStateManager().Update();
-        //commented out because combat manager is not completely implemented yet
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
     }
 
 
-    /*public void CreateStateInstance(GameStateEnum gameState, SortedSet<Character> characters)
+
+    public void StartCoroutineCC(Action action)
     {
-        currentGameState.SetGameState(gameState);
-        currentGameStateManager.SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
-        currentGameStateManager.GetGameStateManager().AddCharacters(characters);
-    }*/
+        StartCoroutine(Routine1(action));
+    }
+    IEnumerator Routine1(Action action)
+    {
+        if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            yield return new WaitUntil(tempRef.CanContinueMethod);
+            //eventually add animation here for switching turns
+            action.Invoke();
+        }
+        else
+        {
+            Debug.Log("error");
+        }
+    }
+    public void StartCoroutineNMA(Action action, List<Character> turnOrder)
+    {
+        StartCoroutine(Routine2(action, turnOrder));
+    }
+    IEnumerator Routine2(Action action, List<Character> turnOrder)
+    {
+        if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            tempRef.DisableCombatInput();
+            uiHandler.UpdateCombatTurnUI(tempRef.Character);
+
+            //yield return new WaitForSeconds(.01f);
+            uiHandler.StopDisplayingAbilities();
+            uiHandler.StopDisplayingEndTurn();
+            uiHandler.UpdateTurnOrder(turnOrder);
+            yield return new WaitUntil(tempRef.CanContinueMethod);
+            //uiHandler.UpdateCombatTurnUI(tempRef.Character);
+            tempRef.EnableCombatInput();
+            action.Invoke();
+            //eventually add animation here for switching turns
+        }
+        else
+        {
+            Debug.Log("error");
+        }
+    }
+    public void StartCoroutineTOS(Action action)
+    {
+        StartCoroutine(Routine3(action));
+    }
+    IEnumerator Routine3(Action action)
+    {
+        if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            action.Invoke();
+            tempRef.DisableCombatInput();
+            yield return new WaitUntil(tempRef.CanContinueMethod);
+            tempRef.EnableCombatInput();
+        }
+        else
+        {
+            Debug.Log("error");
+        }
+    }
+
     public void AddCharacter(Character character)
     {
         characters.Add(character);
@@ -54,21 +100,6 @@ public class GameController : MonoBehaviour
     {
         characters.Remove(character);
     }
-    private void CreateAllProcessorInstances()
-    {
-        //create instances of all processors
-        FollowUpProcessor.CreateInstance("FollowUpProcessor");
-        AbilityProcessor.CreateInstance("AbilityProcessor");
-        MovementProcessor.CreateInstance("MovementProcessor");
-    }
-    private void CreateAllAbilityInstances()
-    {
-        //create instances of all abilities
-        Zap.CreateInstance("Zap");
-    }
-    private void CreateAllFollowUpInstances()
-    {
-        //create instances of all follow-ups
-        Stab.CreateInstance("Stab");
-    }
+
+
 }

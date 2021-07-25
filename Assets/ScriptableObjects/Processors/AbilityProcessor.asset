@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7660bc96715c9734aa4954aabfdbe819, type: 3}
   m_Name: AbilityProcessor
   m_EditorClassIdentifier: 
+  movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
+  followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}

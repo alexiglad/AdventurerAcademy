@@ -2,87 +2,87 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class AbilityButtonClicked : MonoBehaviour
 {
     //these are created programmatically for each button 
     public event EventHandler<AbilityEventArgs> OnAbilityButtonClicked;
 
-    Ability ability1;
-    Ability ability2;
-    Ability ability3;
-    Ability ability4;
-    Ability ability5;
-    private Button abilityButton1;
-    private Button abilityButton2;
-    private Button abilityButton3;
-    private Button abilityButton4;
-    private Button abilityButton5;
 
 
-    void OnEnable()
+    private GameObject[] abilityButtons = new GameObject[5];
+    private List<Ability> abilityButtonAbilities = new List<Ability>();//Todo Simplify?
+    //Ceddy note: Kinda icky. Try to completely seperate the logic out of the ui using events.
+
+
+
+    public void ManualAwake()
     {
-        /*var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
-        abilityButton1 = rootVisualElement.Q<Button>("AbilityOne");
-        abilityButton1.clicked += OnAbilityOnePressed;
-        abilityButton2 = rootVisualElement.Q<Button>("AbilityTwo");
-        abilityButton2.clicked += OnAbilityTwoPressed;
-        abilityButton3 = rootVisualElement.Q<Button>("AbilityThree");
-        abilityButton3.clicked += OnAbilityThreePressed;
-        abilityButton4 = rootVisualElement.Q<Button>("AbilityFour");
-        abilityButton4.clicked += OnAbilityFourPressed;
-        abilityButton5 = rootVisualElement.Q<Button>("AbilityFive");
-        abilityButton5.clicked += OnAbilityFivePressed;*/
 
+        Button[] buttons = gameObject.GetComponentsInChildren<Button>();
+        for (int i = 0; i < abilityButtons.Length; i++)
+        {
+            abilityButtons[i] = buttons[i].gameObject;
+        }
+    }
+    public void StopDisplaying()
+    {
+        abilityButtons[0].transform.parent.gameObject.SetActive(false);
+    }
+    public void Display()
+    {
+        abilityButtons[0].transform.parent.gameObject.SetActive(true);
     }
     public void UpdateAbilities(Character character)
     {
-        List<Ability> inUseAbilities = character.InUseAbilities;
-        if (character.GetPlayer()) {//if enemies doesnt matter
-            ability1 = inUseAbilities[0];
-            ability2 = inUseAbilities[1];
-            ability3 = inUseAbilities[2];
-            ability4 = inUseAbilities[3];
-            ability5 = inUseAbilities[4];
-            abilityButton1.SetEnabled(true);
-            abilityButton2.SetEnabled(true);
-            abilityButton3.SetEnabled(true);
-            abilityButton4.SetEnabled(true);
-            abilityButton5.SetEnabled(true);
+        StopDisplaying();
+        UnselectAbilities();
+        for (int i = 0; i<abilityButtons.Length; i++)
+        {
+            abilityButtons[i].SetActive(false);
+        }
+        
+        if (character.IsPlayer())
+        {
+            abilityButtonAbilities = character.GetCharacterData().GetInUseAbilities();
+            for (int i = 0; i < abilityButtonAbilities.Count; i++)
+            {
+                abilityButtons[i].SetActive(true);
+                abilityButtons[i].GetComponent<Image>().sprite = character.GetCharacterData().InUseAbilities[i].Icon;
+            }
+            abilityButtons[0].transform.parent.gameObject.SetActive(true);
+
         }
         else
         {
-            abilityButton1.SetEnabled(false);
-            abilityButton2.SetEnabled(false);
-            abilityButton3.SetEnabled(false);
-            abilityButton4.SetEnabled(false);
-            abilityButton5.SetEnabled(false);
+            StopDisplaying();
         }
     }
 
-    void OnAbilityOnePressed()
+    public void UnselectAbilities()
     {
-        Debug.Log("1pressed");
-        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs (ability1));
-        
-    }
-    void OnAbilityTwoPressed()
-    {
-        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(ability2));
-    }
-    void OnAbilityThreePressed()
-    {
-        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(ability3));
-    }
-    void OnAbilityFourPressed()
-    {
-        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(ability4));
+        for (int i = 0; i < abilityButtons.Length; i++)
+        {
+            abilityButtons[i].GetComponent<Image>().color = Color.white;
+        }
     }
 
-    void OnAbilityFivePressed()
+    public void OnAblityButtonPressed(int pos)
     {
-        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(ability5));
+        for(int i = 0; i<abilityButtons.Length; i++)
+        {
+            if(i == pos)
+            {
+                abilityButtons[i].GetComponent<Image>().color = Color.green;
+            }
+            else
+            {
+                abilityButtons[i].GetComponent<Image>().color = Color.white;
+            }
+        }
+        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos]));
     }
 
 }

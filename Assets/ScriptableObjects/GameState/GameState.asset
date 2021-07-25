@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f272238071bc64d448d1aef4cd574c26, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  currentGameState: 2
+  currentGameState: 3
