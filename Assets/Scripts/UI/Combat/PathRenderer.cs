@@ -38,11 +38,11 @@ public class PathRenderer : MonoBehaviour
                     line.endColor = Color.blue;
                     DisplayActivePath(tempRef.Character);
                 }
-                else if (tempRef.HasMovement && tempRef.CanContinue)
+                else if (tempRef.HasMovement && tempRef.CanContinue && tempRef.Character.Agent != null)
                 {                  
                     NavMeshPath path = new NavMeshPath();
                     agent = tempRef.Character.Agent;
-                    agent.CalculatePath(data.Hit.point, path);//TODO bug still occurred here somehow
+                    agent.CalculatePath(data.Hit.point, path);
                     DisplayPath(path, tempRef.Character, tempRef);
                 }
             }
@@ -96,8 +96,6 @@ public class PathRenderer : MonoBehaviour
         
         if(tempRef.IsInvalidPath(data.Hit.point))
         {
-            //TODO Show visual that path is not valid
-            //Debug.Log("INVALID PATH! WILL MOVE TO CLOSEST POINT! Attepted Destination: " + path.corners[path.corners.Length - 1]);
             line.startColor = Color.red;
             line.endColor = Color.red;
         }

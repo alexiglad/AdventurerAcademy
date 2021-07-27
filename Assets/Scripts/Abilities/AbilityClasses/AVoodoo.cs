@@ -35,7 +35,7 @@ public class AVoodoo : Ability
         temp1.name = "voodoo";
         temp1.SetCharacterData(characterData);
         temp1.VoodooTarget = target;
-        tempRef.Characters.Add(temp1);//todo check if this works
+        tempRef.Characters.Add(temp1);
         tempRef.ResetEnumerator();
     }
 }

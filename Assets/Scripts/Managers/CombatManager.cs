@@ -34,7 +34,6 @@ public class CombatManager : GameStateManager
 
     public Character Character { get => character; set => character = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
-
     public Turn Turn { get => turn; set => turn = value; }
     public SortedSet<Character> UserCharacters { get => userCharacters; set => userCharacters = value; }
     public bool HasMovement { get => hasMovement; set => hasMovement = value; }
@@ -413,7 +412,6 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 character = enumerator.Current;
             }
-            //Debug.Log(character.name + "'s Turn!");
             statusProcessorInstance.HandleStatuses(character);
             targeting = false;
             attacked = false;
@@ -452,7 +450,6 @@ public class CombatManager : GameStateManager
     public void ResetTurn()
     {
         turn = new Turn();
-        //Debug.Log(character.name + "'s Turn!");
         statusProcessorInstance.HandleStatuses(character);
         targeting = false;
         attacked = false;

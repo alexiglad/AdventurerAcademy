@@ -41,6 +41,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""f84436cd-1104-4c52-9397-21f0bb6407c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -118,6 +126,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77b1c0d7-0b28-4cee-a83b-6569bf58d3f2"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -554,6 +573,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Roaming_Movement = m_Roaming.FindAction("Movement", throwIfNotFound: true);
         m_Roaming_Interact = m_Roaming.FindAction("Interact", throwIfNotFound: true);
         m_Roaming_Inventory = m_Roaming.FindAction("Inventory", throwIfNotFound: true);
+        m_Roaming_Select = m_Roaming.FindAction("Select", throwIfNotFound: true);
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
         m_Combat_Select = m_Combat.FindAction("Select", throwIfNotFound: true);
@@ -624,6 +644,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Roaming_Movement;
     private readonly InputAction m_Roaming_Interact;
     private readonly InputAction m_Roaming_Inventory;
+    private readonly InputAction m_Roaming_Select;
     public struct RoamingActions
     {
         private @Controls m_Wrapper;
@@ -631,6 +652,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Roaming_Movement;
         public InputAction @Interact => m_Wrapper.m_Roaming_Interact;
         public InputAction @Inventory => m_Wrapper.m_Roaming_Inventory;
+        public InputAction @Select => m_Wrapper.m_Roaming_Select;
         public InputActionMap Get() { return m_Wrapper.m_Roaming; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -649,6 +671,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Inventory.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
+                @Select.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
             }
             m_Wrapper.m_RoamingActionsCallbackInterface = instance;
             if (instance != null)
@@ -662,6 +687,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
             }
         }
     }
@@ -851,6 +879,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
     public interface ICombatActions
     {

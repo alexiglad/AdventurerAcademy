@@ -29,6 +29,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     private List<Status> statuses = new List<Status>();
 
     NavMeshAgent agent;
+    NavMeshObstacle obstacle;
     
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }    
     public List<Status> Statuses { get => statuses; set => statuses = value; }
@@ -38,6 +39,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public bool Revived { get => revived; set => revived = value; }
     public Character VoodooTarget { get => voodooTarget; set => voodooTarget = value; }
     public bool Inanimate { get => inanimate; set => inanimate = value; }
+    public NavMeshObstacle Obstacle { get => obstacle; set => obstacle = value; }
 
     #endregion
 
@@ -51,12 +53,14 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     private void OnEnable()
     {
-        if(!inanimate)
+        agent = transform.GetComponent<NavMeshAgent>();
+        obstacle = transform.GetComponent<NavMeshObstacle>();
+        if (!inanimate)
         {
             FindObjectOfType<GameController>().AddCharacter(this);
             enemyAI = new BasicAI();
-            this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            this.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+            agent.enabled = false;
+            obstacle.enabled = true;
         }
 
     }
@@ -71,7 +75,6 @@ public class Character : MonoBehaviour, IComparable<Character>
         energy = characterData.GetMaxEnergy();
         revived = false;
         died = false;
-        agent = transform.GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
         //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
@@ -110,7 +113,6 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     public void Dead(){
         //create event?
-        //TODO fix
         if (died)
         {
             return;
@@ -142,11 +144,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         {
             Debug.Log("problem occured");
         }
-        //add more for when player is dead
-        //todo determine if need following destroy code
-        //Destroy(this);
     }
-
     #region Getters and Setters
     public bool IsPlayer() {
         return characterData.IsPlayer();

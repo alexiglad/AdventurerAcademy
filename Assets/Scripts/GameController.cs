@@ -20,9 +20,18 @@ public class GameController : MonoBehaviour
     {
         controls.ManualAwake();
         //temporary code creates combat manager with characters
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);
 
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
+        SortedSet<Character> userCharacters = new SortedSet<Character>();
+        foreach(Character character in characters)
+        {
+            if (character.IsPlayer())
+            {
+                userCharacters.Add(character);
+            }
+        }
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);
+
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
     }
 
 
@@ -102,18 +111,18 @@ public class GameController : MonoBehaviour
     {
         foreach (Character character in characters)
         {
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+            character.Obstacle.enabled = false;
         }
         yield return new WaitForSeconds(0.25f);
         foreach (Character character in characters)
         {
-            character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            character.Agent.enabled = true;
         }
         yield return new WaitForSeconds(0.25f);
         foreach (Character character in characters)
         {
-            character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+            character.Agent.enabled = false;
+            character.Obstacle.enabled = true;
         }
         action.Invoke();
     }

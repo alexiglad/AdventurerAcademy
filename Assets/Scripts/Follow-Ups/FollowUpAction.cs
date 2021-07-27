@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowUpAction
 {
     Ability ability;
-    Vector3 direction;//TODO determine how to implement this
+    Vector3 direction;
     FollowUp followUp;
     StatusTypeEnum statusEffect;
 

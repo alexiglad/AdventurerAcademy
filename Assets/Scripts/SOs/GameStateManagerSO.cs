@@ -65,9 +65,9 @@ public class GameStateManagerSO : ScriptableObject
         currentGameState.SetGameState(gameState);
         SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
         GetCurrentGameStateManager().AddCharacters(characters);
-        gameController = FindObjectOfType<GameController>();
-        gameController.StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);
-        //GetCurrentGameStateManager().Start();
+        //gameController = FindObjectOfType<GameController>();
+        //gameController.StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
+        GetCurrentGameStateManager().Start();
 
 
         //input system code
