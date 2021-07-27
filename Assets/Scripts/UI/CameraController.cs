@@ -43,6 +43,10 @@ public class CameraController : MonoBehaviour
 
         RaycastData hit = controls.GetRaycastHit();
         bool continueZoom = true;
+        if(controls.Zoom != 0)
+        {
+            Debug.Log(controls.Zoom);
+        }
         if (controls.Zoom == 120 )
         {
             if(newZoom.y - zoomAmmountOne.y <= globalMinY)
@@ -83,13 +87,13 @@ public class CameraController : MonoBehaviour
         }
         if (continueZoom && controls.Zoom == 1)
         {
-            newZoom += zoomAmmountTwo;
-            newPosition += (hit.Hit.point - newPosition) * .15f /** zoomAmmountTwo.magnitude*/;
+            newZoom -= zoomAmmountTwo;
+            newPosition += (hit.Hit.point - newPosition) * .015f /** zoomAmmountTwo.magnitude*/;
         }
         if (continueZoom && controls.Zoom == -1)
         {
-            newZoom -= zoomAmmountTwo;
-            newPosition -= (hit.Hit.point - newPosition) * .15f/** zoomAmmountTwo.magnitude*/;
+            newZoom += zoomAmmountTwo;
+            newPosition -= (hit.Hit.point - newPosition) * .015f/** zoomAmmountTwo.magnitude*/;
         }
         transform.position = Vector3.Lerp(transform.position, newPosition, movementTime);
         controls.ActiveCamera.transform.localPosition = Vector3.Lerp(controls.ActiveCamera.transform.localPosition, newZoom, movementTime);

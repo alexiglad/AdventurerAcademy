@@ -71,14 +71,15 @@ public class GameController : MonoBehaviour
             Debug.Log("error");
         }
     }
-    public void StartCoroutineTOS(Action action)
+    public void StartCoroutineTOS(float time, Action action)
     {
-        StartCoroutine(Routine3(action));
+        StartCoroutine(Routine3(time, action));
     }
-    IEnumerator Routine3(Action action)
+    IEnumerator Routine3(float time, Action action)
     {
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
+            yield return new WaitForSeconds(time);
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             action.Invoke();
             tempRef.DisableCombatInput();

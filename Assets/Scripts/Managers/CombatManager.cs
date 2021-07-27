@@ -23,6 +23,7 @@ public class CombatManager : GameStateManager
     bool hasMovement;
     bool doubleMovement;
     bool canContinue;
+    bool charactersDied;
 
     [SerializeField] GameController gameController;
     [SerializeField] AbilityProcessor abilityProcessorInstance;
@@ -55,6 +56,7 @@ public class CombatManager : GameStateManager
         hasMovement = true;
         doubleMovement = false;
         canContinue = true;
+        charactersDied = false;
         gameController = FindObjectOfType<GameController>();
 
         foreach (Character characterE in characters)
@@ -340,9 +342,15 @@ public class CombatManager : GameStateManager
 
         if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
         {
-            DisableCombatInput();
-            Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
-            gameController.StartCoroutineTOS(action);
+            if (!canContinue)
+            {
+                charactersDied = true;
+            }
+            else
+            {
+                Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
+                gameController.StartCoroutineTOS(0, action);
+            }
         }
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
@@ -356,6 +364,13 @@ public class CombatManager : GameStateManager
     {
         canContinue = true;
         uiHandler.DisplayEndTurn();
+        //TODO add follow up animation queue here eventually
+        if(charactersDied)
+        {
+            Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
+            gameController.StartCoroutineTOS(0, action);
+            charactersDied = false;
+        }
     }
     public void DisableCombatInput()
     {
@@ -391,7 +406,7 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 character = enumerator.Current;
             }
-            Debug.Log(character.name + "'s Turn!");
+            //Debug.Log(character.name + "'s Turn!");
             statusProcessorInstance.HandleStatuses(character);
             targeting = false;
             attacked = false;

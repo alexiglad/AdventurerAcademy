@@ -17,7 +17,7 @@ MonoBehaviour:
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   damage: 5
   range: 4
-  radius: 1
+  radius: 1.5
   abilityType: 2
   icon: {fileID: 0}
   image: {fileID: 0}
