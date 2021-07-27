@@ -22,7 +22,7 @@ public class ATouchOfDeath : Ability
     {
         damageDivider = 3;
         damage = 0;
-        range = 20;
+        range = 10;
     }
 
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 617153038}
   m_Layer: 5
   m_Name: HealthBarFill
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,13 +101,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1642550544635036942}
+  - component: {fileID: 22989817276087791}
+  - component: {fileID: 5551091327993291713}
   m_Layer: 5
   m_Name: CharacterInfo
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1642550544635036942
 RectTransform:
   m_ObjectHideFlags: 0
@@ -129,6 +131,31 @@ RectTransform:
   m_AnchoredPosition: {x: 8, y: -85}
   m_SizeDelta: {x: 115, y: 86.6847}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &22989817276087791
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642550544635036941}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &5551091327993291713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642550544635036941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f41e5a50db84b4990480b24c546384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 0.5
 --- !u!1 &1642550546554635797
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +169,7 @@ GameObject:
   - component: {fileID: 1642550546554635799}
   m_Layer: 5
   m_Name: CharacterPortrait
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,7 +221,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5269fe9e1c59c544cb7e98d2986a78bd, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -218,7 +245,7 @@ GameObject:
   - component: {fileID: 2065692864}
   m_Layer: 5
   m_Name: EnergyBarFill
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,7 +336,7 @@ GameObject:
   - component: {fileID: 1223765569564362679}
   m_Layer: 5
   m_Name: ResourcesBar
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
