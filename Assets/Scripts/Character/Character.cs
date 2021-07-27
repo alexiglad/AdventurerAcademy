@@ -204,7 +204,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public bool DecrementHealth(float value)
     {
-        Debug.Log("Decremented " + this + " health by: " + value);
+        //Debug.Log("Decremented " + this + " health by: " + value);
         health -= value;
         if (this.health <= 0)
         {

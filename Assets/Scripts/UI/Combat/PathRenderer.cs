@@ -30,7 +30,7 @@ public class PathRenderer : MonoBehaviour
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain") && tempRef.Character.GetComponent<NavMeshAgent>().enabled)
+            if (tempRef.Character != null && tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain") && tempRef.Character.GetComponent<NavMeshAgent>().enabled)
             {
                 if (tempRef.Character.Animator.GetBool("walking"))
                 {

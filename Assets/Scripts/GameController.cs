@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class GameController : MonoBehaviour
     }
 
 
-
+    #region combat
     public void StartCoroutineCC(Action action)
     {
         StartCoroutine(Routine1(action));
@@ -53,6 +54,7 @@ public class GameController : MonoBehaviour
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            yield return new WaitUntil(tempRef.CanContinueMethod);
             tempRef.DisableCombatInput();
             uiHandler.UpdateCombatTurnUI(tempRef.Character);
 
@@ -71,14 +73,15 @@ public class GameController : MonoBehaviour
             Debug.Log("error");
         }
     }
-    public void StartCoroutineTOS(Action action)
+    public void StartCoroutineTOS(float time, Action action)
     {
-        StartCoroutine(Routine3(action));
+        StartCoroutine(Routine3(time, action));
     }
-    IEnumerator Routine3(Action action)
+    IEnumerator Routine3(float time, Action action)
     {
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
+            yield return new WaitForSeconds(time);
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             action.Invoke();
             tempRef.DisableCombatInput();
@@ -89,6 +92,30 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("error");
         }
+    }
+    #endregion methods
+    public void StartCoroutineNMAGravity(Action action, SortedSet<Character> characters)
+    {
+        StartCoroutine(Routine4(action, characters));
+    }
+    IEnumerator Routine4(Action action, SortedSet<Character> characters)
+    {
+        foreach (Character character in characters)
+        {
+            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+        }
+        yield return new WaitForSeconds(0.25f);
+        foreach (Character character in characters)
+        {
+            character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        }
+        yield return new WaitForSeconds(0.25f);
+        foreach (Character character in characters)
+        {
+            character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+        }
+        action.Invoke();
     }
 
     public void AddCharacter(Character character)

@@ -1,27 +1,25 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// kills current character
 /// 
 /// 
 /// 
 /// 
 /// </summary>
-[CreateAssetMenu(menuName = "ScriptableObjects/Ability/DefaultAbility")]
-public class ADefault : Ability
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/TEST")]
+public class ATEST : Ability
 {
     void OnEnable()
     {
-        //damage = 0;
-        //range = 0;
     }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-
+        abilityProcessor.Damage(attacker, attacker.GetHealth());
 
     }
 }

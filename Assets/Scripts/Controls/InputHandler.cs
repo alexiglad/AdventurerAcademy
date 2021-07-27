@@ -137,7 +137,7 @@ public class InputHandler : ScriptableObject
     {
         if (ray.HitBool && VerifyTag(ray, "Terrain"))
         {
-            tempref.CombatMovementTwo(ray.Hit.point);
+            tempref.CombatMovement(ray.Hit.point);
         }
     }
 
@@ -205,7 +205,7 @@ public class InputHandler : ScriptableObject
             }
         }
         //returns in every other case where it worked
-        Debug.Log("something went wrong or user selected incorrectly");
+        //Debug.Log("something went wrong or user selected incorrectly");
         //display to user that they are selecting incorrectly   
     }
     #endregion

@@ -16,7 +16,7 @@ public class AWingedThrash : Ability
     {
         damage = 5;
         range = 4;
-        radius = 1;
+        radius = 1.5f;
     }
 
 
