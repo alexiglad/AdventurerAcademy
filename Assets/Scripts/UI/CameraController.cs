@@ -41,6 +41,9 @@ public class CameraController : MonoBehaviour
         if (controls.Pan.y < 0)
             newPosition += (transform.forward * -movementSpeed);
 
+        Debug.Log(controls.Zoom);
+        Debug.Log(controls.Pan);
+
         RaycastData hit = controls.GetRaycastHit();
         bool continueZoom = true;
         if (controls.Zoom == 120 )

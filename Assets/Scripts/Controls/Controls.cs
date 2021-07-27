@@ -19,18 +19,26 @@ public class @Controls : IInputActionCollection, IDisposable
             ""id"": ""95833317-556d-41b8-b9e0-340a2922d4c9"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""488c01de-de84-4e79-b412-c0f48f8eec91"",
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""04216e0c-1c0e-4dd1-9cce-14b69085dd4f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""04216e0c-1c0e-4dd1-9cce-14b69085dd4f"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Zoom"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""8c72a94a-f2ee-4e29-ab81-466828df4774"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pan"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c57abd2b-7854-435b-ba16-2de779bd2e51"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -49,64 +57,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c65cc08d-ea65-42d9-a5a5-e5df873f1017"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""d1b3b252-ba2f-45ee-94d5-b044441e4ae0"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""8efa8d64-1aa6-4a8b-adc8-edb5313a950f"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""7b24ca34-7d82-48df-87d3-8d4dc29e4049"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""8e9ce1d5-ad88-445b-848e-f107202e387f"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""ba7fe8b3-3f36-4fbc-b7de-e6320c5948d7"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": """",
                     ""id"": ""06f0b044-ce6c-406b-8315-78f1c74692b1"",
@@ -137,6 +98,116 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6190b37a-e72d-4d58-9c32-e71678134e70"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""KeyboardPan"",
+                    ""id"": ""b073948c-f959-4f9e-8f9d-321da59ae9be"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""groups"": """",
+                    ""action"": ""Pan"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""53e98c7e-064b-4ba7-9cc4-1ed374b8545b"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""be9338f8-3b0e-4780-a72a-61f1cf456b1b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""965f34d4-8290-4e33-9122-9fda5cf86d22"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""5789756a-f16d-4cfa-bb03-faaad2639cae"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""KeyboardZoom"",
+                    ""id"": ""6ae590ec-53da-46c7-a6c3-7ae0152e3bb7"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f48f0704-cdc6-4212-bac2-b1ddd1036a56"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""b0312756-ec09-47f6-90ff-0173d908e5a1"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41dd1236-6d90-478d-8512-344156e58a9f"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -570,10 +641,12 @@ public class @Controls : IInputActionCollection, IDisposable
 }");
         // Roaming
         m_Roaming = asset.FindActionMap("Roaming", throwIfNotFound: true);
-        m_Roaming_Movement = m_Roaming.FindAction("Movement", throwIfNotFound: true);
         m_Roaming_Interact = m_Roaming.FindAction("Interact", throwIfNotFound: true);
+        m_Roaming_Zoom = m_Roaming.FindAction("Zoom", throwIfNotFound: true);
+        m_Roaming_Pan = m_Roaming.FindAction("Pan", throwIfNotFound: true);
         m_Roaming_Inventory = m_Roaming.FindAction("Inventory", throwIfNotFound: true);
         m_Roaming_Select = m_Roaming.FindAction("Select", throwIfNotFound: true);
+        m_Roaming_MousePosition = m_Roaming.FindAction("MousePosition", throwIfNotFound: true);
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
         m_Combat_Select = m_Combat.FindAction("Select", throwIfNotFound: true);
@@ -641,18 +714,22 @@ public class @Controls : IInputActionCollection, IDisposable
     // Roaming
     private readonly InputActionMap m_Roaming;
     private IRoamingActions m_RoamingActionsCallbackInterface;
-    private readonly InputAction m_Roaming_Movement;
     private readonly InputAction m_Roaming_Interact;
+    private readonly InputAction m_Roaming_Zoom;
+    private readonly InputAction m_Roaming_Pan;
     private readonly InputAction m_Roaming_Inventory;
     private readonly InputAction m_Roaming_Select;
+    private readonly InputAction m_Roaming_MousePosition;
     public struct RoamingActions
     {
         private @Controls m_Wrapper;
         public RoamingActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Roaming_Movement;
         public InputAction @Interact => m_Wrapper.m_Roaming_Interact;
+        public InputAction @Zoom => m_Wrapper.m_Roaming_Zoom;
+        public InputAction @Pan => m_Wrapper.m_Roaming_Pan;
         public InputAction @Inventory => m_Wrapper.m_Roaming_Inventory;
         public InputAction @Select => m_Wrapper.m_Roaming_Select;
+        public InputAction @MousePosition => m_Wrapper.m_Roaming_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Roaming; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -662,34 +739,46 @@ public class @Controls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_RoamingActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMovement;
                 @Interact.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInteract;
+                @Zoom.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnZoom;
+                @Pan.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnPan;
+                @Pan.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnPan;
+                @Pan.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnPan;
                 @Inventory.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
                 @Select.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
                 @Select.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
                 @Select.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
+                @MousePosition.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_RoamingActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
+                @Pan.started += instance.OnPan;
+                @Pan.performed += instance.OnPan;
+                @Pan.canceled += instance.OnPan;
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
                 @Select.started += instance.OnSelect;
                 @Select.performed += instance.OnSelect;
                 @Select.canceled += instance.OnSelect;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -876,10 +965,12 @@ public class @Controls : IInputActionCollection, IDisposable
     }
     public interface IRoamingActions
     {
-        void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
+        void OnPan(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
     public interface ICombatActions
     {

@@ -27,7 +27,6 @@ public class RoamingManager : GameStateManager
 
     public void MoveToLocation(Vector3 pos)
     {
-
         movementProcessor.HandleMovement(character, pos - character.transform.position);
     }
     public void MoveAndInteract(Vector3 pos, GameObject obj)
