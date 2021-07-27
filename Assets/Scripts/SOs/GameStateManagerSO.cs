@@ -16,10 +16,11 @@ public class GameStateManagerSO : ScriptableObject
     [SerializeField] RoamingManager roamingManager;
     [SerializeField] LoadingManager loadingManager;
     [SerializeField] MenuManager menuManager;
+    GameController gameController;
     void OnEnable()
     {
         FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
-        
+        gameController = FindObjectOfType<GameController>();
     }
     public void SetGameStateManager(Type manager)
     {
@@ -64,9 +65,11 @@ public class GameStateManagerSO : ScriptableObject
         currentGameState.SetGameState(gameState);
         SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
         GetCurrentGameStateManager().AddCharacters(characters);
-        GetCurrentGameStateManager().Start();
+        gameController = FindObjectOfType<GameController>();
+        gameController.StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);
+        //GetCurrentGameStateManager().Start();
 
-        
+
         //input system code
         if (gameState == GameStateEnum.Combat)
         {

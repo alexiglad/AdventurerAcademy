@@ -43,10 +43,6 @@ public class CameraController : MonoBehaviour
 
         RaycastData hit = controls.GetRaycastHit();
         bool continueZoom = true;
-        if(controls.Zoom != 0)
-        {
-            Debug.Log(controls.Zoom);
-        }
         if (controls.Zoom == 120 )
         {
             if(newZoom.y - zoomAmmountOne.y <= globalMinY)

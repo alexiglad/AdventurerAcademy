@@ -91,9 +91,9 @@ public class CombatManager : GameStateManager
         }
     }
 
-    public void UpdateIteration(Turn turnChange, bool enemy)
+    public void UpdateIteration(Turn turnChange, bool turnFinished)
     {
-        if (enemy)
+        if (turnFinished)
         {
             UpdateEnemyTurn(turnChange);
         }
@@ -102,7 +102,7 @@ public class CombatManager : GameStateManager
             UpdateCharacters(turnChange);
         }
         
-        if (TurnFinished())
+        if (turnFinished || TurnFinished())
         {
             gameController.StartCoroutineCC(IterateCharacters);
 
@@ -312,22 +312,27 @@ public class CombatManager : GameStateManager
     {
 
         Character tempCharacter = enumerator.Current;
-        if(character == tempCharacter)//i.e. current character is dying get next character
+        bool reset = false;
+        if (character == tempCharacter)//i.e. current character is dying get next character
         {
-            if (enumerator.MoveNext())//todo fix this
+            Debug.Log("current character died");
+            reset = true;
+            if (enumerator.MoveNext())
             {
                 tempCharacter = enumerator.Current;
             }
             else
             {
-                tempCharacter = characters.Min;
+                enumerator.Reset();
+                enumerator.MoveNext();
+                tempCharacter = enumerator.Current;
             }
         }
         character.gameObject.SetActive(false);
         characters.Remove(character);
         enumerator = characters.GetEnumerator();
-        enumerator.MoveNext();//FIX THIS HAVE TO ITERATE!!
-        while (enumerator.Current != tempCharacter)//exit when tempCharacter pos is found
+        enumerator.MoveNext();
+        while (enumerator.Current != tempCharacter)
         {
             if (!enumerator.MoveNext())//failsafe code
             {
@@ -342,7 +347,11 @@ public class CombatManager : GameStateManager
 
         if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
         {
-            if (!canContinue)
+            if (reset)
+            {
+                ResetTurn();
+            }
+            else if (!canContinue)
             {
                 charactersDied = true;
             }
@@ -389,12 +398,10 @@ public class CombatManager : GameStateManager
         {
             turnOrder.Add(character);
             changed = true;
-            //uiHandler.UpdateTurnOrder(turnOrder);
         }
         if (MoreThanOneSideIsAlive())
         {
             character.GetComponent<SpriteRenderer>().color = Color.white;//todo fix with shaders
-
             turn = new Turn();
             if (enumerator.MoveNext())
             {
@@ -415,7 +422,7 @@ public class CombatManager : GameStateManager
             
             if (character.Inanimate)
             {
-                IterateCharacters();//verify this works
+                IterateCharacters();
             }
             else
             {
@@ -441,6 +448,26 @@ public class CombatManager : GameStateManager
             uiHandler.DisplayEndTurn();
         }
 
+    }
+    public void ResetTurn()
+    {
+        turn = new Turn();
+        //Debug.Log(character.name + "'s Turn!");
+        statusProcessorInstance.HandleStatuses(character);
+        targeting = false;
+        attacked = false;
+        hasMovement = true;
+        doubleMovement = false;
+
+        if (character.Inanimate)
+        {
+            IterateCharacters();//verify this works
+        }
+        else
+        {
+            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+            gameController.StartCoroutineNMA(FinishIterating, turnOrder);
+        }
     }
     bool MoreThanOneSideIsAlive()
     {
@@ -533,7 +560,7 @@ public class CombatManager : GameStateManager
         }
     }
 
-    public void CombatMovementTwo(Vector3 destination)
+    public void CombatMovement(Vector3 destination)
     {
         Vector3 characterBottom = character.BoxCollider.bounds.center;
         characterBottom.y -= character.BoxCollider.bounds.size.y / 2;

@@ -137,7 +137,7 @@ public class InputHandler : ScriptableObject
     {
         if (ray.HitBool && VerifyTag(ray, "Terrain"))
         {
-            tempref.CombatMovementTwo(ray.Hit.point);
+            tempref.CombatMovement(ray.Hit.point);
         }
     }
 
