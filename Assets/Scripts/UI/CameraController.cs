@@ -8,10 +8,13 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
     [SerializeField] float movementTime;
+    [SerializeField] float globalMaxY;
+    [SerializeField] float globalMinY;
     [SerializeField] Vector3 newPosition;
     [SerializeField] InputHandler controls;
     [SerializeField] Vector3 zoomAmmountOne;
     [SerializeField] Vector3 zoomAmmountTwo;
+    [SerializeField] Vector3 zoomAmmountPos;
     [SerializeField] Vector3 newZoom;
     void Start()
     {
@@ -20,7 +23,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         HandleMovementInput();
         controls.SetPan();
@@ -29,25 +32,66 @@ public class CameraController : MonoBehaviour
 
     void HandleMovementInput()
     {
-        if (controls.Pan.y >= 0)
+        if (controls.Pan.y > 0)
             newPosition += (transform.forward * movementSpeed);
-        if (controls.Pan.x <= 0)
+        if (controls.Pan.x < 0)
             newPosition += (transform.right * -movementSpeed);
-        if (controls.Pan.x >= 0)
+        if (controls.Pan.x > 0)
             newPosition += (transform.right * movementSpeed);
-        if (controls.Pan.y <= 0)
+        if (controls.Pan.y < 0)
             newPosition += (transform.forward * -movementSpeed);
 
-        if (controls.Zoom == 120)
+        RaycastData hit = controls.GetRaycastHit();
+        bool continueZoom = true;
+        if (controls.Zoom == 120 )
+        {
+            if(newZoom.y - zoomAmmountOne.y <= globalMinY)
+            {
+                continueZoom = false;
+            }
+        }
+        else if (controls.Zoom == -120)
+        {
+            if (newZoom.y + zoomAmmountOne.y >= globalMaxY)
+            {
+                continueZoom = false;
+            }
+        }
+        else if (controls.Zoom == 1)
+        {
+            if (newZoom.y - zoomAmmountTwo.y <= globalMinY)
+            {
+                continueZoom = false;
+            }
+        }
+        else if (controls.Zoom == -1)
+        {
+            if (newZoom.y + zoomAmmountTwo.y >= globalMaxY)
+            {
+                continueZoom = false;
+            }
+        }
+        if (continueZoom && controls.Zoom == 120)
+        {
             newZoom -= zoomAmmountOne;
-        if (controls.Zoom == -120)
+            newPosition += (hit.Hit.point - newPosition )* .15f/** zoomAmmountOne.magnitude*/;
+        }
+        if (continueZoom && controls.Zoom == -120)
+        {
             newZoom += zoomAmmountOne;
-        if (controls.Zoom == 1)
+            newPosition -= (hit.Hit.point - newPosition) * .15f/** zoomAmmountOne.magnitude*/;
+        }
+        if (continueZoom && controls.Zoom == 1)
+        {
             newZoom += zoomAmmountTwo;
-        if (controls.Zoom == -1)
+            newPosition += (hit.Hit.point - newPosition) * .15f /** zoomAmmountTwo.magnitude*/;
+        }
+        if (continueZoom && controls.Zoom == -1)
+        {
             newZoom -= zoomAmmountTwo;
-
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
-        controls.ActiveCamera.transform.localPosition = Vector3.Lerp(controls.ActiveCamera.transform.localPosition, newZoom, Time.deltaTime * movementTime);
+            newPosition -= (hit.Hit.point - newPosition) * .15f/** zoomAmmountTwo.magnitude*/;
+        }
+        transform.position = Vector3.Lerp(transform.position, newPosition, movementTime);
+        controls.ActiveCamera.transform.localPosition = Vector3.Lerp(controls.ActiveCamera.transform.localPosition, newZoom, movementTime);
     }
 }
