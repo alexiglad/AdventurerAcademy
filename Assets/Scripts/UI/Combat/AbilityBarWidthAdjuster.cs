@@ -43,20 +43,4 @@ public class AbilityBarWidthAdjuster : MonoBehaviour
         return returnable;
     }
 
-
-    /*
-void Update()
-{
-    float activeChildren = ActiveChildren();
-    float v = ((defaultChildCount - activeChildren) * defaultCellWidth);
-    rt.sizeDelta = new Vector2(defaultWidth - v, grid.parentHeight);
-    if (combatManager == null && gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
-    {
-        combatManager = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-        for (int i = 1; i < allImages.Count && i <= activeChildren; i++)
-        {
-            allImages[i].sprite = combatManager.Character.GetCharacterData().InUseAbilities[i - 1].Icon;
-        }
-    }
-}*/
 }

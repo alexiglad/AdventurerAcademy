@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02415d5ea5075994da659d7749995b82, type: 3}
   m_Name: RoamingManager
   m_EditorClassIdentifier: 
+  movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}

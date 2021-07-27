@@ -40,7 +40,8 @@ public class InputHandler : ScriptableObject
         //roaming
         controls.Roaming.Interact.performed += _ => RoamingInteract();
         controls.Roaming.Inventory.performed += _ => RoamingInventory();
-        controls.Roaming.Movement.performed += _ => RoamingMovement(controls.Roaming.Movement);
+        controls.Roaming.Select.performed += _ => RoamingOnSelect();
+        //controls.Roaming.Movement.performed += _ => RoamingMovement(controls.Roaming.Movement);
 
     }
 
@@ -200,7 +201,7 @@ public class InputHandler : ScriptableObject
             {
                 GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
                 Character temp1 = temp2.GetComponent<Character>();
-                tempRef.CombatTarget(temp1);//TODO CHECK IF THIS WORKS
+                tempRef.CombatTarget(temp1);
                 return;
             }
         }
@@ -211,11 +212,29 @@ public class InputHandler : ScriptableObject
     #endregion
     #region RoamingMethods
 
-    void RoamingMovement(InputAction inputAction)
+    void RoamingOnSelect()
     {
-        Vector2 movement = inputAction.ReadValue<Vector2>();
-        Debug.Log(movement);
+        RaycastData ray = GetRaycastHit();
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Roaming)
+        {
+            Debug.Log(ray.Hit.point);
+            RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+            if (ray.HitBool && VerifyTag(ray, "Terrain"))
+            {
+                tempRef.MoveToLocation(ray.Hit.point);
+            }
+            else if(ray.HitBool && VerifyTag(ray, "Interactable") && ray.Hit.transform.GetComponent<GameObject>() != null)
+            {
+                tempRef.MoveAndInteract(ray.Hit.point, ray.Hit.transform.GetComponent<GameObject>());
+            }
+            //code to determine if can travel a path vs travel then interact vs dont travel
+        }
+        else
+        {
+            DisplayError();
+        }
     }
+
     void RoamingInteract()
     {
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Roaming)
@@ -241,6 +260,13 @@ public class InputHandler : ScriptableObject
             DisplayError();
         }
     }
+
+
+    /*void RoamingMovement(InputAction inputAction)
+    {
+    Vector2 movement = inputAction.ReadValue<Vector2>();
+    Debug.Log(movement);
+    }*/
 
 
     #endregion
