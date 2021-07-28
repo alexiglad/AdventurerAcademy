@@ -66,29 +66,9 @@ public class GameStateManagerSO : ScriptableObject
         GetCurrentGameStateManager().AddCharacters(characters);
         //gameController = FindObjectOfType<GameController>();
         //gameController.StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
+        GetCurrentGameStateManager().SetSubstateEnum(SubstateEnum.Default);
         GetCurrentGameStateManager().Start();
 
-
-        //input system code
-        if (gameState == GameStateEnum.Combat)
-        {
-            controls.GetControls().Combat.Enable();
-        }
-        else if (gameState == GameStateEnum.Roaming)
-        {
-            controls.GetControls().Roaming.Enable();
-        }
-        else if (gameState == GameStateEnum.Dialogue)
-        {
-            controls.GetControls().Dialogue.Enable();
-        }
-        else if (gameState == GameStateEnum.Menu)
-        {
-            controls.GetControls().Menu.Enable();
-        }
-        else//this is game state loading
-        {
-            controls.GetControls().Disable();
-        }
+        controls.GetControls().Enable();
     }
 }

@@ -11,6 +11,10 @@ public class MenuManager : GameStateManager
     {
 
     }
+    public override void SetSubstateEnum(SubstateEnum state)
+    {
+        this.State = state;
+    }
     public override void AddCharacters(SortedSet<Character> characters)
     {
         this.characters = characters;

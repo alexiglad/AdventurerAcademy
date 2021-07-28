@@ -31,21 +31,13 @@ public class InputHandler : ScriptableObject
         defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         activeCamera = defaultCamera;
 
-        //combat
-        controls.Combat.Select.performed += _ => CombatOnSelect();
-        controls.Combat.Deselect.performed += _ => CombatOnDeselect();
-        controls.Combat.DoubleMovement.performed += _ => CombatOnDoubleMovement();
-        controls.Combat.Pan.performed += _ => SetPan();
-        controls.Combat.Zoom.performed += _ => SetZoom();
-
-
-        //roaming
-        controls.Roaming.Interact.performed += _ => RoamingInteract();
-        controls.Roaming.Inventory.performed += _ => RoamingInventory();
-        controls.Roaming.Select.performed += _ => RoamingOnSelect();
-        controls.Roaming.Pan.performed += _ => SetPan();
-        controls.Roaming.Zoom.performed += _ => SetZoom();
-        //controls.Roaming.Movement.performed += _ => RoamingMovement(controls.Roaming.Movement);
+        controls.UniversalControls.Select.performed += _ => OnSelect();
+        controls.UniversalControls.Deselect.performed += _ => OnDeselect();
+        controls.UniversalControls.DoubleMovement.performed += _ => OnDoubleMovement();
+        controls.UniversalControls.Pan.performed += _ => SetPan();
+        controls.UniversalControls.Zoom.performed += _ => SetZoom();
+        controls.UniversalControls.Interact.performed += _ => OnInteract();
+        controls.UniversalControls.Inventory.performed += _ => OnInventoryToggle();
     }
 
 
@@ -62,15 +54,7 @@ public class InputHandler : ScriptableObject
     public RaycastData GetRaycastHit()
     {
         Vector2 mousePosition = Vector2.zero;
-        switch (gameStateManager.GetCurrentGameState())
-        {            
-            case GameStateEnum.Combat:
-                mousePosition = controls.Combat.MousePosition.ReadValue<Vector2>();
-                break;
-            case GameStateEnum.Roaming:
-                mousePosition = controls.Roaming.MousePosition.ReadValue<Vector2>();
-                break;                
-        }
+        mousePosition = controls.UniversalControls.MousePosition.ReadValue<Vector2>();
         Ray ray = activeCamera.ScreenPointToRay(mousePosition);
         RaycastHit hit;
         return new RaycastData(Physics.Raycast(ray, out hit, Mathf.Infinity), hit);
@@ -86,91 +70,92 @@ public class InputHandler : ScriptableObject
     {
         Debug.Log("error occurred");
     }
-    #region CombatMethods
 
     public void SetZoom()
     {
-        switch (gameStateManager.GetCurrentGameState())
-        {
-            case GameStateEnum.Combat:
-                zoom = controls.Combat.Zoom.ReadValue<float>();
-                break;
-            case GameStateEnum.Roaming:
-                zoom = controls.Roaming.Zoom.ReadValue<float>();
-                break;
-        }        
+        zoom = controls.UniversalControls.Zoom.ReadValue<float>();
     }
 
     public void SetPan()
     {
+        pan = controls.UniversalControls.Pan.ReadValue<Vector2>();
+    }
+    void OnSelect()
+    {
+        RaycastData data = GetRaycastHit();
         switch (gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Combat:
-                pan = controls.Combat.Pan.ReadValue<Vector2>();
+                CombatManager tempCombatRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                if (tempCombatRef.CanContinue)
+                {
+                    if (tempCombatRef.GetTargeting() == true)
+                    {
+                        SendTarget(data, tempCombatRef);
+                    }
+                    else
+                    {
+                        tempCombatRef.CombatMovement(GetLocation(data));
+                    }
+                }
                 break;
             case GameStateEnum.Roaming:
-                pan = controls.Roaming.Pan.ReadValue<Vector2>();
+                RoamingManager tempRoamingRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+                
+                if (VerifyTag(data, "Terrain"))
+                {
+                    tempRoamingRef.MoveToLocation(GetLocation(data));
+                }
+                else if (VerifyTag(data, "Interactable"))
+                {
+                    tempRoamingRef.MoveAndInteract(data.Hit.point, data.Hit.transform.gameObject);
+                }
                 break;
-        }        
-    }
-    void CombatOnSelect()
-    {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.CanContinue)
-            {
-                if (tempRef.GetTargeting() == true)
-                {
-                    CombatSendTarget(GetRaycastHit(), tempRef);
-                }
-                else
-                {
-                    CombatSendLocation(GetRaycastHit(), tempRef);
-                }
-            }
+            default:
+                DisplayError();
+                break;
         }
-        else
+    }
+
+    public void OnDeselect()
+    {
+        switch (gameStateManager.GetCurrentGameState())
         {
-            DisplayError();
+            case GameStateEnum.Combat:
+                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                tempRef.CombatAbilityDeselect();
+                break;
+
+            default:
+                DisplayError();
+                break;
+        }
+    }
+    public void OnDoubleMovement()
+    {
+        switch(gameStateManager.GetCurrentGameState())
+        {
+            case GameStateEnum.Combat:
+                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                tempRef.CombatDoubleMove();
+                break;
+
+            default:
+                DisplayError();
+                break;
         }
     } 
-    public void CombatOnDeselect()
-    {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.CombatAbilityDeselect();
-        }
-        else
-        {
-            DisplayError();
-        }
-    }
-    public void CombatOnDoubleMovement()
-    {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.CombatDoubleMove();
-        }
-        else
-        {
-            DisplayError();
-        }
-    }
 
- 
-
-    void CombatSendLocation(RaycastData ray, CombatManager tempref)
+    Vector3 GetLocation(RaycastData ray)
     {
         if (ray.HitBool && VerifyTag(ray, "Terrain"))
         {
-            tempref.CombatMovement(ray.Hit.point);
+            return ray.Hit.point;
         }
+        return Vector3.zero;
     }
 
-    void CombatSendTarget(RaycastData ray, CombatManager tempRef)
+    void SendTarget(RaycastData ray, CombatManager tempRef)
     {
         if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
             tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
@@ -236,68 +221,34 @@ public class InputHandler : ScriptableObject
         //returns in every other case where it worked
         //Debug.Log("something went wrong or user selected incorrectly");
         //display to user that they are selecting incorrectly   
-    }
-    #endregion
+    }  
 
-    #region RoamingMethods
-
-    void RoamingOnSelect()
+    void OnInteract()
     {
-        RaycastData ray = GetRaycastHit();
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Roaming)
+        switch(gameStateManager.GetCurrentGameState())
         {
-            Debug.Log(ray.Hit.point);
-            RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
-            if (ray.HitBool && VerifyTag(ray, "Terrain"))
-            {
-                tempRef.MoveToLocation(ray.Hit.point);
-            }
-            else if(ray.HitBool && VerifyTag(ray, "Interactable") && ray.Hit.transform.GetComponent<GameObject>() != null)
-            {
-                tempRef.MoveAndInteract(ray.Hit.point, ray.Hit.transform.GetComponent<GameObject>());
-            }
-            //code to determine if can travel a path vs travel then interact vs dont travel
-        }
-        else
-        {
-            DisplayError();
+            case GameStateEnum.Roaming:
+                RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+                tempRef.Interact();
+                break;
+
+            default:
+                DisplayError();
+                break;
         }
     }
-
-    void RoamingInteract()
+    void OnInventoryToggle()
     {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Roaming)
+        switch(gameStateManager.GetCurrentGameState())
         {
-            RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.Interact();
-        }
-        else
-        {
-            DisplayError();
-        }
+            case GameStateEnum.Roaming:
+                RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+                tempRef.OpenInventory();
+                break;
 
-    }
-    void RoamingInventory()
-    {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Roaming)
-        {
-            RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.OpenInventory();
-        }
-        else
-        {
-            DisplayError();
+            default:
+                DisplayError();
+                break; ;
         }
     }
-
-
-    /*void RoamingMovement(InputAction inputAction)
-    {
-    Vector2 movement = inputAction.ReadValue<Vector2>();
-    Debug.Log(movement);
-    }*/
-
-
-    #endregion
-
 }

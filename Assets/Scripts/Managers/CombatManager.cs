@@ -192,6 +192,11 @@ public class CombatManager : GameStateManager
         }
     }
 
+    public override void SetSubstateEnum(SubstateEnum state)
+    {
+        this.State = state;
+    }
+
     public override void AddCharacters(SortedSet<Character> charactersPassed)
     {
 

@@ -19,6 +19,11 @@ public class RoamingManager : GameStateManager
         character.Obstacle.enabled = false;
         character.Agent.enabled = true;
     }
+    public override void SetSubstateEnum(SubstateEnum state)
+    {
+        this.State = state;
+    }
+
     public override void Start()
     {
         gameController = FindObjectOfType<GameController>();
