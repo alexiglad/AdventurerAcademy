@@ -25,7 +25,6 @@ public class GameStateManagerSO : ScriptableObject
     public void SetGameStateManager(Type manager)
     {
         Destroy(currentGameStateManager);
-        //currentGameStateManager = (GameStateManager)CreateInstance(manager.ToString());
         String managerType = manager.ToString();
         switch (managerType)
         {
