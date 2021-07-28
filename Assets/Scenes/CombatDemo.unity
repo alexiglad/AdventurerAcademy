@@ -108,8 +108,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.2
     agentHeight: 2
-    agentSlope: 45.5
-    agentClimb: 0.5
+    agentSlope: 60
+    agentClimb: 2
     ledgeDropHeight: 8.1
     maxJumpAcrossDistance: 8
     minRegionArea: 2
@@ -2885,16 +2885,28 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.45
+      value: -6.96
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.43
+      value: -6.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3238,6 +3250,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800802448}
   m_CullTransparentMesh: 1
+--- !u!1 &1894673549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
+  m_PrefabInstance: {fileID: 1652696681}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1894673550
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894673549}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1299306278945724838, guid: e9f398ea73a66c8409c986cc89f8b923, type: 3}
 --- !u!224 &1988778454 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1642550544635036942, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
