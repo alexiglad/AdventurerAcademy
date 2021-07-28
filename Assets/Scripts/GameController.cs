@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
                 userCharacters.Add(character);
             }
         }
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, userCharacters);
 
         //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
     }
