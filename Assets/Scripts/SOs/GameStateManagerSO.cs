@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/GameStateManager")]
 public class GameStateManagerSO : ScriptableObject
@@ -30,12 +31,14 @@ public class GameStateManagerSO : ScriptableObject
         {
             case "CombatManager":
                 currentGameStateManager = Instantiate(combatManager);
+                //SceneManager.LoadScene("CombatDemo");
                 break;
             case "DialogueManager":
                 currentGameStateManager = Instantiate(dialogueManager);
                 break;
             case "RoamingManager":
                 currentGameStateManager = Instantiate(roamingManager);
+                //SceneManager.LoadScene("RoamingDemo");
                 break;
             case "LoadingManager":
                 currentGameStateManager = Instantiate(loadingManager);
