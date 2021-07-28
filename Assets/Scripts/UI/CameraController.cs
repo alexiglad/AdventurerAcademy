@@ -77,7 +77,7 @@ public class CameraController : MonoBehaviour
         if (continueZoom && controls.Zoom == 120)
         {
             newZoom -= zoomAmmountOne;
-            newPosition += (hit.Hit.point - newPosition )* .15f/** zoomAmmountOne.magnitude*/;
+            newPosition += (hit.Hit.point - newPosition) * .15f/** zoomAmmountOne.magnitude*/;
         }
         if (continueZoom && controls.Zoom == -120)
         {

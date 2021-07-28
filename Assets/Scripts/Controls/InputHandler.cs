@@ -35,14 +35,17 @@ public class InputHandler : ScriptableObject
         controls.Combat.Select.performed += _ => CombatOnSelect();
         controls.Combat.Deselect.performed += _ => CombatOnDeselect();
         controls.Combat.DoubleMovement.performed += _ => CombatOnDoubleMovement();
+        controls.Combat.Pan.performed += _ => SetPan();
+        controls.Combat.Zoom.performed += _ => SetZoom();
 
 
         //roaming
         controls.Roaming.Interact.performed += _ => RoamingInteract();
         controls.Roaming.Inventory.performed += _ => RoamingInventory();
         controls.Roaming.Select.performed += _ => RoamingOnSelect();
+        controls.Roaming.Pan.performed += _ => SetPan();
+        controls.Roaming.Zoom.performed += _ => SetZoom();
         //controls.Roaming.Movement.performed += _ => RoamingMovement(controls.Roaming.Movement);
-
     }
 
 
@@ -87,12 +90,28 @@ public class InputHandler : ScriptableObject
 
     public void SetZoom()
     {
-        zoom = controls.Combat.Zoom.ReadValue<float>();
+        switch (gameStateManager.GetCurrentGameState())
+        {
+            case GameStateEnum.Combat:
+                zoom = controls.Combat.Zoom.ReadValue<float>();
+                break;
+            case GameStateEnum.Roaming:
+                zoom = controls.Roaming.Zoom.ReadValue<float>();
+                break;
+        }        
     }
 
     public void SetPan()
     {
-        pan = controls.Combat.Pan.ReadValue<Vector2>();
+        switch (gameStateManager.GetCurrentGameState())
+        {
+            case GameStateEnum.Combat:
+                pan = controls.Combat.Pan.ReadValue<Vector2>();
+                break;
+            case GameStateEnum.Roaming:
+                pan = controls.Roaming.Pan.ReadValue<Vector2>();
+                break;
+        }        
     }
     void CombatOnSelect()
     {
