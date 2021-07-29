@@ -29,11 +29,17 @@ public class GameStateManagerSO : ScriptableObject
         {
             case "CombatManager":
                 currentGameStateManager = Instantiate(combatManager);
-                //SceneManager.LoadScene("CombatDemo");
+                if(SceneManager.GetActiveScene().name != "CombatDemo")//temp code for demo
+                {
+                    SceneManager.LoadScene("CombatDemo");
+                }
                 break;
             case "RoamingManager":
                 currentGameStateManager = Instantiate(roamingManager);
-                //SceneManager.LoadScene("RoamingDemo");
+                if (SceneManager.GetActiveScene().name != "RoamingDemo")//temp code for demo
+                {
+                    SceneManager.LoadScene("RoamingDemo");
+                }
                 break;
             case "LoadingManager":
                 currentGameStateManager = Instantiate(loadingManager);
@@ -43,6 +49,7 @@ public class GameStateManagerSO : ScriptableObject
                 break;
         }
         Debug.Log("Switched game state to " + currentGameStateManager.ToString());//Debug
+        Debug.Log(this + "" + Time.realtimeSinceStartup);
     }
 
     public GameStateEnum GetCurrentGameState()
