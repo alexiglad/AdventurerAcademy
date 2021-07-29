@@ -191,6 +191,37 @@ public class CombatManager : GameStateManager
             return false;
         }
     }
+    public bool UpdateMovement(Vector3 changeInLoc, float magnitude)//update this to take a destination and magnitude
+    {
+        if (doubleMovement && hasMovement && magnitude <= 2 * GetRemainingMovement())
+        {
+            turn.SetMovement(changeInLoc + turn.GetMovement());
+            turn.AmountMoved += magnitude;
+            float error = .2f;
+            if (GetRemainingMovement() <= error)
+            {
+                Debug.Log("User has used up movement for turn");
+                hasMovement = false;
+            }
+            return true;
+        }
+        else if (hasMovement && magnitude <= GetRemainingMovement())
+        {
+            turn.SetMovement(changeInLoc + turn.GetMovement());
+            turn.AmountMoved += magnitude;
+            float error = .2f;
+            if (GetRemainingMovement() <= error)
+            {
+                Debug.Log("User has used up movement for turn");
+                hasMovement = false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public override void SetSubstateEnum(SubstateEnum state)
     {
@@ -218,7 +249,7 @@ public class CombatManager : GameStateManager
     {
         if (doubleMovement)
         {
-            return 2*(this.character.GetMaxMovement() - this.turn.AmountMoved);
+            return 2*this.character.GetMaxMovement() - this.turn.AmountMoved;
         }
         else
         {
@@ -584,12 +615,12 @@ public class CombatManager : GameStateManager
                 float distanceTraveled = 0;
                 Vector3 location = new Vector3();
                 Vector3 prev = characterBottom;
+                bool first = true;
                 //prev.y += 0.08448386f;//TODO investigate why this helps eventually
                 foreach (Vector3 vector in path.corners)
                 {
                     if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())
                     {
-                        //vector.Normalize();
                         Vector3 temp = vector - prev;
                         Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * (temp.normalized);
                         location += lastPath;
@@ -598,21 +629,26 @@ public class CombatManager : GameStateManager
 
                     else
                     {
-
-                        distanceTraveled += Vector3.Distance(vector, prev);
-                        location += vector - prev;
+                        if (first)
+                        {
+                            first = false;
+                        }
+                        else
+                        {
+                            distanceTraveled += Vector3.Distance(vector, prev);
+                            location += vector - prev;
+                        }
                     }
                     
                     prev = vector;
                 }
                 NavMeshPath path2 = new NavMeshPath();
-                Vector3 realMovement = location;
-                if (character.Agent.CalculatePath(realMovement + characterBottom, path2) && path2.status == NavMeshPathStatus.PathComplete)
+                if (character.Agent.CalculatePath(location + characterBottom, path2) && path2.status == NavMeshPathStatus.PathComplete)
                 {
                     //this is creating the movement in the case of being outside the radius
-                    if (UpdateMovement(realMovement))
+                    if (UpdateMovement(location, GetRemainingMovement()))
                     {
-                        UpdateIteration(new Turn(realMovement), false);
+                        UpdateIteration(new Turn(location), false);
                     }
                     else
                     {
