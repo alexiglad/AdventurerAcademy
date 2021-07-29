@@ -25,7 +25,7 @@ public class CombatManager : GameStateManager
     bool canContinue;
     bool charactersDied;
 
-    [SerializeField] GameController gameController;
+    GameController gameController;
     [SerializeField] AbilityProcessor abilityProcessorInstance;
     [SerializeField] StatusProcessor statusProcessorInstance;
     [SerializeField] MovementProcessor movementProcesssor;

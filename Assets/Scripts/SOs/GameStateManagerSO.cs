@@ -49,7 +49,6 @@ public class GameStateManagerSO : ScriptableObject
                 break;
         }
         Debug.Log("Switched game state to " + currentGameStateManager.ToString());//Debug
-        Debug.Log(this + "" + Time.realtimeSinceStartup);
     }
 
     public GameStateEnum GetCurrentGameState()
