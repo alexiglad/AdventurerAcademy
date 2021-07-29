@@ -467,10 +467,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 837804376}
     m_Modifications:
-    - target: {fileID: 22989817276087791, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1642550544635036941, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
       propertyPath: m_Name
       value: CharacterInfo 01
@@ -1576,6 +1572,10 @@ PrefabInstance:
     - target: {fileID: 22989817276087791, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
       propertyPath: m_Interactable
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22989817276087791, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1016856719497113504, guid: f725b8200cb79374ab939f0c111bbda0, type: 3}
       propertyPath: m_TagString

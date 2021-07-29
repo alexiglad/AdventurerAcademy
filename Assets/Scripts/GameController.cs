@@ -29,9 +29,9 @@ public class GameController : MonoBehaviour
                 userCharacters.Add(character);
             }
         }
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);//For testing uncoment to switch to roaming
 
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
     }
 
 

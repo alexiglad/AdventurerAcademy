@@ -63,7 +63,10 @@ public class InputHandler : ScriptableObject
     public bool VerifyTag(RaycastData data, string tag)
     {
         if (data.Hit.collider.tag == tag && !EventSystem.current.IsPointerOverGameObject() && data.Hit.transform != null)
+        {
             return true;
+        }
+            
         return false;
     }
     void DisplayError()
@@ -95,7 +98,11 @@ public class InputHandler : ScriptableObject
                     }
                     else
                     {
-                        tempCombatRef.CombatMovement(GetLocation(data));
+                        Vector3 pos = GetLocation(data);
+                        if(pos != Vector3.zero)
+                        {
+                            tempCombatRef.CombatMovement(GetLocation(data));
+                        }                        
                     }
                 }
                 break;
@@ -104,7 +111,11 @@ public class InputHandler : ScriptableObject
                 
                 if (VerifyTag(data, "Terrain"))
                 {
-                    tempRoamingRef.MoveToLocation(GetLocation(data));
+                    Vector3 pos = GetLocation(data);
+                    if (pos != Vector3.zero)
+                    {
+                        tempRoamingRef.MoveToLocation(pos);
+                    }
                 }
                 else if (VerifyTag(data, "Interactable"))
                 {
