@@ -5,8 +5,6 @@ using UnityEngine;
 public enum GameStateEnum
 {
     Combat,
-    Dialogue,
     Roaming,
     Loading,
-    Menu
 }

@@ -13,10 +13,8 @@ public class GameStateManagerSO : ScriptableObject
     //Controls controls;
     [SerializeField] InputHandler controls;
     [SerializeField] CombatManager combatManager;
-    [SerializeField] DialogueManager dialogueManager;
     [SerializeField] RoamingManager roamingManager;
     [SerializeField] LoadingManager loadingManager;
-    [SerializeField] MenuManager menuManager;
     GameController gameController;
     void OnEnable()
     {
@@ -33,18 +31,12 @@ public class GameStateManagerSO : ScriptableObject
                 currentGameStateManager = Instantiate(combatManager);
                 //SceneManager.LoadScene("CombatDemo");
                 break;
-            case "DialogueManager":
-                currentGameStateManager = Instantiate(dialogueManager);
-                break;
             case "RoamingManager":
                 currentGameStateManager = Instantiate(roamingManager);
                 //SceneManager.LoadScene("RoamingDemo");
                 break;
             case "LoadingManager":
                 currentGameStateManager = Instantiate(loadingManager);
-                break;
-            case "MenuManager":
-                currentGameStateManager = Instantiate(menuManager);
                 break;
             default:
                 Debug.Log("error switching game states please investigate");

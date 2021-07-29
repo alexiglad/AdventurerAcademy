@@ -26,10 +26,6 @@ public class PlayerMovement : MonoBehaviour
                 Move(); break;
             case GameStateEnum.Combat:
                 Stop(); break;
-            case GameStateEnum.Dialogue:
-                Stop(); break;
-            case GameStateEnum.Menu:
-                Stop(); break;
             case GameStateEnum.Loading:
                 Stop(); break;
             default:

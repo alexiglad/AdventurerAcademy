@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Witch
   maxHealth: 20
   maxEnergy: 100
-  maxMovement: 10
+  maxMovement: 6
   moveSpeed: 5
   initiative: 20
   damage: 1
