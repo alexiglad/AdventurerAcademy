@@ -5,12 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/RoamingManager")]
 public class RoamingManager : GameStateManager
 {
-    public SortedSet<Character> characters = new SortedSet<Character>();
+    private SortedSet<Character> characters = new SortedSet<Character>();
     private IEnumerator<Character> enumerator;
     private Character character;
     private List<GameObject> interactables;
     [SerializeField] MovementProcessor movementProcessor;
     GameController gameController;
+
+    public Character Character { get => character; set => character = value; }
+    public SortedSet<Character> Characters { get => characters; set => characters = value; }
 
     public override void AddCharacters(SortedSet<Character> characters)
     {
@@ -27,6 +30,8 @@ public class RoamingManager : GameStateManager
     public override void Start()
     {
         gameController = FindObjectOfType<GameController>();
+        character.Obstacle.enabled = false;
+        character.Agent.enabled = true;
     }
 
 
@@ -34,13 +39,14 @@ public class RoamingManager : GameStateManager
     {
         movementProcessor.HandleMovement(character, pos - character.transform.position);
     }
-    public void MoveAndInteract(Vector3 pos, GameObject obj)
+    public void MoveAndInteract(Vector3 pos, Interactable interactable)
     {
-
+        movementProcessor.HandleMovement(character, pos - character.transform.position);
+        //start coroutine stuff here to handle interaction after it is done
     }
-    public void Interact()
+    public void Interact(Interactable interactable)
     {
-        
+        interactable.HandleInteraction();
         //TODO implement gotta get direction of character and find nearest game object in that direction
     }
     public void OpenInventory()

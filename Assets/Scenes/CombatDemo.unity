@@ -3721,7 +3721,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7640261090172070391, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
 --- !u!1001 &6022492682632766749
 PrefabInstance:
@@ -3939,7 +3940,8 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.009514689
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6499003185554428585, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
 --- !u!1001 &7283104556478337616
 PrefabInstance:

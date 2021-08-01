@@ -19,6 +19,28 @@ public class MovementProcessor : ScriptableObject
         character.Agent.SetDestination(movement + characterBottom);
         if (character.IsPlayer())//TEMPORARY BUG FIX TODO
         {
+            if(Mathf.Abs(movement.x) >= Mathf.Abs(movement.z))
+            {
+                if(movement.x >= 0)
+                {//east
+                    character.Direction = CardinaDirectionsEnum.East;
+                }
+                else
+                {//west
+                    character.Direction = CardinaDirectionsEnum.West;
+                }
+            }
+            else
+            {
+                if (movement.z >= 0)
+                {//north
+                    character.Direction = CardinaDirectionsEnum.North;
+                }
+                else
+                {//south
+                    character.Direction = CardinaDirectionsEnum.South;
+                }
+            }
             character.Animator.SetFloat("moveX", movement.x);
             character.Animator.SetFloat("moveZ", movement.z);
             character.Animator.SetBool("walking", true);

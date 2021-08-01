@@ -23,6 +23,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     
 
     Animator animator;
+    CardinaDirectionsEnum direction;
 
     BoxCollider boxCollider;
 
@@ -30,7 +31,10 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
-    
+
+    List<Interactable> interactablesWithinRange;
+
+
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }    
     public List<Status> Statuses { get => statuses; set => statuses = value; }
     public NavMeshAgent Agent { get => agent; set => agent = value; }
@@ -40,6 +44,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     public Character VoodooTarget { get => voodooTarget; set => voodooTarget = value; }
     public bool Inanimate { get => inanimate; set => inanimate = value; }
     public NavMeshObstacle Obstacle { get => obstacle; set => obstacle = value; }
+    public CardinaDirectionsEnum Direction { get => direction; set => direction = value; }
+    public List<Interactable> InteractablesWithinRange { get => interactablesWithinRange; set => interactablesWithinRange = value; }
 
     #endregion
 
@@ -55,6 +61,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         agent = transform.GetComponent<NavMeshAgent>();
         obstacle = transform.GetComponent<NavMeshObstacle>();
+        direction = CardinaDirectionsEnum.South;
         if (!inanimate)
         {
             FindObjectOfType<GameController>().AddCharacter(this);
@@ -62,6 +69,7 @@ public class Character : MonoBehaviour, IComparable<Character>
             agent.enabled = false;
             obstacle.enabled = true;
         }
+        interactablesWithinRange = new List<Interactable>();
 
     }
     private void OnDisable()
@@ -109,7 +117,33 @@ public class Character : MonoBehaviour, IComparable<Character>
         }
         
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        Interactable interactable = other.GetComponent<Interactable>();
+        if (interactable != null)
+        {
+            interactablesWithinRange.Add(interactable);
+        }
+        else
+        {
+            Debug.Log("error occcured");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Interactable interactable = other.GetComponent<Interactable>();
+        if (interactable != null)
+        {
+            if (!interactablesWithinRange.Remove(interactable))
+            {
+                Debug.Log("error occured");
+            }
+        }
+        else
+        {
+            Debug.Log("error occcured");
+        }
+    }
 
     public void Dead(){
         //create event?

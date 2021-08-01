@@ -10,6 +10,7 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "ScriptableObjects/InputHandler")]
 public class InputHandler : ScriptableObject
 {
+    #region local variables
     Camera defaultCamera;
     Camera activeCamera;
     Controls controls;
@@ -24,7 +25,7 @@ public class InputHandler : ScriptableObject
     public Camera ActiveCamera { get => activeCamera;}
     public Vector2 Pan { get => pan;}
     public float Zoom { get => zoom;}
-
+    #endregion
     public void ManualAwake()
     {
         controls = new Controls();
@@ -40,7 +41,7 @@ public class InputHandler : ScriptableObject
         controls.UniversalControls.Inventory.performed += _ => OnInventoryToggle();
     }
 
-
+    #region generalized methods
     public void SetActiveCamera(Camera active)
     {
         activeCamera = active;
@@ -69,11 +70,20 @@ public class InputHandler : ScriptableObject
             
         return false;
     }
+    Vector3 GetLocation(RaycastData ray)
+    {
+        if (ray.HitBool && VerifyTag(ray, "Terrain"))
+        {
+            return ray.Hit.point;
+        }
+        return Vector3.zero;
+    }
     void DisplayError()
     {
         Debug.Log("error occurred");
     }
-
+    #endregion
+    #region camera controls
     public void SetZoom()
     {
         zoom = controls.UniversalControls.Zoom.ReadValue<float>();
@@ -83,6 +93,8 @@ public class InputHandler : ScriptableObject
     {
         pan = controls.UniversalControls.Pan.ReadValue<Vector2>();
     }
+    #endregion
+    #region selection methods
     void OnSelect()
     {
         RaycastData data = GetRaycastHit();
@@ -101,7 +113,7 @@ public class InputHandler : ScriptableObject
                         Vector3 pos = GetLocation(data);
                         if(pos != Vector3.zero)
                         {
-                            tempCombatRef.CombatMovement(GetLocation(data));
+                            tempCombatRef.CombatMovement(pos);
                         }                        
                     }
                 }
@@ -119,14 +131,28 @@ public class InputHandler : ScriptableObject
                 }
                 else if (VerifyTag(data, "Interactable"))
                 {
-                    tempRoamingRef.MoveAndInteract(data.Hit.point, data.Hit.transform.gameObject);
+                    if (CanInteract(tempRoamingRef, data))
+                    {
+                        //just call interact method
+                        tempRoamingRef.Interact(data.Hit.transform.GetComponent<Interactable>());
+                    }
+                    else if (ClickHasInteractable(data))
+                    {
+                        //click and move
+                        tempRoamingRef.MoveAndInteract(data.Hit.point, data.Hit.transform.GetComponent<Interactable>());
+                    }
+                    else
+                    {
+                        //just move to location
+                        tempRoamingRef.MoveToLocation(data.Hit.point);
+                    }
                 }
                 break;
             default:
                 DisplayError();
                 break;
         }
-    }
+    } 
 
     public void OnDeselect()
     {
@@ -142,9 +168,12 @@ public class InputHandler : ScriptableObject
                 break;
         }
     }
+    #endregion
+    #region combat manager methods
+
     public void OnDoubleMovement()
     {
-        switch(gameStateManager.GetCurrentGameState())
+        switch (gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Combat:
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
@@ -155,15 +184,6 @@ public class InputHandler : ScriptableObject
                 DisplayError();
                 break;
         }
-    } 
-
-    Vector3 GetLocation(RaycastData ray)
-    {
-        if (ray.HitBool && VerifyTag(ray, "Terrain"))
-        {
-            return ray.Hit.point;
-        }
-        return Vector3.zero;
     }
 
     void SendTarget(RaycastData ray, CombatManager tempRef)
@@ -229,18 +249,25 @@ public class InputHandler : ScriptableObject
                 return;
             }
         }
-        //returns in every other case where it worked
-        //Debug.Log("something went wrong or user selected incorrectly");
-        //display to user that they are selecting incorrectly   
-    }  
-
+        //Debug.Log("selected incorreclty")
+    }
+    #endregion
+    #region roaming manager methods
     void OnInteract()
     {
+
         switch(gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Roaming:
                 RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
-                tempRef.Interact();
+                if (CanInteract(tempRef))
+                {
+                    tempRef.Interact(GetClosestInteractable(tempRef));
+                }
+                else
+                {
+
+                }
                 break;
 
             default:
@@ -248,6 +275,7 @@ public class InputHandler : ScriptableObject
                 break;
         }
     }
+
     void OnInventoryToggle()
     {
         switch(gameStateManager.GetCurrentGameState())
@@ -262,4 +290,50 @@ public class InputHandler : ScriptableObject
                 break; ;
         }
     }
+
+    bool CanInteract(RoamingManager tempRef, RaycastData ray = null)
+    {
+        if(ray != null)
+        {//use data to get object mouse is pointing to and determine if it is within the character's range
+            if (ray.HitBool && VerifyTag(ray, "Interactable") && ray.Hit.transform.GetComponent<Interactable>() != null &&
+                tempRef.Character.BoxCollider.bounds.Intersects(ray.Hit.transform.GetComponent<BoxCollider>().bounds))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {//determine if there is an interactable object within collider of character 
+            //CardinaDirectionsEnum moveDirection = tempRef.Character.Direction;
+            foreach(Interactable interactable in tempRef.Character.InteractablesWithinRange)
+            {//TODO eventually implement WASD into this
+                if (tempRef.Character.BoxCollider.bounds.Intersects(interactable.GetComponent<BoxCollider>().bounds)){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    Interactable GetClosestInteractable(RoamingManager tempRef)
+    {
+        Interactable returnVal = null;
+        float smallestDistance = Mathf.Infinity;
+        foreach (Interactable interactable in tempRef.Character.InteractablesWithinRange)
+        {
+            if (Vector3.Distance(tempRef.Character.BoxCollider.center, interactable.GetComponent<BoxCollider>().center) <= smallestDistance)
+            {
+                returnVal = interactable; 
+            }
+        }
+        return returnVal;
+    }
+    bool ClickHasInteractable(RaycastData ray)
+    {//todo implement
+        return ray.HitBool && VerifyTag(ray, "Interactable") && ray.Hit.transform.GetComponent<Interactable>() != null;
+    }
+
+    #endregion
 }
