@@ -45,7 +45,12 @@ public class GameController : MonoBehaviour
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             yield return new WaitUntil(tempRef.CanContinueMethod);
-            //eventually add animation here for switching turns
+            action.Invoke();
+        }
+        else if(currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(RoamingManager))
+        {
+            RoamingManager tempRef = (RoamingManager)currentGameStateManager.GetCurrentGameStateManager();
+            yield return new WaitUntil(tempRef.CanContinueMethod);
             action.Invoke();
         }
         else

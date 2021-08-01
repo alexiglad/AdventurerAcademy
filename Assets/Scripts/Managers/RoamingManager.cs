@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/RoamingManager")]
 public class RoamingManager : GameStateManager
@@ -9,8 +10,11 @@ public class RoamingManager : GameStateManager
     private IEnumerator<Character> enumerator;
     private Character character;
     private List<GameObject> interactables;
+    private bool canContinue;
+
     [SerializeField] MovementProcessor movementProcessor;
     GameController gameController;
+    
 
     public Character Character { get => character; set => character = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
@@ -32,6 +36,7 @@ public class RoamingManager : GameStateManager
         gameController = FindObjectOfType<GameController>();
         character.Obstacle.enabled = false;
         character.Agent.enabled = true;
+        canContinue = true;
     }
 
 
@@ -41,20 +46,30 @@ public class RoamingManager : GameStateManager
     }
     public void MoveAndInteract(Vector3 pos, Interactable interactable)
     {
+        DisableRoamingInput();
         movementProcessor.HandleMovement(character, pos - character.transform.position);
+        Action action = () => Interact(interactable);
+        gameController.StartCoroutineCC(action);
         //start coroutine stuff here to handle interaction after it is done
     }
     public void Interact(Interactable interactable)
     {
         interactable.HandleInteraction();
-        //TODO implement gotta get direction of character and find nearest game object in that direction
     }
     public void OpenInventory()
     {
         //TODO implement display UI for everything the character has
     }
-    public void Move(Vector2 movement)
+    public bool CanContinueMethod()
     {
-        //character.UpdateMovement(movement);
+        return canContinue;
+    }
+    public void EnableRoamingInput()
+    {
+        canContinue = true;
+    }
+    public void DisableRoamingInput()
+    {
+        canContinue = false;
     }
 }

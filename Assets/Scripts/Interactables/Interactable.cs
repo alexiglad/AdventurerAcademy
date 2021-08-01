@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
 
 
     #endregion
-    //every interactable needs a navmeshobstacle, (maybe an agent), (maybe an animator), boxcollider, sprite renderer 
+    //every interactable needs a navmeshobstacle, (maybe an agent), (maybe an animator), boxcollider, rigidbody, sprite renderer 
     private void OnEnable()
     {
         enumerator = interactions.GetEnumerator();

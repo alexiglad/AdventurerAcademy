@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6499003185554428565}
   - component: {fileID: 6499003185554428562}
-  - component: {fileID: 6499003185554428585}
   - component: {fileID: 3985113315341915328}
   - component: {fileID: 943975715}
   - component: {fileID: 278963244808596924}
@@ -89,21 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6499003185554428585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6499003185554428563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ecddbf9eaa3e147b143277bffee706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: {fileID: 0}
-  playerRidgidbody: {fileID: 278963244808596924}
-  currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
 --- !u!114 &3985113315341915328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: dac3971c79c59a449a9e4123da4d209c, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
+  followUpProcessor: {fileID: 0}
   health: 0
+  energy: 0
+  inanimate: 0
   knownAbilities: []
 --- !u!95 &943975715
 Animator:

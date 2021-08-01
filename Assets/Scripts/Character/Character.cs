@@ -106,6 +106,14 @@ public class Character : MonoBehaviour, IComparable<Character>
                             tempRef.EnableCombatInput();
                         }
                     }
+                    else if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(RoamingManager))
+                    {
+                        RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+                        if (this == tempRef.Character)
+                        {
+                            tempRef.EnableRoamingInput();
+                        }
+                    }
                 }
                 
             }
