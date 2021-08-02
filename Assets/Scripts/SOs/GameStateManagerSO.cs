@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/GameStateManager")]
+[CreateAssetMenu(menuName = "ScriptableObjects/GameState/GameStateManager")]
 public class GameStateManagerSO : ScriptableObject
 {
     [SerializeField] private GameStateSO currentGameState;

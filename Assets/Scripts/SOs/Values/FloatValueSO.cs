@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="ScriptableObjects/FloatValue")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Values/FloatValue")]
 public class FloatValueSO : ScriptableObject
 {
     [SerializeField] private float floatValue;

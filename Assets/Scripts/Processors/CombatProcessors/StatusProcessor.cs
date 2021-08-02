@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/StatusProcessor")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Processors/StatusProcessor")]
 
 public class StatusProcessor : ScriptableObject
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FUWingeddive")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/Wingeddive")]
 ///Birb jumps in to protect teammates from abilities with his wings, absorbing most of 
 ///the damage of a ranged or melee attack
 ///Birb does this if within 1 tile of teammate

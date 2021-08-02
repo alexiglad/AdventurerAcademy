@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/BooleanValue")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Values/BooleanValue")]
 public class BoolValueSO : ScriptableObject
 {
     [SerializeField] private bool boolValue;

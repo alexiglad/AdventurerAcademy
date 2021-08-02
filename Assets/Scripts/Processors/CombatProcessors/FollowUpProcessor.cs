@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUpProcessor")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Processors/FollowUpProcessor")]
 
 public class FollowUpProcessor : ScriptableObject
 {

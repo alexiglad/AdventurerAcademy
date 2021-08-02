@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/InventoryProcessor")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Processors/InventoryProcessor")]
 public class InventoryProcessor : ScriptableObject
 {
 

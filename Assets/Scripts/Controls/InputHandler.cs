@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/InputHandler")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Handlers/InputHandler")]
 public class InputHandler : ScriptableObject
 {
     #region local variables
@@ -101,6 +101,7 @@ public class InputHandler : ScriptableObject
         switch (gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Combat:
+            {
                 CombatManager tempCombatRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 if (tempCombatRef.CanContinue)
                 {
@@ -111,16 +112,19 @@ public class InputHandler : ScriptableObject
                     else
                     {
                         Vector3 pos = GetLocation(data);
-                        if(pos != Vector3.zero)
+                        if (pos != Vector3.zero)
                         {
                             tempCombatRef.CombatMovement(pos);
-                        }                        
+                        }
                     }
                 }
                 break;
+            }
+
             case GameStateEnum.Roaming:
+            {
                 RoamingManager tempRoamingRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
-                
+
                 if (VerifyTag(data, "Terrain"))
                 {
                     Vector3 pos = GetLocation(data);
@@ -148,6 +152,8 @@ public class InputHandler : ScriptableObject
                     }
                 }
                 break;
+            }
+
             default:
                 DisplayError();
                 break;
@@ -159,13 +165,18 @@ public class InputHandler : ScriptableObject
         switch (gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Combat:
+            {
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.CombatAbilityDeselect();
                 break;
+            }
 
             default:
+            {
                 DisplayError();
                 break;
+            }
+
         }
     }
     #endregion
@@ -255,10 +266,10 @@ public class InputHandler : ScriptableObject
     #region roaming manager methods
     void OnInteract()
     {
-
         switch(gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Roaming:
+            {
                 RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
                 if (CanInteract(tempRef))
                 {
@@ -269,10 +280,13 @@ public class InputHandler : ScriptableObject
 
                 }
                 break;
+            }
 
             default:
+            {
                 DisplayError();
                 break;
+            }
         }
     }
 
@@ -281,13 +295,17 @@ public class InputHandler : ScriptableObject
         switch(gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Roaming:
+            {
                 RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.OpenInventory();
                 break;
+            }
 
             default:
+            {
                 DisplayError();
-                break; ;
+                break;
+            }
         }
     }
 

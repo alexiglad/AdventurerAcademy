@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/CombatManager")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Managers/CombatManager")]
 public class CombatManager : GameStateManager
 {
     #region Local Variables

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/AbilityProcessor")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Processors/AbilityProcessor")]
 
 public class AbilityProcessor : ScriptableObject
 {

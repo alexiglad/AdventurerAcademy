@@ -134,7 +134,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         }
         else
         {
-            Debug.Log("error occcured");
+            //Debug.Log("error occcured");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -149,7 +149,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         }
         else
         {
-            Debug.Log("error occcured");
+            //Debug.Log("error occcured");
         }
     }
 

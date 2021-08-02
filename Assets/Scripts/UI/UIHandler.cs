@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/UIHandler")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Handlers/UIHandler")]
 
 public class UIHandler : ScriptableObject
 {    

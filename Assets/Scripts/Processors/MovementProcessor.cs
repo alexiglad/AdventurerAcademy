@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/MovementProcessor")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Processors/MovementProcessor")]
 
 public class MovementProcessor : ScriptableObject
 {

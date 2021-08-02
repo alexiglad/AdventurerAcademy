@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02415d5ea5075994da659d7749995b82, type: 3}
-  m_Name: RoamingManager
+  m_Script: {fileID: 11500000, guid: 2d51f1bdc62201d48ae16d418828eeee, type: 3}
+  m_Name: Atlas
   m_EditorClassIdentifier: 
-  movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
-  uiHandler: {fileID: 11400000, guid: 08c25b36159924a45be1c4c3fab99d26, type: 2}
+  atlas:
+  - {fileID: 11400000, guid: b51fbc497cd2ab642aaf3781376b3f2a, type: 2}
+  - {fileID: 11400000, guid: b51fbc497cd2ab642aaf3781376b3f2a, type: 2}

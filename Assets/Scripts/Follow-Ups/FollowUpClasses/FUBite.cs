@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FUBite ")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/Bite ")]
 ///Wolves use this as a follow up to characters using melee attacks within 1 tile, 
 ///melee attack still go through but wolf bites attacker
 ///

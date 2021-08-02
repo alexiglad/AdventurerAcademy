@@ -9,7 +9,7 @@ using UnityEngine;
 /// 
 /// 
 /// </summary>
-[CreateAssetMenu(menuName = "ScriptableObjects/Ability/DefaultAbility")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Default")]
 public class ADefault : Ability
 {
     void OnEnable()

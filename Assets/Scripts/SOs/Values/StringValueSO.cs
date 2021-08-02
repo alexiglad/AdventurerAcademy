@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/StringValue")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Values/StringValue")]
 public class StringValueSO : ScriptableObject
 {
     [SerializeField] private string stringValue;

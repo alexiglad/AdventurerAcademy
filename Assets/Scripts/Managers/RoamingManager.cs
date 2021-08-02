@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/RoamingManager")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Managers/RoamingManager")]
 public class RoamingManager : GameStateManager
 {
     private SortedSet<Character> characters = new SortedSet<Character>();
@@ -13,6 +13,7 @@ public class RoamingManager : GameStateManager
     private bool canContinue;
 
     [SerializeField] MovementProcessor movementProcessor;
+    [SerializeField] UIHandler uiHandler;
     GameController gameController;
     
 
@@ -22,7 +23,7 @@ public class RoamingManager : GameStateManager
     public override void AddCharacters(SortedSet<Character> characters)
     {
         this.characters = characters;
-        this.character = characters.Min;
+        character = characters.Min;
         character.Obstacle.enabled = false;
         character.Agent.enabled = true;
     }
@@ -37,6 +38,7 @@ public class RoamingManager : GameStateManager
         character.Obstacle.enabled = false;
         character.Agent.enabled = true;
         canContinue = true;
+        //enable roaming ui
     }
 
 
@@ -50,7 +52,6 @@ public class RoamingManager : GameStateManager
         movementProcessor.HandleMovement(character, pos - character.transform.position);
         Action action = () => Interact(interactable);
         gameController.StartCoroutineCC(action);
-        //start coroutine stuff here to handle interaction after it is done
     }
     public void Interact(Interactable interactable)
     {

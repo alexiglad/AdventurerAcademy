@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/AtlasSO")]
-public class AtlasSO : ScriptableObject  /*SerializableDictionary<string, MissionDataSO>*/
+[CreateAssetMenu(menuName = "ScriptableObjects/Missions/Atlas")]
+public class AtlasSO : ScriptableObject
 {
-    /*[SerializeField] private Dictionary<string, MissionDataSO> atlasDictionary;//[EntrySceneName:RefToMissionDataSO]
+    [SerializeField] private MissionDataSO[] atlas;
 
-    public Dictionary<string, MissionDataSO> AtlasDictionary1 { get => AtlasDictionary; set => AtlasDictionary = value; }*/
-
-    [SerializeField] private SerializableDictionary<string, MissionDataSO> atlasDictionary;
+    public MissionDataSO[] Atlas { get => atlas; set => atlas = value; }
 
 }
 

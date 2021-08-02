@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/DefaultFollowUp")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/Default")]
 ///description
 ///
 ///

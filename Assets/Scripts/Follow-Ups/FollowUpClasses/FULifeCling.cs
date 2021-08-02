@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FULifeCling")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/LifeCling")]
 ///when witch is going to die uses life cling which heals her back to half health
 ///
 public class FULifeCling : FollowUp

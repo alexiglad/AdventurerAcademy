@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FUBirdSlam")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/BirdSlam")]
 ///Birb picks up a knocked opponent (if an opponent is knocked) and flies 
 ///them into the air then body slams them
 ///

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 [Serializable]
-[CreateAssetMenu(fileName = "MissionData", menuName = "ScriptableObjects/MissionDataSO")]
+[CreateAssetMenu(fileName = "MissionData", menuName = "ScriptableObjects/Missions/MissionData")]
 public class MissionDataSO : ScriptableObject
 {
+    [SerializeField] new string name;//name for searching
+
     [SerializeField] MapStatusEnum mapStatus;//map status either visible, invisible, or completed
 
     //a mission can have anywhere from 0-infinite unlocks
