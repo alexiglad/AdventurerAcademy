@@ -73,8 +73,8 @@ public class CombatManager : GameStateManager
         }
         if (!character.Inanimate)
         {
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-            character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            character.Obstacle.enabled = false;
+            character.Agent.enabled = true;
         }
         else
         {
@@ -425,8 +425,8 @@ public class CombatManager : GameStateManager
     {
         if (!character.Inanimate)
         {
-            character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+            character.Agent.enabled = false;
+            character.Obstacle.enabled = true;
         }
         bool changed = false;
         if (turnOrder.Remove(character))
@@ -460,7 +460,7 @@ public class CombatManager : GameStateManager
             }
             else
             {
-                character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+                character.Obstacle.enabled = false;
                 if(changed)
                     gameController.StartCoroutineNMA(FinishIterating, turnOrder);
             }
@@ -469,7 +469,7 @@ public class CombatManager : GameStateManager
     }
     public void FinishIterating()
     {
-        character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        character.Agent.enabled = true;
         if (!character.IsPlayer())
         {//only do this if is an enemy
             uiHandler.StopDisplayingAbilities();
@@ -498,7 +498,7 @@ public class CombatManager : GameStateManager
         }
         else
         {
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+            character.Obstacle.enabled = false;
             gameController.StartCoroutineNMA(FinishIterating, turnOrder);
         }
     }
@@ -522,7 +522,7 @@ public class CombatManager : GameStateManager
     }
     void EndBattle(bool won)
     {
-        FindObjectOfType<CombatOver>().TriggerEvent(won);
+        FindObjectOfType<CombatOver>().TriggerEvent(won);//TODO fix this dont use FOT
     }
 
     #endregion

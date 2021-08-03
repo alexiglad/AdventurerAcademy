@@ -18,7 +18,6 @@ public class GameStateManagerSO : ScriptableObject
     GameController gameController;
     void OnEnable()
     {
-        FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
         gameController = FindObjectOfType<GameController>();
     }
     public void SetGameStateManager(Type manager)

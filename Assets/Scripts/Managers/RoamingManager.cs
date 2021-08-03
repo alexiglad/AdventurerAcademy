@@ -24,8 +24,16 @@ public class RoamingManager : GameStateManager
     {
         this.characters = characters;
         character = characters.Min;
-        character.Obstacle.enabled = false;
-        character.Agent.enabled = true;
+        if (character != null)
+        {
+            character.Obstacle.enabled = false;
+            character.Agent.enabled = true;
+        }
+        else
+        {
+            Debug.Log("error");
+        }
+
     }
     public override void SetSubstateEnum(SubstateEnum state)
     {

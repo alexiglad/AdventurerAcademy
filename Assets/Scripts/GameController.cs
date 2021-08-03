@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     //static Controls controls;
     //public static Controls Controls { get => controls; set => controls = value; }
 
-    void Awake()
+    void OnEnable()
     {
         controls.ManualAwake();
         //temporary code creates combat manager with characters
@@ -29,8 +29,8 @@ public class GameController : MonoBehaviour
                 userCharacters.Add(character);
             }
         }
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);//For testing uncoment to switch to roaming
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);//For testing uncoment to switch to roaming
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
     }
 
 

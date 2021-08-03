@@ -57,7 +57,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         
     }
-    private void OnEnable()
+    private void Awake()
     {
         agent = transform.GetComponent<NavMeshAgent>();
         obstacle = transform.GetComponent<NavMeshObstacle>();

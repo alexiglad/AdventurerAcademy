@@ -11,7 +11,7 @@ public class ToRoamingListener : MonoBehaviour
     void Start()
     {
         //ToRoaming from Combat
-        CombatOver onCombatOver = FindObjectOfType<CombatOver>();
+        CombatOver onCombatOver = FindObjectOfType<CombatOver>();//TODO change this
         onCombatOver.OnCombatOver += ToRoaming;
 
 

@@ -116,7 +116,7 @@ public class TargetDisplay : MonoBehaviour
                 CreatePoints(bottom, tempRef.Turn.GetAbility().Radius);
                 foreach (Character charactere in tempRef.Characters)
                 {
-                    if (movementProcessor.WithinRange(tempRef, charactere, data.Hit.point))
+                    if (movementProcessor.WithinRange(tempRef, charactere, bottom))
                     {
                         charactere.GetComponent<SpriteRenderer>().color = Color.blue;
                     }
