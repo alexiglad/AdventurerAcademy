@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BasicDialogue
   m_EditorClassIdentifier: 
   dialogueProcessor: {fileID: 11400000, guid: 95dcb0ad6f40cc74995641d551ceddfb, type: 2}
-  inkJSONAsset: {fileID: 4900000, guid: 6cf48bb6d89824cc69e35b43f9a1aca6, type: 3}
+  inkJSONAsset: {fileID: 4900000, guid: 1712f15b985c4154b8338dcbce1ba4ec, type: 3}
