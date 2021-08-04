@@ -68,5 +68,6 @@ public class GameStateManagerSO : ScriptableObject
         gameController = FindObjectOfType<GameController>();
         gameController.StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
         //GetCurrentGameStateManager().Start();
+        //controls.ManualAwake();
     }
 }

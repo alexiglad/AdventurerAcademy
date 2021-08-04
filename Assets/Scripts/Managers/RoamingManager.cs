@@ -58,7 +58,6 @@ public class RoamingManager : GameStateManager
     {
         DisableRoamingInput();
         movementProcessor.HandleMovement(character, pos - CharacterBottom());
-        Debug.Log("interactable " + interactable);
         Action action = () => Interact(interactable);
         gameController.StartCoroutineCC(action);
     }

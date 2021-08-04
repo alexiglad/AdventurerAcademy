@@ -16,7 +16,7 @@ public class InputHandler : ScriptableObject
     Controls controls;
     Vector2 pan;
     float zoom;
-    bool initialized = false;
+    [SerializeField] bool initialized;
     [SerializeField] private GameObject tempCharacter;
 
 
@@ -27,11 +27,15 @@ public class InputHandler : ScriptableObject
     public Vector2 Pan { get => pan;}
     public float Zoom { get => zoom;}
     #endregion
+    private void OnEnable()
+    {
+        initialized = false;
+    }
     public void ManualAwake()
     {
         if (!initialized)
         {
-            Debug.Log("inited");
+            //Debug.Log("Initialized controls: " + Time.realtimeSinceStartup);
             controls = new Controls();
             defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             activeCamera = defaultCamera;
@@ -44,6 +48,13 @@ public class InputHandler : ScriptableObject
             controls.UniversalControls.Interact.performed += _ => OnInteract();
             controls.UniversalControls.Inventory.performed += _ => OnInventoryToggle();
             initialized = true;
+        }
+        else
+        {
+            
+            defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            activeCamera = defaultCamera;
+            //TODO make this less sketch
         }
     }
 
@@ -248,7 +259,7 @@ public class InputHandler : ScriptableObject
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
                 movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
             {
-                if (!(ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()))
+                if ((ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()))
                 {
                     tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
                 }

@@ -22,25 +22,30 @@ public class GameController : MonoBehaviour
         //temporary code creates combat manager with characters
 
         currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
-         //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
 
         controls.ManualAwake();
-        //SceneManager.sceneLoaded += _ => controls.GetControls().Enable();
         SceneManager.sceneLoaded += OnSceneLoaded;
-
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
     private void OnDisable()
     {
-        if(controls.GetControls() != null)
-        {
-            Debug.Log("disabled");
-            controls.GetControls().Disable();
-        }
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        Destroy(this);
+
     }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("enabled");
+        Debug.Log("enabled " +  this.ToString());
+        //Debug.Log("time since startup: " + Time.realtimeSinceStartup);
         controls.GetControls().Enable();
+    }
+    void OnSceneUnloaded(Scene scene)
+    {
+        Debug.Log("disabled " + this.ToString());
+        controls.GetControls().Disable();
     }
 
     #region combat
