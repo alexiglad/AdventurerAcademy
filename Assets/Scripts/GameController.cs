@@ -21,16 +21,8 @@ public class GameController : MonoBehaviour
         controls.ManualAwake();
         //temporary code creates combat manager with characters
 
-        SortedSet<Character> userCharacters = new SortedSet<Character>();
-        foreach(Character character in characters)
-        {
-            if (character.IsPlayer())
-            {
-                userCharacters.Add(character);
-            }
-        }
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);//For testing uncoment to switch to roaming
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
     }
 
 
