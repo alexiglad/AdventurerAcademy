@@ -22,6 +22,8 @@ public class InputHandler : ScriptableObject
 
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] MovementProcessor movementProcessor;
+    [SerializeField] DialogueProcessor dialogueProcessor;
+
 
     public Camera ActiveCamera { get => activeCamera;}
     public Vector2 Pan { get => pan;}
@@ -42,6 +44,7 @@ public class InputHandler : ScriptableObject
 
             controls.UniversalControls.Select.performed += _ => OnSelect();
             controls.UniversalControls.Deselect.performed += _ => OnDeselect();
+            controls.UniversalControls.Space.performed += _ => OnSpace();
             controls.UniversalControls.DoubleMovement.performed += _ => OnDoubleMovement();
             controls.UniversalControls.Pan.performed += _ => SetPan();
             controls.UniversalControls.Zoom.performed += _ => SetZoom();
@@ -140,7 +143,6 @@ public class InputHandler : ScriptableObject
 
             case GameStateEnum.Roaming:
             {
-                    Debug.Log(data.Hit.point);
                 RoamingManager tempRoamingRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
 
                 if (data.HitBool && VerifyTag(data, "Terrain"))
@@ -196,6 +198,11 @@ public class InputHandler : ScriptableObject
             }
 
         }
+    }
+    void OnSpace()
+    {
+        //TEMP CODE USE SUBSTATE IN THE FUTURE
+        dialogueProcessor.ProceedDialogue();
     }
     #endregion
     #region combat manager methods

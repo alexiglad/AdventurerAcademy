@@ -23,7 +23,6 @@ public class GameController : MonoBehaviour
 
         currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
         //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
-
         controls.ManualAwake();
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -38,13 +37,13 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("enabled " +  this.ToString());
+        //Debug.Log("enabled " +  this.ToString());
         //Debug.Log("time since startup: " + Time.realtimeSinceStartup);
         controls.GetControls().Enable();
     }
     void OnSceneUnloaded(Scene scene)
     {
-        Debug.Log("disabled " + this.ToString());
+        //Debug.Log("disabled " + this.ToString());
         controls.GetControls().Disable();
     }
 

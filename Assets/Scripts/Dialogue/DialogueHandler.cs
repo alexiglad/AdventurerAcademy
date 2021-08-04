@@ -14,11 +14,13 @@ public class DialogueHandler : MonoBehaviour
 
     // UI Prefabs
     [SerializeField] private Text textPrefab = null;
+    Text text;
     [SerializeField] private Button buttonPrefab = null;
 
     [SerializeField] DialogueProcessor dialogueProcessor;
 
     bool isTalking = false;
+    bool ending = false;
     List<string> tags;
     /*
     TextAsset nametag;
@@ -37,10 +39,12 @@ public class DialogueHandler : MonoBehaviour
     public void StartStory(TextAsset dialogue)
     {
         RemoveChildren();
+        isTalking = false;
+        ending = false;
         story = new Story(dialogue.text);
         if (story != null)
         {
-            //OnCreateStory(story);
+            OnCreateStory(story);
             //COMMENT OR UNCOMMENT THIS FOR INKY EDITOR DEBUG MODE!! todo
         }
         RefreshView();
@@ -49,35 +53,101 @@ public class DialogueHandler : MonoBehaviour
     {
         // Remove all the UI on screen
         RemoveChildren();
-
-        // Read all the content until we can't continue any more
-        while (story.canContinue)
-        {
-            // Continue gets the next line of the story
-            string text = story.Continue();
-            // This removes any white space from the text.
-            text = text.Trim();
-            // Display the text on screen!
-            CreateContentView(text);
-        }
+        StopAllCoroutines();
 
         // Display all the choices, if there are any!
-        if (story.currentChoices.Count > 0)
+        if (story.canContinue)
         {//add coroutine stuff here TODO
-            for (int i = 0; i < story.currentChoices.Count; i++)
+            AdvanceDialogue();
+            if (story.currentChoices.Count != 0)
             {
-                Choice choice = story.currentChoices[i];
-                Button button = CreateChoiceView(choice.text.Trim());
-                // Tell the button what to do when we press it
-                button.onClick.AddListener(delegate {
-                    OnClickChoiceButton(choice);
-                });
+                StartCoroutine(ShowChoices());
             }
         }
         else
         {
-            dialogueProcessor.DisableDialogue();
+            EndDialogue();
         }
+    }
+    public void ProceedDialogue()
+    {
+        if (!ending)
+        {
+            RefreshView();
+        }
+        else
+        {
+            EndDialogue();
+        }
+    }
+    void EndDialogue()
+    {
+        dialogueProcessor.DisableDialogue();
+
+    }
+    void AdvanceDialogue()
+    {
+        ResetText();
+        string currentSentence = story.Continue();
+        if (!story.canContinue)
+        {
+            ending = true;
+        }
+        isTalking = true;
+        ParseTags();
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(currentSentence));
+    }
+    void ParseTags()
+    {
+        tags = story.currentTags;
+        foreach (string t in tags)
+        {
+            string prefix = t.Split(' ')[0];
+            string param = t.Split(' ')[1];
+
+            switch (prefix.ToLower())
+            {
+                case "anim":
+                    SetAnimation(param);
+                    break;
+                case "color":
+                    SetTextColor(param);
+                    break;
+            }
+        }
+    }
+    bool IsNotTalking()
+    {
+        return !isTalking;
+    }
+    IEnumerator ShowChoices()
+    {
+        yield return new WaitUntil(IsNotTalking);
+        List<Choice> _choices = story.currentChoices;
+
+        for (int i = 0; i < story.currentChoices.Count; i++)
+        {
+            Choice choice = story.currentChoices[i];
+            Button button = CreateChoiceView(choice.text.Trim());
+            // Tell the button what to do when we press it
+            button.onClick.AddListener(delegate {
+                OnClickChoiceButton(choice);
+            });
+        }
+
+    }
+    IEnumerator TypeSentence(string sentence)
+    {
+
+        text.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            text.text += letter;
+            yield return null;
+        }
+        yield return null;
+        isTalking = false;
     }
     void OnClickChoiceButton(Choice choice)
     {
@@ -94,11 +164,11 @@ public class DialogueHandler : MonoBehaviour
             InkPlayerWindow.Attach(story);
         }
     }
-    void CreateContentView(string text)
+
+    void ResetText()
     {
-        Text storyText = Instantiate(textPrefab) as Text;
-        storyText.text = text;
-        storyText.transform.SetParent(canvas.transform, false);
+        text = Instantiate(textPrefab) as Text;
+        text.transform.SetParent(canvas.transform, false);
     }
     Button CreateChoiceView(string text)
     {
@@ -124,6 +194,31 @@ public class DialogueHandler : MonoBehaviour
         for (int i = childCount - 1; i >= 0; --i)
         {
             GameObject.Destroy(canvas.transform.GetChild(i).gameObject);
+        }
+    }
+    void SetAnimation(string _name)
+    {
+        //TODO implement animation for each character possibly
+    }
+    void SetTextColor(string _color)
+    {
+        switch (_color)
+        {
+            case "red":
+                textPrefab.color = Color.red;
+                break;
+            case "blue":
+                textPrefab.color = Color.cyan;
+                break;
+            case "green":
+                textPrefab.color = Color.green;
+                break;
+            case "white":
+                textPrefab.color = Color.white;
+                break;
+            default:
+                Debug.Log($"{_color} is not available as a text color");
+                break;
         }
     }
 

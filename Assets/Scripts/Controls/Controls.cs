@@ -97,6 +97,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": ""Normalize(min=-1,max=1)"",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""44abf743-f10d-4e0d-81bf-894559e70a61"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -286,6 +294,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b848da8-ef97-4609-933c-4bd4a5ea7371"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -321,6 +340,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_UniversalControls_DoubleMovement = m_UniversalControls.FindAction("DoubleMovement", throwIfNotFound: true);
         m_UniversalControls_PauseMenu = m_UniversalControls.FindAction("PauseMenu", throwIfNotFound: true);
         m_UniversalControls_Interact = m_UniversalControls.FindAction("Interact", throwIfNotFound: true);
+        m_UniversalControls_Space = m_UniversalControls.FindAction("Space", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -380,6 +400,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_UniversalControls_DoubleMovement;
     private readonly InputAction m_UniversalControls_PauseMenu;
     private readonly InputAction m_UniversalControls_Interact;
+    private readonly InputAction m_UniversalControls_Space;
     public struct UniversalControlsActions
     {
         private @Controls m_Wrapper;
@@ -394,6 +415,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @DoubleMovement => m_Wrapper.m_UniversalControls_DoubleMovement;
         public InputAction @PauseMenu => m_Wrapper.m_UniversalControls_PauseMenu;
         public InputAction @Interact => m_Wrapper.m_UniversalControls_Interact;
+        public InputAction @Space => m_Wrapper.m_UniversalControls_Space;
         public InputActionMap Get() { return m_Wrapper.m_UniversalControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -433,6 +455,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInteract;
+                @Space.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSpace;
             }
             m_Wrapper.m_UniversalControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -467,6 +492,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
             }
         }
     }
@@ -492,5 +520,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnDoubleMovement(InputAction.CallbackContext context);
         void OnPauseMenu(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
     }
 }
