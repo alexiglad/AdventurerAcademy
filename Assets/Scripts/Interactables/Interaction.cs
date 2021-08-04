@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public abstract class Interaction : ScriptableObject
 {
 
+    [SerializeField] protected DialogueProcessor dialogueProcessor;
 
 
     public virtual void HandleInteraction() { }

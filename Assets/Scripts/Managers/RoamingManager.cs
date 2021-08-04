@@ -52,14 +52,21 @@ public class RoamingManager : GameStateManager
 
     public void MoveToLocation(Vector3 pos)
     {
-        movementProcessor.HandleMovement(character, pos - character.transform.position);
+        movementProcessor.HandleMovement(character, pos - CharacterBottom());
     }
     public void MoveAndInteract(Vector3 pos, Interactable interactable)
     {
         DisableRoamingInput();
-        movementProcessor.HandleMovement(character, pos - character.transform.position);
+        movementProcessor.HandleMovement(character, pos - CharacterBottom());
+        Debug.Log("interactable " + interactable);
         Action action = () => Interact(interactable);
         gameController.StartCoroutineCC(action);
+    }
+    Vector3 CharacterBottom()
+    {
+        Vector3 characterBottom = character.BoxCollider.bounds.center;
+        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        return characterBottom;
     }
     public void Interact(Interactable interactable)
     {

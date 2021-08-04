@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ace4f9c281fa9bd4da2c074950c366db, type: 3}
-  m_Name: BasicDialogue
+  m_Name: BasicDialogue2
   m_EditorClassIdentifier: 
-  dialogueProcessor: {fileID: 11400000, guid: 95dcb0ad6f40cc74995641d551ceddfb, type: 2}
-  inkJSONAsset: {fileID: 4900000, guid: 6cf48bb6d89824cc69e35b43f9a1aca6, type: 3}
+  dialogueProcessor: {fileID: 0}
+  inkJSONAsset: {fileID: 0}

@@ -16,6 +16,7 @@ public class InputHandler : ScriptableObject
     Controls controls;
     Vector2 pan;
     float zoom;
+    bool initialized = false;
     [SerializeField] private GameObject tempCharacter;
 
 
@@ -28,17 +29,22 @@ public class InputHandler : ScriptableObject
     #endregion
     public void ManualAwake()
     {
-        controls = new Controls();
-        defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        activeCamera = defaultCamera;
+        if (!initialized)
+        {
+            Debug.Log("inited");
+            controls = new Controls();
+            defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            activeCamera = defaultCamera;
 
-        controls.UniversalControls.Select.performed += _ => OnSelect();
-        controls.UniversalControls.Deselect.performed += _ => OnDeselect();
-        controls.UniversalControls.DoubleMovement.performed += _ => OnDoubleMovement();
-        controls.UniversalControls.Pan.performed += _ => SetPan();
-        controls.UniversalControls.Zoom.performed += _ => SetZoom();
-        controls.UniversalControls.Interact.performed += _ => OnInteract();
-        controls.UniversalControls.Inventory.performed += _ => OnInventoryToggle();
+            controls.UniversalControls.Select.performed += _ => OnSelect();
+            controls.UniversalControls.Deselect.performed += _ => OnDeselect();
+            controls.UniversalControls.DoubleMovement.performed += _ => OnDoubleMovement();
+            controls.UniversalControls.Pan.performed += _ => SetPan();
+            controls.UniversalControls.Zoom.performed += _ => SetZoom();
+            controls.UniversalControls.Interact.performed += _ => OnInteract();
+            controls.UniversalControls.Inventory.performed += _ => OnInventoryToggle();
+            initialized = true;
+        }
     }
 
     #region generalized methods
@@ -123,9 +129,10 @@ public class InputHandler : ScriptableObject
 
             case GameStateEnum.Roaming:
             {
+                    Debug.Log(data.Hit.point);
                 RoamingManager tempRoamingRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
 
-                if (VerifyTag(data, "Terrain"))
+                if (data.HitBool && VerifyTag(data, "Terrain"))
                 {
                     Vector3 pos = GetLocation(data);
                     if (pos != Vector3.zero)
@@ -133,7 +140,7 @@ public class InputHandler : ScriptableObject
                         tempRoamingRef.MoveToLocation(pos);
                     }
                 }
-                else if (VerifyTag(data, "Interactable"))
+                else if (data.HitBool && VerifyTag(data, "Interactable"))
                 {
                     if (CanInteract(tempRoamingRef, data))
                     {

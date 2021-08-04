@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -18,13 +19,29 @@ public class GameController : MonoBehaviour
 
     void OnEnable()
     {
-        controls.ManualAwake();
         //temporary code creates combat manager with characters
 
         currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
-    }
+         //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
 
+        controls.ManualAwake();
+        //SceneManager.sceneLoaded += _ => controls.GetControls().Enable();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+    }
+    private void OnDisable()
+    {
+        if(controls.GetControls() != null)
+        {
+            Debug.Log("disabled");
+            controls.GetControls().Disable();
+        }
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("enabled");
+        controls.GetControls().Enable();
+    }
 
     #region combat
     public void StartCoroutineCC(Action action)

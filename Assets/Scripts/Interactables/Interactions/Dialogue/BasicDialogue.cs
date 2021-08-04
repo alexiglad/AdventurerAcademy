@@ -5,13 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Interaction/BasicDialogue")]
 public class BasicDialogue : Interaction
 {
-    // Start is called before the first frame update
-    private void OnEnable()
-    {
-        
-    }
+    [SerializeField] private TextAsset inkJSONAsset;
+
     public override void HandleInteraction() 
     {
         Debug.Log("Initiated basic dialogue here");
+        dialogueProcessor.HandleDialogue(inkJSONAsset);
     }
 }
