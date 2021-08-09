@@ -7,7 +7,7 @@ public class FinishTurnButtonClicked : MonoBehaviour
 {
     public event EventHandler OnFinishTurnButtonClicked;
 
-    public GameObject endTurn;
+    GameObject endTurn;
 
     public void ManualAwake()
     {

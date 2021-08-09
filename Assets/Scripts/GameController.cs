@@ -21,8 +21,8 @@ public class GameController : MonoBehaviour
     {
         //temporary code creates combat manager with characters
 
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
         controls.ManualAwake();
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
