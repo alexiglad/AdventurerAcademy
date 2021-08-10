@@ -260,38 +260,6 @@ public class InputHandler : ScriptableObject
                 return;
             }
         }
-        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
-        {
-            //create method to create character at set position
-            if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
-                movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
-            {
-                if ((ray.Hit.transform.GetComponent<Character>().IsPlayer() ^ tempRef.Character.IsPlayer()))
-                {
-                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
-                }
-                else
-                {
-                    Debug.Log("Non recomended choice verify target");//TODO implement this UI check
-                    tempRef.CombatTarget(ray.Hit.transform.GetComponent<Character>());
-                }
-                return;
-            }
-            else if (ray.HitBool && VerifyTag(ray, "Terrain"))
-            {
-                if (Vector3.Distance(tempRef.Character.transform.position, ray.Hit.point) <= tempRef.Turn.GetAbility().Range)
-                {
-                    GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
-                    Character temp1 = temp2.GetComponent<Character>();
-                    tempRef.CombatTarget(temp1);
-                    return;
-                }
-                else
-                {
-                    Debug.Log("not within range");
-                }
-            }
-        }
         else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
         {
             //create method to create character at set position
@@ -311,17 +279,10 @@ public class InputHandler : ScriptableObject
             }
             else if(ray.HitBool && VerifyTag(ray, "Terrain"))
             {
-                if(Vector3.Distance(tempRef.Character.transform.position, ray.Hit.point) <= tempRef.Turn.GetAbility().Range)
-                {
-                    GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
-                    Character temp1 = temp2.GetComponent<Character>();
-                    tempRef.CombatTarget(temp1);
-                    return;
-                }
-                else
-                {
-                    Debug.Log("not within range");
-                }
+                GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
+                Character temp1 = temp2.GetComponent<Character>();
+                tempRef.CombatTarget(temp1);
+                return;
             }
         }
         //Debug.Log("selected incorreclty")

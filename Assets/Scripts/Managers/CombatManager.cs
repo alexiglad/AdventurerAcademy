@@ -406,7 +406,6 @@ public class CombatManager : GameStateManager
     }
     public void EnableCombatInput()
     {
-        //Debug.Log("enabled");
         canContinue = true;
         uiHandler.DisplayEndTurn();
         //TODO add follow up animation queue here eventually

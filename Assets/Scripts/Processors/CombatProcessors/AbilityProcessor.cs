@@ -18,8 +18,8 @@ public class AbilityProcessor : ScriptableObject
         followUpProcessor.HandleFollowUpAction(new FollowUpAction(attacker, attackee, ability));
     }
     /////////////////////////////////
-    public void SplashDamage(Character attackee, float damage, float radius){
-        List<Character> charactersWithinRange = movementProcessor.GetCharactersInRange(attackee.transform.position, radius);
+    public void SplashDamage(Character attacker, Character attackee, float damage, float range, float radius){
+        List<Character> charactersWithinRange = movementProcessor.GetCharactersInRange(attacker.transform.position, range, attackee.transform.position, radius);
         foreach(Character character1 in charactersWithinRange)
         {
             character1.DecrementHealth(damage);
@@ -28,40 +28,20 @@ public class AbilityProcessor : ScriptableObject
         //SplashDamageRange splashDamageRange = SplashDamageRange.FindObjectOfType<SplashDamageRange>();
         //splashDamageRange.Run(pos, range);
     }
-    public void MovementDamage(Character attacker, Character attackee, float damage, float radius)
-    {
-        //needs to draw a line from attacker to attackee 
-        //go through each character in combat and determine if they are range of closest point on line
-        //if they are damage them
-        List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(attacker.transform.position,attackee.transform.position, radius);
-        foreach (Character character1 in charactersWithinRange)
-        {
-            if(character1 != attacker)
-            {
-                character1.DecrementHealth(damage);
-            }
-        }
-        Vector3 characterBottom = attacker.BoxCollider.bounds.center;
-        characterBottom.y -= attacker.BoxCollider.bounds.size.y / 2;
-        movementProcessor.HandleMovement(attacker, attackee.transform.position - characterBottom);
-    }
-    public void BuildStats(Character character, Stats stats)
-    {
-
-        //TODO implement go through all stats and increase character's stats accordingly
-    }
     public void Damage(Character character, float damage){
 
         character.DecrementHealth(damage);
     }
+
     
     public void Heal(Character character, float heal){
         character.IncrementHealth(heal);
 
     }
-    public void SplashHeal(Character attackee, float heal, float radius)
+    public void SplashHeal(Character attacker, Character attackee, float heal, float range, float radius)
     {
-        List<Character> charactersWithinRange = movementProcessor.GetCharactersInRange(attackee.transform.position, radius);
+        List<Character> charactersWithinRange = new List<Character>();
+        charactersWithinRange = movementProcessor.GetCharactersInRange(attacker.transform.position, range, attackee.transform.position, radius);
         foreach (Character character1 in charactersWithinRange)
         {
             character1.IncrementHealth(heal);
