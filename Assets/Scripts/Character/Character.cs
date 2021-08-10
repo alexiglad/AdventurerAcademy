@@ -18,6 +18,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] protected float energy;    
     private bool revived;
     private bool died;
+    private bool unstable;
     [SerializeField] private bool inanimate;
     private Character voodooTarget;
     
@@ -46,6 +47,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public NavMeshObstacle Obstacle { get => obstacle; set => obstacle = value; }
     public CardinaDirectionsEnum Direction { get => direction; set => direction = value; }
     public List<Interactable> InteractablesWithinRange { get => interactablesWithinRange; set => interactablesWithinRange = value; }
+    public bool Unstable { get => unstable; set => unstable = value; }
 
     #endregion
 
@@ -89,14 +91,16 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
 
     void LateUpdate()
-    {
+    {//TODO add failsafe for movement lasting longer than 10 seconds
         if (!inanimate)
         {
             Vector3 realPos = this.BoxCollider.bounds.center;
             realPos.y -= this.BoxCollider.bounds.size.y / 2;
             if (Vector3.Distance(realPos, agent.destination) <= .2f)
             {
+                //Debug.Log(animator.GetBool("walking") + "" + Vector3.Distance(realPos, agent.destination));
                 if (animator.GetBool("walking")){
+                    //Debug.Log("here");
                     animator.SetBool("walking", false);
                     if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
                     {
@@ -117,10 +121,14 @@ public class Character : MonoBehaviour, IComparable<Character>
                 }
                 
             }
-            else
+            else if(agent.enabled)
             {
                 followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
                 //a way to use this is if(Vector3.Angle(velocity vector, target character))
+            }
+            else
+            {
+
             }
         }
         
