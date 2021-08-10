@@ -9,14 +9,11 @@ using UnityEngine;
 ///
 public class FUDefault : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
+
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
+        //damage = 1;
+        //range = 1;
     }
 
 
@@ -35,9 +32,6 @@ public class FUDefault : FollowUp
     }
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
-
-
-
 
 
         FollowUpFollowUp(followUpAction);

@@ -364,7 +364,7 @@ public class CombatManager : GameStateManager
             }
             if (character.Moving)//TODO change when adding follow up coroutines
             {
-                canContinue = true;
+                EnableCombatInput();
             }
         }
         character.gameObject.SetActive(false);

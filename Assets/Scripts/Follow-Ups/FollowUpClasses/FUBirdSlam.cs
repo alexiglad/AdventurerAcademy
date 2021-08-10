@@ -7,14 +7,10 @@ using UnityEngine;
 ///
 public class FUBirdSlam : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(15f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
+        damage = 15;
+        range = 1;
     }
 
 
@@ -34,7 +30,7 @@ public class FUBirdSlam : FollowUp
     }
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
-        abilityProcessor.Damage(followUpAction.Attackee, damage.GetFloatValue());
+        abilityProcessor.Damage(followUpAction.Attackee, damage);
 
         FollowUpFollowUp(followUpAction);
     }

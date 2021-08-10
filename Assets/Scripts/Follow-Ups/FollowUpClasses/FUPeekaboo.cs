@@ -9,14 +9,11 @@ using UnityEngine;
 ///
 public class FUPeekaboo : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
+
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(20f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(6f);
+        damage = 20;
+        range = 6;
     }
 
 
@@ -25,7 +22,7 @@ public class FUPeekaboo : FollowUp
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
         if (followUpAction.FollowUpActionType == followUpType)
         {
-            if (character.Unstable && Vector3.Distance(character.transform.position, followUpAction.Attacker.transform.position) <= range.GetFloatValue())
+            if (character.Unstable && Vector3.Distance(character.transform.position, followUpAction.Attacker.transform.position) <= range)
             {
                 character.Unstable = false;
                 return true;
@@ -37,7 +34,7 @@ public class FUPeekaboo : FollowUp
     }
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
-        abilityProcessor.Damage(followUpAction.Attacker, damage.GetFloatValue());
+        abilityProcessor.Damage(followUpAction.Attacker, damage);
         FollowUpFollowUp(followUpAction);
     }
 }

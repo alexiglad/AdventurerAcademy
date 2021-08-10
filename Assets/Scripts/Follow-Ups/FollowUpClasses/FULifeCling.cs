@@ -6,17 +6,6 @@ using UnityEngine;
 ///
 public class FULifeCling : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
-
-    void OnEnable()
-    {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
-    }
- 
 
     public override bool IsValid(FollowUpAction followUpAction, Character character)//the character passes is from the followUp list
     {

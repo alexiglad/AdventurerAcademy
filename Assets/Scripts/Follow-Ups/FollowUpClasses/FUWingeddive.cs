@@ -11,15 +11,11 @@ using UnityEngine;
 ///
 public class FUWingeddive : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
 
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
+        damage = .5f;
+        range = 1;
     }
 
 
