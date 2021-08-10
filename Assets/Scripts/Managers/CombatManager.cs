@@ -24,6 +24,7 @@ public class CombatManager : GameStateManager
     bool doubleMovement;
     bool canContinue;
     bool charactersDied;
+    Queue<FollowUpData> followUpQueue;
 
     GameController gameController;
     [SerializeField] AbilityProcessor abilityProcessorInstance;
@@ -57,6 +58,7 @@ public class CombatManager : GameStateManager
         canContinue = true;
         charactersDied = false;
         gameController = FindObjectOfType<GameController>();
+        followUpQueue = new Queue<FollowUpData>();
 
         foreach (Character characterE in characters)
         {
@@ -414,7 +416,12 @@ public class CombatManager : GameStateManager
         canContinue = true;
         uiHandler.DisplayEndTurn();
         //TODO add follow up animation queue here eventually
-        if(charactersDied)
+        if(followUpQueue.Count >= 0)
+        {
+
+            //TODO add logic to handle follow up
+        }
+        else if(charactersDied)
         {
             Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
             gameController.StartCoroutineTOS(0, action);
@@ -684,6 +691,10 @@ public class CombatManager : GameStateManager
     public void FinishTurn(object sender, EventArgs e)
     {
         IterateCharacters();
+    }
+    public void AddFollowUp(FollowUpData followUp)
+    {
+        followUpQueue.Enqueue(followUp);
     }
 
     #endregion

@@ -41,7 +41,6 @@ public abstract class FollowUp : ScriptableObject
 
     public void FollowUpFollowUp(FollowUpAction followUpAction)
     {
-        //TODO add code with game controller coroutine
         followUpProcessor.HandleFollowUpAction(new FollowUpAction(followUpAction.Attacker, followUpAction.Attackee, this));
     }
 }
