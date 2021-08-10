@@ -9,21 +9,20 @@ using UnityEngine;
 /// 
 /// 
 /// </summary>
-[CreateAssetMenu(menuName = "ScriptableObjects/Ability/WingedThrash")]
-public class AWingedThrash : Ability
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Flyby")]
+public class AFlyby : Ability
 {
     void OnEnable()
     {
-        damage = 5;
-        range = 4;
-        radius = 1.5f;
+        damage = 10;
+        range = 5;
+        radius = 1;
     }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessor.SplashDamage(attackee, damage, radius);
-
+        abilityProcessor.MovementDamage(attacker, attackee, damage, radius);
 
     }
 }

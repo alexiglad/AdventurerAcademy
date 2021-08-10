@@ -16,7 +16,7 @@ public class AInfernoBreath : Ability
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessor.SplashDamage(attacker, attackee, damage, range, radius);
+        abilityProcessor.SplashDamage(attackee, damage, radius);
 
     }
 }

@@ -45,6 +45,10 @@ public class TargetDisplay : MonoBehaviour
                 {//display characters within range
                     DisplayWithinRange(tempRef);
                 }
+                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
+                {
+                    DisplayWithinPathRange(tempRef);
+                }
                 else
                 {//Display splash
                     DisplayPointsWithinRange(tempRef);
@@ -87,6 +91,26 @@ public class TargetDisplay : MonoBehaviour
             MainDisplay(tempRef, charactere);
         }
     }
+    public void DisplayWithinPathRange(CombatManager tempRef)
+    {
+
+        //TODO huge bug where this doesnt consider the actual path of the character but rather just a straight line..
+        //determine if this should be clickable anywhere or just on characters
+        //actually im gonna say just characters
+        List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
+        foreach (Character charactere in tempRef.Characters)
+        {
+            if (charactersWithinRange.Contains(charactere))
+            {
+                charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+            else
+            {
+                MainDisplay(tempRef, charactere);
+            }
+        }
+        DisplayPath(tempRef);
+    }
     public void DisplayPointsWithinRange(CombatManager tempRef)
     {
         line.positionCount = segments + 1;
@@ -125,6 +149,24 @@ public class TargetDisplay : MonoBehaviour
                         MainDisplay(tempRef, charactere);
                     }
                 }
+            }
+            else if(tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
+            {
+                DisplayPath(tempRef);//change this to special method which just goes close to obstacle
+                List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
+                foreach (Character charactere in tempRef.Characters)
+                {
+                    if (charactersWithinRange.Contains(charactere))
+                    {
+                        charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+                    }
+                    else
+                    {
+                        MainDisplay(tempRef, charactere);
+                    }
+                }
+
+                //todo implement this part
             }
             else
             {
@@ -188,6 +230,49 @@ public class TargetDisplay : MonoBehaviour
             angle += (360f / segments);
         }
     }
+    void DisplayPath(CombatManager tempRef)
+    {
+        if(tempRef.Character.Agent.enabled)
+        {
+            NavMeshPath path = new NavMeshPath();
+            NavMeshAgent agent = tempRef.Character.Agent;
+            agent.CalculatePath(data.Hit.point, path);
+            line.positionCount = path.corners.Length;
+
+            Vector3 bottom = tempRef.Character.BoxCollider.bounds.center;
+            bottom.y -= tempRef.Character.BoxCollider.bounds.size.y / 2;
+
+            if (line.positionCount != 0)
+            {
+                line.SetPosition(0, bottom);
+            }
+
+            if (path.corners.Length < 2)
+            {
+                return;
+            }
+
+            for (int i = 1; i < path.corners.Length; i++)
+            {
+                line.SetPosition(i, path.corners[i]);
+            }
+            if (!IsValidPath(tempRef))
+            {
+                line.startColor = Color.red;
+                line.endColor = Color.red;
+            }
+            else
+            {
+                line.startColor = Color.blue;
+                line.endColor = Color.blue;
+            }
+        }
+    }
+    bool IsValidPath(CombatManager tempRef)
+    {
+        return Vector3.Distance(data.Hit.point, tempRef.Character.transform.position) <= tempRef.Turn.GetAbility().Range;
+    }
+
 
 
 }

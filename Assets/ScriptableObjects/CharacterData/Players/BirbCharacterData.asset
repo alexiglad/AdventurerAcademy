@@ -24,8 +24,11 @@ MonoBehaviour:
   inUseAbilities:
   - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
   - {fileID: 11400000, guid: 98c5dcec34661b74d8ff24643c8ed9f6, type: 2}
+  - {fileID: 11400000, guid: 6d63f5c965ff1084abbec377584459d3, type: 2}
+  - {fileID: 11400000, guid: e3cb747b853e84746b0a8cd2baf9c363, type: 2}
   followUps:
   - {fileID: 11400000, guid: b13501bc39df94e47b4b4df6fbeb1b34, type: 2}
   - {fileID: 11400000, guid: 8092cb7be42ccf04080181a196243a22, type: 2}
+  - {fileID: 11400000, guid: f429f8999937f3a42b87eb1bf1220538, type: 2}
   isPlayer: 1
   portrait: {fileID: 21300000, guid: af710563a6d5aeb4c8045017bfa66e9a, type: 3}
