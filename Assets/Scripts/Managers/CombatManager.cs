@@ -362,6 +362,10 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 tempCharacter = enumerator.Current;
             }
+            if (character.Moving)//TODO change when adding follow up coroutines
+            {
+                canContinue = true;
+            }
         }
         character.gameObject.SetActive(false);
         characters.Remove(character);
@@ -379,6 +383,7 @@ public class CombatManager : GameStateManager
         }
         this.character = tempCharacter;
         //should effectively exit on correct position
+
 
         if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
         {
@@ -406,7 +411,6 @@ public class CombatManager : GameStateManager
     }
     public void EnableCombatInput()
     {
-        //Debug.Log("enabled");
         canContinue = true;
         uiHandler.DisplayEndTurn();
         //TODO add follow up animation queue here eventually
@@ -495,7 +499,7 @@ public class CombatManager : GameStateManager
 
         if (character.Inanimate)
         {
-            IterateCharacters();//verify this works
+            IterateCharacters();//todo verify this works
         }
         else
         {
