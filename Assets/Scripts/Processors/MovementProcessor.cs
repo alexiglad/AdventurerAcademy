@@ -13,7 +13,11 @@ public class MovementProcessor : ScriptableObject
 
     public void HandleMovement(Character character, Vector3 movement)
     {
-        
+        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.DisableCombatInput();
+        }
         Vector3 characterBottom = character.BoxCollider.bounds.center;
         characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
         character.Agent.SetDestination(movement + characterBottom);

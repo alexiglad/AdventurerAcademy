@@ -250,6 +250,11 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     public virtual void SetHealth(float value)
     {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddDamagedCharacter(new DamageData(value - health, this));
+        }
         health = value;
         if (this.health <= 0)
         {
@@ -258,8 +263,12 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public bool DecrementHealth(float value)
     {
-        //Debug.Log("Decremented " + this + " health by: " + value);
         health -= value;
+        if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddDamagedCharacter(new DamageData(-value, this));
+        }
         if (this.health <= 0)
         {
             this.Dead();
@@ -270,6 +279,11 @@ public class Character : MonoBehaviour, IComparable<Character>
     public virtual void IncrementHealth(float value)
     {
         health += value;
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddDamagedCharacter(new DamageData(value, this));
+        }
     }
     public float GetPercentHealth()
     {

@@ -18,16 +18,19 @@ public class CombatManager : GameStateManager
     private IEnumerator<Character> enumerator;
     Turn turn;
     Character character;
+
     bool targeting;
     bool attacked;
     bool hasMovement;
     bool doubleMovement;
     bool canContinue;
-    List<Character> deadCharacters;
     bool redoTurnOrder;
+
     Queue<Vector3> movementQueue;
     Queue<FollowUpData> followUpQueue;
     Queue<StatusData> statusQueue;
+    List<DamageData> damagedCharacters;
+    List<Character> deadCharacters;
 
 
     GameController gameController;
@@ -62,11 +65,14 @@ public class CombatManager : GameStateManager
         doubleMovement = false;
         canContinue = true;
         redoTurnOrder = false;
-        deadCharacters = new List<Character>();
-        gameController = FindObjectOfType<GameController>();
+
         movementQueue = new Queue<Vector3>();
         followUpQueue = new Queue<FollowUpData>();
         statusQueue = new Queue<StatusData>();
+        damagedCharacters = new List<DamageData>();
+        deadCharacters = new List<Character>();
+
+        gameController = FindObjectOfType<GameController>();
 
         foreach (Character characterE in characters)
         {
@@ -358,6 +364,7 @@ public class CombatManager : GameStateManager
 
         Character tempCharacter = enumerator.Current;
         bool reset = false;
+        bool moving = false;
         if (character == tempCharacter)//i.e. current character is dying get next character
         {
             Debug.Log("current character died");
@@ -374,7 +381,8 @@ public class CombatManager : GameStateManager
             }
             if (character.Moving)//TODO change when adding follow up coroutines
             {
-                EnableCombatInput();
+                moving = true;
+                //EnableCombatInput();
             }
         }
         //character.gameObject.SetActive(false);
@@ -394,25 +402,30 @@ public class CombatManager : GameStateManager
         this.character = tempCharacter;
         //should effectively exit on correct position
 
-        if (turnOrder.Remove(character) && MoreThanOneSideIsAlive())
+        if (turnOrder.Remove(character) && MoreThanOneSideIsAlive())//this happens after which is why its not working
         {
             deadCharacters.Add(character);
-            if (reset)
+            if (TurnFinished())
             {
-                ResetTurn();
-            }
-            else if (TurnFinished())
-            {
+                if (moving)
+                {
+                    EnableCombatInput();
+                }
                 //do nothing
             }
             else if (!TurnFinished())
             {
-                if (!canContinue)
+                if (reset)//this is broken bc when an enemy or player finishes their turn itll automatically trigger the TOS
+                {//so need to either enqueue that or do something else
+                    ResetTurn();
+                }
+                else if (!canContinue)
                 {
                     redoTurnOrder = true;
                 }
                 else
                 {
+                    Debug.Log("CHECK CONDITION SHOULD NOT HAPPEN once cedric adds coroutines");
                     redoTurnOrder = true;
                     EnableCombatInput();
                 }
@@ -434,9 +447,7 @@ public class CombatManager : GameStateManager
     }
     public void EnableCombatInput()
     {
-        
-        //TODO add follow up animation queue here eventually
-        if(movementQueue.Any())
+        if (movementQueue.Any())
         {
             movementProcesssor.HandleMovement(character, movementQueue.Dequeue());
         }
@@ -450,14 +461,27 @@ public class CombatManager : GameStateManager
             DisableCombatInput();
             uiHandler.DisplayStatus(statusQueue.Dequeue());
         }
-        else if(deadCharacters.Count >= 0)
+        else if(damagedCharacters.Count > 0)
         {
+            DisableCombatInput();
+            foreach (Character character in deadCharacters)
+            {
+                
+                //todo add animation here to decrement health bar and show damage tick on character
+            }
+            damagedCharacters.Clear();
+            EnableCombatInput();//TEMP CODE TODO
+        }
+        else if(deadCharacters.Count > 0)
+        {
+            DisableCombatInput();
             foreach (Character character in deadCharacters)
             {
                 character.gameObject.SetActive(false);
                 //todo add animation here to kill the character with coroutine
             }
             deadCharacters.Clear();
+            EnableCombatInput();//TEMP CODE TODO
         }
         else if (redoTurnOrder)
         {
@@ -476,6 +500,7 @@ public class CombatManager : GameStateManager
         canContinue = false;
         uiHandler.StopDisplayingEndTurn();
     }
+    #region queues
     public void AddMovement(Vector3 vector)
     {
         movementQueue.Enqueue(vector);
@@ -488,6 +513,19 @@ public class CombatManager : GameStateManager
     {
         statusQueue.Enqueue(status);
     }
+    public void AddDamagedCharacter(DamageData damageData)
+    {
+        foreach(DamageData dd in damagedCharacters)
+        {
+            if(dd.Character == damageData.Character)
+            {
+                dd.HealthChange += damageData.HealthChange;
+                return;
+            }
+        }
+        damagedCharacters.Add(damageData);
+    }
+    #endregion
     public void IterateCharacters()
     {
         if (!character.Inanimate)
@@ -591,15 +629,14 @@ public class CombatManager : GameStateManager
         }
         return false;
     }
-    void EndBattle(bool won)
-    {
-        FindObjectOfType<CombatOver>().TriggerEvent(won);//TODO fix this dont use FOT
-    }
-
     #endregion
 
     #region Event Listeners
 
+    void EndBattle(bool won)
+    {
+        FindObjectOfType<CombatOver>().TriggerEvent(won);//TODO fix this dont use FOT
+    }
     public void CombatAbility(object sender, AbilityEventArgs e)
     {
         if (UpdateAbility(e.NewAbility))

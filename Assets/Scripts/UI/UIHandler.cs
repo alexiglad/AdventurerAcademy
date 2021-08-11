@@ -62,11 +62,21 @@ public class UIHandler : ScriptableObject
     }
     public void DisplayFollowUp(FollowUpData followUp)
     {
-        //TODO
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.EnableCombatInput();
+            //TODO this is temp
+        }
     }
     public void DisplayStatus(StatusData status)
     {
-        //TODO
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.EnableCombatInput();
+            //TODO this is temp
+        }
     }
     public void UnselectAbilities()
     {

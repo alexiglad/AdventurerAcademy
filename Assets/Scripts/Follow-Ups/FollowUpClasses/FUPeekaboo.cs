@@ -22,7 +22,7 @@ public class FUPeekaboo : FollowUp
         //must check in some sort for whether the attacker/attackee is the character who is using the followUp (as this makes sense)
         if (followUpAction.FollowUpActionType == followUpType)
         {
-            if (character.Unstable && Vector3.Distance(character.transform.position, followUpAction.Attacker.transform.position) <= range)
+            if (character.Unstable && Vector3.Distance(character.transform.position, followUpAction.Attacker.transform.position) <= range && character.IsPlayer() ^ followUpAction.Attacker.IsPlayer())
             {
                 character.Unstable = false;
                 return true;

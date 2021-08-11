@@ -20,14 +20,13 @@ MonoBehaviour:
   radius: 0
   abilityType: 1
   icon: {fileID: 21300000, guid: 6cd6762eaf559fb42b3100118ea180a1, type: 3}
-  image: {fileID: 0}
-  direction: 1
-  dimWidth: 0
-  dimHeight: 0
+  image: {fileID: 21300000, guid: 1f3e588f21f3ea24587e8cc0b734a1a7, type: 3}
+  direction: 0
+  dimWidth: 800
+  dimHeight: 571
   startX: 0
-  startY: 0
+  startY: -45
   targetX: 0
   targetY: 0
   voodooPrefab: {fileID: 4163493473619836582, guid: 7e07694dd0762cd4f84e79eedbf0335a, type: 3}
   characterData: {fileID: 11400000, guid: 299beeb7bfc79e744a74133618be7a70, type: 2}
-  target: {fileID: 0}
