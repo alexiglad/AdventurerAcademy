@@ -23,7 +23,8 @@ public class CombatManager : GameStateManager
     bool hasMovement;
     bool doubleMovement;
     bool canContinue;
-    bool charactersDied;
+    List<Character> deadCharacters;
+    bool redoTurnOrder;
     Queue<Vector3> movementQueue;
     Queue<FollowUpData> followUpQueue;
     Queue<StatusData> statusQueue;
@@ -60,7 +61,8 @@ public class CombatManager : GameStateManager
         hasMovement = true;
         doubleMovement = false;
         canContinue = true;
-        charactersDied = false;
+        redoTurnOrder = false;
+        deadCharacters = new List<Character>();
         gameController = FindObjectOfType<GameController>();
         movementQueue = new Queue<Vector3>();
         followUpQueue = new Queue<FollowUpData>();
@@ -302,7 +304,7 @@ public class CombatManager : GameStateManager
         }
         else if(turn.GetTarget().name == "TempCharacter(Clone)")
         {
-            RemoveCharacter(turn.GetTarget());
+            RemoveCharacter(turn.GetTarget());//TODO determine if this is necessary
             abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());//TODO MAKE GET TARGET OF VOODOO
         }
     }
@@ -375,7 +377,7 @@ public class CombatManager : GameStateManager
                 EnableCombatInput();
             }
         }
-        character.gameObject.SetActive(false);
+        //character.gameObject.SetActive(false);
         characters.Remove(character);
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
@@ -392,27 +394,36 @@ public class CombatManager : GameStateManager
         this.character = tempCharacter;
         //should effectively exit on correct position
 
-
-        if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
+        if (turnOrder.Remove(character) && MoreThanOneSideIsAlive())
         {
+            deadCharacters.Add(character);
             if (reset)
             {
                 ResetTurn();
             }
-            else if (!canContinue)
+            else if (TurnFinished())
             {
-                charactersDied = true;
+                //do nothing
             }
-            else
+            else if (!TurnFinished())
             {
-                Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
-                gameController.StartCoroutineTOS(0, action);
+                if (!canContinue)
+                {
+                    redoTurnOrder = true;
+                }
+                else
+                {
+                    redoTurnOrder = true;
+                    EnableCombatInput();
+                }
             }
         }
         else
         {
+            character.gameObject.SetActive(false);
             //todo change the turning of game objects off to right here
         }
+
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
@@ -423,8 +434,7 @@ public class CombatManager : GameStateManager
     }
     public void EnableCombatInput()
     {
-        canContinue = true;
-        uiHandler.DisplayEndTurn();
+        
         //TODO add follow up animation queue here eventually
         if(movementQueue.Any())
         {
@@ -440,11 +450,25 @@ public class CombatManager : GameStateManager
             DisableCombatInput();
             uiHandler.DisplayStatus(statusQueue.Dequeue());
         }
-        else if(charactersDied)
+        else if(deadCharacters.Count >= 0)
+        {
+            foreach (Character character in deadCharacters)
+            {
+                character.gameObject.SetActive(false);
+                //todo add animation here to kill the character with coroutine
+            }
+            deadCharacters.Clear();
+        }
+        else if (redoTurnOrder)
         {
             Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
             gameController.StartCoroutineTOS(0, action);
-            charactersDied = false;
+            redoTurnOrder = false;
+        }
+        else
+        {
+            canContinue = true;
+            uiHandler.DisplayEndTurn();
         }
     }
     public void DisableCombatInput()
@@ -551,7 +575,11 @@ public class CombatManager : GameStateManager
         bool initial = false;
         foreach (Character character in characters)
         {
-            if (zero == 1)
+            if (character.Inanimate)
+            {
+                continue;
+            }
+            else if (zero == 1)
             {
                 zero = 0;
                 initial = character.IsPlayer();

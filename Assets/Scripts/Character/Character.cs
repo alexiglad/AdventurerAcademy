@@ -190,6 +190,7 @@ public class Character : MonoBehaviour, IComparable<Character>
             }
             else
             {
+                this.GetComponent<SpriteRenderer>().color = Color.white;
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.RemoveCharacter(this);
                 died = true;

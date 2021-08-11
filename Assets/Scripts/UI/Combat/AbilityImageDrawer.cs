@@ -73,6 +73,7 @@ public class AbilityImageDrawer : MonoBehaviour
         yield return new WaitForSeconds(imageAnimationTime);
         backgroundCanvas.LeanAlpha(0, fadeOutTime);
         abilityCanvas.LeanAlpha(0, fadeOutTime);
+        yield return new WaitForSeconds(fadeOutTime);
         if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
