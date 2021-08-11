@@ -14,6 +14,8 @@ public class TargetDisplay : MonoBehaviour
 
 
     RaycastData data;
+    Vector3 prevData;
+
     LineRenderer line;
 
 
@@ -27,7 +29,6 @@ public class TargetDisplay : MonoBehaviour
 
     void Update()
     {
-        line.positionCount = 0;
         data = controls.GetRaycastHit();
 
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
@@ -35,6 +36,11 @@ public class TargetDisplay : MonoBehaviour
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempRef.Character != null && tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
+                if (data.Hit.point.Equals(prevData))
+                {//optimization todo fix where line stays
+                    return;
+                }
+                line.positionCount = 0;
                 HoverTarget(tempRef, data.Hit.transform.GetComponent<Character>());
             }
             else if (data.HitBool && tempRef.GetTargeting())//user is targeting and is on terrain 
@@ -43,24 +49,44 @@ public class TargetDisplay : MonoBehaviour
                     tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged ||
                     tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
                 {//display characters within range
+                    if (data.Hit.point.Equals(prevData))
+                    {//optimization todo fix where line stays
+                        return;
+                    }
+                    line.positionCount = 0;
                     DisplayWithinRange(tempRef);
                 }
                 else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
                 {
+                    if (data.Hit.point.Equals(prevData))
+                    {//optimization todo fix where line stays
+                        return;
+                    }
+                    line.positionCount = 0;
                     DisplayWithinPathRange(tempRef);
                 }
                 else
                 {//Display splash
+                    if (data.Hit.point.Equals(prevData))
+                    {//optimization todo fix where line stays
+                        return;
+                    }
+                    line.positionCount = 0;
                     DisplayPointsWithinRange(tempRef);
                 }
             }
             else
             {
                 //display nothing
+                if (data.Hit.point.Equals(prevData))
+                {//optimization todo fix where line stays
+                    return;
+                }
+                line.positionCount = 0;
                 ResetTargeting(tempRef);
             }
         }
-
+        prevData = data.Hit.point;
     }
     public void MainDisplay(CombatManager tempRef, Character charactere)
     {
