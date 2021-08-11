@@ -75,6 +75,12 @@ public class TargetDisplay : MonoBehaviour
                     DisplayPointsWithinRange(tempRef);
                 }
             }
+            else if(data.HitBool && tempRef.Attacked && tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement && tempRef.Character.Animator.GetBool("walking"))
+            {
+                line.positionCount = 0;
+                DisplayActivePath(tempRef.Character);
+                MainDisplay(tempRef, tempRef.Character);
+            }
             else
             {
                 //display nothing
@@ -123,6 +129,8 @@ public class TargetDisplay : MonoBehaviour
         //TODO huge bug where this doesnt consider the actual path of the character but rather just a straight line..
         //determine if this should be clickable anywhere or just on characters
         //actually im gonna say just characters
+
+
         List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
         foreach (Character charactere in tempRef.Characters)
         {
@@ -140,6 +148,7 @@ public class TargetDisplay : MonoBehaviour
     public void DisplayPointsWithinRange(CombatManager tempRef)
     {
         line.positionCount = segments + 1;
+
         CreatePoints(data.Hit.point, tempRef.Turn.GetAbility().Radius);
         CheckForLineColor(tempRef, data.Hit.point);
         foreach (Character charactere in tempRef.Characters)
@@ -291,6 +300,25 @@ public class TargetDisplay : MonoBehaviour
             {
                 line.startColor = Color.blue;
                 line.endColor = Color.blue;
+            }
+        }
+    }
+    public void DisplayActivePath(Character character)
+    {
+        if (character.Agent.hasPath)
+        {
+            line.positionCount = character.Agent.path.corners.Length;
+
+            Vector3 bottom = character.BoxCollider.bounds.center;
+            bottom.y -= character.BoxCollider.bounds.size.y / 2;
+            line.SetPosition(0, bottom);
+
+            if (character.Agent.path.corners.Length < 2)
+                return;
+
+            for (int i = 1; i < character.Agent.path.corners.Length; i++)
+            {
+                line.SetPosition(i, character.Agent.path.corners[i]);
             }
         }
     }

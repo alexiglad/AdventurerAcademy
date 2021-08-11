@@ -24,6 +24,7 @@ public class CombatManager : GameStateManager
     bool doubleMovement;
     bool canContinue;
     bool charactersDied;
+    Queue<Vector3> movementQueue;
     Queue<FollowUpData> followUpQueue;
     Queue<StatusData> statusQueue;
 
@@ -42,6 +43,7 @@ public class CombatManager : GameStateManager
     public bool HasMovement { get => hasMovement; set => hasMovement = value; }
     public List<Character> TurnOrder { get => turnOrder; set => turnOrder = value; }
     public bool CanContinue { get => canContinue; set => canContinue = value; }
+    public bool Attacked { get => attacked; set => attacked = value; }
 
 
     #endregion
@@ -60,6 +62,7 @@ public class CombatManager : GameStateManager
         canContinue = true;
         charactersDied = false;
         gameController = FindObjectOfType<GameController>();
+        movementQueue = new Queue<Vector3>();
         followUpQueue = new Queue<FollowUpData>();
         statusQueue = new Queue<StatusData>();
 
@@ -406,6 +409,10 @@ public class CombatManager : GameStateManager
                 gameController.StartCoroutineTOS(0, action);
             }
         }
+        else
+        {
+            //todo change the turning of game objects off to right here
+        }
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
@@ -419,12 +426,16 @@ public class CombatManager : GameStateManager
         canContinue = true;
         uiHandler.DisplayEndTurn();
         //TODO add follow up animation queue here eventually
-        if(followUpQueue.Count >= 0)
+        if(movementQueue.Any())
+        {
+            movementProcesssor.HandleMovement(character, movementQueue.Dequeue());
+        }
+        else if(followUpQueue.Any())
         {
             DisableCombatInput();
             uiHandler.DisplayFollowUp(followUpQueue.Dequeue());
         }
-        else if(statusQueue.Count >= 0)
+        else if(statusQueue.Any())
         {
             DisableCombatInput();
             uiHandler.DisplayStatus(statusQueue.Dequeue());
@@ -440,6 +451,10 @@ public class CombatManager : GameStateManager
     {
         canContinue = false;
         uiHandler.StopDisplayingEndTurn();
+    }
+    public void AddMovement(Vector3 vector)
+    {
+        movementQueue.Enqueue(vector);
     }
     public void AddFollowUp(FollowUpData followUp)
     {

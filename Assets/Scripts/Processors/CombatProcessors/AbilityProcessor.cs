@@ -8,6 +8,9 @@ public class AbilityProcessor : ScriptableObject
 {
     [SerializeField] MovementProcessor movementProcessor;
     [SerializeField] FollowUpProcessor followUpProcessor;
+    [SerializeField] GameStateManagerSO gameStateManager;
+
+
 
     public void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
@@ -43,7 +46,11 @@ public class AbilityProcessor : ScriptableObject
         }
         Vector3 characterBottom = attacker.BoxCollider.bounds.center;
         characterBottom.y -= attacker.BoxCollider.bounds.size.y / 2;
-        movementProcessor.HandleMovement(attacker, attackee.transform.position - characterBottom);
+        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddMovement(attackee.transform.position - characterBottom);
+        }
     }
     public void BuildStats(Character character, Stats stats)
     {

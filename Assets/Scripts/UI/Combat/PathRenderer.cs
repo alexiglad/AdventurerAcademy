@@ -86,8 +86,6 @@ public class PathRenderer : MonoBehaviour
                 line.SetPosition(i, agent.path.corners[i]);
             }
         }
-        
-        
     }
 
     public void DisplayPath(NavMeshPath path, Character character, CombatManager tempRef)
