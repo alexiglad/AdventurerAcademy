@@ -60,9 +60,13 @@ public class UIHandler : ScriptableObject
         abilityImageDrawer.SetTargetPosition(ability.TargetX, ability.TargetY);
         abilityImageDrawer.PlayAnimation();        
     }
-    public void DisplayStatus()
+    public void DisplayFollowUp(FollowUpData followUp)
     {
-
+        //TODO
+    }
+    public void DisplayStatus(StatusData status)
+    {
+        //TODO
     }
     public void UnselectAbilities()
     {

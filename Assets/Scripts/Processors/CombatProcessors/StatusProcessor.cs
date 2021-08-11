@@ -13,45 +13,50 @@ public class StatusProcessor : ScriptableObject
 
     public void HandleStatuses(Character character)
     {
-        foreach (Status status in character.Statuses) {
-            Debug.Log(character + " was affected by " + status.StatusEffect);
-            status.TurnsLeft--;
-            if (status.StatusEffect == StatusTypeEnum.Regen)
-            {
-                Heal(character, status);
-            }
-            else if (status.StatusEffect == StatusTypeEnum.Burn ||
-                status.StatusEffect == StatusTypeEnum.Poison ||
-                status.StatusEffect == StatusTypeEnum.Frozen)
-            {
-                if(Damage(character, status))
-                {
-                    break;
-                }
-                
-            }
-            else if (status.StatusEffect == StatusTypeEnum.Sleep)
-            {
-                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                tempRef.IterateCharacters();
-            }
-            else if(status.StatusEffect == StatusTypeEnum.Knocked)
-            {
-                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                tempRef.Turn.AmountMoved = character.GetMaxMovement();
-            }
-
-
-            
-        }
-        for(int i =0; i< character.Statuses.Count; i++)
+        if(gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
-            if (character.Statuses[i].TurnsLeft < 1)//i.e. status should disappear
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            foreach (Status status in character.Statuses)
             {
-                character.Statuses.Remove(character.Statuses[i]);
-                i--;
+                Debug.Log(character + " was affected by " + status.StatusEffect);
+                status.TurnsLeft--;
+                if (status.StatusEffect == StatusTypeEnum.Regen)
+                {
+                    Heal(character, status);
+                }
+                else if (status.StatusEffect == StatusTypeEnum.Burn ||
+                    status.StatusEffect == StatusTypeEnum.Poison ||
+                    status.StatusEffect == StatusTypeEnum.Frozen)
+                {
+                    if (Damage(character, status))
+                    {
+                        break;
+                    }
+
+                }
+                else if (status.StatusEffect == StatusTypeEnum.Sleep)
+                {
+                    tempRef.IterateCharacters();
+                }
+                else if (status.StatusEffect == StatusTypeEnum.Knocked)
+                {
+                    tempRef.Turn.AmountMoved = character.GetMaxMovement();
+                }
+            }
+            for (int i = 0; i < character.Statuses.Count; i++)
+            {
+                if (character.Statuses[i].TurnsLeft < 1)//i.e. status should disappear
+                {
+                    character.Statuses.Remove(character.Statuses[i]);
+                    i--;
+                }
             }
         }
+        else
+        {
+            return;
+        }
+
     }
     public void CreateStatus(Character attacker, Character attackee, Status status)
     {
@@ -74,6 +79,8 @@ public class StatusProcessor : ScriptableObject
         }
         if(gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddStatus(new StatusData(status, attackee));
             followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
         }
 

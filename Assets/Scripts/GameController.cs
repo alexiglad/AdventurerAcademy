@@ -37,13 +37,10 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //Debug.Log("enabled " +  this.ToString());
-        //Debug.Log("time since startup: " + Time.realtimeSinceStartup);
         controls.GetControls().Enable();
     }
     void OnSceneUnloaded(Scene scene)
     {
-        //Debug.Log("disabled " + this.ToString());
         controls.GetControls().Disable();
     }
 

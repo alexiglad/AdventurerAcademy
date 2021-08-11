@@ -12,4 +12,5 @@ public enum StatusTypeEnum
     Knocked,//have stand up animation and set turns left equal to 1 (so no movement)
     Drunk,//decreases accuracy and damage and makes movement a bit random
     Blind//can only do melee abilities decrease accuracy decrease movement
+        //todo implement drunk and blind with ced
 }
