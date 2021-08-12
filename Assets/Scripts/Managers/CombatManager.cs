@@ -368,7 +368,6 @@ public class CombatManager : GameStateManager
 
         if (character == tempCharacter)//i.e. current character is dying get next character
         {
-            Debug.Log("current character died");
             resetted = true;
             gameController.StartCoroutineCC(ResetTurn);
             if (enumerator.MoveNext())

@@ -16,7 +16,7 @@ public class AFlyby : Ability
     {
         damage = 10;
         range = 5;
-        radius = .5f;
+        radius = 1f;
     }
 
 

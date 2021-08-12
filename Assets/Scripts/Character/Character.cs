@@ -20,6 +20,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     private bool died;
     private bool unstable;
     private bool moving;
+    Vector3 lastPos;
+    int movementIdleCounter;
     [SerializeField] private bool inanimate;
     private Character voodooTarget;
     
@@ -99,8 +101,10 @@ public class Character : MonoBehaviour, IComparable<Character>
             realPos.y -= this.BoxCollider.bounds.size.y / 2;
             if (Vector3.Distance(realPos, agent.destination) <= .2f)
             {
+                movementIdleCounter = 0;
                 //Debug.Log(animator.GetBool("walking") + "" + Vector3.Distance(realPos, agent.destination));
-                if (animator.GetBool("walking")){
+                if (animator.GetBool("walking"))
+                {
                     moving = false;
                     animator.SetBool("walking", false);
                     if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
@@ -120,17 +124,42 @@ public class Character : MonoBehaviour, IComparable<Character>
                         }
                     }
                 }
-                
+
             }
-            else if(agent.enabled)
+            else if (agent.enabled)
             {
-                moving = true;
-                followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
-                //a way to use this is if(Vector3.Angle(velocity vector, target character))
+                if (IsStationary())
+                {
+                    movementIdleCounter++;
+                    if (movementIdleCounter > 1000)//figure this number out
+                    {
+                        movementIdleCounter = 0;
+                        animator.SetBool("walking", false);
+                        agent.SetDestination(CharacterBottom());
+
+                        Debug.Log("ERROR failsafe activated please investigate");
+                        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+                        {
+                            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                            tempRef.EnableCombatInput();
+                        }
+                    }
+                }
+                else
+                {
+                    movementIdleCounter = 0;
+                    moving = true;
+                    followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
+                }
             }
             else
             {
-
+                movementIdleCounter = 0;//todo check for optimization
+                if (animator.GetBool("walking"))
+                {
+                    animator.SetBool("walking", false);
+                    Debug.Log("failsafe activated investigate");
+                }
             }
         }
         
@@ -162,7 +191,18 @@ public class Character : MonoBehaviour, IComparable<Character>
             //Debug.Log("error occcured");
         }
     }
-
+    bool IsStationary()
+    {
+        bool returning =  Vector3.Distance(this.transform.position, lastPos) <= .01;
+        lastPos = this.transform.position;
+        return returning;
+    }
+    public Vector3 CharacterBottom()
+    {
+        Vector3 characterBottom = this.BoxCollider.bounds.center;
+        characterBottom.y -= this.BoxCollider.bounds.size.y / 2;
+        return characterBottom;
+    }
     public void Dead(){
         //create event?
         if (died)

@@ -134,7 +134,7 @@ public class TargetDisplay : MonoBehaviour
         List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
         foreach (Character charactere in tempRef.Characters)
         {
-            if (charactersWithinRange.Contains(charactere))
+            if (tempRef.Character != charactere && charactersWithinRange.Contains(charactere) && movementProcessor.WithinRange(tempRef, charactere))
             {
                 charactere.GetComponent<SpriteRenderer>().color = Color.red;
             }
@@ -191,7 +191,7 @@ public class TargetDisplay : MonoBehaviour
                 List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
                 foreach (Character charactere in tempRef.Characters)
                 {
-                    if (charactersWithinRange.Contains(charactere))
+                    if (tempRef.Character != charactere && charactersWithinRange.Contains(charactere) && movementProcessor.WithinRange(tempRef, charactere))
                     {
                         charactere.GetComponent<SpriteRenderer>().color = Color.red;
                     }
