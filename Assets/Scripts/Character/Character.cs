@@ -57,10 +57,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return this.characterData.GetName();
     }
-    public void Update()
-    {
-        
-    }
+
     private void Awake()
     {
         agent = transform.GetComponent<NavMeshAgent>();

@@ -9,20 +9,19 @@ using UnityEngine;
 /// 
 /// 
 /// </summary>
-[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Flyby")]
-public class AFlyby : Ability
+[CreateAssetMenu(menuName = "ScriptableObjects/Ability/SelfKill")]
+public class ASelfKill : Ability
 {
     void OnEnable()
     {
-        damage = 10;
-        range = 5;
-        radius = .5f;
+        //damage = 0;
+        //range = 0;
     }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
-        abilityProcessor.MovementDamage(attacker, attackee, damage, radius);
+        attacker.SetHealth(0);
 
     }
 }

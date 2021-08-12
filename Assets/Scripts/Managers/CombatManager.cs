@@ -25,6 +25,7 @@ public class CombatManager : GameStateManager
     bool doubleMovement;
     bool canContinue;
     bool redoTurnOrder;
+    bool resetted;
 
     Queue<Vector3> movementQueue;
     Queue<FollowUpData> followUpQueue;
@@ -65,6 +66,7 @@ public class CombatManager : GameStateManager
         doubleMovement = false;
         canContinue = true;
         redoTurnOrder = false;
+        resetted = false;
 
         movementQueue = new Queue<Vector3>();
         followUpQueue = new Queue<FollowUpData>();
@@ -361,14 +363,14 @@ public class CombatManager : GameStateManager
 
     public void RemoveCharacter(Character character)
     {
-
         Character tempCharacter = enumerator.Current;
-        bool reset = false;
         bool moving = false;
+
         if (character == tempCharacter)//i.e. current character is dying get next character
         {
             Debug.Log("current character died");
-            reset = true;
+            resetted = true;
+            gameController.StartCoroutineCC(ResetTurn);
             if (enumerator.MoveNext())
             {
                 tempCharacter = enumerator.Current;
@@ -381,11 +383,10 @@ public class CombatManager : GameStateManager
             }
             if (character.Moving)//TODO change when adding follow up coroutines
             {
+                character.Agent.isStopped = true;
                 moving = true;
-                //EnableCombatInput();
             }
         }
-        //character.gameObject.SetActive(false);
         characters.Remove(character);
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
@@ -411,15 +412,10 @@ public class CombatManager : GameStateManager
                 {
                     EnableCombatInput();
                 }
-                //do nothing
             }
-            else if (!TurnFinished())
+            else if (!TurnFinished() && !resetted)
             {
-                if (reset)//this is broken bc when an enemy or player finishes their turn itll automatically trigger the TOS
-                {//so need to either enqueue that or do something else
-                    ResetTurn();
-                }
-                else if (!canContinue)
+                if (!canContinue)
                 {
                     redoTurnOrder = true;
                 }
@@ -528,6 +524,12 @@ public class CombatManager : GameStateManager
     #endregion
     public void IterateCharacters()
     {
+        if (resetted)
+        {
+            resetted = false;
+            return;
+        }
+        resetted = false;
         if (!character.Inanimate)
         {
             character.Agent.enabled = false;
@@ -596,6 +598,7 @@ public class CombatManager : GameStateManager
         attacked = false;
         hasMovement = true;
         doubleMovement = false;
+        resetted = false;
 
         if (character.Inanimate)
         {

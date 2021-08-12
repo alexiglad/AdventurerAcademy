@@ -43,7 +43,15 @@ public class GameController : MonoBehaviour
     {
         controls.GetControls().Disable();
     }
-
+    public void StartCoroutineTime(float time, Action action)
+    {
+        StartCoroutine(Routine(time, action));
+    }
+    IEnumerator Routine(float time, Action action)
+    {
+        yield return new WaitForSeconds(time);
+        action.Invoke();
+    }
     #region combat
     public void StartCoroutineCC(Action action)
     {

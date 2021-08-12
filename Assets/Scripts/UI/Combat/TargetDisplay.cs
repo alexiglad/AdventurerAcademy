@@ -136,7 +136,7 @@ public class TargetDisplay : MonoBehaviour
         {
             if (charactersWithinRange.Contains(charactere))
             {
-                charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+                charactere.GetComponent<SpriteRenderer>().color = Color.red;
             }
             else
             {
@@ -155,7 +155,7 @@ public class TargetDisplay : MonoBehaviour
         {
             if (movementProcessor.WithinRange(tempRef, charactere, data.Hit.point))
             {
-                charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+                charactere.GetComponent<SpriteRenderer>().color = Color.red;
             }
             else
             {
@@ -177,7 +177,7 @@ public class TargetDisplay : MonoBehaviour
                 {
                     if (movementProcessor.WithinRange(tempRef, charactere, bottom))
                     {
-                        charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+                        charactere.GetComponent<SpriteRenderer>().color = Color.red;
                     }
                     else
                     {
@@ -193,7 +193,7 @@ public class TargetDisplay : MonoBehaviour
                 {
                     if (charactersWithinRange.Contains(charactere))
                     {
-                        charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+                        charactere.GetComponent<SpriteRenderer>().color = Color.red;
                     }
                     else
                     {
@@ -205,7 +205,7 @@ public class TargetDisplay : MonoBehaviour
             }
             else
             {
-                character.GetComponent<SpriteRenderer>().color = Color.blue;
+                character.GetComponent<SpriteRenderer>().color = Color.red;
                 foreach (Character charactere in tempRef.Characters)
                 {
                     if (charactere != character)
