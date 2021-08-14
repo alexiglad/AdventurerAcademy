@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: WitchCharacterData
   m_EditorClassIdentifier: 
   name: Witch
-  maxHealth: 20
+  maxHealth: 1
   maxEnergy: 100
-  maxMovement: 6
+  maxMovement: 8
   moveSpeed: 5
   initiative: 20
   damage: 1
