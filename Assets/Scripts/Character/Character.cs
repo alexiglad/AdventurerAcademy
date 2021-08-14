@@ -68,6 +68,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         if (!inanimate)
         {
             FindObjectOfType<GameController>().AddCharacter(this);
+            //todo figure out less sketchy solution for this as this currently wouldnt work with gamecontrollerso
             enemyAI = new BasicAI();
             agent.enabled = false;
             obstacle.enabled = true;
@@ -75,10 +76,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         interactablesWithinRange = new List<Interactable>();
 
     }
-    private void OnDisable()
-    {
-        //FindObjectOfType<GameController>().RemoveCharacter(this);
-    }
+
     protected void Start()
     {
         //Resets Character's Health,and Energy to maximum on runtime

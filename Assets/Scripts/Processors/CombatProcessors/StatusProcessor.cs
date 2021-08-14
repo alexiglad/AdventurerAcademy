@@ -19,6 +19,7 @@ public class StatusProcessor : ScriptableObject
             foreach (Status status in character.Statuses)
             {
                 Debug.Log(character + " was affected by " + status.StatusEffect);
+                tempRef.AddStatus(new StatusData(status, character));//todo check this works
                 status.TurnsLeft--;
                 if (status.StatusEffect == StatusTypeEnum.Regen)
                 {

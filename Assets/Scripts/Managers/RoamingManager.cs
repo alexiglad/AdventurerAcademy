@@ -14,8 +14,7 @@ public class RoamingManager : GameStateManager
 
     [SerializeField] MovementProcessor movementProcessor;
     [SerializeField] UIHandler uiHandler;
-    GameController gameController;
-    
+    [SerializeField] GameStateManagerSO gameStateManager;    
 
     public Character Character { get => character; set => character = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
@@ -42,7 +41,6 @@ public class RoamingManager : GameStateManager
 
     public override void Start()
     {
-        gameController = FindObjectOfType<GameController>();
         character.Obstacle.enabled = false;
         character.Agent.enabled = true;
         canContinue = true;
@@ -59,7 +57,7 @@ public class RoamingManager : GameStateManager
         DisableRoamingInput();
         movementProcessor.HandleMovement(character, pos - CharacterBottom());
         Action action = () => Interact(interactable);
-        gameController.StartCoroutineCC(action);
+        gameStateManager.GetGameController().StartCoroutineCC(action);
     }
     Vector3 CharacterBottom()
     {

@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameStateSO currentGameState;
     private SortedSet<Character> characters = new SortedSet<Character>();
     [SerializeField] UIHandler uiHandler;
+    [SerializeField] GameControllerSO gameController;
 
     [SerializeField] InputHandler controls;
     //static Controls controls;
@@ -20,9 +21,11 @@ public class GameController : MonoBehaviour
     void OnEnable()
     {
         //temporary code creates combat manager with characters
+        gameController.SetGameController(this);
 
         //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
         currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
+
         controls.ManualAwake();
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;

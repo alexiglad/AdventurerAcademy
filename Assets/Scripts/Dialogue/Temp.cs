@@ -28,7 +28,7 @@ public class Temp : MonoBehaviour
         choiceSelected = null;
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -49,7 +49,7 @@ public class Temp : MonoBehaviour
                 FinishDialogue();
             }
         }
-    }
+    }*/
 
     // Finished the Story (Dialogue)
     private void FinishDialogue()

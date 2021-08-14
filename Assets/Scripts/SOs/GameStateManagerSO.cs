@@ -15,11 +15,8 @@ public class GameStateManagerSO : ScriptableObject
     [SerializeField] CombatManager combatManager;
     [SerializeField] RoamingManager roamingManager;
     [SerializeField] LoadingManager loadingManager;
-    GameController gameController;
-    void OnEnable()
-    {
-        gameController = FindObjectOfType<GameController>();
-    }
+    [SerializeField] GameControllerSO gameController;
+
     public void SetGameStateManager(Type manager)
     {
         Destroy(currentGameStateManager);
@@ -50,24 +47,26 @@ public class GameStateManagerSO : ScriptableObject
         Debug.Log("Switched game state to " + currentGameStateManager.ToString());//Debug
     }
 
-    public GameStateEnum GetCurrentGameState()
-    {
-        return currentGameState.GetGameState();
-    }
-
-    public GameStateManager GetCurrentGameStateManager()
-    {
-        return currentGameStateManager;
-    }
     public void CreateStateInstance(GameStateEnum gameState, SortedSet<Character> characters)
     {
         currentGameState.SetGameState(gameState);
         SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
         GetCurrentGameStateManager().AddCharacters(characters);
         GetCurrentGameStateManager().SetSubstateEnum(SubstateEnum.Default);
-        gameController = FindObjectOfType<GameController>();
-        gameController.StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
+        gameController.GetGameController().StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
         //GetCurrentGameStateManager().Start();
         //controls.ManualAwake();
+    }
+    public GameStateManager GetCurrentGameStateManager()
+    {
+        return currentGameStateManager;
+    }
+    public GameStateEnum GetCurrentGameState()
+    {
+        return currentGameState.GetGameState();
+    }
+    public GameController GetGameController()
+    {
+        return this.gameController.GetGameController();
     }
 }

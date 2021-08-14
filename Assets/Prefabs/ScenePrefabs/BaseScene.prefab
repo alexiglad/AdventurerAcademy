@@ -207,6 +207,7 @@ MonoBehaviour:
   currentGameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
   uiHandler: {fileID: 11400000, guid: 08c25b36159924a45be1c4c3fab99d26, type: 2}
+  gameController: {fileID: 11400000, guid: 35ef75537cd09ae4cacf2a0fda9856ea, type: 2}
   controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
 --- !u!1 &708488510130725706
 GameObject:

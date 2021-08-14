@@ -33,8 +33,7 @@ public class CombatManager : GameStateManager
     List<DamageData> damagedCharacters;
     List<Character> deadCharacters;
 
-
-    GameController gameController;
+    [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] AbilityProcessor abilityProcessorInstance;
     [SerializeField] StatusProcessor statusProcessorInstance;
     [SerializeField] MovementProcessor movementProcesssor;
@@ -73,8 +72,6 @@ public class CombatManager : GameStateManager
         statusQueue = new Queue<StatusData>();
         damagedCharacters = new List<DamageData>();
         deadCharacters = new List<Character>();
-
-        gameController = FindObjectOfType<GameController>();
 
         foreach (Character characterE in characters)
         {
@@ -121,7 +118,7 @@ public class CombatManager : GameStateManager
         
         if (turnFinished || TurnFinished())
         {
-            gameController.StartCoroutineCC(IterateCharacters);
+            gameStateManager.GetGameController().StartCoroutineCC(IterateCharacters);
 
         }
     }
@@ -369,7 +366,7 @@ public class CombatManager : GameStateManager
         if (character == tempCharacter)//i.e. current character is dying get next character
         {
             resetted = true;
-            gameController.StartCoroutineCC(ResetTurn);
+            gameStateManager.GetGameController().StartCoroutineCC(ResetTurn);
             if (enumerator.MoveNext())
             {
                 tempCharacter = enumerator.Current;
@@ -481,7 +478,7 @@ public class CombatManager : GameStateManager
         else if (redoTurnOrder)
         {
             Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
-            gameController.StartCoroutineTOS(0, action);
+            gameStateManager.GetGameController().StartCoroutineTOS(0, action);
             redoTurnOrder = false;
         }
         else
@@ -568,7 +565,7 @@ public class CombatManager : GameStateManager
             {
                 character.Obstacle.enabled = false;
                 if(changed)
-                    gameController.StartCoroutineNMA(FinishIterating, turnOrder);
+                    gameStateManager.GetGameController().StartCoroutineNMA(FinishIterating, turnOrder);
             }
             
         }
@@ -606,7 +603,7 @@ public class CombatManager : GameStateManager
         else
         {
             character.Obstacle.enabled = false;
-            gameController.StartCoroutineNMA(FinishIterating, turnOrder);
+            gameStateManager.GetGameController().StartCoroutineNMA(FinishIterating, turnOrder);
         }
     }
     bool MoreThanOneSideIsAlive()
