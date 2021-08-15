@@ -74,7 +74,7 @@ public class UIHandler : ScriptableObject
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            tempRef.EnableCombatInput();
+            gameStateManager.GetGameController().StartCoroutineTime(1, tempRef.EnableCombatInput);
             //TODO this is temp
         }
     }

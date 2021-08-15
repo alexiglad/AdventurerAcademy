@@ -26,6 +26,7 @@ public class CombatManager : GameStateManager
     bool canContinue;
     bool redoTurnOrder;
     bool resetted;
+    bool initialStatus;
 
     Queue<Vector3> movementQueue;
     Queue<FollowUpData> followUpQueue;
@@ -66,6 +67,7 @@ public class CombatManager : GameStateManager
         canContinue = true;
         redoTurnOrder = false;
         resetted = false;
+        initialStatus = false;
 
         movementQueue = new Queue<Vector3>();
         followUpQueue = new Queue<FollowUpData>();
@@ -97,7 +99,7 @@ public class CombatManager : GameStateManager
         }
 
         uiHandler.EnableCombat();
-        uiHandler.UpdateCombatTurnUI(character);
+        uiHandler.UpdateCombatTurnUI(character);//todo check what happens when enemy starts combat
 
         if (!character.IsPlayer())
         {//only do this if is an enemy
@@ -360,6 +362,10 @@ public class CombatManager : GameStateManager
 
     public void RemoveCharacter(Character character)
     {
+        if (initialStatus)
+        {
+            initialStatus = false;//this is just for handling initial status bug
+        }
         Character tempCharacter = enumerator.Current;
         bool moving = false;
 
@@ -484,7 +490,10 @@ public class CombatManager : GameStateManager
         else
         {
             canContinue = true;
-            uiHandler.DisplayEndTurn();
+            if (character.IsPlayer())
+            {
+                uiHandler.DisplayEndTurn();
+            }
         }
     }
     public void DisableCombatInput()
@@ -551,7 +560,7 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 character = enumerator.Current;
             }
-            statusProcessorInstance.HandleStatuses(character);
+            //statusProcessorInstance.HandleStatuses(character);//CHANGE THIS TO BE AFTER IN FINISH ITERATING
             targeting = false;
             attacked = false;
             hasMovement = true;
@@ -567,29 +576,34 @@ public class CombatManager : GameStateManager
                 if(changed)
                     gameStateManager.GetGameController().StartCoroutineNMA(FinishIterating, turnOrder);
             }
-            
         }
     }
     public void FinishIterating()
     {
         character.Agent.enabled = true;
-        if (!character.IsPlayer())
+        initialStatus = true;
+        statusProcessorInstance.HandleStatuses(character);//todo figure out a way to make this work with following line of code not killing people...
+        if (!initialStatus)
+        {
+            //this means initialStatus was set to false just dont do other conditions
+        }
+        else if (!character.IsPlayer())
         {//only do this if is an enemy
+            initialStatus = false;
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
             UpdateIteration(DetermineEnemyTurn(character), true);
         }
         else
         {
+            initialStatus = false;
             uiHandler.DisplayAbilities();
             uiHandler.DisplayEndTurn();
         }
-
     }
     public void ResetTurn()
     {
         turn = new Turn();
-        statusProcessorInstance.HandleStatuses(character);
         targeting = false;
         attacked = false;
         hasMovement = true;

@@ -9,22 +9,25 @@ public class GameController : MonoBehaviour
 {
 
     [SerializeField] private GameStateManagerSO currentGameStateManager;
-    [SerializeField] private GameStateSO currentGameState;
+    [SerializeField] private GameStateEnum targetGameState;
+
     private SortedSet<Character> characters = new SortedSet<Character>();
     [SerializeField] UIHandler uiHandler;
     [SerializeField] GameControllerSO gameController;
-
     [SerializeField] InputHandler controls;
-    //static Controls controls;
-    //public static Controls Controls { get => controls; set => controls = value; }
+    [SerializeField] CharacterListSO characterList;
+
 
     void OnEnable()
     {
         //temporary code creates combat manager with characters
         gameController.SetGameController(this);
 
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characters);//For testing uncoment to switch to roaming
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);//For testing uncoment to switch to combat 
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characterList.GetCharacters());//For testing uncoment to switch to roaming
+        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characterList.GetCharacters());//For testing uncoment to switch to combat 
+
+        //todo uncomment for actual release
+        //currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());actual code for release
 
         controls.ManualAwake();
         SceneManager.sceneLoaded += OnSceneLoaded;

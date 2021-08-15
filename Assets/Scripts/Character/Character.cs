@@ -12,6 +12,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] private CharacterData characterData;
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] FollowUpProcessor followUpProcessor;
+    [SerializeField] CharacterListSO characterList;
 
 
     [SerializeField] protected float health;
@@ -67,13 +68,14 @@ public class Character : MonoBehaviour, IComparable<Character>
         direction = CardinaDirectionsEnum.South;
         if (!inanimate)
         {
-            FindObjectOfType<GameController>().AddCharacter(this);
+            //FindObjectOfType<GameController>().AddCharacter(this);
+            characterList.AddCharacter(this);
             //todo figure out less sketchy solution for this as this currently wouldnt work with gamecontrollerso
             enemyAI = new BasicAI();
             agent.enabled = false;
             obstacle.enabled = true;
         }
-        interactablesWithinRange = new List<Interactable>();
+        interactablesWithinRange = new List<Interactable>();//todo test removing this
 
     }
 
@@ -151,7 +153,7 @@ public class Character : MonoBehaviour, IComparable<Character>
                 }
             }
             else
-            {
+            {//todo figure out why the hell this is here
                 movementIdleCounter = 0;//todo check for optimization
                 if (animator.GetBool("walking"))
                 {

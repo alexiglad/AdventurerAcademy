@@ -10,8 +10,6 @@ public class GameStateManagerSO : ScriptableObject
 {
     [SerializeField] private GameStateSO currentGameState;
     private GameStateManager currentGameStateManager;
-    //Controls controls;
-    [SerializeField] InputHandler controls;
     [SerializeField] CombatManager combatManager;
     [SerializeField] RoamingManager roamingManager;
     [SerializeField] LoadingManager loadingManager;
@@ -27,14 +25,14 @@ public class GameStateManagerSO : ScriptableObject
                 currentGameStateManager = Instantiate(combatManager);
                 if(SceneManager.GetActiveScene().name != "CombatDemo")//temp code for demo
                 {
-                    SceneManager.LoadScene("CombatDemo");
+                    //SceneManager.LoadScene("CombatDemo");
                 }
                 break;
             case "RoamingManager":
                 currentGameStateManager = Instantiate(roamingManager);
                 if (SceneManager.GetActiveScene().name != "RoamingDemo")//temp code for demo
                 {
-                    SceneManager.LoadScene("RoamingDemo");
+                    //SceneManager.LoadScene("RoamingDemo");
                 }
                 break;
             case "LoadingManager":

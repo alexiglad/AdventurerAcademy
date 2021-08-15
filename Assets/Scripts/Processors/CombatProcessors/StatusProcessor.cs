@@ -20,6 +20,10 @@ public class StatusProcessor : ScriptableObject
             {
                 Debug.Log(character + " was affected by " + status.StatusEffect);
                 tempRef.AddStatus(new StatusData(status, character));//todo check this works
+                if (tempRef.CanContinue)
+                {
+                    tempRef.EnableCombatInput();
+                }
                 status.TurnsLeft--;
                 if (status.StatusEffect == StatusTypeEnum.Regen)
                 {
@@ -80,8 +84,13 @@ public class StatusProcessor : ScriptableObject
         }
         if(gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();//todo determine if this should be displayed differently
             tempRef.AddStatus(new StatusData(status, attackee));
+            Debug.Log(attackee + " was given " + status.StatusEffect + " effect by " + attacker);
+            if (tempRef.CanContinue)
+            {
+                tempRef.EnableCombatInput();
+            }
             followUpProcessorInstance.HandleFollowUpAction(new FollowUpAction(attacker, attackee, status.StatusEffect));
         }
 
