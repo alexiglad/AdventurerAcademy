@@ -102,7 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: dac3971c79c59a449a9e4123da4d209c, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
-  followUpProcessor: {fileID: 0}
+  followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
+  characterList: {fileID: 11400000, guid: fa52f49f11aaa064d81308a75007aa6f, type: 2}
   health: 0
   energy: 0
   inanimate: 0

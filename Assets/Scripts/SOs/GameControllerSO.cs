@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/GameState/GameController")]
 public class GameControllerSO : ScriptableObject

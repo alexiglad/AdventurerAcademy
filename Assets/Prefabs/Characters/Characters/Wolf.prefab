@@ -105,6 +105,7 @@ MonoBehaviour:
   characterData: {fileID: 11400000, guid: 196ab648263513448843271bac04cfb1, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
+  characterList: {fileID: 11400000, guid: fa52f49f11aaa064d81308a75007aa6f, type: 2}
   health: 0
   energy: 0
   inanimate: 0

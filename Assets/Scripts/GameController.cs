@@ -11,16 +11,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameStateManagerSO currentGameStateManager;
     [SerializeField] private GameStateEnum targetGameState;
 
-    private SortedSet<Character> characters = new SortedSet<Character>();
     [SerializeField] UIHandler uiHandler;
     [SerializeField] GameControllerSO gameController;
     [SerializeField] InputHandler controls;
     [SerializeField] CharacterListSO characterList;
 
-
+    #region gamecontroller basic methods
     void OnEnable()
     {
-        //temporary code creates combat manager with characters
         gameController.SetGameController(this);
 
         //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characterList.GetCharacters());//For testing uncoment to switch to roaming
@@ -49,6 +47,9 @@ public class GameController : MonoBehaviour
     {
         controls.GetControls().Disable();
     }
+    #endregion
+
+    #region coroutines
     public void StartCoroutineTime(float time, Action action)
     {
         StartCoroutine(Routine(time, action));
@@ -58,7 +59,6 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(time);
         action.Invoke();
     }
-    #region combat
     public void StartCoroutineCC(Action action)
     {
         StartCoroutine(Routine1(action));
@@ -130,7 +130,6 @@ public class GameController : MonoBehaviour
             Debug.Log("error");
         }
     }
-    #endregion methods
     public void StartCoroutineNMAGravity(Action action, SortedSet<Character> characters)
     {
         StartCoroutine(Routine4(action, characters));
@@ -154,16 +153,5 @@ public class GameController : MonoBehaviour
         }
         action.Invoke();
     }
-
-    public void AddCharacter(Character character)
-    {
-        characters.Add(character);
-        
-    }
-    public void RemoveCharacter(Character character)
-    {
-        characters.Remove(character);
-    }
-
-
+    #endregion methods
 }

@@ -68,15 +68,11 @@ public class Character : MonoBehaviour, IComparable<Character>
         direction = CardinaDirectionsEnum.South;
         if (!inanimate)
         {
-            //FindObjectOfType<GameController>().AddCharacter(this);
             characterList.AddCharacter(this);
-            //todo figure out less sketchy solution for this as this currently wouldnt work with gamecontrollerso
             enemyAI = new BasicAI();
             agent.enabled = false;
             obstacle.enabled = true;
         }
-        interactablesWithinRange = new List<Interactable>();//todo test removing this
-
     }
 
     protected void Start()
@@ -88,21 +84,18 @@ public class Character : MonoBehaviour, IComparable<Character>
         died = false;
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
-        //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
+        interactablesWithinRange = new List<Interactable>();
     }
 
     void LateUpdate()
-    {//TODO add failsafe for movement lasting longer than 10 seconds
+    {
         if (!inanimate)
         {
-            //if(agent.enabled)
-                //Debug.Log("here");
             Vector3 realPos = this.BoxCollider.bounds.center;
             realPos.y -= this.BoxCollider.bounds.size.y / 2;
             if (Vector3.Distance(realPos, agent.destination) <= .2f)
             {
                 movementIdleCounter = 0;
-                //Debug.Log(animator.GetBool("walking") + "" + Vector3.Distance(realPos, agent.destination));
                 if (animator.GetBool("walking"))
                 {
                     moving = false;
@@ -158,7 +151,7 @@ public class Character : MonoBehaviour, IComparable<Character>
                 if (animator.GetBool("walking"))
                 {
                     animator.SetBool("walking", false);
-                    Debug.Log("failsafe activated investigate");
+                    Debug.Log("error please investigate");
                 }
             }
         }
