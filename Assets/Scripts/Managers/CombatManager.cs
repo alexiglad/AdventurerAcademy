@@ -462,13 +462,7 @@ public class CombatManager : GameStateManager
         else if(damagedCharacters.Count > 0)
         {
             DisableCombatInput();
-            foreach (Character character in deadCharacters)
-            {
-                
-                //todo add animation here to decrement health bar and show damage tick on character
-            }
-            damagedCharacters.Clear();
-            EnableCombatInput();//TEMP CODE TODO
+            uiHandler.DisplayDamage(damagedCharacters);
         }
         else if(deadCharacters.Count > 0)
         {

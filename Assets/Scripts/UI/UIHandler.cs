@@ -13,6 +13,7 @@ public class UIHandler : ScriptableObject
     TurnOrderScroll turnOrderScroll;
     GameObject doubleMovement;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
+    ResourceBarUI resourceBarUI;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
@@ -33,6 +34,7 @@ public class UIHandler : ScriptableObject
         doubleMovement.SetActive(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
+
     }
     public void DisableCombat(List<Character> turnOrder)
     {
@@ -77,6 +79,12 @@ public class UIHandler : ScriptableObject
             gameStateManager.GetGameController().StartCoroutineTime(1, tempRef.EnableCombatInput);
             //TODO this is temp
         }
+    }
+    public void DisplayDamage(List<DamageData> damagedCharacters)
+    {
+        //when done execute two lines ot code below
+        //damagedCharacters.Clear();//todo execute both lines of these code at end of animation
+        //EnableCombatInput();//TEMP CODE TODO
     }
     public void UnselectAbilities()
     {
