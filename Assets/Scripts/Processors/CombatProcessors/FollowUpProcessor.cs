@@ -22,7 +22,7 @@ public class FollowUpProcessor : ScriptableObject
                     {//this info is deductible from the IsValid method (whether you are using the attacker/attackee inflicting the followUp
                         Debug.Log("Follow Up triggered: " + followUp);
                         //TODO add code with game controller coroutine
-                        tempRef.AddFollowUp(new FollowUpData(followUp, followUpAction));
+                        tempRef.AddFollowUp(new FollowUpData(followUp, followUpAction, character));
                         followUp.HandleFollowUp(followUpAction);
                         return;
                     }
