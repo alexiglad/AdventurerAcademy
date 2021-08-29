@@ -14,6 +14,7 @@ public class GameStateManagerSO : ScriptableObject
     [SerializeField] RoamingManager roamingManager;
     [SerializeField] LoadingManager loadingManager;
     [SerializeField] GameControllerSO gameController;
+    [SerializeField] GameLoaderSO gameLoader;
 
     public void SetGameStateManager(Type manager)
     {
@@ -23,17 +24,9 @@ public class GameStateManagerSO : ScriptableObject
         {
             case "CombatManager":
                 currentGameStateManager = Instantiate(combatManager);
-                if(SceneManager.GetActiveScene().name != "CombatDemo")//temp code for demo
-                {
-                    //SceneManager.LoadScene("CombatDemo");
-                }
                 break;
             case "RoamingManager":
                 currentGameStateManager = Instantiate(roamingManager);
-                if (SceneManager.GetActiveScene().name != "RoamingDemo")//temp code for demo
-                {
-                    //SceneManager.LoadScene("RoamingDemo");
-                }
                 break;
             case "LoadingManager":
                 currentGameStateManager = Instantiate(loadingManager);
@@ -66,5 +59,9 @@ public class GameStateManagerSO : ScriptableObject
     public GameController GetGameController()
     {
         return this.gameController.GetGameController();
+    }
+    public GameLoader GetGameLoader()
+    {
+        return this.gameLoader.GetGameLoader();
     }
 }

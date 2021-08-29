@@ -22,10 +22,11 @@ public class GameController : MonoBehaviour
         gameController.SetGameController(this);
 
         //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characterList.GetCharacters());//For testing uncoment to switch to roaming
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characterList.GetCharacters());//For testing uncoment to switch to combat 
+        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characterList.GetCharacters());//For testing uncoment to switch to combat 
 
         //todo uncomment for actual release
-        //currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());actual code for release
+        Debug.Log(characterList.GetCharacters().Count);
+        currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
 
         controls.ManualAwake();
         SceneManager.sceneLoaded += OnSceneLoaded;

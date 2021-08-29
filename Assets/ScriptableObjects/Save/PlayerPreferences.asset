@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d51f1bdc62201d48ae16d418828eeee, type: 3}
-  m_Name: Atlas
+  m_Script: {fileID: 11500000, guid: 2f1498d616959ad47a5fe74ea974d76e, type: 3}
+  m_Name: PlayerPreferences
   m_EditorClassIdentifier: 
-  atlas:
-  - {fileID: 11400000, guid: b51fbc497cd2ab642aaf3781376b3f2a, type: 2}

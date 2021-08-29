@@ -7,10 +7,7 @@ public class LoadingManager : GameStateManager
 {
     public SortedSet<Character> characters = new SortedSet<Character>();
     private IEnumerator<Character> enumerator;
-    public void Update()
-    {
 
-    }
 
     public override void SetSubstateEnum(SubstateEnum state)
     {
