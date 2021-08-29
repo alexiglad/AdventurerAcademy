@@ -485,7 +485,7 @@ public class CombatManager : GameStateManager
         {
             canContinue = true;
             if (character.IsPlayer())
-            {
+            {//do i need to disable/enable input too?, todo
                 uiHandler.DisplayEndTurn();
             }
         }
@@ -642,7 +642,15 @@ public class CombatManager : GameStateManager
 
     void EndBattle(bool won)
     {
-        FindObjectOfType<CombatOver>().TriggerEvent(won);//TODO fix this dont use FOT
+        //FindObjectOfType<CombatOver>().TriggerEvent(won);//TODO fix this dont use FOT
+        if (won)
+        {
+            gameStateManager.GetGameLoader().LoadSceneAfterCombatWin();
+        }
+        else
+        {
+            gameStateManager.GetGameLoader().LoadSceneAfterCombatLoss();
+        }
     }
     public void CombatAbility(object sender, AbilityEventArgs e)
     {

@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: ec566384496fe1647be32dd53bdb28e6, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 924925e681ca89e4d8b613657e221ec3, type: 2}
 --- !u!1 &63286923
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +230,7 @@ PrefabInstance:
     - target: {fileID: -3013305404596136447, guid: b12d0da77338f2c419ae5c20a43eb65e, type: 3}
       propertyPath: interactions.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: bdff7842073320d438a5502e9b23ebb7, type: 2}
+      objectReference: {fileID: 11400000, guid: 88ed45346f4aa054c85b3a39f50d983f, type: 2}
     - target: {fileID: 1543021609543664917, guid: b12d0da77338f2c419ae5c20a43eb65e, type: 3}
       propertyPath: m_Name
       value: VillagerMan
@@ -269,7 +269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3964024669912533535, guid: b12d0da77338f2c419ae5c20a43eb65e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.8
+      value: -3.698
       objectReference: {fileID: 0}
     - target: {fileID: 3964024669912533535, guid: b12d0da77338f2c419ae5c20a43eb65e, type: 3}
       propertyPath: m_LocalPosition.y

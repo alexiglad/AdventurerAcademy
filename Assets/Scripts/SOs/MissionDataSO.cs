@@ -58,6 +58,7 @@ public class MissionDataSO : ScriptableObject
     public Sprite Image { get => image; set => image = value; }
     public float DimWidth { get => dimWidth; set => dimWidth = value; }
     public float DimHeight { get => dimHeight; set => dimHeight = value; }
+    public string Name { get => name; set => name = value; }
 
     /*Stores Map data(How to unlock location, missions tied to it 
     (Combat, roaming, etc^), ending weight data upon completion/failure^, mapstatus: 
