@@ -5,14 +5,28 @@ using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
-    [SerializeField] bool isHealth;
     [SerializeField] bool findCharacterInParent;
+
     [SerializeField] float currentValue;
     [SerializeField] float maxValue;
-    
+    [SerializeField] BarType barType;
+
     Character character;
     Image bar;
+    float fillAmmount;
 
+    public float CurrentValue { get => currentValue;}
+    public float MaxValue { get => maxValue;}
+    private BarType BarType1 { get => barType;}
+
+    private enum BarType
+    {
+        health,
+        stamina,
+        healthBack,
+        staminaBack
+    }
+    
     void Start()
     {
         bar = transform.GetComponent<Image>();
@@ -24,27 +38,35 @@ public class ResourceBarUI : MonoBehaviour
         }                   
     }
 
-    void UpdateValues()
+    public void UpdateValues()
     {
-        if (isHealth)
+        switch (barType)
         {
-            currentValue = character.GetHealth();
-            maxValue = character.GetMaxHealth();
+            case (BarType.health):
+                currentValue = character.GetHealth();
+                maxValue = character.GetMaxHealth();
+                break;
+
+            case (BarType.stamina):
+                currentValue = character.GetEnergy();
+                maxValue = character.GetMaxEnergy();
+                break;
+
+            case (BarType.healthBack):
+                currentValue = character.GetHealth();
+                maxValue = character.GetMaxHealth();
+                break;
         }
-        else
-        {
-            currentValue = character.GetEnergy();
-            maxValue = character.GetMaxEnergy();
-        }
+        fillAmmount = bar.fillAmount;
     }
 
     void Update()
     {
-        UpdateValues();
-        SetSize(currentValue / maxValue); 
+        //UpdateValues();
+        //SetSize(currentValue / maxValue); 
     }
 
-    void SetSize(float sizeNormalized)
+    public void SetSize(float sizeNormalized)
     {
         bar.fillAmount = sizeNormalized;
     }
