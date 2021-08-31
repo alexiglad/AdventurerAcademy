@@ -1,7 +1,94 @@
 fileFormatVersion: 2
 guid: 0ad2a8d4ad265b845a20e8c7d3c42074
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4795565633593364574
+    second: witchSheet2_0
+  - first:
+      213: 3396916680557498681
+    second: witchSheet2_1
+  - first:
+      213: 4369783628587230029
+    second: witchSheet2_2
+  - first:
+      213: -5357123287497305983
+    second: witchSheet2_3
+  - first:
+      213: 6402779352921856646
+    second: witchSheet2_4
+  - first:
+      213: 57814641038019547
+    second: witchSheet2_5
+  - first:
+      213: -908216483161696497
+    second: witchSheet2_6
+  - first:
+      213: -8937696545298271396
+    second: witchSheet2_7
+  - first:
+      213: 8057104375361387301
+    second: witchSheet2_8
+  - first:
+      213: -825312964894162642
+    second: witchSheet2_9
+  - first:
+      213: 7050277391714589270
+    second: witchSheet2_10
+  - first:
+      213: 4201139752276702043
+    second: witchSheet2_11
+  - first:
+      213: -422539679976108816
+    second: witchSheet2_12
+  - first:
+      213: 642901438651606520
+    second: witchSheet2_13
+  - first:
+      213: -2583847139021669153
+    second: witchSheet2_14
+  - first:
+      213: -2361265758214766554
+    second: witchSheet2_15
+  - first:
+      213: 280774905049122498
+    second: witchSheet2_16
+  - first:
+      213: 139158061565406802
+    second: witchRW1
+  - first:
+      213: 6013008602868972018
+    second: witchRW2
+  - first:
+      213: -7707853235235152798
+    second: witchRW3
+  - first:
+      213: 5395471656243472225
+    second: witchRW4
+  - first:
+      213: -8200452855419887354
+    second: witchRW5
+  - first:
+      213: -775883513609582191
+    second: witchRW6
+  - first:
+      213: 175307716357298635
+    second: witchRE1
+  - first:
+      213: 5909837702583009044
+    second: witchRE2
+  - first:
+      213: 2775127714488732612
+    second: witchRE3
+  - first:
+      213: -2734772134610773834
+    second: witchRE4
+  - first:
+      213: -7475413282782200791
+    second: witchRE5
+  - first:
+      213: -8421045255368166741
+    second: witchRE6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +128,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,9 +162,630 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: witchSheet2_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 656
+        width: 106
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e50576729854d8240800000000000000
+      internalID: 4795565633593364574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_1
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 654
+        width: 109
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9319a3c29b5442f20800000000000000
+      internalID: 3396916680557498681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_2
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 657
+        width: 102
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43624fde0794ac30800000000000000
+      internalID: 4369783628587230029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_3
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 658
+        width: 109
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18010c6d0cca7a5b0800000000000000
+      internalID: -5357123287497305983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_4
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 655
+        width: 102
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68adc1ae5ed3bd850800000000000000
+      internalID: 6402779352921856646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_5
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 650
+        width: 107
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdb43e51c166dc000800000000000000
+      internalID: 57814641038019547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_6
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 509
+        width: 63
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f071ef5abed5563f0800000000000000
+      internalID: -908216483161696497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_7
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 506
+        width: 69
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c53b243985ce6f380800000000000000
+      internalID: -8937696545298271396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_8
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 509
+        width: 67
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52b39a3bdb590df60800000000000000
+      internalID: 8057104375361387301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_9
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 504
+        width: 108
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2185fa2b36eb84f0800000000000000
+      internalID: -825312964894162642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_10
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 502
+        width: 88
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65a9d1d0fed97d160800000000000000
+      internalID: 7050277391714589270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_11
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 503
+        width: 89
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b53b93a98527d4a30800000000000000
+      internalID: 4201139752276702043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_12
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 503
+        width: 89
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fc44875666d22af0800000000000000
+      internalID: -422539679976108816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_13
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 503
+        width: 88
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f5aa64c37b0ce800800000000000000
+      internalID: 642901438651606520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_14
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 361
+        width: 75
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdc34b487b4542cd0800000000000000
+      internalID: -2583847139021669153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_15
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 360
+        width: 74
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 620c05dad491b3fd0800000000000000
+      internalID: -2361265758214766554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchSheet2_16
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 358
+        width: 68
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c60c4dd94385e300800000000000000
+      internalID: 280774905049122498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRW1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 217
+        width: 153
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25eec3b05836ee100800000000000000
+      internalID: 139158061565406802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRW2
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 216
+        width: 163
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f97f5d477f727350800000000000000
+      internalID: 6013008602868972018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRW3
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 215
+        width: 153
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26c96fc0254380590800000000000000
+      internalID: -7707853235235152798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRW4
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 215
+        width: 153
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 167a41a82e090ea40800000000000000
+      internalID: 5395471656243472225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRW5
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 215
+        width: 164
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6012c5b6393223e80800000000000000
+      internalID: -8200452855419887354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRW6
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 215
+        width: 153
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19908302e028b35f0800000000000000
+      internalID: -775883513609582191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRE1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 57
+        width: 153
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc99cdf6071de6200800000000000000
+      internalID: 175307716357298635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRE2
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 57
+        width: 165
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41fbbae2416f30250800000000000000
+      internalID: 5909837702583009044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRE3
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 57
+        width: 153
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cb417cf3fb338620800000000000000
+      internalID: 2775127714488732612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRE4
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 57
+        width: 153
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b853e6ab332c0ad0800000000000000
+      internalID: -2734772134610773834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRE5
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 56
+        width: 165
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92cb78ac93ff14890800000000000000
+      internalID: -7475413282782200791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchRE6
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 53
+        width: 153
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba2ba44f4ff622b80800000000000000
+      internalID: -8421045255368166741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

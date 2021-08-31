@@ -17,6 +17,8 @@ public class ResourceBarUI : MonoBehaviour
     float lerpTime = 3f;
     float timeElapsed = 0f;
 
+    GameStateManagerSO gameStateManagerSO;
+
     public float CurrentValue { get => currentValue;}
     public float MaxValue { get => maxValue;}
     private BarType BarType1 { get => barType;}
@@ -87,7 +89,6 @@ public class ResourceBarUI : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("ran 3");
                     bar.fillAmount = sizeNormalized;
                     this.timeElapsed = 0;
                 }
