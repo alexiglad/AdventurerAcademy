@@ -14,6 +14,8 @@ public class ResourceBarUI : MonoBehaviour
     Character character;
     Image bar;
     float fillAmmount;
+    float lerpTime = 3f;
+    float timeElapsed = 0f;
 
     public float CurrentValue { get => currentValue;}
     public float MaxValue { get => maxValue;}
@@ -62,13 +64,60 @@ public class ResourceBarUI : MonoBehaviour
 
     void Update()
     {
-        //UpdateValues();
-        //SetSize(currentValue / maxValue); 
+        UpdateValues();
+        SetSize(currentValue / maxValue); 
     }
 
     public void SetSize(float sizeNormalized)
     {
-        bar.fillAmount = sizeNormalized;
+        if (barType == BarType.health)
+        {
+            if (bar.fillAmount > sizeNormalized)
+            {
+                bar.fillAmount = sizeNormalized;
+            }
+
+            if (bar.fillAmount < sizeNormalized)
+            {
+                if (timeElapsed < lerpTime)
+                {
+                    bar.fillAmount = sizeNormalized / (this.timeElapsed / lerpTime);
+                    timeElapsed += 1 * Time.deltaTime;
+                    Debug.Log(this.timeElapsed);
+                }
+                else
+                {
+                    Debug.Log("ran 3");
+                    bar.fillAmount = sizeNormalized;
+                    this.timeElapsed = 0;
+                }
+            }            
+        }
+
+        if (barType == BarType.healthBack)
+        {
+            if (bar.fillAmount > sizeNormalized)
+            {
+                bar.color = Color.gray;
+                if (this.timeElapsed < lerpTime)
+                {
+                    bar.fillAmount = sizeNormalized / (this.timeElapsed / lerpTime);
+                    this.timeElapsed += 1 * Time.deltaTime;
+                }
+                else
+                {
+                    bar.fillAmount = sizeNormalized;
+                    this.timeElapsed = 0;
+                }
+            }
+
+            if (bar.fillAmount < sizeNormalized)
+            {
+                Debug.Log("ran back");
+                bar.color = Color.green;
+                bar.fillAmount = sizeNormalized;
+            }
+        }
     }
 
     public void SetCharacter(Character value)
