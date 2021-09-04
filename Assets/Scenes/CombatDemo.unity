@@ -3101,15 +3101,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2572056638451985829, guid: f54d79c4a2f83a34bb2a38642f6a9925, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2572056638786421958, guid: f54d79c4a2f83a34bb2a38642f6a9925, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2572056639653088987, guid: f54d79c4a2f83a34bb2a38642f6a9925, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8081136467704814330, guid: f54d79c4a2f83a34bb2a38642f6a9925, type: 3}
       propertyPath: m_IsActive

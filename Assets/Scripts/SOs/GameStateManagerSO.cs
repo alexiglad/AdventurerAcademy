@@ -14,7 +14,7 @@ public class GameStateManagerSO : ScriptableObject
     [SerializeField] RoamingManager roamingManager;
     [SerializeField] LoadingManager loadingManager;
     [SerializeField] GameControllerSO gameController;
-    [SerializeField] GameLoaderSO gameLoader;
+    [SerializeField] GameLoader gameLoader;
 
     public void SetGameStateManager(Type manager)
     {
@@ -46,7 +46,7 @@ public class GameStateManagerSO : ScriptableObject
         GetCurrentGameStateManager().SetSubstateEnum(SubstateEnum.Default);
         gameController.GetGameController().StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
         //GetCurrentGameStateManager().Start();
-        //controls.ManualAwake();
+        //controls.ManualAwake(); 
     }
     public GameStateManager GetCurrentGameStateManager()
     {
@@ -62,6 +62,6 @@ public class GameStateManagerSO : ScriptableObject
     }
     public GameLoader GetGameLoader()
     {
-        return this.gameLoader.GetGameLoader();
+        return this.gameLoader;
     }
 }

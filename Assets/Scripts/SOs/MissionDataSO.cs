@@ -35,6 +35,7 @@ public class MissionDataSO : ScriptableObject
     //if the mission is failed then do -1?? determine this
     //TODO discuss this idea with cedric
 
+    int pos;
     [SerializeField] string[] subscenes;//this is all the subscenes associated with the mission
     //to complete a mission a user must go through all the subscenes if this array has size 0 once
     //they complete the original mission scene they are finished
@@ -59,6 +60,7 @@ public class MissionDataSO : ScriptableObject
     public float DimWidth { get => dimWidth; set => dimWidth = value; }
     public float DimHeight { get => dimHeight; set => dimHeight = value; }
     public string Name { get => name; set => name = value; }
+    public int Pos { get => pos; set => pos = value; }
 
     /*Stores Map data(How to unlock location, missions tied to it 
     (Combat, roaming, etc^), ending weight data upon completion/failure^, mapstatus: 

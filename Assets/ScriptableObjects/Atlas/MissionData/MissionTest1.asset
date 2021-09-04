@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423ae8d9c9c05f945b4b0370704a4df7, type: 3}
   m_Name: MissionTest1
   m_EditorClassIdentifier: 
-  name: CombatDemo
+  name: Tutorial
   mapStatus: 0
   numRequisites: 0
   unlocks: []
   endingWeight: {x: 0, y: 0, z: 0}
   subscenes:
+  - CombatDemo
   - RoamingDemo
   mapLocation: {x: 0, y: 0, z: 0}
   image: {fileID: 0}

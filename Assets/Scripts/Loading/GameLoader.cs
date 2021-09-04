@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameLoader : MonoBehaviour
+[CreateAssetMenu(fileName = "GameLoader", menuName = "ScriptableObjects/Loading/GameLoader")]
+
+public class GameLoader : ScriptableObject
 {
     [SerializeField] PlayerData playerData;
     [SerializeField] PlayerPreferences playerPreferences;
-    [SerializeField] GameLoaderSO gameLoader;
     [SerializeField] CharacterListSO characterList;
     [SerializeField] GameControllerSO gameController;
     string scene;
-    int pos;//figure out a better way to do this todo
 
-    private void Start()
+    public void ManualStart()
     {
-        gameLoader.SetGameLoader(this);
-
         //has to dynamically assign player data and player preferences
 
 
@@ -30,18 +28,17 @@ public class GameLoader : MonoBehaviour
         if(playerData.CurrentMission != null)
         {
             //load current mission
-            //LoadScene(playerData.CurrentMission.name);
-            SceneManager.LoadSceneAsync(playerData.CurrentMission.Name);
-            SetCurrentScene(playerData.CurrentMission.Name);
+            LoadScene(playerData.CurrentMission.name);
         }
         else
         {
             //load default which is home 
-            SceneManager.LoadSceneAsync("Home");
-            SetCurrentScene("Home");
-
-            //SceneManager.LoadSceneAsync("CombatDemo"); this is for playtesting can load whichever scene you want initially
+            LoadScene("home");
         }
+    }
+    public void SetCurrentScene(string sceneName)
+    {
+        scene = sceneName;
     }
     public void LoadMission(string mission)
     {
@@ -49,53 +46,51 @@ public class GameLoader : MonoBehaviour
         {
             if (missionn.Name.Equals(mission))
             {
+                missionn.Pos = 0;//TEMP
                 playerData.CurrentMission = missionn;
+                LoadScene(missionn.Subscenes[missionn.Pos]);
                 break;
             }
         }
-        LoadScene(mission);
-        //SceneManager.LoadSceneAsync(mission);
-    }
-    public void SetCurrentScene(string sceneName)
-    {
-        scene = sceneName;
     }
     public void LoadMission(MissionDataSO mission)
     {
         playerData.CurrentMission = mission;
-        LoadScene(mission.Name);
-        //SceneManager.LoadSceneAsync(mission.Name);
+        LoadScene(mission.Subscenes[mission.Pos]);
     }
     void LoadScene(string sceneName)
     {
         characterList.ResetList();
         SceneManager.LoadSceneAsync(sceneName);
+        //todo figure out how to use code below
         //SceneManager.UnloadSceneAsync(scene);
-        SetCurrentScene(sceneName);
+        //SetCurrentScene(sceneName);
     }
-    public void LoadSceneAfterCombatWin()
+    #region combat/roaming context loading
+    public void LoadSceneAfterCombatLoss()
+    {//needs to go to default place or maybe home? decide at meeting todo and also determine if need to reset pos
+        LoadScene("home");
+        //todo implement punishment system here
+    }
+    public void LoadNextSubscene()
     {//needs to check current mission and if it is done then go to map otherwise load next scene in mission
-        Debug.Log("here");
-        if(playerData.CurrentMission.Subscenes.Length > pos)
+        playerData.CurrentMission.Pos++;
+        if (playerData.CurrentMission.Subscenes.Length > playerData.CurrentMission.Pos)
         {
-            LoadScene(playerData.CurrentMission.Subscenes[pos]);
-            pos++;
+            LoadScene(playerData.CurrentMission.Subscenes[playerData.CurrentMission.Pos]);
         }
         else
         {
             FinishMission();
         }
     }
-    public void LoadSceneAfterCombatLoss()
-    {//needs to go to default place or maybe home? decide at meeting todo and also determine if need to reset pos
-
-    }
+    #endregion
+    #region post missions
     public void FinishMission()
     {
-        pos = 0;
         playerData.CurrentMission.MapStatus = MapStatusEnum.Completed;
         UnlockMissions();
-
+        playerData.CurrentMission = null;
         //todo queue map screen here
         Debug.Log("need to queue map");
     }
@@ -113,4 +108,5 @@ public class GameLoader : MonoBehaviour
             }
         }
     }
+    #endregion
 }

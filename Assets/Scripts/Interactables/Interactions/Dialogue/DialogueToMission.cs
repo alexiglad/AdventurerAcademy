@@ -10,6 +10,6 @@ public class DialogueToMission : Interaction
     public override void HandleInteraction()
     {
         Debug.Log("Initiated dialogue to mission here");
-        gameStateManager.GetGameLoader().LoadMission("CombatDemo");
+        gameStateManager.GetGameLoader().LoadMission("Tutorial");
     }
 }

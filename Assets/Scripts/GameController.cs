@@ -25,7 +25,6 @@ public class GameController : MonoBehaviour
         //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characterList.GetCharacters());//For testing uncoment to switch to combat 
 
         //todo uncomment for actual release
-        Debug.Log(characterList.GetCharacters().Count);
         currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
 
         controls.ManualAwake();

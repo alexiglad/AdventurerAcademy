@@ -19,8 +19,12 @@ public class CharacterListSO : ScriptableObject
     {
         this.characters.Add(character);
     }
-    public void ResetList()//todo call this on loading manager
+    public void ResetList()
     {
+        foreach(Character character in characters)
+        {
+            character.ResetCharacter();
+        }
         characters.Clear();
     }
 }

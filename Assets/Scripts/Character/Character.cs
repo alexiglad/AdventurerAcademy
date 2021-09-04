@@ -196,6 +196,11 @@ public class Character : MonoBehaviour, IComparable<Character>
         characterBottom.y -= this.BoxCollider.bounds.size.y / 2;
         return characterBottom;
     }
+    public void ResetCharacter()
+    {
+        //todo determine other functionality of this method
+        this.statuses.Clear();
+    }
     public void Dead(){
         //create event?
         if (died)

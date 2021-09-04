@@ -27,6 +27,7 @@ public class CombatManager : GameStateManager
     bool redoTurnOrder;
     bool resetted;
     bool initialStatus;
+    bool battleEnded;
 
     Queue<Vector3> movementQueue;
     Queue<FollowUpData> followUpQueue;
@@ -68,6 +69,7 @@ public class CombatManager : GameStateManager
         redoTurnOrder = false;
         resetted = false;
         initialStatus = false;
+        battleEnded = false;
 
         movementQueue = new Queue<Vector3>();
         followUpQueue = new Queue<FollowUpData>();
@@ -438,9 +440,8 @@ public class CombatManager : GameStateManager
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
-            Debug.Log("Battle Ended!");
-            uiHandler.DisableCombat(turnOrder);
-            EndBattle(character.IsPlayer());//if true is a win if false is a loss
+            Debug.Log("Battle Over!");
+            battleEnded = true;
         }
     }
     public void EnableCombatInput()
@@ -480,6 +481,11 @@ public class CombatManager : GameStateManager
             Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
             gameStateManager.GetGameController().StartCoroutineTOS(0, action);
             redoTurnOrder = false;
+        }
+        else if (battleEnded)
+        {
+            uiHandler.DisableCombat(turnOrder);
+            EndBattle(DidUserWin());
         }
         else
         {
@@ -636,16 +642,22 @@ public class CombatManager : GameStateManager
         }
         return false;
     }
+    bool DidUserWin()
+    {
+        IEnumerator<Character> enumerator;
+        enumerator = characters.GetEnumerator();
+        enumerator.MoveNext();
+        return enumerator.Current.IsPlayer();
+    }
     #endregion
 
     #region Event Listeners
 
     void EndBattle(bool won)
     {
-        //FindObjectOfType<CombatOver>().TriggerEvent(won);//TODO fix this dont use FOT
         if (won)
         {
-            gameStateManager.GetGameLoader().LoadSceneAfterCombatWin();
+            gameStateManager.GetGameLoader().LoadNextSubscene();
         }
         else
         {

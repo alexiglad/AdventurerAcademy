@@ -9,6 +9,7 @@ public class MovementProcessor : ScriptableObject
 {
     [SerializeField] FollowUpProcessor followUpProcessor;
     [SerializeField] protected GameStateManagerSO gameStateManager;
+    readonly float threshold = 1;
 
 
     public void HandleMovement(Character character, Vector3 movement)
@@ -21,32 +22,38 @@ public class MovementProcessor : ScriptableObject
         Vector3 characterBottom = character.BoxCollider.bounds.center;
         characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
         character.Agent.SetDestination(movement + characterBottom);
-        if (character.IsPlayer())//TEMPORARY BUG FIX TODO
+
+        if(Mathf.Abs(movement.x) >= Mathf.Abs(movement.z))
         {
-            if(Mathf.Abs(movement.x) >= Mathf.Abs(movement.z))
-            {
-                if(movement.x >= 0)
-                {//east
-                    character.Direction = CardinaDirectionsEnum.East;
-                }
-                else
-                {//west
-                    character.Direction = CardinaDirectionsEnum.West;
-                }
+            if(movement.x >= 0)
+            {//east
+                character.Direction = CardinaDirectionsEnum.East;
             }
             else
-            {
-                if (movement.z >= 0)
-                {//north
-                    character.Direction = CardinaDirectionsEnum.North;
-                }
-                else
-                {//south
-                    character.Direction = CardinaDirectionsEnum.South;
-                }
+            {//west
+                character.Direction = CardinaDirectionsEnum.West;
             }
-            character.Animator.SetFloat("moveX", movement.x);
-            character.Animator.SetFloat("moveZ", movement.z);
+        }
+        else
+        {
+            if (movement.z >= 0)
+            {//north
+                character.Direction = CardinaDirectionsEnum.North;
+            }
+            else
+            {//south
+                character.Direction = CardinaDirectionsEnum.South;
+            }
+        }
+        character.Animator.SetFloat("moveX", movement.x);
+        character.Animator.SetFloat("moveZ", movement.z);
+        if(movement.magnitude >= threshold)
+        {
+            //character.Animator.SetBool("running", true); uncomment this when all running animations are implemented
+            character.Animator.SetBool("walking", true);//temp
+        }
+        else
+        {
             character.Animator.SetBool("walking", true);
         }
 
