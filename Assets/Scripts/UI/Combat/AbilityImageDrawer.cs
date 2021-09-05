@@ -28,9 +28,6 @@ public class AbilityImageDrawer : MonoBehaviour
             {
                 abilityImage = child.GetComponent<Image>();
                 abilityTransform = child.GetComponent<RectTransform>();
-            }
-            if(child.gameObject.name.Equals("AbilityImage"))
-            {
                 abilityCanvas = child.GetComponent<CanvasGroup>();
             }
             if (child.gameObject.name.Equals("Background"))
@@ -40,7 +37,7 @@ public class AbilityImageDrawer : MonoBehaviour
         }
     }
 
-    public bool PlayAnimation()
+    public void PlayAnimation()
     {
         backgroundCanvas.alpha = 0;
         abilityCanvas.alpha = 0;
@@ -65,7 +62,6 @@ public class AbilityImageDrawer : MonoBehaviour
         }
 
         StartCoroutine(Deactivate());
-        return true;
     }
     
     IEnumerator Deactivate()

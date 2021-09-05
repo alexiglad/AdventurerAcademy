@@ -10,6 +10,7 @@ public class UIHandler : ScriptableObject
     AbilityButtonClicked onAbilityButtonClicked;
     FinishTurnButtonClicked onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
+    FollowUpAnimationDrawer followUpAnimationDrawer;
     TurnOrderScroll turnOrderScroll;
     GameObject doubleMovement;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
@@ -26,6 +27,7 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
+        followUpAnimationDrawer = FindObjectOfType<FollowUpAnimationDrawer>();
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
@@ -64,12 +66,12 @@ public class UIHandler : ScriptableObject
     }
     public void DisplayFollowUp(FollowUpData followUp)
     {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            gameStateManager.GetGameController().StartCoroutineTime(1, tempRef.EnableCombatInput);
-            //TODO this is temp
-        }
+        followUpAnimationDrawer.SetAnimationSprites(followUp.FollowUp.Sprites);
+        followUpAnimationDrawer.SetScale(followUp.FollowUp.ScaleX, followUp.FollowUp.ScaleY);
+        followUpAnimationDrawer.SetPosition(followUp.FollowUp.PosX, followUp.FollowUp.PosY);
+        followUpAnimationDrawer.SetLength(followUp.FollowUp.GetAnimationLength());
+        followUpAnimationDrawer.SetFrameRate(followUp.FollowUp.FrameRate);
+        followUpAnimationDrawer.PlayAnimation();
     }
     public void DisplayStatus(StatusData status)
     {

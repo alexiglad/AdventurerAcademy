@@ -19,22 +19,27 @@ public abstract class FollowUp : ScriptableObject
 
 
     /*image stuff here with sprite sheet*/
-    [SerializeField] float dimWidth;
-    [SerializeField] float dimHeight;
-    [SerializeField] float startX;
-    [SerializeField] float startY;
-    [SerializeField] Sprite icon;
-    [SerializeField] Sprite image;
+    [SerializeField] float scaleX;
+    [SerializeField] float scaleY;
+    [SerializeField] float posX;
+    [SerializeField] float posY;
+    [SerializeField] float frameRate;
+    [SerializeField] List<Sprite> followUpFrames;
 
     public FollowUpTypeEnum FollowUpType { get => followUpType; set => followUpType = value; }
     public float Damage { get => damage; set => damage = value; }
     public float Range { get => range; set => range = value; }
-    public float DimWidth { get => dimWidth; set => dimWidth = value; }
-    public float DimHeight { get => dimHeight; set => dimHeight = value; }
-    public float StartX { get => startX; set => startX = value; }
-    public float StartY { get => startY; set => startY = value; }
-    public Sprite Icon { get => icon; set => icon = value; }
-    public Sprite Image { get => image; set => image = value; }
+    public float ScaleX { get => scaleX;}
+    public float ScaleY { get => scaleY;}
+    public float PosX { get => posX;}
+    public float PosY { get => posY;}
+    public List<Sprite> Sprites { get => followUpFrames;}
+    public float FrameRate { get => frameRate;}
+
+    public float GetAnimationLength()
+    {
+        return frameRate * followUpFrames.Count;
+    }
 
     public abstract bool IsValid(FollowUpAction followUpAction, Character character);
     public abstract void HandleFollowUp(FollowUpAction followUpAction);

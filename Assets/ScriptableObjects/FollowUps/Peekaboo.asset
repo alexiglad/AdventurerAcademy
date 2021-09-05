@@ -15,4 +15,20 @@ MonoBehaviour:
   abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
   statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
+  gameStateManager: {fileID: 0}
   followUpType: 0
+  damage: 20
+  range: 6
+  scaleX: 0.25
+  scaleY: 0.25
+  posX: -40
+  posY: -11
+  frameRate: 0.2
+  followUpFrames:
+  - {fileID: 21300000, guid: 947a2b8074cf943429441e488ad78cb4, type: 3}
+  - {fileID: 21300000, guid: f5d8895616da8284cb5b35b442c03f96, type: 3}
+  - {fileID: 21300000, guid: f50a784f8f7d4f548ad222aa253dfd36, type: 3}
+  - {fileID: 21300000, guid: 1de20cd314b61924fbcee99f10c4f5d9, type: 3}
+  - {fileID: 21300000, guid: 4df1e549908528d44b62d85c0b7b492e, type: 3}
+  - {fileID: 21300000, guid: 0616ec95af5f3fa46aae55a89b67cf7a, type: 3}
+  - {fileID: 21300000, guid: 913c36abf3cac8e4db6d22256db86e74, type: 3}

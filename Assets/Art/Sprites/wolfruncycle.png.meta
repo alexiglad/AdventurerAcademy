@@ -1,61 +1,55 @@
 fileFormatVersion: 2
-guid: ffd33eb716cd0be4084fb3385752eca1
+guid: d21fe07b205abd343b63f4a1a7bfdce6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3000928403870722768
-    second: lavawolfSpriteSheet_0
+      213: 5215633313447410859
+    second: LavaWolfRunWest1
   - first:
-      213: 7233888492929025285
-    second: lavawolfSpriteSheet_1
+      213: 1277963985599326983
+    second: LavaWolfRunWest2
   - first:
-      213: -836079283780277242
-    second: lavawolfSpriteSheet_2
+      213: -7560218816006228535
+    second: LavaWolfRunWest3
   - first:
-      213: -6045913558783834890
-    second: lavawolfSpriteSheet_3
+      213: 4108007505438245607
+    second: LavaWolfRunWest4
   - first:
-      213: 4131570731314379805
-    second: lavawolfSpriteSheet_4
+      213: 5463337945111720238
+    second: LavaWolfRunWest5
   - first:
-      213: 2167378314950697792
-    second: lavawolfSpriteSheet_5
+      213: 3086118017799134506
+    second: LavaWolfRunWest6
   - first:
-      213: 1224340024591935623
-    second: lavawolfSpriteSheet_6
+      213: -1479386103739404052
+    second: LavaWolfRunWest7
   - first:
-      213: 3448015607542790248
-    second: lavawolfSpriteSheet_7
+      213: 3941795870401709622
+    second: LavaWolfRunWest8
   - first:
-      213: -2047329867024371949
-    second: lavawolfSpriteSheet_8
+      213: 4769077641119810305
+    second: LavaWolfRunEast1
   - first:
-      213: -5081887128402098743
-    second: lavawolfSpriteSheet_9
+      213: -7002012627375540891
+    second: LavaWolfRunEast2
   - first:
-      213: 1030781966290043799
-    second: lavawolfSpriteSheet_10
+      213: -6957490825359287654
+    second: LavaWolfRunEast3
   - first:
-      213: 3326322047769271770
-    second: lavawolfSpriteSheet_11
+      213: 5685843338343411402
+    second: LavaWolfRunEast4
   - first:
-      213: -4660325582316328940
-    second: lavawolfSpriteSheet_12
+      213: -8315649625719535284
+    second: LavaWolfRunEast5
   - first:
-      213: 3752676258327123708
-    second: lavawolfSpriteSheet_13
+      213: 5005206308631283390
+    second: LavaWolfRunEast6
   - first:
-      213: 4887181702625141028
-    second: lavawolfSpriteSheet_14
+      213: 9098726629315475916
+    second: LavaWolfRunEast7
   - first:
-      213: 4802183182796054505
-    second: lavawolfSpriteSheet_15
-  - first:
-      213: 8738777960377016733
-    second: lavawolfSpriteSheet_16
-  - first:
-      213: 2056346819112179601
-    second: lavawolfSpriteSheet_17
+      213: 8165892211762671537
+    second: LavaWolfRunEast8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -145,379 +139,337 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_0
+      name: LavaWolfRunWest1
       rect:
         serializedVersion: 2
-        x: 7
-        y: 407
+        x: 21
+        y: 503
+        width: 137
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bacf9be6dd6a16840800000000000000
+      internalID: 5215633313447410859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LavaWolfRunWest2
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 495
+        width: 135
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70be365597d3cb110800000000000000
+      internalID: 1277963985599326983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LavaWolfRunWest3
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 509
+        width: 139
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c579b7ea05b41790800000000000000
+      internalID: -7560218816006228535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LavaWolfRunWest4
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 503
         width: 129
-        height: 74
+        height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0da2815db7075a920800000000000000
-      internalID: 3000928403870722768
+      spriteID: 7e20940af03920930800000000000000
+      internalID: 4108007505438245607
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_1
+      name: LavaWolfRunWest5
       rect:
         serializedVersion: 2
-        x: 147
-        y: 406
-        width: 126
-        height: 79
+        x: 27
+        y: 396
+        width: 129
+        height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50502dde14fe36460800000000000000
-      internalID: 7233888492929025285
+      spriteID: e21fb424aeca1db40800000000000000
+      internalID: 5463337945111720238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_2
+      name: LavaWolfRunWest6
       rect:
         serializedVersion: 2
-        x: 288
-        y: 402
-        width: 117
-        height: 88
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 60ca6363256a564f0800000000000000
-      internalID: -836079283780277242
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: lavawolfSpriteSheet_3
-      rect:
-        serializedVersion: 2
-        x: 449
+        x: 192
         y: 397
-        width: 117
-        height: 88
+        width: 122
+        height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f4c8f1a6a9981ca0800000000000000
-      internalID: -6045913558783834890
+      spriteID: a2d99d97cf714da20800000000000000
+      internalID: 3086118017799134506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_4
+      name: LavaWolfRunWest7
       rect:
         serializedVersion: 2
-        x: 10
-        y: 311
+        x: 354
+        y: 399
         width: 126
-        height: 79
+        height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1cf46ca0b9465930800000000000000
-      internalID: 4131570731314379805
+      spriteID: ce0b6f04d2a287be0800000000000000
+      internalID: -1479386103739404052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_5
+      name: LavaWolfRunWest8
       rect:
         serializedVersion: 2
-        x: 159
-        y: 311
-        width: 117
-        height: 88
+        x: 517
+        y: 390
+        width: 124
+        height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 043658c1813141e10800000000000000
-      internalID: 2167378314950697792
+      spriteID: 6364568a57214b630800000000000000
+      internalID: 3941795870401709622
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_6
+      name: LavaWolfRunEast1
       rect:
         serializedVersion: 2
-        x: 445
-        y: 302
-        width: 126
-        height: 79
+        x: 30
+        y: 229
+        width: 137
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 788681af3cabdf010800000000000000
-      internalID: 1224340024591935623
+      spriteID: 1034431d8da2f2240800000000000000
+      internalID: 4769077641119810305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_7
+      name: LavaWolfRunEast2
       rect:
         serializedVersion: 2
-        x: 11
-        y: 159
-        width: 64
-        height: 123
+        x: 197
+        y: 229
+        width: 135
+        height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 868379b3defc9df20800000000000000
-      internalID: 3448015607542790248
+      spriteID: 5653b781d9ad3de90800000000000000
+      internalID: -7002012627375540891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_8
+      name: LavaWolfRunEast3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 157
-        width: 54
-        height: 145
+        x: 367
+        y: 234
+        width: 139
+        height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31fe6f9455c6693e0800000000000000
-      internalID: -2047329867024371949
+      spriteID: a9a9b6ae4f6027f90800000000000000
+      internalID: -6957490825359287654
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_9
+      name: LavaWolfRunEast4
       rect:
         serializedVersion: 2
-        x: 180
-        y: 156
-        width: 54
-        height: 143
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c586fae4928979b0800000000000000
-      internalID: -5081887128402098743
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: lavawolfSpriteSheet_10
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 152
-        width: 54
-        height: 145
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 793c89dacb21e4e00800000000000000
-      internalID: 1030781966290043799
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: lavawolfSpriteSheet_11
-      rect:
-        serializedVersion: 2
-        x: 447
-        y: 206
+        x: 529
+        y: 226
         width: 129
-        height: 73
+        height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: add56d16748792e20800000000000000
-      internalID: 3326322047769271770
+      spriteID: aceea7e246c28ee40800000000000000
+      internalID: 5685843338343411402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_12
+      name: LavaWolfRunEast5
       rect:
         serializedVersion: 2
-        x: 24
-        y: 12
-        width: 47
-        height: 125
+        x: 34
+        y: 108
+        width: 129
+        height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 418ae580392335fb0800000000000000
-      internalID: -4660325582316328940
+      spriteID: c49806e39b0e89c80800000000000000
+      internalID: -8315649625719535284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_13
+      name: LavaWolfRunEast6
       rect:
         serializedVersion: 2
-        x: 95
-        y: 18
-        width: 49
-        height: 118
+        x: 203
+        y: 106
+        width: 122
+        height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf651a6ac2f241430800000000000000
-      internalID: 3752676258327123708
+      spriteID: eb603857e90167540800000000000000
+      internalID: 5005206308631283390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_14
+      name: LavaWolfRunEast7
       rect:
         serializedVersion: 2
-        x: 171
-        y: 17
-        width: 46
-        height: 120
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 421a2c97dd1c2d340800000000000000
-      internalID: 4887181702625141028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: lavawolfSpriteSheet_15
-      rect:
-        serializedVersion: 2
-        x: 342
-        y: 20
-        width: 54
-        height: 143
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9efd9e46928c4a240800000000000000
-      internalID: 4802183182796054505
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: lavawolfSpriteSheet_16
-      rect:
-        serializedVersion: 2
-        x: 456
-        y: 111
+        x: 377
+        y: 108
         width: 126
-        height: 79
+        height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d91e8434140664970800000000000000
-      internalID: 8738777960377016733
+      spriteID: cc97cb889ab254e70800000000000000
+      internalID: 9098726629315475916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lavawolfSpriteSheet_17
+      name: LavaWolfRunEast8
       rect:
         serializedVersion: 2
-        x: 463
-        y: 12
-        width: 117
-        height: 88
+        x: 542
+        y: 110
+        width: 124
+        height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1979f28798c998c10800000000000000
-      internalID: 2056346819112179601
+      spriteID: 1bf2e3ca3b3135170800000000000000
+      internalID: 8165892211762671537
       vertices: []
       indices: 
       edges: []
