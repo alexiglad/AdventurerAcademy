@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &886612757933620969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4122527114167732189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 230743dd3261531458a13db1ef1a0765, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  findCharacterInParent: 0
-  currentValue: 0
-  maxValue: 0
-  barType: 0
 --- !u!1 &886612759130849362
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,7 +23,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &886612759130849365
 Transform:
   m_ObjectHideFlags: 0
@@ -48,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886612759130849362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.38, y: 1.31, z: -6.83}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 3540195377583447432}
@@ -118,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7930216a9b4714cb5fbbb96d9b07b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterID: 0
   characterData: {fileID: 11400000, guid: ad87a412b0d398b498f643966c90a4f5, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
@@ -224,6 +209,22 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &886612757933620969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122527114167732189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230743dd3261531458a13db1ef1a0765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findCharacterInParent: 0
+  currentValue: 0
+  maxValue: 0
+  barType: 0
 --- !u!1001 &886612757933620964
 PrefabInstance:
   m_ObjectHideFlags: 0

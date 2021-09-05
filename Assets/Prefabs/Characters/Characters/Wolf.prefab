@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6174382709882193808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.491, y: 1.505, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5808658113107602728}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b92deb91a79b2b84d8b2f5f0a2f4f4e8, type: 3}
+  m_Sprite: {fileID: -8807766702337073260, guid: 8daac719a92de434b9c9eb086fb4ec25, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7930216a9b4714cb5fbbb96d9b07b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterID: 0
   characterData: {fileID: 11400000, guid: 196ab648263513448843271bac04cfb1, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
@@ -148,10 +149,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.44
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 3
+  m_Acceleration: 6
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 90
   m_StoppingDistance: 0.09
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -199,7 +200,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6174382709882193808}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.485, y: 0.36, z: 0.1}
@@ -220,10 +221,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230743dd3261531458a13db1ef1a0765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHealth: 1
   findCharacterInParent: 1
   currentValue: 0
   maxValue: 0
+  barType: 0
 --- !u!1001 &7922063381943094852
 PrefabInstance:
   m_ObjectHideFlags: 0

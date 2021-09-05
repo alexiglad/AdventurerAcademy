@@ -15,21 +15,53 @@ public class GameController : MonoBehaviour
     [SerializeField] GameControllerSO gameController;
     [SerializeField] InputHandler controls;
     [SerializeField] CharacterListSO characterList;
+    [SerializeField] Vector3[] characterPositions;
+    [SerializeField] PlayerData playerData;
+    [SerializeField] GameObject[] playerPrefabs;//this stores all the prefabs for all characters to create dynamically
 
     #region gamecontroller basic methods
     void OnEnable()
     {
         gameController.SetGameController(this);
 
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, characterList.GetCharacters());//For testing uncoment to switch to roaming
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characterList.GetCharacters());//For testing uncoment to switch to combat 
-
-        //todo uncomment for actual release
-        currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
-
         controls.ManualAwake();
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+        if (characterPositions.Length == 0)
+        {
+            Debug.Log("ERROR PLEASE ADD POSITIONS");
+            currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
+            return;
+        }
+        int pos = 0;
+        if (characterPositions.Length == 0)
+        {
+            Debug.Log("please add positions on gamecontroller for characters to spawn");
+        }
+        foreach (CharacterIDEnum name in playerData.MissionCharacters)
+        {
+            if (pos >= characterPositions.Length)
+            {
+                Debug.Log("possible error tried to add to many characters to given scene");
+            }
+            foreach (GameObject prefab in playerPrefabs)
+            {
+                if (prefab.GetComponent<Player>().CharacterID == name)
+                {
+                    GameObject go = Instantiate(prefab, characterPositions[pos], Quaternion.identity);
+                    Character character = go.GetComponent<Character>();
+                    characterList.AddCharacter(character);
+                    character.ManualAwake();
+                    break;//breaks out of currrent foreach loop bc found equivalent prefab
+                }
+            }
+            pos++;
+        }
+
+
+        //todo uncomment for actual release
+        currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
     }
     private void OnDisable()
     {

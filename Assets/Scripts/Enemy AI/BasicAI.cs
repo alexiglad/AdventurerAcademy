@@ -13,6 +13,11 @@ public class BasicAI
 
         //selecting character
         List<Character> players = new List<Character>();
+        if(players.Count == 0)
+        {
+            Debug.Log("ERROR NO USERS!");
+            return null;
+        }
         foreach (Character characterE in combatManager.Characters)
         {
             if (characterE.IsPlayer())

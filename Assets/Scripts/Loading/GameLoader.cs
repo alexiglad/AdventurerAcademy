@@ -17,9 +17,13 @@ public class GameLoader : ScriptableObject
     {
         //has to dynamically assign player data and player preferences
 
+        //TEMP code for adding characters... would normally be determined by map and given mission and player choice
+        playerData.MissionCharacters.Clear();
+        playerData.MissionCharacters.Add(CharacterIDEnum.Lilia);
+        playerData.MissionCharacters.Add(CharacterIDEnum.Tengari);
 
         //also has to setup everything according to the data in playerdata/playerpreferences
-
+        //temp code is to add bird prefab and witch prefab to character list for mission
 
         LoadMissionOnStart();
     }

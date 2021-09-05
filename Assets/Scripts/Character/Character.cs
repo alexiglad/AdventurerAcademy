@@ -8,13 +8,14 @@ public class Character : MonoBehaviour, IComparable<Character>
 {
     #region Local Variables
 
+
     [SerializeField] private BasicAI enemyAI;
     [SerializeField] private CharacterData characterData;
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] FollowUpProcessor followUpProcessor;
     [SerializeField] CharacterListSO characterList;
 
-
+     
     [SerializeField] protected float health;
     [SerializeField] protected float energy;    
     private bool revived;
@@ -60,7 +61,18 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return this.characterData.GetName();
     }
+    public void ManualAwake()
+    {
+        //this.Awake();
+        this.gameObject.SetActive(true);
+        agent = transform.GetComponent<NavMeshAgent>();
+        obstacle = transform.GetComponent<NavMeshObstacle>();
+        direction = CardinaDirectionsEnum.South;
+        agent.enabled = false;
+        obstacle.enabled = true;
 
+        this.Start();
+    }
     private void Awake()
     {
         agent = transform.GetComponent<NavMeshAgent>();

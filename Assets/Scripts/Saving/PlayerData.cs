@@ -21,6 +21,8 @@ public class PlayerData : ScriptableObject
     //need default player stats/abilities
     List<Player> playerList;//this stores all interactions from player - player
     //default interactions will all be 0
+    List<CharacterIDEnum> missionCharacters;//this stores all characters on a given mission, if there is no mission
+    //this should be null
 
 
 
@@ -52,4 +54,5 @@ public class PlayerData : ScriptableObject
     public float EndingDeterminer { get => endingDeterminer; set => endingDeterminer = value; }
     public int DaysLeft { get => daysLeft; set => daysLeft = value; }
     public MissionDataSO CurrentMission { get => currentMission; set => currentMission = value; }
+    public List<CharacterIDEnum> MissionCharacters { get => missionCharacters; set => missionCharacters = value; }
 }
