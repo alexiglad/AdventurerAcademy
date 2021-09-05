@@ -108,10 +108,10 @@ public class Character : MonoBehaviour, IComparable<Character>
             if (Vector3.Distance(realPos, agent.destination) <= .2f)
             {
                 movementIdleCounter = 0;
-                if (animator.GetBool("walking"))
+                if (animator.GetBool("moving"))
                 {
                     moving = false;
-                    animator.SetBool("walking", false);
+                    StopMoving();
                     if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
                     {
                         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
@@ -139,7 +139,7 @@ public class Character : MonoBehaviour, IComparable<Character>
                     if (movementIdleCounter > 1000)//figure this number out
                     {
                         movementIdleCounter = 0;
-                        animator.SetBool("walking", false);
+                        StopMoving();
                         agent.SetDestination(CharacterBottom());
 
                         Debug.Log("ERROR failsafe activated please investigate");
@@ -160,9 +160,9 @@ public class Character : MonoBehaviour, IComparable<Character>
             else
             {//todo figure out why the hell this is here
                 movementIdleCounter = 0;//todo check for optimization
-                if (animator.GetBool("walking"))
+                if (animator.GetBool("moving"))
                 {
-                    animator.SetBool("walking", false);
+                    StopMoving();
                     Debug.Log("error please investigate");
                 }
             }
@@ -194,6 +194,23 @@ public class Character : MonoBehaviour, IComparable<Character>
         else
         {
             //Debug.Log("error occcured");
+        }
+    }
+    void StopMoving()
+    {
+        animator.SetBool("moving", false);
+
+        if (animator.GetBool("walking"))
+        {
+            animator.SetBool("walking", false);
+        }
+        else if(animator.GetBool("running"))
+        {
+            animator.SetBool("running", false);
+        }
+        else
+        {
+            Debug.Log("Error please investigate");
         }
     }
     bool IsStationary()

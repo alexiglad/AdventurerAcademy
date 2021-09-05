@@ -75,7 +75,7 @@ public class TargetDisplay : MonoBehaviour
                     DisplayPointsWithinRange(tempRef);
                 }
             }
-            else if(data.HitBool && tempRef.Attacked && tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement && tempRef.Character.Animator.GetBool("walking"))
+            else if(data.HitBool && tempRef.Attacked && tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement && tempRef.Character.Animator.GetBool("moving"))
             {
                 line.positionCount = 0;
                 DisplayActivePath(tempRef.Character);

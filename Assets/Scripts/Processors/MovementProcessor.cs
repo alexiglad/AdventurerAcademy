@@ -47,10 +47,10 @@ public class MovementProcessor : ScriptableObject
         }
         character.Animator.SetFloat("moveX", movement.x);
         character.Animator.SetFloat("moveZ", movement.z);
-        if(movement.magnitude >= threshold)
+        character.Animator.SetBool("moving", true);
+        if (!character.IsPlayer() || movement.magnitude >= threshold)
         {
-            //character.Animator.SetBool("running", true); uncomment this when all running animations are implemented
-            character.Animator.SetBool("walking", true);//temp
+            character.Animator.SetBool("running", true);
         }
         else
         {
