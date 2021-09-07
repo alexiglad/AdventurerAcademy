@@ -7,8 +7,8 @@ public class ResourceBarUI : MonoBehaviour
 {
     [SerializeField] bool findCharacterInParent;
 
-    [SerializeField] float currentValue;
-    [SerializeField] float maxValue;
+    [SerializeField] float currentValue = 1; //Default Value
+    [SerializeField] float maxValue = 1; //Default Value
     [SerializeField] BarType barType;
 
     Character character;
@@ -44,23 +44,24 @@ public class ResourceBarUI : MonoBehaviour
 
     public void UpdateValues()
     {
-        switch (barType)
-        {
-            case (BarType.health):
-                currentValue = character.GetHealth();
-                maxValue = character.GetMaxHealth();
-                break;
+        if(character != null)
+            switch (barType)
+            {
+                case (BarType.health):
+                    currentValue = character.GetHealth();
+                    maxValue = character.GetMaxHealth();
+                    break;
 
-            case (BarType.stamina):
-                currentValue = character.GetEnergy();
-                maxValue = character.GetMaxEnergy();
-                break;
+                case (BarType.stamina):
+                    currentValue = character.GetEnergy();
+                    maxValue = character.GetMaxEnergy();
+                    break;
 
-            case (BarType.healthBack):
-                currentValue = character.GetHealth();
-                maxValue = character.GetMaxHealth();
-                break;
-        }
+                case (BarType.healthBack):
+                    currentValue = character.GetHealth();
+                    maxValue = character.GetMaxHealth();
+                    break;
+            }
         fillAmmount = bar.fillAmount;
     }
 

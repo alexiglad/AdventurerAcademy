@@ -5,10 +5,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class AbilityButtonClicked : MonoBehaviour
+public class AbilityButton : MonoBehaviour
 {
     //these are created programmatically for each button 
     public event EventHandler<AbilityEventArgs> OnAbilityButtonClicked;
+    public event EventHandler<AbilityEventArgs> OnAbilityButtonHover;
+
+    bool hovering = false;
 
 
 
@@ -20,7 +23,6 @@ public class AbilityButtonClicked : MonoBehaviour
 
     public void ManualAwake()
     {
-
         Button[] buttons = gameObject.GetComponentsInChildren<Button>();
         for (int i = 0; i < abilityButtons.Length; i++)
         {
@@ -82,7 +84,41 @@ public class AbilityButtonClicked : MonoBehaviour
                 abilityButtons[i].GetComponent<Image>().color = Color.white;
             }
         }
-        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos]));
+        OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos], true));
     }
 
+    public void OnAbilityButtonEnter(int pos)
+    {
+        for (int i = 0; i < abilityButtons.Length; i++)
+        {
+            if (i == pos)
+            {
+                abilityButtons[i].GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                abilityButtons[i].GetComponent<Image>().color = Color.white;
+            }
+        }
+        hovering = true;
+        StartCoroutine(StartHover(pos));
+    }
+
+    public void OnAbilityButtonExit(int pos)
+    {
+        if (hovering)
+        {
+            StopCoroutine(StartHover(pos));
+        }        
+        abilityButtons[pos].GetComponent<Image>().color = Color.white;        
+    }
+
+    IEnumerator StartHover(int pos)
+    {
+        yield return new WaitForSeconds(.5f);
+        if (hovering)
+        {
+            OnAbilityButtonHover?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos], false));
+        }        
+    }
 }

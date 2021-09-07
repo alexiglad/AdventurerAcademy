@@ -334,7 +334,6 @@ GameObject:
   - component: {fileID: 6816506508567528681}
   - component: {fileID: 1417744766521609574}
   - component: {fileID: 1223765569564362679}
-  - component: {fileID: 2519768550586165802}
   m_Layer: 5
   m_Name: ResourcesBar
   m_TagString: UI
@@ -402,18 +401,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2519768550586165802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5026401599774593432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3966f3e560239854db33b65d902429dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8799233474222793428
 GameObject:
   m_ObjectHideFlags: 0
