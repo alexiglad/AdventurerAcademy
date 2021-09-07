@@ -666,7 +666,7 @@ public class CombatManager : GameStateManager
     }
     public void CombatAbility(object sender, AbilityEventArgs e)
     {
-        if (UpdateAbility(e.NewAbility))
+        if (UpdateAbility(e.NewAbility) && e.Selected)
         {
             Turn turnUpdate = new Turn(e.NewAbility);
             UpdateIteration(turnUpdate, false) ;
@@ -676,7 +676,7 @@ public class CombatManager : GameStateManager
     {
         if (UpdateAbility(null))
         {
-            AbilityEventArgs e = new AbilityEventArgs(null);
+            AbilityEventArgs e = new AbilityEventArgs(null, false);
             Turn turnUpdate = new Turn(e.NewAbility);
             UpdateIteration(turnUpdate, false);
         }

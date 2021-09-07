@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIHandler : ScriptableObject
 {    
-    AbilityButtonClicked onAbilityButtonClicked;
+    AbilityButton abilityButton;
     FinishTurnButtonClicked onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
     FollowUpAnimationDrawer followUpAnimationDrawer;
@@ -15,6 +15,7 @@ public class UIHandler : ScriptableObject
     GameObject doubleMovement;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
     ResourceBarUI resourceBarUI;
+    HoverHandler hoverHandler;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
@@ -22,16 +23,18 @@ public class UIHandler : ScriptableObject
 
     public void EnableCombat()
     {
-        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//get these for all buttons/UI
-        onAbilityButtonClicked.ManualAwake();
+        abilityButton = FindObjectOfType<AbilityButton>();//get these for all buttons/UI
+        abilityButton.ManualAwake();
         onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
         followUpAnimationDrawer = FindObjectOfType<FollowUpAnimationDrawer>();
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
+        hoverHandler = FindObjectOfType<HoverHandler>();
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
-        onAbilityButtonClicked.OnAbilityButtonClicked += tempRef.CombatAbility;
+        abilityButton.OnAbilityButtonClicked += tempRef.CombatAbility;
+        abilityButton.OnAbilityButtonHover += hoverHandler.DisplayAbilityHover;
         doubleMovement = GameObject.Find("DoubleMovement");
         doubleMovement.SetActive(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
@@ -40,17 +43,21 @@ public class UIHandler : ScriptableObject
     }
     public void DisableCombat(List<Character> turnOrder)
     {
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         StopDisplayingAbilities();
         StopDisplayingEndTurn();
         StopDisplayingTurnOrder(turnOrder);
         doubleMovement.SetActive(false);
-
+        //Unsubscribe From Events
+        onFinishTurnButtonClicked.OnFinishTurnButtonClicked -= tempRef.FinishTurn;
+        abilityButton.OnAbilityButtonClicked -= tempRef.CombatAbility;
+        abilityButton.OnAbilityButtonHover -= hoverHandler.DisplayAbilityHover;
     }
 
     #region combatUI
     public void UpdateCombatTurnUI(Character character)
     {
-        onAbilityButtonClicked.UpdateAbilities(character);
+        abilityButton.UpdateAbilities(character);
         abilityBarWidthAdjuster.DrawAbilityBar();
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
@@ -97,7 +104,7 @@ public class UIHandler : ScriptableObject
     }
     public void UnselectAbilities()
     {
-        onAbilityButtonClicked.UnselectAbilities();
+        abilityButton.UnselectAbilities();
     }
     public void DisplayDoubleMovement(bool doubleM)
     {
@@ -120,7 +127,7 @@ public class UIHandler : ScriptableObject
     }
     public void StopDisplayingAbilities()
     {
-        onAbilityButtonClicked.StopDisplaying();
+        abilityButton.StopDisplaying();
     }
     public void DisplayEndTurn()
     {
@@ -128,7 +135,7 @@ public class UIHandler : ScriptableObject
     }
     public void DisplayAbilities()
     {
-        onAbilityButtonClicked.Display();
+        abilityButton.Display();
     }
     public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {
