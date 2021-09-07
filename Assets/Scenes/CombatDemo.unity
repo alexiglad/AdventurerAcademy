@@ -4195,6 +4195,7 @@ GameObject:
   - component: {fileID: 729834421060730103}
   - component: {fileID: 3630787814281579143}
   - component: {fileID: 4176126629028370824}
+  - component: {fileID: 4377352800839363426}
   m_Layer: 0
   m_Name: HealthBarBack
   m_TagString: Untagged
@@ -4202,6 +4203,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4377352800839363426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4377352800839363425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230743dd3261531458a13db1ef1a0765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findCharacterInParent: 0
+  currentValue: 1
+  maxValue: 1
+  barType: 0
 --- !u!1001 &4777444853349962567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4612,6 +4629,7 @@ GameObject:
   - component: {fileID: 6417940281790204292}
   - component: {fileID: 670888799427255713}
   - component: {fileID: 1439983290720332236}
+  - component: {fileID: 8813017356941362417}
   m_Layer: 0
   m_Name: HealthBarFill
   m_TagString: Untagged
@@ -4619,3 +4637,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8813017356941362417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813017356941362416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230743dd3261531458a13db1ef1a0765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findCharacterInParent: 0
+  currentValue: 1
+  maxValue: 1
+  barType: 0
