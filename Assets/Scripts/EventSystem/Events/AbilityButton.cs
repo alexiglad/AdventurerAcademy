@@ -11,9 +11,7 @@ public class AbilityButton : MonoBehaviour
     public event EventHandler<AbilityEventArgs> OnAbilityButtonClicked;
     public event EventHandler<AbilityEventArgs> OnAbilityButtonHover;
 
-    bool hovering = false;
-
-
+    List<Coroutine> runningCorutines = new List<Coroutine>();
 
     private GameObject[] abilityButtons = new GameObject[5];
     private List<Ability> abilityButtonAbilities = new List<Ability>();
@@ -100,25 +98,19 @@ public class AbilityButton : MonoBehaviour
                 abilityButtons[i].GetComponent<Image>().color = Color.white;
             }
         }
-        hovering = true;
-        StartCoroutine(StartHover(pos));
+        runningCorutines.Add(StartCoroutine(StartHover(pos)));
     }
 
     public void OnAbilityButtonExit(int pos)
-    {
-        if (hovering)
-        {
-            StopCoroutine(StartHover(pos));
-        }        
+    {           
+        StopCoroutine(runningCorutines[0]);
+        runningCorutines.RemoveAt(0);
         abilityButtons[pos].GetComponent<Image>().color = Color.white;        
     }
 
     IEnumerator StartHover(int pos)
     {
         yield return new WaitForSeconds(.5f);
-        if (hovering)
-        {
-            OnAbilityButtonHover?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos], false));
-        }        
+        OnAbilityButtonHover?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos], false));
     }
 }
