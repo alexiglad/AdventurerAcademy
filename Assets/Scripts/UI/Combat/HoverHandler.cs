@@ -23,7 +23,7 @@ class HoverHandler : MonoBehaviour
     {
         if (e.NewAbility != null && !e.Selected)
         {
-            Debug.Log("Hovering Over: " + e.NewAbility.name + "Button");
+            //Debug.Log("Hovering Over: " + e.NewAbility.name + "Button");
         }
     }
 
@@ -31,7 +31,7 @@ class HoverHandler : MonoBehaviour
     {
         if(character != null)
         {
-            Debug.Log("Hovering Over: " + character.GetName());
+            //Debug.Log("Hovering Over: " + character.GetName());
         }
     }
 }

@@ -44,8 +44,6 @@ public class BasicAI
         }
         else
         {
-            character.Animator.SetBool("moving", true);//todo figure out if this line of code is necessary
-            character.Animator.SetBool("running", true);
             Vector3 direction = target.transform.position - character.transform.position;
             direction.y -= DetermineDifferenceInHeights(target, character);
             //TODO finish evening out heights (need cedric to make it so gravity works at start)
