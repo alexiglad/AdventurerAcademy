@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7283104556426953154}
   m_Layer: 5
   m_Name: AbilityImageHandler
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,9 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b4f46dfef3c69441b81bb425c266ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundTargatAlpha: 0
-  fadeInTime: 0
-  imageAnimationTime: 0
+  backgroundTargatAlpha: 0.7
+  fadeInTime: 0.5
+  fadeOutTime: 0.5
+  imageAnimationTime: 1
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!1 &7283104557425222818
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,7 +69,7 @@ GameObject:
   - component: {fileID: 7283104557425222820}
   m_Layer: 5
   m_Name: AbilityImage
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,15 +83,15 @@ RectTransform:
   m_GameObject: {fileID: 7283104557425222818}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.38, y: 0.38, z: 1}
   m_Children: []
   m_Father: {fileID: 7283104556426953153}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 699.99994, y: 349.99997}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -40.12, y: -11.1}
+  m_SizeDelta: {x: 1900, y: 1400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7283104557425222822
 CanvasRenderer:
@@ -139,7 +141,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 0
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &7283104557725183343
 GameObject:
@@ -155,7 +157,7 @@ GameObject:
   - component: {fileID: 7283104557725183249}
   m_Layer: 5
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,7 +179,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 699.99994, y: 349.99997}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7283104557725183251
 CanvasRenderer:
@@ -227,5 +229,5 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 0
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0

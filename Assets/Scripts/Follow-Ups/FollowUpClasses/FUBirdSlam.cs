@@ -1,20 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FUBirdSlam")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/BirdSlam")]
 ///Birb picks up a knocked opponent (if an opponent is knocked) and flies 
 ///them into the air then body slams them
 ///
 public class FUBirdSlam : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(15f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
+        damage = 15;
+        range = 1;
     }
 
 
@@ -34,7 +30,7 @@ public class FUBirdSlam : FollowUp
     }
     public override void HandleFollowUp(FollowUpAction followUpAction)
     {
-        abilityProcessor.Damage(followUpAction.Attackee, damage.GetFloatValue());
+        abilityProcessor.Damage(followUpAction.Attackee, damage);
 
         FollowUpFollowUp(followUpAction);
     }

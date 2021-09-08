@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: RoamingManager
   m_EditorClassIdentifier: 
   movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
+  uiHandler: {fileID: 11400000, guid: 08c25b36159924a45be1c4c3fab99d26, type: 2}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}

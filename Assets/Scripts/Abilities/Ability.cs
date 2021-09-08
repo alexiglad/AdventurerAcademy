@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 [Serializable]
-[CreateAssetMenu(menuName = "ScriptableObjects/Ability/Ability")]
 public class Ability : ScriptableObject
 {  
     [SerializeField] protected AbilityProcessor abilityProcessor;

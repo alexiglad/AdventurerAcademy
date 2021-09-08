@@ -8,21 +8,28 @@ public class Character : MonoBehaviour, IComparable<Character>
 {
     #region Local Variables
 
+
     [SerializeField] private BasicAI enemyAI;
     [SerializeField] private CharacterData characterData;
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] FollowUpProcessor followUpProcessor;
+    [SerializeField] CharacterListSO characterList;
 
-
+     
     [SerializeField] protected float health;
     [SerializeField] protected float energy;    
     private bool revived;
     private bool died;
+    private bool unstable;
+    private bool moving;
+    Vector3 lastPos;
+    int movementIdleCounter;
     [SerializeField] private bool inanimate;
     private Character voodooTarget;
     
 
     Animator animator;
+    CardinaDirectionsEnum direction;
 
     BoxCollider boxCollider;
 
@@ -30,7 +37,10 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
-    
+
+    List<Interactable> interactablesWithinRange;
+
+
     public BasicAI EnemyAI { get => enemyAI; set => enemyAI = value; }    
     public List<Status> Statuses { get => statuses; set => statuses = value; }
     public NavMeshAgent Agent { get => agent; set => agent = value; }
@@ -40,6 +50,10 @@ public class Character : MonoBehaviour, IComparable<Character>
     public Character VoodooTarget { get => voodooTarget; set => voodooTarget = value; }
     public bool Inanimate { get => inanimate; set => inanimate = value; }
     public NavMeshObstacle Obstacle { get => obstacle; set => obstacle = value; }
+    public CardinaDirectionsEnum Direction { get => direction; set => direction = value; }
+    public List<Interactable> InteractablesWithinRange { get => interactablesWithinRange; set => interactablesWithinRange = value; }
+    public bool Unstable { get => unstable; set => unstable = value; }
+    public bool Moving { get => moving; set => moving = value; }
 
     #endregion
 
@@ -47,27 +61,32 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return this.characterData.GetName();
     }
-    public void Update()
+    public void ManualAwake()
     {
-        
+        //this.Awake();
+        this.gameObject.SetActive(true);
+        agent = transform.GetComponent<NavMeshAgent>();
+        obstacle = transform.GetComponent<NavMeshObstacle>();
+        direction = CardinaDirectionsEnum.South;
+        agent.enabled = false;
+        obstacle.enabled = true;
+
+        this.Start();
     }
-    private void OnEnable()
+    private void Awake()
     {
         agent = transform.GetComponent<NavMeshAgent>();
         obstacle = transform.GetComponent<NavMeshObstacle>();
+        direction = CardinaDirectionsEnum.South;
         if (!inanimate)
         {
-            FindObjectOfType<GameController>().AddCharacter(this);
+            characterList.AddCharacter(this);
             enemyAI = new BasicAI();
             agent.enabled = false;
             obstacle.enabled = true;
         }
+    }
 
-    }
-    private void OnDisable()
-    {
-        //FindObjectOfType<GameController>().RemoveCharacter(this);
-    }
     protected void Start()
     {
         //Resets Character's Health,and Energy to maximum on runtime
@@ -77,7 +96,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         died = false;
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
-        //damage.SetFloatValue(damage.GetFloatValue() + Mathf.Round(Random.Range(-1*damageRange.GetFloatValue(), +1*damageRange.GetFloatValue())));
+        interactablesWithinRange = new List<Interactable>();
     }
 
     void LateUpdate()
@@ -88,8 +107,11 @@ public class Character : MonoBehaviour, IComparable<Character>
             realPos.y -= this.BoxCollider.bounds.size.y / 2;
             if (Vector3.Distance(realPos, agent.destination) <= .2f)
             {
-                if (animator.GetBool("walking")){
-                    animator.SetBool("walking", false);
+                movementIdleCounter = 0;
+                if (animator.GetBool("moving"))
+                {
+                    moving = false;
+                    StopMoving();
                     if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
                     {
                         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
@@ -98,19 +120,116 @@ public class Character : MonoBehaviour, IComparable<Character>
                             tempRef.EnableCombatInput();
                         }
                     }
+                    else if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(RoamingManager))
+                    {
+                        RoamingManager tempRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+                        if (this == tempRef.Character)
+                        {
+                            tempRef.EnableRoamingInput();
+                        }
+                    }
                 }
-                
+
+            }
+            else if (agent.enabled)
+            {
+                if (IsStationary())
+                {
+                    movementIdleCounter++;
+                    if (movementIdleCounter > 1000)//figure this number out
+                    {
+                        movementIdleCounter = 0;
+                        StopMoving();
+                        agent.SetDestination(CharacterBottom());
+
+                        Debug.Log("ERROR failsafe activated please investigate");
+                        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+                        {
+                            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                            tempRef.EnableCombatInput();
+                        }
+                    }
+                }
+                else
+                {
+                    movementIdleCounter = 0;
+                    moving = true;
+                    followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
+                }
             }
             else
-            {
-                followUpProcessor.HandleFollowUpAction(new FollowUpAction(this, GetComponent<NavMeshAgent>().velocity));
-                //a way to use this is if(Vector3.Angle(velocity vector, target character))
+            {//todo figure out why the hell this is here
+                movementIdleCounter = 0;//todo check for optimization
+                if (animator.GetBool("moving"))
+                {
+                    StopMoving();
+                    Debug.Log("error please investigate");
+                }
             }
         }
         
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        Interactable interactable = other.GetComponent<Interactable>();
+        if (interactable != null)
+        {
+            interactablesWithinRange.Add(interactable);
+        }
+        else
+        {
+            //Debug.Log("error occcured");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Interactable interactable = other.GetComponent<Interactable>();
+        if (interactable != null)
+        {
+            if (!interactablesWithinRange.Remove(interactable))
+            {
+                Debug.Log("error occured");
+            }
+        }
+        else
+        {
+            //Debug.Log("error occcured");
+        }
+    }
+    void StopMoving()
+    {
+        animator.SetBool("moving", false);
 
-
+        if (animator.GetBool("walking"))
+        {
+            animator.SetBool("walking", false);
+        }
+        else if(animator.GetBool("running"))
+        {
+            animator.SetBool("running", false);
+        }
+        else
+        {
+            Debug.Log("Error please investigate");
+        }
+    }
+    bool IsStationary()
+    {
+        bool returning =  Vector3.Distance(this.transform.position, lastPos) <= .01;
+        lastPos = this.transform.position;
+        return returning;
+    }
+    public Vector3 CharacterBottom()
+    {
+        Vector3 characterBottom = this.BoxCollider.bounds.center;
+        characterBottom.y -= this.BoxCollider.bounds.size.y / 2;
+        return characterBottom;
+    }
+    public void ResetCharacter()
+    {
+        //todo determine other functionality of this method
+        this.statuses.Clear();
+    }
     public void Dead(){
         //create event?
         if (died)
@@ -135,6 +254,7 @@ public class Character : MonoBehaviour, IComparable<Character>
             }
             else
             {
+                this.GetComponent<SpriteRenderer>().color = Color.white;
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
                 tempRef.RemoveCharacter(this);
                 died = true;
@@ -194,6 +314,11 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     public virtual void SetHealth(float value)
     {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddDamagedCharacter(new DamageData(value - health, this));
+        }
         health = value;
         if (this.health <= 0)
         {
@@ -202,8 +327,12 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public bool DecrementHealth(float value)
     {
-        //Debug.Log("Decremented " + this + " health by: " + value);
         health -= value;
+        if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddDamagedCharacter(new DamageData(-value, this));
+        }
         if (this.health <= 0)
         {
             this.Dead();
@@ -214,6 +343,11 @@ public class Character : MonoBehaviour, IComparable<Character>
     public virtual void IncrementHealth(float value)
     {
         health += value;
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.AddDamagedCharacter(new DamageData(value, this));
+        }
     }
     public float GetPercentHealth()
     {

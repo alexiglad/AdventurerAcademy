@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FUWingeddive")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/Wingeddive")]
 ///Birb jumps in to protect teammates from abilities with his wings, absorbing most of 
 ///the damage of a ranged or melee attack
 ///Birb does this if within 1 tile of teammate
@@ -11,15 +11,11 @@ using UnityEngine;
 ///
 public class FUWingeddive : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
 
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
+        damage = .5f;
+        range = 1;
     }
 
 

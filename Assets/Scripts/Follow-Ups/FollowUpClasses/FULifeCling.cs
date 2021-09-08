@@ -1,22 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/FULifeCling")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/LifeCling")]
 ///when witch is going to die uses life cling which heals her back to half health
 ///
 public class FULifeCling : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
-
-    void OnEnable()
-    {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
-    }
- 
 
     public override bool IsValid(FollowUpAction followUpAction, Character character)//the character passes is from the followUp list
     {

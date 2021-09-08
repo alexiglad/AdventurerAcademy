@@ -14,6 +14,8 @@ public class TargetDisplay : MonoBehaviour
 
 
     RaycastData data;
+    Vector3 prevData;
+
     LineRenderer line;
 
 
@@ -27,7 +29,6 @@ public class TargetDisplay : MonoBehaviour
 
     void Update()
     {
-        line.positionCount = 0;
         data = controls.GetRaycastHit();
 
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
@@ -35,6 +36,11 @@ public class TargetDisplay : MonoBehaviour
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempRef.Character != null && tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
+                /*if (data.Hit.point.Equals(prevData))
+                {//optimization todo fix where line stays
+                    return;
+                }*/
+                line.positionCount = 0;
                 HoverTarget(tempRef, data.Hit.transform.GetComponent<Character>());
             }
             else if (data.HitBool && tempRef.GetTargeting())//user is targeting and is on terrain 
@@ -43,20 +49,50 @@ public class TargetDisplay : MonoBehaviour
                     tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged ||
                     tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
                 {//display characters within range
+                    /*if (data.Hit.point.Equals(prevData))
+                {//optimization todo fix where line stays
+                    return;
+                }*/
+                    line.positionCount = 0;
                     DisplayWithinRange(tempRef);
+                }
+                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
+                {
+                    /*if (data.Hit.point.Equals(prevData))
+                {//optimization todo fix where line stays
+                    return;
+                }*/
+                    line.positionCount = 0;
+                    DisplayWithinPathRange(tempRef);
                 }
                 else
                 {//Display splash
+                    /*if (data.Hit.point.Equals(prevData))
+                {//optimization todo fix where line stays
+                    return;
+                }*/
+                    line.positionCount = 0;
                     DisplayPointsWithinRange(tempRef);
                 }
+            }
+            else if(data.HitBool && tempRef.Attacked && tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement && tempRef.Character.Animator.GetBool("moving"))
+            {
+                line.positionCount = 0;
+                DisplayActivePath(tempRef.Character);
+                MainDisplay(tempRef, tempRef.Character);
             }
             else
             {
                 //display nothing
+                /*if (data.Hit.point.Equals(prevData))
+                {//optimization todo fix where line stays
+                    return;
+                }*/
+                line.positionCount = 0;
                 ResetTargeting(tempRef);
             }
         }
-
+        prevData = data.Hit.point;
     }
     public void MainDisplay(CombatManager tempRef, Character charactere)
     {
@@ -87,16 +123,39 @@ public class TargetDisplay : MonoBehaviour
             MainDisplay(tempRef, charactere);
         }
     }
+    public void DisplayWithinPathRange(CombatManager tempRef)
+    {
+
+        //TODO huge bug where this doesnt consider the actual path of the character but rather just a straight line..
+        //determine if this should be clickable anywhere or just on characters
+        //actually im gonna say just characters
+
+
+        List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
+        foreach (Character charactere in tempRef.Characters)
+        {
+            if (tempRef.Character != charactere && charactersWithinRange.Contains(charactere) && movementProcessor.WithinRange(tempRef, charactere))
+            {
+                charactere.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else
+            {
+                MainDisplay(tempRef, charactere);
+            }
+        }
+        DisplayPath(tempRef);
+    }
     public void DisplayPointsWithinRange(CombatManager tempRef)
     {
         line.positionCount = segments + 1;
+
         CreatePoints(data.Hit.point, tempRef.Turn.GetAbility().Radius);
         CheckForLineColor(tempRef, data.Hit.point);
         foreach (Character charactere in tempRef.Characters)
         {
             if (movementProcessor.WithinRange(tempRef, charactere, data.Hit.point))
             {
-                charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+                charactere.GetComponent<SpriteRenderer>().color = Color.red;
             }
             else
             {
@@ -116,9 +175,9 @@ public class TargetDisplay : MonoBehaviour
                 CreatePoints(bottom, tempRef.Turn.GetAbility().Radius);
                 foreach (Character charactere in tempRef.Characters)
                 {
-                    if (movementProcessor.WithinRange(tempRef, charactere, data.Hit.point))
+                    if (movementProcessor.WithinRange(tempRef, charactere, bottom))
                     {
-                        charactere.GetComponent<SpriteRenderer>().color = Color.blue;
+                        charactere.GetComponent<SpriteRenderer>().color = Color.red;
                     }
                     else
                     {
@@ -126,9 +185,27 @@ public class TargetDisplay : MonoBehaviour
                     }
                 }
             }
+            else if(tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
+            {
+                DisplayPath(tempRef);//change this to special method which just goes close to obstacle
+                List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
+                foreach (Character charactere in tempRef.Characters)
+                {
+                    if (tempRef.Character != charactere && charactersWithinRange.Contains(charactere) && movementProcessor.WithinRange(tempRef, charactere))
+                    {
+                        charactere.GetComponent<SpriteRenderer>().color = Color.red;
+                    }
+                    else
+                    {
+                        MainDisplay(tempRef, charactere);
+                    }
+                }
+
+                //todo implement this part
+            }
             else
             {
-                character.GetComponent<SpriteRenderer>().color = Color.blue;
+                character.GetComponent<SpriteRenderer>().color = Color.red;
                 foreach (Character charactere in tempRef.Characters)
                 {
                     if (charactere != character)
@@ -188,6 +265,68 @@ public class TargetDisplay : MonoBehaviour
             angle += (360f / segments);
         }
     }
+    void DisplayPath(CombatManager tempRef)
+    {
+        if(tempRef.Character.Agent.enabled)
+        {
+            NavMeshPath path = new NavMeshPath();
+            NavMeshAgent agent = tempRef.Character.Agent;
+            agent.CalculatePath(data.Hit.point, path);
+            line.positionCount = path.corners.Length;
+
+            Vector3 bottom = tempRef.Character.BoxCollider.bounds.center;
+            bottom.y -= tempRef.Character.BoxCollider.bounds.size.y / 2;
+
+            if (line.positionCount != 0)
+            {
+                line.SetPosition(0, bottom);
+            }
+
+            if (path.corners.Length < 2)
+            {
+                return;
+            }
+
+            for (int i = 1; i < path.corners.Length; i++)
+            {
+                line.SetPosition(i, path.corners[i]);
+            }
+            if (!IsValidPath(tempRef))
+            {
+                line.startColor = Color.red;
+                line.endColor = Color.red;
+            }
+            else
+            {
+                line.startColor = Color.blue;
+                line.endColor = Color.blue;
+            }
+        }
+    }
+    public void DisplayActivePath(Character character)
+    {
+        if (character.Agent.hasPath)
+        {
+            line.positionCount = character.Agent.path.corners.Length;
+
+            Vector3 bottom = character.BoxCollider.bounds.center;
+            bottom.y -= character.BoxCollider.bounds.size.y / 2;
+            line.SetPosition(0, bottom);
+
+            if (character.Agent.path.corners.Length < 2)
+                return;
+
+            for (int i = 1; i < character.Agent.path.corners.Length; i++)
+            {
+                line.SetPosition(i, character.Agent.path.corners[i]);
+            }
+        }
+    }
+    bool IsValidPath(CombatManager tempRef)
+    {
+        return Vector3.Distance(data.Hit.point, tempRef.Character.transform.position) <= tempRef.Turn.GetAbility().Range;
+    }
+
 
 
 }

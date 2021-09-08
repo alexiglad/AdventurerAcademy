@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634c002832a18a947b7ea68baeaff11a, type: 3}
   m_Name: CombatManager
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   abilityProcessorInstance: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
   statusProcessorInstance: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
   movementProcesssor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}

@@ -15,206 +15,7 @@ public class @Controls : IInputActionCollection, IDisposable
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Roaming"",
-            ""id"": ""95833317-556d-41b8-b9e0-340a2922d4c9"",
-            ""actions"": [
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""04216e0c-1c0e-4dd1-9cce-14b69085dd4f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Zoom"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""8c72a94a-f2ee-4e29-ab81-466828df4774"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": ""Normalize(min=-1,max=1)"",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Pan"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""c57abd2b-7854-435b-ba16-2de779bd2e51"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Inventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""aa88aad0-c5ef-4203-bb14-d320f8e6ff79"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Select"",
-                    ""type"": ""Button"",
-                    ""id"": ""f84436cd-1104-4c52-9397-21f0bb6407c1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""MousePosition"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""c65cc08d-ea65-42d9-a5a5-e5df873f1017"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""06f0b044-ce6c-406b-8315-78f1c74692b1"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""95c47abb-39df-48d0-b6fc-e178435337c8"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""77b1c0d7-0b28-4cee-a83b-6569bf58d3f2"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6190b37a-e72d-4d58-9c32-e71678134e70"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""KeyboardPan"",
-                    ""id"": ""b073948c-f959-4f9e-8f9d-321da59ae9be"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
-                    ""groups"": """",
-                    ""action"": ""Pan"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""53e98c7e-064b-4ba7-9cc4-1ed374b8545b"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Pan"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""be9338f8-3b0e-4780-a72a-61f1cf456b1b"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Pan"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""965f34d4-8290-4e33-9122-9fda5cf86d22"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Pan"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""5789756a-f16d-4cfa-bb03-faaad2639cae"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Pan"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""KeyboardZoom"",
-                    ""id"": ""6ae590ec-53da-46c7-a6c3-7ae0152e3bb7"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""f48f0704-cdc6-4212-bac2-b1ddd1036a56"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""b0312756-ec09-47f6-90ff-0173d908e5a1"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""41dd1236-6d90-478d-8512-344156e58a9f"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Combat"",
+            ""name"": ""UniversalControls"",
             ""id"": ""717adb0a-c09f-4f13-9b49-2bf3e40c6099"",
             ""actions"": [
                 {
@@ -277,6 +78,30 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""name"": ""DoubleMovement"",
                     ""type"": ""Button"",
                     ""id"": ""bcf00b55-43cd-4838-8e20-7ec29b0edfb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d0eb983-06ca-4487-be44-cb2677fbd2ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b854d87-2b8a-41df-bc62-cdbdd8c56d01"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""44abf743-f10d-4e0d-81bf-894559e70a61"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": ""Normalize(min=-1,max=1)"",
                     ""interactions"": """"
@@ -447,175 +272,39 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""DoubleMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Dialogue"",
-            ""id"": ""cf7ef379-0b8c-450f-826e-f90bca4b1a98"",
-            ""actions"": [
-                {
-                    ""name"": ""Navigate"",
-                    ""type"": ""Button"",
-                    ""id"": ""671ceb3e-9082-4d80-96b0-39945629f973"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""Up and Down (Keyboard)"",
-                    ""id"": ""e6e5d907-1424-4681-980c-7ac3be693374"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
                 },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""9a620b98-cd29-4594-a80c-7d09f56cfd9d"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""9f8ba948-52fc-4b47-991d-c0c152c941db"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                }
-            ]
-        },
-        {
-            ""name"": ""Menu"",
-            ""id"": ""26f87b3a-14c6-4d79-b5ec-adcbe35a68e6"",
-            ""actions"": [
-                {
-                    ""name"": ""Escape"",
-                    ""type"": ""Button"",
-                    ""id"": ""8a81736d-abfe-4c30-8331-932814489887"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Select"",
-                    ""type"": ""Button"",
-                    ""id"": ""99a5a1a4-e953-48b6-91e0-203ce46ba5db"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Navigate"",
-                    ""type"": ""Button"",
-                    ""id"": ""026395e3-b850-4214-af1c-61f98a690d11"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""b8539bdd-db10-4657-8e90-52dfd248152f"",
+                    ""id"": ""013b110c-df6a-448f-8a42-1fe183bceb84"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Escape"",
+                    ""action"": ""PauseMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a4aa480f-b809-4791-9f49-e0afcf95a45d"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Escape"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""52a3775d-8d5a-46f8-93a6-e35a439f934f"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a5aad7e0-fc17-4e1f-801b-dc119de326ac"",
+                    ""id"": ""7407b2ea-ba49-4be8-bfb5-acc27ab7d080"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Select"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ccc7f383-9789-4de2-ab0b-84f5ffc6a63b"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""b84a81b0-ec32-4799-99f9-4439c7f87d97"",
-                    ""path"": ""1DAxis"",
+                    ""id"": ""8b848da8-ef97-4609-933c-4bd4a5ea7371"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": true,
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""7a446d2b-6127-4d7d-af40-3e378a8d34b9"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""5bcbd3c1-3f97-4511-b32b-e407486159e8"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -639,32 +328,19 @@ public class @Controls : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // Roaming
-        m_Roaming = asset.FindActionMap("Roaming", throwIfNotFound: true);
-        m_Roaming_Interact = m_Roaming.FindAction("Interact", throwIfNotFound: true);
-        m_Roaming_Zoom = m_Roaming.FindAction("Zoom", throwIfNotFound: true);
-        m_Roaming_Pan = m_Roaming.FindAction("Pan", throwIfNotFound: true);
-        m_Roaming_Inventory = m_Roaming.FindAction("Inventory", throwIfNotFound: true);
-        m_Roaming_Select = m_Roaming.FindAction("Select", throwIfNotFound: true);
-        m_Roaming_MousePosition = m_Roaming.FindAction("MousePosition", throwIfNotFound: true);
-        // Combat
-        m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
-        m_Combat_Select = m_Combat.FindAction("Select", throwIfNotFound: true);
-        m_Combat_Submenu = m_Combat.FindAction("Submenu", throwIfNotFound: true);
-        m_Combat_Inventory = m_Combat.FindAction("Inventory", throwIfNotFound: true);
-        m_Combat_MousePosition = m_Combat.FindAction("MousePosition", throwIfNotFound: true);
-        m_Combat_Pan = m_Combat.FindAction("Pan", throwIfNotFound: true);
-        m_Combat_Zoom = m_Combat.FindAction("Zoom", throwIfNotFound: true);
-        m_Combat_Deselect = m_Combat.FindAction("Deselect", throwIfNotFound: true);
-        m_Combat_DoubleMovement = m_Combat.FindAction("DoubleMovement", throwIfNotFound: true);
-        // Dialogue
-        m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
-        m_Dialogue_Navigate = m_Dialogue.FindAction("Navigate", throwIfNotFound: true);
-        // Menu
-        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
-        m_Menu_Escape = m_Menu.FindAction("Escape", throwIfNotFound: true);
-        m_Menu_Select = m_Menu.FindAction("Select", throwIfNotFound: true);
-        m_Menu_Navigate = m_Menu.FindAction("Navigate", throwIfNotFound: true);
+        // UniversalControls
+        m_UniversalControls = asset.FindActionMap("UniversalControls", throwIfNotFound: true);
+        m_UniversalControls_Select = m_UniversalControls.FindAction("Select", throwIfNotFound: true);
+        m_UniversalControls_Submenu = m_UniversalControls.FindAction("Submenu", throwIfNotFound: true);
+        m_UniversalControls_Inventory = m_UniversalControls.FindAction("Inventory", throwIfNotFound: true);
+        m_UniversalControls_MousePosition = m_UniversalControls.FindAction("MousePosition", throwIfNotFound: true);
+        m_UniversalControls_Pan = m_UniversalControls.FindAction("Pan", throwIfNotFound: true);
+        m_UniversalControls_Zoom = m_UniversalControls.FindAction("Zoom", throwIfNotFound: true);
+        m_UniversalControls_Deselect = m_UniversalControls.FindAction("Deselect", throwIfNotFound: true);
+        m_UniversalControls_DoubleMovement = m_UniversalControls.FindAction("DoubleMovement", throwIfNotFound: true);
+        m_UniversalControls_PauseMenu = m_UniversalControls.FindAction("PauseMenu", throwIfNotFound: true);
+        m_UniversalControls_Interact = m_UniversalControls.FindAction("Interact", throwIfNotFound: true);
+        m_UniversalControls_Space = m_UniversalControls.FindAction("Space", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -711,137 +387,79 @@ public class @Controls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Roaming
-    private readonly InputActionMap m_Roaming;
-    private IRoamingActions m_RoamingActionsCallbackInterface;
-    private readonly InputAction m_Roaming_Interact;
-    private readonly InputAction m_Roaming_Zoom;
-    private readonly InputAction m_Roaming_Pan;
-    private readonly InputAction m_Roaming_Inventory;
-    private readonly InputAction m_Roaming_Select;
-    private readonly InputAction m_Roaming_MousePosition;
-    public struct RoamingActions
+    // UniversalControls
+    private readonly InputActionMap m_UniversalControls;
+    private IUniversalControlsActions m_UniversalControlsActionsCallbackInterface;
+    private readonly InputAction m_UniversalControls_Select;
+    private readonly InputAction m_UniversalControls_Submenu;
+    private readonly InputAction m_UniversalControls_Inventory;
+    private readonly InputAction m_UniversalControls_MousePosition;
+    private readonly InputAction m_UniversalControls_Pan;
+    private readonly InputAction m_UniversalControls_Zoom;
+    private readonly InputAction m_UniversalControls_Deselect;
+    private readonly InputAction m_UniversalControls_DoubleMovement;
+    private readonly InputAction m_UniversalControls_PauseMenu;
+    private readonly InputAction m_UniversalControls_Interact;
+    private readonly InputAction m_UniversalControls_Space;
+    public struct UniversalControlsActions
     {
         private @Controls m_Wrapper;
-        public RoamingActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Interact => m_Wrapper.m_Roaming_Interact;
-        public InputAction @Zoom => m_Wrapper.m_Roaming_Zoom;
-        public InputAction @Pan => m_Wrapper.m_Roaming_Pan;
-        public InputAction @Inventory => m_Wrapper.m_Roaming_Inventory;
-        public InputAction @Select => m_Wrapper.m_Roaming_Select;
-        public InputAction @MousePosition => m_Wrapper.m_Roaming_MousePosition;
-        public InputActionMap Get() { return m_Wrapper.m_Roaming; }
+        public UniversalControlsActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Select => m_Wrapper.m_UniversalControls_Select;
+        public InputAction @Submenu => m_Wrapper.m_UniversalControls_Submenu;
+        public InputAction @Inventory => m_Wrapper.m_UniversalControls_Inventory;
+        public InputAction @MousePosition => m_Wrapper.m_UniversalControls_MousePosition;
+        public InputAction @Pan => m_Wrapper.m_UniversalControls_Pan;
+        public InputAction @Zoom => m_Wrapper.m_UniversalControls_Zoom;
+        public InputAction @Deselect => m_Wrapper.m_UniversalControls_Deselect;
+        public InputAction @DoubleMovement => m_Wrapper.m_UniversalControls_DoubleMovement;
+        public InputAction @PauseMenu => m_Wrapper.m_UniversalControls_PauseMenu;
+        public InputAction @Interact => m_Wrapper.m_UniversalControls_Interact;
+        public InputAction @Space => m_Wrapper.m_UniversalControls_Space;
+        public InputActionMap Get() { return m_Wrapper.m_UniversalControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(RoamingActions set) { return set.Get(); }
-        public void SetCallbacks(IRoamingActions instance)
+        public static implicit operator InputActionMap(UniversalControlsActions set) { return set.Get(); }
+        public void SetCallbacks(IUniversalControlsActions instance)
         {
-            if (m_Wrapper.m_RoamingActionsCallbackInterface != null)
+            if (m_Wrapper.m_UniversalControlsActionsCallbackInterface != null)
             {
-                @Interact.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInteract;
-                @Zoom.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnZoom;
-                @Zoom.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnZoom;
-                @Zoom.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnZoom;
-                @Pan.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnPan;
-                @Pan.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnPan;
-                @Pan.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnPan;
-                @Inventory.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
-                @Inventory.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
-                @Inventory.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnInventory;
-                @Select.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnSelect;
-                @MousePosition.started -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_RoamingActionsCallbackInterface.OnMousePosition;
+                @Select.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSelect;
+                @Submenu.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSubmenu;
+                @Submenu.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSubmenu;
+                @Submenu.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSubmenu;
+                @Inventory.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInventory;
+                @MousePosition.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnMousePosition;
+                @Pan.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPan;
+                @Pan.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPan;
+                @Pan.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPan;
+                @Zoom.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnZoom;
+                @Deselect.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDeselect;
+                @Deselect.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDeselect;
+                @Deselect.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDeselect;
+                @DoubleMovement.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDoubleMovement;
+                @DoubleMovement.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDoubleMovement;
+                @DoubleMovement.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDoubleMovement;
+                @PauseMenu.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPauseMenu;
+                @Interact.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnInteract;
+                @Space.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnSpace;
             }
-            m_Wrapper.m_RoamingActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
-                @Zoom.started += instance.OnZoom;
-                @Zoom.performed += instance.OnZoom;
-                @Zoom.canceled += instance.OnZoom;
-                @Pan.started += instance.OnPan;
-                @Pan.performed += instance.OnPan;
-                @Pan.canceled += instance.OnPan;
-                @Inventory.started += instance.OnInventory;
-                @Inventory.performed += instance.OnInventory;
-                @Inventory.canceled += instance.OnInventory;
-                @Select.started += instance.OnSelect;
-                @Select.performed += instance.OnSelect;
-                @Select.canceled += instance.OnSelect;
-                @MousePosition.started += instance.OnMousePosition;
-                @MousePosition.performed += instance.OnMousePosition;
-                @MousePosition.canceled += instance.OnMousePosition;
-            }
-        }
-    }
-    public RoamingActions @Roaming => new RoamingActions(this);
-
-    // Combat
-    private readonly InputActionMap m_Combat;
-    private ICombatActions m_CombatActionsCallbackInterface;
-    private readonly InputAction m_Combat_Select;
-    private readonly InputAction m_Combat_Submenu;
-    private readonly InputAction m_Combat_Inventory;
-    private readonly InputAction m_Combat_MousePosition;
-    private readonly InputAction m_Combat_Pan;
-    private readonly InputAction m_Combat_Zoom;
-    private readonly InputAction m_Combat_Deselect;
-    private readonly InputAction m_Combat_DoubleMovement;
-    public struct CombatActions
-    {
-        private @Controls m_Wrapper;
-        public CombatActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Select => m_Wrapper.m_Combat_Select;
-        public InputAction @Submenu => m_Wrapper.m_Combat_Submenu;
-        public InputAction @Inventory => m_Wrapper.m_Combat_Inventory;
-        public InputAction @MousePosition => m_Wrapper.m_Combat_MousePosition;
-        public InputAction @Pan => m_Wrapper.m_Combat_Pan;
-        public InputAction @Zoom => m_Wrapper.m_Combat_Zoom;
-        public InputAction @Deselect => m_Wrapper.m_Combat_Deselect;
-        public InputAction @DoubleMovement => m_Wrapper.m_Combat_DoubleMovement;
-        public InputActionMap Get() { return m_Wrapper.m_Combat; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CombatActions set) { return set.Get(); }
-        public void SetCallbacks(ICombatActions instance)
-        {
-            if (m_Wrapper.m_CombatActionsCallbackInterface != null)
-            {
-                @Select.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnSelect;
-                @Submenu.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnSubmenu;
-                @Submenu.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnSubmenu;
-                @Submenu.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnSubmenu;
-                @Inventory.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
-                @Inventory.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
-                @Inventory.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnInventory;
-                @MousePosition.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnMousePosition;
-                @Pan.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnPan;
-                @Pan.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnPan;
-                @Pan.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnPan;
-                @Zoom.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
-                @Zoom.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
-                @Zoom.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnZoom;
-                @Deselect.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
-                @Deselect.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
-                @Deselect.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnDeselect;
-                @DoubleMovement.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
-                @DoubleMovement.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
-                @DoubleMovement.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnDoubleMovement;
-            }
-            m_Wrapper.m_CombatActionsCallbackInterface = instance;
+            m_Wrapper.m_UniversalControlsActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Select.started += instance.OnSelect;
@@ -868,92 +486,19 @@ public class @Controls : IInputActionCollection, IDisposable
                 @DoubleMovement.started += instance.OnDoubleMovement;
                 @DoubleMovement.performed += instance.OnDoubleMovement;
                 @DoubleMovement.canceled += instance.OnDoubleMovement;
+                @PauseMenu.started += instance.OnPauseMenu;
+                @PauseMenu.performed += instance.OnPauseMenu;
+                @PauseMenu.canceled += instance.OnPauseMenu;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
             }
         }
     }
-    public CombatActions @Combat => new CombatActions(this);
-
-    // Dialogue
-    private readonly InputActionMap m_Dialogue;
-    private IDialogueActions m_DialogueActionsCallbackInterface;
-    private readonly InputAction m_Dialogue_Navigate;
-    public struct DialogueActions
-    {
-        private @Controls m_Wrapper;
-        public DialogueActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Navigate => m_Wrapper.m_Dialogue_Navigate;
-        public InputActionMap Get() { return m_Wrapper.m_Dialogue; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DialogueActions set) { return set.Get(); }
-        public void SetCallbacks(IDialogueActions instance)
-        {
-            if (m_Wrapper.m_DialogueActionsCallbackInterface != null)
-            {
-                @Navigate.started -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_DialogueActionsCallbackInterface.OnNavigate;
-            }
-            m_Wrapper.m_DialogueActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Navigate.started += instance.OnNavigate;
-                @Navigate.performed += instance.OnNavigate;
-                @Navigate.canceled += instance.OnNavigate;
-            }
-        }
-    }
-    public DialogueActions @Dialogue => new DialogueActions(this);
-
-    // Menu
-    private readonly InputActionMap m_Menu;
-    private IMenuActions m_MenuActionsCallbackInterface;
-    private readonly InputAction m_Menu_Escape;
-    private readonly InputAction m_Menu_Select;
-    private readonly InputAction m_Menu_Navigate;
-    public struct MenuActions
-    {
-        private @Controls m_Wrapper;
-        public MenuActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Escape => m_Wrapper.m_Menu_Escape;
-        public InputAction @Select => m_Wrapper.m_Menu_Select;
-        public InputAction @Navigate => m_Wrapper.m_Menu_Navigate;
-        public InputActionMap Get() { return m_Wrapper.m_Menu; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
-        public void SetCallbacks(IMenuActions instance)
-        {
-            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
-            {
-                @Escape.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
-                @Escape.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
-                @Escape.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnEscape;
-                @Select.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
-                @Select.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
-                @Select.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
-                @Navigate.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
-            }
-            m_Wrapper.m_MenuActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Escape.started += instance.OnEscape;
-                @Escape.performed += instance.OnEscape;
-                @Escape.canceled += instance.OnEscape;
-                @Select.started += instance.OnSelect;
-                @Select.performed += instance.OnSelect;
-                @Select.canceled += instance.OnSelect;
-                @Navigate.started += instance.OnNavigate;
-                @Navigate.performed += instance.OnNavigate;
-                @Navigate.canceled += instance.OnNavigate;
-            }
-        }
-    }
-    public MenuActions @Menu => new MenuActions(this);
+    public UniversalControlsActions @UniversalControls => new UniversalControlsActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -963,16 +508,7 @@ public class @Controls : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardandMouseSchemeIndex];
         }
     }
-    public interface IRoamingActions
-    {
-        void OnInteract(InputAction.CallbackContext context);
-        void OnZoom(InputAction.CallbackContext context);
-        void OnPan(InputAction.CallbackContext context);
-        void OnInventory(InputAction.CallbackContext context);
-        void OnSelect(InputAction.CallbackContext context);
-        void OnMousePosition(InputAction.CallbackContext context);
-    }
-    public interface ICombatActions
+    public interface IUniversalControlsActions
     {
         void OnSelect(InputAction.CallbackContext context);
         void OnSubmenu(InputAction.CallbackContext context);
@@ -982,15 +518,8 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnZoom(InputAction.CallbackContext context);
         void OnDeselect(InputAction.CallbackContext context);
         void OnDoubleMovement(InputAction.CallbackContext context);
-    }
-    public interface IDialogueActions
-    {
-        void OnNavigate(InputAction.CallbackContext context);
-    }
-    public interface IMenuActions
-    {
-        void OnEscape(InputAction.CallbackContext context);
-        void OnSelect(InputAction.CallbackContext context);
-        void OnNavigate(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
     }
 }

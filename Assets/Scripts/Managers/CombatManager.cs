@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/CombatManager")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Managers/CombatManager")]
 public class CombatManager : GameStateManager
 {
     #region Local Variables
@@ -18,14 +18,24 @@ public class CombatManager : GameStateManager
     private IEnumerator<Character> enumerator;
     Turn turn;
     Character character;
+
     bool targeting;
     bool attacked;
     bool hasMovement;
     bool doubleMovement;
     bool canContinue;
-    bool charactersDied;
+    bool redoTurnOrder;
+    bool resetted;
+    bool initialStatus;
+    bool battleEnded;
 
-    [SerializeField] GameController gameController;
+    Queue<Vector3> movementQueue;
+    Queue<FollowUpData> followUpQueue;
+    Queue<StatusData> statusQueue;
+    List<DamageData> damagedCharacters;
+    List<Character> deadCharacters;
+
+    [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] AbilityProcessor abilityProcessorInstance;
     [SerializeField] StatusProcessor statusProcessorInstance;
     [SerializeField] MovementProcessor movementProcesssor;
@@ -39,6 +49,7 @@ public class CombatManager : GameStateManager
     public bool HasMovement { get => hasMovement; set => hasMovement = value; }
     public List<Character> TurnOrder { get => turnOrder; set => turnOrder = value; }
     public bool CanContinue { get => canContinue; set => canContinue = value; }
+    public bool Attacked { get => attacked; set => attacked = value; }
 
 
     #endregion
@@ -55,8 +66,16 @@ public class CombatManager : GameStateManager
         hasMovement = true;
         doubleMovement = false;
         canContinue = true;
-        charactersDied = false;
-        gameController = FindObjectOfType<GameController>();
+        redoTurnOrder = false;
+        resetted = false;
+        initialStatus = false;
+        battleEnded = false;
+
+        movementQueue = new Queue<Vector3>();
+        followUpQueue = new Queue<FollowUpData>();
+        statusQueue = new Queue<StatusData>();
+        damagedCharacters = new List<DamageData>();
+        deadCharacters = new List<Character>();
 
         foreach (Character characterE in characters)
         {
@@ -73,8 +92,8 @@ public class CombatManager : GameStateManager
         }
         if (!character.Inanimate)
         {
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-            character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            character.Obstacle.enabled = false;
+            character.Agent.enabled = true;
         }
         else
         {
@@ -82,7 +101,7 @@ public class CombatManager : GameStateManager
         }
 
         uiHandler.EnableCombat();
-        uiHandler.UpdateCombatTurnUI(character);
+        uiHandler.UpdateCombatTurnUI(character);//todo check what happens when enemy starts combat
 
         if (!character.IsPlayer())
         {//only do this if is an enemy
@@ -103,7 +122,7 @@ public class CombatManager : GameStateManager
         
         if (turnFinished || TurnFinished())
         {
-            gameController.StartCoroutineCC(IterateCharacters);
+            gameStateManager.GetGameController().StartCoroutineCC(IterateCharacters);
 
         }
     }
@@ -191,6 +210,42 @@ public class CombatManager : GameStateManager
             return false;
         }
     }
+    public bool UpdateMovement(Vector3 changeInLoc, float magnitude)//update this to take a destination and magnitude
+    {
+        if (doubleMovement && hasMovement && magnitude <= 2 * GetRemainingMovement())
+        {
+            turn.SetMovement(changeInLoc + turn.GetMovement());
+            turn.AmountMoved += magnitude;
+            float error = .2f;
+            if (GetRemainingMovement() <= error)
+            {
+                Debug.Log("User has used up movement for turn");
+                hasMovement = false;
+            }
+            return true;
+        }
+        else if (hasMovement && magnitude <= GetRemainingMovement())
+        {
+            turn.SetMovement(changeInLoc + turn.GetMovement());
+            turn.AmountMoved += magnitude;
+            float error = .2f;
+            if (GetRemainingMovement() <= error)
+            {
+                Debug.Log("User has used up movement for turn");
+                hasMovement = false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override void SetSubstateEnum(SubstateEnum state)
+    {
+        this.State = state;
+    }
 
     public override void AddCharacters(SortedSet<Character> charactersPassed)
     {
@@ -213,7 +268,7 @@ public class CombatManager : GameStateManager
     {
         if (doubleMovement)
         {
-            return 2*(this.character.GetMaxMovement() - this.turn.AmountMoved);
+            return 2*this.character.GetMaxMovement() - this.turn.AmountMoved;
         }
         else
         {
@@ -258,7 +313,7 @@ public class CombatManager : GameStateManager
         }
         else if(turn.GetTarget().name == "TempCharacter(Clone)")
         {
-            RemoveCharacter(turn.GetTarget());
+            RemoveCharacter(turn.GetTarget());//TODO determine if this is necessary
             abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());//TODO MAKE GET TARGET OF VOODOO
         }
     }
@@ -309,13 +364,17 @@ public class CombatManager : GameStateManager
 
     public void RemoveCharacter(Character character)
     {
-
+        if (initialStatus)
+        {
+            initialStatus = false;//this is just for handling initial status bug
+        }
         Character tempCharacter = enumerator.Current;
-        bool reset = false;
+        bool moving = false;
+
         if (character == tempCharacter)//i.e. current character is dying get next character
         {
-            Debug.Log("current character died");
-            reset = true;
+            resetted = true;
+            gameStateManager.GetGameController().StartCoroutineCC(ResetTurn);
             if (enumerator.MoveNext())
             {
                 tempCharacter = enumerator.Current;
@@ -326,8 +385,12 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 tempCharacter = enumerator.Current;
             }
+            if (character.Moving)//TODO change when adding follow up coroutines
+            {
+                character.Agent.isStopped = true;
+                moving = true;
+            }
         }
-        character.gameObject.SetActive(false);
         characters.Remove(character);
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
@@ -344,40 +407,93 @@ public class CombatManager : GameStateManager
         this.character = tempCharacter;
         //should effectively exit on correct position
 
-        if (turnOrder.Remove(character) && !TurnFinished() && MoreThanOneSideIsAlive())//dont double up
+        if (turnOrder.Remove(character) && MoreThanOneSideIsAlive())//this happens after which is why its not working
         {
-            if (reset)
+            deadCharacters.Add(character);
+            if (TurnFinished())
             {
-                ResetTurn();
+                if (moving)
+                {
+                    EnableCombatInput();
+                }
             }
-            else if (!canContinue)
+            else if (!TurnFinished() && !resetted)
             {
-                charactersDied = true;
-            }
-            else
-            {
-                Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
-                gameController.StartCoroutineTOS(0, action);
+                if (!canContinue)
+                {
+                    redoTurnOrder = true;
+                }
+                else
+                {
+                    Debug.Log("CHECK CONDITION SHOULD NOT HAPPEN once cedric adds coroutines");
+                    redoTurnOrder = true;
+                    EnableCombatInput();
+                }
             }
         }
+        else
+        {
+            character.gameObject.SetActive(false);
+            //todo change the turning of game objects off to right here
+        }
+
         //decide if whole squad is dead
         if (!MoreThanOneSideIsAlive())
         {
-            Debug.Log("Battle Ended!");
-            uiHandler.DisableCombat(turnOrder);
-            EndBattle(character.IsPlayer());//if true is a win if false is a loss
+            Debug.Log("Battle Over!");
+            battleEnded = true;
         }
     }
     public void EnableCombatInput()
     {
-        canContinue = true;
-        uiHandler.DisplayEndTurn();
-        //TODO add follow up animation queue here eventually
-        if(charactersDied)
+        if (movementQueue.Any())
+        {
+            movementProcesssor.HandleMovement(character, movementQueue.Dequeue());
+        }
+        else if(followUpQueue.Any())
+        {
+            DisableCombatInput();
+            uiHandler.DisplayFollowUp(followUpQueue.Dequeue());
+        }
+        else if(statusQueue.Any())
+        {
+            DisableCombatInput();
+            uiHandler.DisplayStatus(statusQueue.Dequeue());
+        }
+        else if(damagedCharacters.Count > 0)
+        {
+            DisableCombatInput();
+            uiHandler.DisplayDamage(damagedCharacters);
+        }
+        else if(deadCharacters.Count > 0)
+        {
+            DisableCombatInput();
+            foreach (Character character in deadCharacters)
+            {
+                character.gameObject.SetActive(false);
+                //todo add animation here to kill the character with coroutine
+            }
+            deadCharacters.Clear();
+            EnableCombatInput();//TEMP CODE TODO
+        }
+        else if (redoTurnOrder)
         {
             Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
-            gameController.StartCoroutineTOS(0, action);
-            charactersDied = false;
+            gameStateManager.GetGameController().StartCoroutineTOS(0, action);
+            redoTurnOrder = false;
+        }
+        else if (battleEnded)
+        {
+            uiHandler.DisableCombat(turnOrder);
+            EndBattle(DidUserWin());
+        }
+        else
+        {
+            canContinue = true;
+            if (character.IsPlayer())
+            {//do i need to disable/enable input too?, todo
+                uiHandler.DisplayEndTurn();
+            }
         }
     }
     public void DisableCombatInput()
@@ -385,12 +501,44 @@ public class CombatManager : GameStateManager
         canContinue = false;
         uiHandler.StopDisplayingEndTurn();
     }
+    #region queues
+    public void AddMovement(Vector3 vector)
+    {
+        movementQueue.Enqueue(vector);
+    }
+    public void AddFollowUp(FollowUpData followUp)
+    {
+        followUpQueue.Enqueue(followUp);
+    }
+    public void AddStatus(StatusData status)
+    {
+        statusQueue.Enqueue(status);
+    }
+    public void AddDamagedCharacter(DamageData damageData)
+    {
+        foreach(DamageData dd in damagedCharacters)
+        {
+            if(dd.Character == damageData.Character)
+            {
+                dd.HealthChange += damageData.HealthChange;
+                return;
+            }
+        }
+        damagedCharacters.Add(damageData);
+    }
+    #endregion
     public void IterateCharacters()
     {
+        if (resetted)
+        {
+            resetted = false;
+            return;
+        }
+        resetted = false;
         if (!character.Inanimate)
         {
-            character.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+            character.Agent.enabled = false;
+            character.Obstacle.enabled = true;
         }
         bool changed = false;
         if (turnOrder.Remove(character))
@@ -412,7 +560,7 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 character = enumerator.Current;
             }
-            statusProcessorInstance.HandleStatuses(character);
+            //statusProcessorInstance.HandleStatuses(character);//CHANGE THIS TO BE AFTER IN FINISH ITERATING
             targeting = false;
             attacked = false;
             hasMovement = true;
@@ -424,46 +572,52 @@ public class CombatManager : GameStateManager
             }
             else
             {
-                character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
+                character.Obstacle.enabled = false;
                 if(changed)
-                    gameController.StartCoroutineNMA(FinishIterating, turnOrder);
+                    gameStateManager.GetGameController().StartCoroutineNMA(FinishIterating, turnOrder);
             }
-            
         }
     }
     public void FinishIterating()
     {
-        character.gameObject.GetComponent<NavMeshAgent>().enabled = true;
-        if (!character.IsPlayer())
+        character.Agent.enabled = true;
+        initialStatus = true;
+        statusProcessorInstance.HandleStatuses(character);//todo figure out a way to make this work with following line of code not killing people...
+        if (!initialStatus)
+        {
+            //this means initialStatus was set to false just dont do other conditions
+        }
+        else if (!character.IsPlayer())
         {//only do this if is an enemy
+            initialStatus = false;
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
             UpdateIteration(DetermineEnemyTurn(character), true);
         }
         else
         {
+            initialStatus = false;
             uiHandler.DisplayAbilities();
             uiHandler.DisplayEndTurn();
         }
-
     }
     public void ResetTurn()
     {
         turn = new Turn();
-        statusProcessorInstance.HandleStatuses(character);
         targeting = false;
         attacked = false;
         hasMovement = true;
         doubleMovement = false;
+        resetted = false;
 
         if (character.Inanimate)
         {
-            IterateCharacters();//verify this works
+            IterateCharacters();//todo verify this works
         }
         else
         {
-            character.gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-            gameController.StartCoroutineNMA(FinishIterating, turnOrder);
+            character.Obstacle.enabled = false;
+            gameStateManager.GetGameController().StartCoroutineNMA(FinishIterating, turnOrder);
         }
     }
     bool MoreThanOneSideIsAlive()
@@ -472,7 +626,11 @@ public class CombatManager : GameStateManager
         bool initial = false;
         foreach (Character character in characters)
         {
-            if (zero == 1)
+            if (character.Inanimate)
+            {
+                continue;
+            }
+            else if (zero == 1)
             {
                 zero = 0;
                 initial = character.IsPlayer();
@@ -484,18 +642,31 @@ public class CombatManager : GameStateManager
         }
         return false;
     }
-    void EndBattle(bool won)
+    bool DidUserWin()
     {
-        FindObjectOfType<CombatOver>().TriggerEvent(won);
+        IEnumerator<Character> enumerator;
+        enumerator = characters.GetEnumerator();
+        enumerator.MoveNext();
+        return enumerator.Current.IsPlayer();
     }
-
     #endregion
 
     #region Event Listeners
 
+    void EndBattle(bool won)
+    {
+        if (won)
+        {
+            gameStateManager.GetGameLoader().LoadNextSubscene();
+        }
+        else
+        {
+            gameStateManager.GetGameLoader().LoadSceneAfterCombatLoss();
+        }
+    }
     public void CombatAbility(object sender, AbilityEventArgs e)
     {
-        if (UpdateAbility(e.NewAbility))
+        if (UpdateAbility(e.NewAbility) && e.Selected)
         {
             Turn turnUpdate = new Turn(e.NewAbility);
             UpdateIteration(turnUpdate, false) ;
@@ -505,7 +676,7 @@ public class CombatManager : GameStateManager
     {
         if (UpdateAbility(null))
         {
-            AbilityEventArgs e = new AbilityEventArgs(null);
+            AbilityEventArgs e = new AbilityEventArgs(null, false);
             Turn turnUpdate = new Turn(e.NewAbility);
             UpdateIteration(turnUpdate, false);
         }
@@ -579,12 +750,12 @@ public class CombatManager : GameStateManager
                 float distanceTraveled = 0;
                 Vector3 location = new Vector3();
                 Vector3 prev = characterBottom;
+                bool first = true;
                 //prev.y += 0.08448386f;//TODO investigate why this helps eventually
                 foreach (Vector3 vector in path.corners)
                 {
                     if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())
                     {
-                        //vector.Normalize();
                         Vector3 temp = vector - prev;
                         Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * (temp.normalized);
                         location += lastPath;
@@ -593,21 +764,26 @@ public class CombatManager : GameStateManager
 
                     else
                     {
-
-                        distanceTraveled += Vector3.Distance(vector, prev);
-                        location += vector - prev;
+                        if (first)
+                        {
+                            first = false;
+                        }
+                        else
+                        {
+                            distanceTraveled += Vector3.Distance(vector, prev);
+                            location += vector - prev;
+                        }
                     }
                     
                     prev = vector;
                 }
                 NavMeshPath path2 = new NavMeshPath();
-                Vector3 realMovement = location;
-                if (character.Agent.CalculatePath(realMovement + characterBottom, path2) && path2.status == NavMeshPathStatus.PathComplete)
+                if (character.Agent.CalculatePath(location + characterBottom, path2) && path2.status == NavMeshPathStatus.PathComplete)
                 {
                     //this is creating the movement in the case of being outside the radius
-                    if (UpdateMovement(realMovement))
+                    if (UpdateMovement(location, GetRemainingMovement()))
                     {
-                        UpdateIteration(new Turn(realMovement), false);
+                        UpdateIteration(new Turn(location), false);
                     }
                     else
                     {
@@ -639,6 +815,7 @@ public class CombatManager : GameStateManager
     {
         IterateCharacters();
     }
+
 
     #endregion
 }

@@ -25,9 +25,12 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        HandleMovementInput();
-        controls.SetPan();
-        controls.SetZoom();
+        if (controls.GetControls().UniversalControls.enabled)
+        {
+            HandleMovementInput();
+            controls.SetPan();
+            controls.SetZoom();
+        }
     }
 
     void HandleMovementInput()

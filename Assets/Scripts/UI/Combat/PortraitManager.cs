@@ -63,14 +63,14 @@ public class PortraitManager : MonoBehaviour
         }
 
         bars = GetComponentsInChildren<ResourceBarUI>(true).ToList();
-        float index = 0;
+        int index = 0;
         foreach (ResourceBarUI bar in bars)
         {
-            //Every Seccond bar            
+            //Every third bar            
             if (bar.transform.parent.parent.gameObject.activeSelf)
             {
-                bar.SetCharacter(overlayCharacters[(int)index]);
-                index += 0.5f;
+                bar.SetCharacter(overlayCharacters[index / 3]);
+                index += 1;
             }            
         }
     }

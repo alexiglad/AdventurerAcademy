@@ -3,25 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/GameStateManager")]
+[CreateAssetMenu(menuName = "ScriptableObjects/GameState/GameStateManager")]
 public class GameStateManagerSO : ScriptableObject
 {
     [SerializeField] private GameStateSO currentGameState;
+    [SerializeField] private SubstateSO substate;
     private GameStateManager currentGameStateManager;
-    //Controls controls;
-    [SerializeField] InputHandler controls;
     [SerializeField] CombatManager combatManager;
-    [SerializeField] DialogueManager dialogueManager;
     [SerializeField] RoamingManager roamingManager;
     [SerializeField] LoadingManager loadingManager;
-    [SerializeField] MenuManager menuManager;
-    GameController gameController;
-    void OnEnable()
-    {
-        FollowUpProcessor followUpProcessorInstance = (FollowUpProcessor)FindObjectOfType(typeof(FollowUpProcessor));
-        gameController = FindObjectOfType<GameController>();
-    }
+    [SerializeField] GameControllerSO gameController;
+    [SerializeField] GameLoader gameLoader;
+
     public void SetGameStateManager(Type manager)
     {
         Destroy(currentGameStateManager);
@@ -31,17 +26,11 @@ public class GameStateManagerSO : ScriptableObject
             case "CombatManager":
                 currentGameStateManager = Instantiate(combatManager);
                 break;
-            case "DialogueManager":
-                currentGameStateManager = Instantiate(dialogueManager);
-                break;
             case "RoamingManager":
                 currentGameStateManager = Instantiate(roamingManager);
                 break;
             case "LoadingManager":
                 currentGameStateManager = Instantiate(loadingManager);
-                break;
-            case "MenuManager":
-                currentGameStateManager = Instantiate(menuManager);
                 break;
             default:
                 Debug.Log("error switching game states please investigate");
@@ -50,45 +39,38 @@ public class GameStateManagerSO : ScriptableObject
         Debug.Log("Switched game state to " + currentGameStateManager.ToString());//Debug
     }
 
-    public GameStateEnum GetCurrentGameState()
-    {
-        return currentGameState.GetGameState();
-    }
-
-    public GameStateManager GetCurrentGameStateManager()
-    {
-        return currentGameStateManager;
-    }
     public void CreateStateInstance(GameStateEnum gameState, SortedSet<Character> characters)
     {
         currentGameState.SetGameState(gameState);
         SetGameStateManager(Type.GetType(gameState.ToString() + "Manager"));
         GetCurrentGameStateManager().AddCharacters(characters);
-        //gameController = FindObjectOfType<GameController>();
-        //gameController.StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
-        GetCurrentGameStateManager().Start();
-
-
-        //input system code
-        if (gameState == GameStateEnum.Combat)
-        {
-            controls.GetControls().Combat.Enable();
-        }
-        else if (gameState == GameStateEnum.Roaming)
-        {
-            controls.GetControls().Roaming.Enable();
-        }
-        else if (gameState == GameStateEnum.Dialogue)
-        {
-            controls.GetControls().Dialogue.Enable();
-        }
-        else if (gameState == GameStateEnum.Menu)
-        {
-            controls.GetControls().Menu.Enable();
-        }
-        else//this is game state loading
-        {
-            controls.GetControls().Disable();
-        }
+        GetCurrentGameStateManager().SetSubstateEnum(SubstateEnum.Default);
+        gameController.GetGameController().StartCoroutineNMAGravity(GetCurrentGameStateManager().Start, characters);//TODO decide on keeping this
+        //GetCurrentGameStateManager().Start();
+        //controls.ManualAwake(); 
+    }
+    public GameStateManager GetCurrentGameStateManager()
+    {
+        return currentGameStateManager;
+    }
+    public GameStateEnum GetCurrentGameState()
+    {
+        return currentGameState.GetGameState();
+    }
+    public GameController GetGameController()
+    {
+        return this.gameController.GetGameController();
+    }
+    public GameLoader GetGameLoader()
+    {
+        return this.gameLoader;
+    }
+    public SubstateEnum GetSubstate()
+    {
+        return substate.GetSubstate();
+    }
+    public void SetSubstate(SubstateEnum state)
+    {
+        substate.SetSubstate(state);
     }
 }

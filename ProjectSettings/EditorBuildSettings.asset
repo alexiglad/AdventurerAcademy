@@ -8,5 +8,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CombatDemo.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Home.unity
+    guid: d9955f15dbcc66a4c892684f00fa9913
+  - enabled: 1
+    path: Assets/Scenes/LoadScene.unity
+    guid: 80fd8d41e7472c74ca8ebef20483491f
+  - enabled: 1
+    path: Assets/Scenes/RoamingDemo.unity
+    guid: 6c4049056eb93354cb0579b9c54c046f
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 00f79518be22cdb41ad9789bf7d53744, type: 2}

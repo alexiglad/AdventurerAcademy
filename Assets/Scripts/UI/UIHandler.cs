@@ -3,51 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/UIHandler")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Handlers/UIHandler")]
 
 public class UIHandler : ScriptableObject
 {    
-    AbilityButtonClicked onAbilityButtonClicked;
-    FinishTurnButtonClicked onFinishTurnButtonClicked;
+    AbilityButton abilityButton;
+    FinishTurnButton onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
+    FollowUpAnimationDrawer followUpAnimationDrawer;
     TurnOrderScroll turnOrderScroll;
     GameObject doubleMovement;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
+    ResourceBarUI resourceBarUI;
+    HoverHandler hoverHandler;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
-    public FinishTurnButtonClicked OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
+    //public FinishTurnButton OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
 
     public void EnableCombat()
     {
-        onAbilityButtonClicked = FindObjectOfType<AbilityButtonClicked>();//get these for all buttons/UI
-        onAbilityButtonClicked.ManualAwake();
-        onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
+        abilityButton = FindObjectOfType<AbilityButton>();//get these for all buttons/UI
+        abilityButton.ManualAwake();
+        onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButton>();
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
+        followUpAnimationDrawer = FindObjectOfType<FollowUpAnimationDrawer>();
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
+        hoverHandler = FindObjectOfType<HoverHandler>();
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
-        onAbilityButtonClicked.OnAbilityButtonClicked += tempRef.CombatAbility;
+        abilityButton.OnAbilityButtonClicked += tempRef.CombatAbility;
+        abilityButton.OnAbilityButtonHover += hoverHandler.DisplayAbilityHover;
         doubleMovement = GameObject.Find("DoubleMovement");
         doubleMovement.SetActive(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
+
     }
     public void DisableCombat(List<Character> turnOrder)
     {
+        CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         StopDisplayingAbilities();
         StopDisplayingEndTurn();
         StopDisplayingTurnOrder(turnOrder);
         doubleMovement.SetActive(false);
-
+        //Unsubscribe From Events
+        onFinishTurnButtonClicked.OnFinishTurnButtonClicked -= tempRef.FinishTurn;
+        abilityButton.OnAbilityButtonClicked -= tempRef.CombatAbility;
+        abilityButton.OnAbilityButtonHover -= hoverHandler.DisplayAbilityHover;
     }
 
     #region combatUI
     public void UpdateCombatTurnUI(Character character)
     {
-        onAbilityButtonClicked.UpdateAbilities(character);
+        abilityButton.UpdateAbilities(character);
         abilityBarWidthAdjuster.DrawAbilityBar();
+        abilityButton.Selected = false;
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
 
@@ -60,18 +72,47 @@ public class UIHandler : ScriptableObject
         abilityImageDrawer.SetTargetPosition(ability.TargetX, ability.TargetY);
         abilityImageDrawer.PlayAnimation();        
     }
-    public void DisplayStatus()
+    public void DisplayFollowUp(FollowUpData followUp)
     {
-
+        followUpAnimationDrawer.SetAnimationSprites(followUp.FollowUp.Sprites);
+        followUpAnimationDrawer.SetScale(followUp.FollowUp.ScaleX, followUp.FollowUp.ScaleY);
+        followUpAnimationDrawer.SetPosition(followUp.FollowUp.PosX, followUp.FollowUp.PosY);
+        followUpAnimationDrawer.SetLength(followUp.FollowUp.GetAnimationLength());
+        followUpAnimationDrawer.SetFrameRate(followUp.FollowUp.FrameRate);
+        followUpAnimationDrawer.PlayAnimation();
+    }
+    public void DisplayStatus(StatusData status)
+    {
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            gameStateManager.GetGameController().StartCoroutineTime(1, tempRef.EnableCombatInput);
+            //TODO this is temp
+        }
+    }
+    public void DisplayDamage(List<DamageData> damagedCharacters)
+    {
+        //when done execute two lines ot code below
+        //damagedCharacters.Clear();//todo execute both lines of these code at end of animation
+        //EnableCombatInput();//TEMP CODE TODO
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            gameStateManager.GetGameController().StartCoroutineTime(1, tempRef.EnableCombatInput);
+            //TODO this is temp
+            damagedCharacters.Clear();
+        }
     }
     public void UnselectAbilities()
     {
-        onAbilityButtonClicked.UnselectAbilities();
+        abilityButton.UnselectAbilities();
+        abilityButton.Selected = false;
     }
     public void DisplayDoubleMovement(bool doubleM)
     {
         if (doubleM)
         {
+            Debug.Log("here");
             doubleMovement.SetActive(true);
         }
         else
@@ -89,7 +130,7 @@ public class UIHandler : ScriptableObject
     }
     public void StopDisplayingAbilities()
     {
-        onAbilityButtonClicked.StopDisplaying();
+        abilityButton.StopDisplaying();
     }
     public void DisplayEndTurn()
     {
@@ -97,7 +138,7 @@ public class UIHandler : ScriptableObject
     }
     public void DisplayAbilities()
     {
-        onAbilityButtonClicked.Display();
+        abilityButton.Display();
     }
     public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {

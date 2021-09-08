@@ -9,8 +9,9 @@ public class PathRenderer : MonoBehaviour
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] float startWidth;
     [SerializeField] float endWidth;
-
+    bool moving;
     RaycastData data;
+    Vector3 prevData;
     NavMeshAgent agent;
     LineRenderer line;
 
@@ -24,30 +25,47 @@ public class PathRenderer : MonoBehaviour
 
     void Update()
     {
-        line.positionCount = 0;
         data = controls.GetRaycastHit();
-        
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+
+        switch(gameStateManager.GetCurrentGameState())
         {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.Character != null && tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain") && tempRef.Character.GetComponent<NavMeshAgent>().enabled)
-            {
-                if (tempRef.Character.Animator.GetBool("walking"))
+            case GameStateEnum.Combat:
+                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                if (tempRef.Character != null && tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain") && tempRef.Character.GetComponent<NavMeshAgent>().enabled)
                 {
-                    line.startColor = Color.blue;
-                    line.endColor = Color.blue;
-                    DisplayActivePath(tempRef.Character);
+                    if (tempRef.Character.Animator.GetBool("moving"))
+                    {
+                        moving = true;
+                        line.positionCount = 0;
+                        line.startColor = Color.blue;
+                        line.endColor = Color.blue;
+                        DisplayActivePath(tempRef.Character);
+                    }
+                    else if (tempRef.HasMovement && tempRef.CanContinue && tempRef.Character.Agent != null)
+                    {
+                        if (!moving && data.Hit.point.Equals(prevData))
+                        {//optimization todo fix where line stays
+                            return;
+                        }
+                        moving = false;
+                        line.positionCount = 0;
+                        NavMeshPath path = new NavMeshPath();
+                        agent = tempRef.Character.Agent;
+                        agent.CalculatePath(data.Hit.point, path);
+                        DisplayPath(path, tempRef.Character, tempRef);
+                    }
+                    else
+                    {
+                        line.positionCount = 0;
+                    }
                 }
-                else if (tempRef.HasMovement && tempRef.CanContinue && tempRef.Character.Agent != null)
-                {                  
-                    NavMeshPath path = new NavMeshPath();
-                    agent = tempRef.Character.Agent;
-                    agent.CalculatePath(data.Hit.point, path);
-                    DisplayPath(path, tempRef.Character, tempRef);
+                else
+                {
+                    line.positionCount = 0;
                 }
-            }
+                break;
         }
-            
+        prevData = data.Hit.point;
     }
 
     public void DisplayActivePath(Character character)
@@ -68,8 +86,6 @@ public class PathRenderer : MonoBehaviour
                 line.SetPosition(i, agent.path.corners[i]);
             }
         }
-        
-        
     }
 
     public void DisplayPath(NavMeshPath path, Character character, CombatManager tempRef)
@@ -101,9 +117,6 @@ public class PathRenderer : MonoBehaviour
         }
         else
         {
-            //line.GetComponent<LineRenderer>().color = Color.blue;
-
-            //line.SetColors(Color.blue, blue);
             line.startColor = Color.blue;
             line.endColor = Color.blue;
         }

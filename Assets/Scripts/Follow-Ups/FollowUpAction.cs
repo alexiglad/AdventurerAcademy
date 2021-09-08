@@ -22,9 +22,9 @@ public class FollowUpAction
         followUpActionType = FollowUpTypeEnum.Ability;
     }
 
-    public FollowUpAction(Character attacker, Vector3 direction)
+    public FollowUpAction(Character attackee, Vector3 direction)
     {
-        this.attacker = attacker;
+        this.attackee = attackee;
         this.direction = direction;
 
         followUpActionType = FollowUpTypeEnum.Movement;

@@ -12,7 +12,7 @@ public class AVoodoo : Ability
 {
     [SerializeField] private GameObject voodooPrefab;
     [SerializeField] private CharacterData characterData;
-    public Character target;
+    Character target;
     private void OnEnable()
     {
         damage = 0;

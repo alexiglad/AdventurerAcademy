@@ -3,39 +3,94 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
 
     [SerializeField] private GameStateManagerSO currentGameStateManager;
-    [SerializeField] private GameStateSO currentGameState;
-    private SortedSet<Character> characters = new SortedSet<Character>();
+    [SerializeField] private GameStateEnum targetGameState;
+
     [SerializeField] UIHandler uiHandler;
-
+    [SerializeField] GameControllerSO gameController;
     [SerializeField] InputHandler controls;
-    //static Controls controls;
-    //public static Controls Controls { get => controls; set => controls = value; }
+    [SerializeField] CharacterListSO characterList;
+    [SerializeField] Vector3[] characterPositions;
+    [SerializeField] PlayerData playerData;
+    [SerializeField] GameObject[] playerPrefabs;//this stores all the prefabs for all characters to create dynamically
 
-    void Awake()
+    #region gamecontroller basic methods
+    void OnEnable()
     {
+        gameController.SetGameController(this);
+
         controls.ManualAwake();
-        //temporary code creates combat manager with characters
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
 
-        SortedSet<Character> userCharacters = new SortedSet<Character>();
-        foreach(Character character in characters)
+        if (characterPositions.Length == 0)
         {
-            if (character.IsPlayer())
-            {
-                userCharacters.Add(character);
-            }
+            Debug.Log("ERROR PLEASE ADD POSITIONS");
+            currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
+            return;
         }
-        //currentGameStateManager.CreateStateInstance(GameStateEnum.Roaming, userCharacters);
+        int pos = 0;
+        if (characterPositions.Length == 0)
+        {
+            Debug.Log("please add positions on gamecontroller for characters to spawn");
+        }
+        foreach (CharacterIDEnum name in playerData.MissionCharacters)
+        {
+            if (pos >= characterPositions.Length)
+            {
+                Debug.Log("possible error tried to add to many characters to given scene");
+            }
+            foreach (GameObject prefab in playerPrefabs)
+            {
+                if (prefab.GetComponent<Player>().CharacterID == name)
+                {
+                    GameObject go = Instantiate(prefab, characterPositions[pos], Quaternion.identity);
+                    Character character = go.GetComponent<Character>();
+                    characterList.AddCharacter(character);
+                    character.ManualAwake();
+                    break;//breaks out of currrent foreach loop bc found equivalent prefab
+                }
+            }
+            pos++;
+        }
 
-        currentGameStateManager.CreateStateInstance(GameStateEnum.Combat, characters);      
+
+        //todo uncomment for actual release
+        currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        Destroy(this);
+
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        controls.GetControls().Enable();
+    }
+    void OnSceneUnloaded(Scene scene)
+    {
+        controls.GetControls().Disable();
+    }
+    #endregion
 
-    #region combat
+    #region coroutines
+    public void StartCoroutineTime(float time, Action action)
+    {
+        StartCoroutine(Routine(time, action));
+    }
+    IEnumerator Routine(float time, Action action)
+    {
+        yield return new WaitForSeconds(time);
+        action.Invoke();
+    }
     public void StartCoroutineCC(Action action)
     {
         StartCoroutine(Routine1(action));
@@ -46,7 +101,12 @@ public class GameController : MonoBehaviour
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             yield return new WaitUntil(tempRef.CanContinueMethod);
-            //eventually add animation here for switching turns
+            action.Invoke();
+        }
+        else if(currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(RoamingManager))
+        {
+            RoamingManager tempRef = (RoamingManager)currentGameStateManager.GetCurrentGameStateManager();
+            yield return new WaitUntil(tempRef.CanContinueMethod);
             action.Invoke();
         }
         else
@@ -102,7 +162,6 @@ public class GameController : MonoBehaviour
             Debug.Log("error");
         }
     }
-    #endregion methods
     public void StartCoroutineNMAGravity(Action action, SortedSet<Character> characters)
     {
         StartCoroutine(Routine4(action, characters));
@@ -126,16 +185,5 @@ public class GameController : MonoBehaviour
         }
         action.Invoke();
     }
-
-    public void AddCharacter(Character character)
-    {
-        characters.Add(character);
-        
-    }
-    public void RemoveCharacter(Character character)
-    {
-        characters.Remove(character);
-    }
-
-
+    #endregion methods
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/DefaultFollowUp")]
+[CreateAssetMenu(menuName = "ScriptableObjects/FollowUp/Default")]
 ///description
 ///
 ///
@@ -9,14 +9,11 @@ using UnityEngine;
 ///
 public class FUDefault : FollowUp
 {
-    FloatValueSO damage;
-    FloatValueSO range;
+
     void OnEnable()
     {
-        damage = (FloatValueSO)CreateInstance("FloatValueSO");
-        damage.SetFloatValue(1f);
-        range = (FloatValueSO)CreateInstance("FloatValueSO");
-        range.SetFloatValue(1f);
+        //damage = 1;
+        //range = 1;
     }
 
 

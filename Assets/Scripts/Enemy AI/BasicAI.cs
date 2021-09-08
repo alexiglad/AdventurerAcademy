@@ -18,6 +18,11 @@ public class BasicAI
             if (characterE.IsPlayer())
                 players.Add(characterE);
         }
+        if (players.Count == 0)
+        {
+            Debug.Log("ERROR NO USERS!");
+            return null;
+        }
         int num2 = Random.Range(0, players.Count);
         Character target = players[num2];
 
@@ -39,7 +44,6 @@ public class BasicAI
         }
         else
         {
-            character.Animator.SetBool("walking", true);
             Vector3 direction = target.transform.position - character.transform.position;
             direction.y -= DetermineDifferenceInHeights(target, character);
             //TODO finish evening out heights (need cedric to make it so gravity works at start)

@@ -5,14 +5,32 @@ using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
-    [SerializeField] bool isHealth;
     [SerializeField] bool findCharacterInParent;
-    [SerializeField] float currentValue;
-    [SerializeField] float maxValue;
-    
+
+    [SerializeField] float currentValue = 1; //Default Value
+    [SerializeField] float maxValue = 1; //Default Value
+    [SerializeField] BarType barType;
+
     Character character;
     Image bar;
+    float fillAmmount;
+    float lerpTime = 3f;
+    float timeElapsed = 0f;
 
+    GameStateManagerSO gameStateManagerSO;
+
+    public float CurrentValue { get => currentValue;}
+    public float MaxValue { get => maxValue;}
+    private BarType BarType1 { get => barType;}
+
+    private enum BarType
+    {
+        health,
+        stamina,
+        healthBack,
+        staminaBack
+    }
+    
     void Start()
     {
         bar = transform.GetComponent<Image>();
@@ -24,18 +42,27 @@ public class ResourceBarUI : MonoBehaviour
         }                   
     }
 
-    void UpdateValues()
+    public void UpdateValues()
     {
-        if (isHealth)
-        {
-            currentValue = character.GetHealth();
-            maxValue = character.GetMaxHealth();
-        }
-        else
-        {
-            currentValue = character.GetEnergy();
-            maxValue = character.GetMaxEnergy();
-        }
+        if(character != null)
+            switch (barType)
+            {
+                case (BarType.health):
+                    currentValue = character.GetHealth();
+                    maxValue = character.GetMaxHealth();
+                    break;
+
+                case (BarType.stamina):
+                    currentValue = character.GetEnergy();
+                    maxValue = character.GetMaxEnergy();
+                    break;
+
+                case (BarType.healthBack):
+                    currentValue = character.GetHealth();
+                    maxValue = character.GetMaxHealth();
+                    break;
+            }
+        fillAmmount = bar.fillAmount;
     }
 
     void Update()
@@ -44,9 +71,55 @@ public class ResourceBarUI : MonoBehaviour
         SetSize(currentValue / maxValue); 
     }
 
-    void SetSize(float sizeNormalized)
+    public void SetSize(float sizeNormalized)
     {
-        bar.fillAmount = sizeNormalized;
+        if (barType == BarType.health)
+        {
+            if (bar.fillAmount > sizeNormalized)
+            {
+                bar.fillAmount = sizeNormalized;
+            }
+
+            if (bar.fillAmount < sizeNormalized)
+            {
+                if (timeElapsed < lerpTime)
+                {
+                    bar.fillAmount = sizeNormalized / (this.timeElapsed / lerpTime);
+                    timeElapsed += 1 * Time.deltaTime;
+                    Debug.Log(this.timeElapsed);
+                }
+                else
+                {
+                    bar.fillAmount = sizeNormalized;
+                    this.timeElapsed = 0;
+                }
+            }            
+        }
+
+        if (barType == BarType.healthBack)
+        {
+            if (bar.fillAmount > sizeNormalized)
+            {
+                bar.color = Color.gray;
+                if (this.timeElapsed < lerpTime)
+                {
+                    bar.fillAmount = sizeNormalized / (this.timeElapsed / lerpTime);
+                    this.timeElapsed += 1 * Time.deltaTime;
+                }
+                else
+                {
+                    bar.fillAmount = sizeNormalized;
+                    this.timeElapsed = 0;
+                }
+            }
+
+            if (bar.fillAmount < sizeNormalized)
+            {
+                Debug.Log("ran back");
+                bar.color = Color.green;
+                bar.fillAmount = sizeNormalized;
+            }
+        }
     }
 
     public void SetCharacter(Character value)

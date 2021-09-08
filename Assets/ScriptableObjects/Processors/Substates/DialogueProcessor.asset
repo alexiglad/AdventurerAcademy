@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01094d128b02a484da4474131fc17842, type: 3}
+  m_Name: DialogueProcessor
+  m_EditorClassIdentifier: 
+  substate: {fileID: 11400000, guid: e360876b2e9701445bfb2b887a50847f, type: 2}
+  prefab: {fileID: 8610153131141698845, guid: dc4fd58a4b2697245965395cb4a485d5, type: 3}
