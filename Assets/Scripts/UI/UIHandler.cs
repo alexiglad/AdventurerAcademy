@@ -59,6 +59,7 @@ public class UIHandler : ScriptableObject
     {
         abilityButton.UpdateAbilities(character);
         abilityBarWidthAdjuster.DrawAbilityBar();
+        abilityButton.Selected = false;
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
 
@@ -105,6 +106,7 @@ public class UIHandler : ScriptableObject
     public void UnselectAbilities()
     {
         abilityButton.UnselectAbilities();
+        abilityButton.Selected = false;
     }
     public void DisplayDoubleMovement(bool doubleM)
     {
