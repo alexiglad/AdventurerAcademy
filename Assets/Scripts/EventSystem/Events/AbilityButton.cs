@@ -17,6 +17,9 @@ public class AbilityButton : MonoBehaviour
 
     private GameObject[] abilityButtons = new GameObject[5];
     private List<Ability> abilityButtonAbilities = new List<Ability>();
+
+    public bool Selected { get => selected; set => selected = value; }
+
     //Ceddy note: Kinda icky. Try to completely seperate the logic out of the ui using events.
 
 
@@ -68,6 +71,7 @@ public class AbilityButton : MonoBehaviour
         for (int i = 0; i < abilityButtons.Length; i++)
         {
             abilityButtons[i].GetComponent<Image>().color = Color.white;
+
         }
     }
 
@@ -84,7 +88,7 @@ public class AbilityButton : MonoBehaviour
                 abilityButtons[i].GetComponent<Image>().color = Color.white;
             }
         }
-        selected = true;
+        Selected = true;
         OnAbilityButtonClicked?.Invoke(this, new AbilityEventArgs(abilityButtonAbilities[pos], true));
     }
 
@@ -94,11 +98,13 @@ public class AbilityButton : MonoBehaviour
         {
             if (i == pos)
             {
-                abilityButtons[i].GetComponent<Image>().color = Color.gray;
+                if(!Selected)
+                    abilityButtons[i].GetComponent<Image>().color = Color.gray;
             }
             else
             {
-                abilityButtons[i].GetComponent<Image>().color = Color.white;
+                if (!Selected)
+                    abilityButtons[i].GetComponent<Image>().color = Color.white;
             }
         }
         runningCorutines.Add(StartCoroutine(StartHover(pos)));
@@ -108,7 +114,7 @@ public class AbilityButton : MonoBehaviour
     {           
         StopCoroutine(runningCorutines[0]);
         runningCorutines.RemoveAt(0);
-        if(!selected)
+        if(!Selected)
             abilityButtons[pos].GetComponent<Image>().color = Color.white;        
     }
 
