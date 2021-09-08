@@ -205,12 +205,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
-  targetGameState: 0
+  targetGameState: 1
   uiHandler: {fileID: 11400000, guid: 08c25b36159924a45be1c4c3fab99d26, type: 2}
   gameController: {fileID: 11400000, guid: 35ef75537cd09ae4cacf2a0fda9856ea, type: 2}
   controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
   characterList: {fileID: 11400000, guid: fa52f49f11aaa064d81308a75007aa6f, type: 2}
-  characterPositions: []
+  characterPositions:
+  - {x: -2.55, y: 1.095, z: -2.284}
+  - {x: -2.47, y: 1.123, z: -3.81}
   playerData: {fileID: 11400000, guid: 00feee63646be624a9a75c50ad376272, type: 2}
   playerPrefabs:
   - {fileID: 6499003185554428563, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
@@ -243,7 +245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708488510130725706}
   m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 4, z: -5}
+  m_LocalPosition: {x: 0, y: 5, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 708488509161121384}
@@ -420,7 +422,8 @@ PrefabInstance:
       propertyPath: endTurn
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8584422525252277912, guid: 642cd09155b10e148967733e38509db6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 642cd09155b10e148967733e38509db6, type: 3}
 --- !u!4 &8745249670162568033 stripped
 Transform:

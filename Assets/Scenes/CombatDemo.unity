@@ -1448,46 +1448,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: targetGameState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: characterPositions.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: characterPositions.Array.data[0].x
-      value: -2.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: characterPositions.Array.data[0].y
-      value: 1.095
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: characterPositions.Array.data[0].z
-      value: -2.284
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: characterPositions.Array.data[1].x
-      value: -2.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: characterPositions.Array.data[1].y
-      value: 1.123
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: characterPositions.Array.data[1].z
-      value: -3.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488510130725705, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488510130725705, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -8
-      objectReference: {fileID: 0}
     - target: {fileID: 1998741355915837952, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1536,8 +1496,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseScene
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9148200926632252236, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
 --- !u!1001 &749376066
 PrefabInstance:
