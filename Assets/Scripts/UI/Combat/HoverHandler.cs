@@ -5,17 +5,47 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 class HoverHandler : MonoBehaviour
 {
     [SerializeField] InputHandler controls;
+    TextMeshProUGUI characterName;
+    TextMeshProUGUI healthDisplay;
+    GameObject characterHoverObject;
+
+    void OnEnable()
+    {
+        foreach (Transform child in gameObject.GetComponentsInChildren<Transform>(true).ToList())
+        {
+            if(child.name == "HealthText")
+            {
+                healthDisplay = child.GetComponent<TextMeshProUGUI>();
+            }
+
+            if (child.name == "CharacterName")
+            {
+                characterName = child.GetComponent<TextMeshProUGUI>();
+            }
+
+            if (child.name == "CharacterHoverPopUp")
+            {
+                characterHoverObject = child.gameObject;
+            }
+
+        }
+    }
 
     void Update()
     {
         RaycastData data = controls.GetRaycastHit();
         if (data.HitBool && controls.VerifyTag(data, "Character"))
         {
-            DisplayCharacterHover(data.Hit.collider.GetComponent<Character>());
+            DisplayCharacterHoverOverlay(data.Hit.collider.GetComponent<Character>());
+        }
+        else
+        {
+            DisableCharacterHoverOverlay();
         }
     }
 
@@ -27,11 +57,18 @@ class HoverHandler : MonoBehaviour
         }
     }
 
-    void DisplayCharacterHover(Character character)
+    void DisplayCharacterHoverOverlay(Character character)
     {
         if(character != null)
         {
-            //Debug.Log("Hovering Over: " + character.GetName());
+            healthDisplay.SetText(character.GetHealth() +"/" +character.GetMaxHealth());
+            characterName.SetText(character.GetName());
+            characterHoverObject.SetActive(true);
         }
+    }
+
+    void DisableCharacterHoverOverlay()
+    {
+        characterHoverObject.SetActive(false);
     }
 }
