@@ -201,8 +201,18 @@ public class InputHandler : ScriptableObject
     }
     void OnSpace()
     {
-        //TEMP CODE USE SUBSTATE IN THE FUTURE
-        dialogueProcessor.ProceedDialogue();
+        if(gameStateManager.GetSubstate() == SubstateEnum.Default && gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            if (tempRef.CanContinue)
+            {
+                tempRef.IterateCharacters();
+            }
+        }
+        else if (gameStateManager.GetSubstate() == SubstateEnum.Dialouge)
+        {
+            dialogueProcessor.ProceedDialogue();
+        }
     }
     #endregion
     #region combat manager methods

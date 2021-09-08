@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameStateManagerSO : ScriptableObject
 {
     [SerializeField] private GameStateSO currentGameState;
+    [SerializeField] private SubstateSO substate;
     private GameStateManager currentGameStateManager;
     [SerializeField] CombatManager combatManager;
     [SerializeField] RoamingManager roamingManager;
@@ -63,5 +64,13 @@ public class GameStateManagerSO : ScriptableObject
     public GameLoader GetGameLoader()
     {
         return this.gameLoader;
+    }
+    public SubstateEnum GetSubstate()
+    {
+        return substate.GetSubstate();
+    }
+    public void SetSubstate(SubstateEnum state)
+    {
+        substate.SetSubstate(state);
     }
 }
