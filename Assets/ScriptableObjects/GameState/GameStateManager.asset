@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameStateManager
   m_EditorClassIdentifier: 
   currentGameState: {fileID: 11400000, guid: 1aeb6b38155993f488d61684bbf55f8b, type: 2}
+  substate: {fileID: 11400000, guid: e360876b2e9701445bfb2b887a50847f, type: 2}
   combatManager: {fileID: 11400000, guid: c59ea0a6979178b4b9d7094b2434ba54, type: 2}
   roamingManager: {fileID: 11400000, guid: bdd73e3fd1acf3147a4e410821c6bc35, type: 2}
   loadingManager: {fileID: 11400000, guid: 5a03b33d9d9c48c4ba76fc9ca840fee4, type: 2}
