@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIHandler : ScriptableObject
 {    
     AbilityButton abilityButton;
-    FinishTurnButtonClicked onFinishTurnButtonClicked;
+    FinishTurnButton onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
     FollowUpAnimationDrawer followUpAnimationDrawer;
     TurnOrderScroll turnOrderScroll;
@@ -19,13 +19,13 @@ public class UIHandler : ScriptableObject
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
-    public FinishTurnButtonClicked OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
+    //public FinishTurnButton OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
 
     public void EnableCombat()
     {
         abilityButton = FindObjectOfType<AbilityButton>();//get these for all buttons/UI
         abilityButton.ManualAwake();
-        onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButtonClicked>();
+        onFinishTurnButtonClicked = FindObjectOfType<FinishTurnButton>();
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
         followUpAnimationDrawer = FindObjectOfType<FollowUpAnimationDrawer>();
