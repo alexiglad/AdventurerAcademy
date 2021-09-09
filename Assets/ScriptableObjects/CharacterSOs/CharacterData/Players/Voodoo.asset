@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb129ae074e82c44a3d0d6920ba82d3, type: 3}
   m_Name: Voodoo
   m_EditorClassIdentifier: 
-  name: vodoo
+  name: Straw Doll
   maxHealth: 100
   maxEnergy: 100
   maxMovement: -1
