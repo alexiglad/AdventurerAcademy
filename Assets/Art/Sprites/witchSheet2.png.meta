@@ -34,16 +34,16 @@ TextureImporter:
     second: witchSheet2_9
   - first:
       213: 7050277391714589270
-    second: witchSheet2_10
+    second: witchIdleWest1
   - first:
       213: 4201139752276702043
-    second: witchSheet2_11
+    second: witchIdleWest2
   - first:
       213: -422539679976108816
-    second: witchSheet2_12
+    second: witchIdleEast1
   - first:
       213: 642901438651606520
-    second: witchSheet2_13
+    second: witchIdleEast2
   - first:
       213: -2583847139021669153
     second: witchSheet2_14
@@ -388,7 +388,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: witchSheet2_10
+      name: witchIdleWest1
       rect:
         serializedVersion: 2
         x: 513
@@ -409,11 +409,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: witchSheet2_11
+      name: witchIdleWest2
       rect:
         serializedVersion: 2
         x: 619
-        y: 503
+        y: 504
         width: 89
         height: 118
       alignment: 0
@@ -430,7 +430,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: witchSheet2_12
+      name: witchIdleEast1
       rect:
         serializedVersion: 2
         x: 723
@@ -451,11 +451,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: witchSheet2_13
+      name: witchIdleEast2
       rect:
         serializedVersion: 2
-        x: 838
-        y: 503
+        x: 841
+        y: 506
         width: 88
         height: 120
       alignment: 0
