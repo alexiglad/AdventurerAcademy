@@ -23,7 +23,9 @@ public class AVoodoo : Ability
     {
         //display voodoo doll on witch
         target = attackee;
-        GameObject temp2 = Instantiate(voodooPrefab, attacker.transform.position, Quaternion.identity);
+        Vector3 loc = attacker.CharacterBottom();
+        loc.z -= .3f;
+        GameObject temp2 = Instantiate(voodooPrefab, loc, Quaternion.identity);
         //Character test = Instantiate<Character>()
 
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();

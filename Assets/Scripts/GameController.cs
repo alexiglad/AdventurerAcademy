@@ -59,9 +59,9 @@ public class GameController : MonoBehaviour
             pos++;
         }
 
+        currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());
 
-        //todo uncomment for actual release
-        currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
+
     }
     private void OnDisable()
     {
@@ -72,7 +72,8 @@ public class GameController : MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
+    {//todo start coroutine here to fade in screen
+
         controls.GetControls().Enable();
     }
     void OnSceneUnloaded(Scene scene)
