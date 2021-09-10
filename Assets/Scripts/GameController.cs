@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerData playerData;
     [SerializeField] GameObject[] playerPrefabs;//this stores all the prefabs for all characters to create dynamically
 
+    CanvasGroup fadeImage;
+
     #region gamecontroller basic methods
     void OnEnable()
     {
@@ -27,6 +29,8 @@ public class GameController : MonoBehaviour
         controls.ManualAwake();
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+        fadeImage = GameObject.Find("FadeFromBlack").GetComponent<CanvasGroup>();
 
         if (characterPositions.Length == 0)
         {
@@ -74,15 +78,34 @@ public class GameController : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {//todo start coroutine here to fade in screen
 
-        controls.GetControls().Enable();
+        StartCoroutine(FadeIn());
     }
     void OnSceneUnloaded(Scene scene)
     {
-        controls.GetControls().Disable();
+        StartCoroutine(FadeIn());
     }
     #endregion
 
     #region coroutines
+    IEnumerator FadeIn()
+    {
+        fadeImage.alpha = 1f;
+        yield return new WaitForSeconds(1f);
+        fadeImage.LeanAlpha(0, .5f);
+        yield return new WaitForSeconds(1f);
+        fadeImage.blocksRaycasts = false;
+        controls.GetControls().Enable();
+    }
+
+    IEnumerator FadeOut()
+    {
+        fadeImage.blocksRaycasts = true;
+        controls.GetControls().Disable();
+        fadeImage.LeanAlpha(1, 1f);
+        yield return new WaitForSeconds(1f);
+    }
+    
+    
     public void StartCoroutineTime(float time, Action action)
     {
         StartCoroutine(Routine(time, action));
