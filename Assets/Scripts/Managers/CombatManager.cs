@@ -470,11 +470,14 @@ public class CombatManager : GameStateManager
             DisableCombatInput();
             foreach (Character character in deadCharacters)
             {
-                character.gameObject.SetActive(false);
-                //todo add animation here to kill the character with coroutine
+                Action action0 = () => character.gameObject.LeanAlpha(0, 1f);
+                //action0 += character.setShader(); TODO implement cedric
+                Action action1 = () => character.gameObject.SetActive(false);
+                action1 += () => EnableCombatInput();
+                gameStateManager.GetGameController().StartDoubleCoroutineTime(1, action0, action1);
+
             }
             deadCharacters.Clear();
-            EnableCombatInput();//TEMP CODE TODO
         }
         else if (battleEnded)
         {

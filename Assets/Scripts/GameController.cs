@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
 
-        fadeImage = GameObject.Find("FadeFromBlack").GetComponent<CanvasGroup>();
+        fadeImage = GameObject.Find("LoadScreen").GetComponent<CanvasGroup>();
 
         if (characterPositions.Length == 0)
         {
@@ -114,6 +114,16 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         action.Invoke();
+    }
+    public void StartDoubleCoroutineTime(float time, Action action, Action action2)
+    {
+        StartCoroutine(Routine0(time, action, action2));
+    }
+    IEnumerator Routine0(float time, Action action, Action action2)
+    {
+        action.Invoke();
+        yield return new WaitForSeconds(time);
+        action2.Invoke();
     }
     public void StartCoroutineCC(Action action)
     {

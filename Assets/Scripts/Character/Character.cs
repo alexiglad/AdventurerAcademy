@@ -236,7 +236,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         {
             return;
         }
-        Debug.Log(this + " died!");
+        //Debug.Log(this + " died!");
         if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
             bool revive = false;
