@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {//todo start coroutine here to fade in screen
+    {
 
         StartCoroutine(FadeIn());
     }
