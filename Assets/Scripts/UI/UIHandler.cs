@@ -113,7 +113,6 @@ public class UIHandler : ScriptableObject
     {
         if (doubleM)
         {
-            Debug.Log("here");
             doubleMovement.SetActive(true);
         }
         else

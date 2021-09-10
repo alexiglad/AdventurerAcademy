@@ -407,7 +407,7 @@ public class CombatManager : GameStateManager
         this.character = tempCharacter;
         //should effectively exit on correct position
 
-        if (turnOrder.Remove(character) && MoreThanOneSideIsAlive())//this happens after which is why its not working
+        if (turnOrder.Remove(character))//this happens after which is why its not working
         {
             deadCharacters.Add(character);
             if (TurnFinished())
@@ -476,16 +476,16 @@ public class CombatManager : GameStateManager
             deadCharacters.Clear();
             EnableCombatInput();//TEMP CODE TODO
         }
+        else if (battleEnded)
+        {
+            uiHandler.DisableCombat(turnOrder);
+            EndBattle(DidUserWin());
+        }
         else if (redoTurnOrder)
         {
             Action action = () => uiHandler.UpdateTurnOrder(turnOrder);
             gameStateManager.GetGameController().StartCoroutineTOS(0, action);
             redoTurnOrder = false;
-        }
-        else if (battleEnded)
-        {
-            uiHandler.DisableCombat(turnOrder);
-            EndBattle(DidUserWin());
         }
         else
         {
