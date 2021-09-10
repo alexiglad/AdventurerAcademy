@@ -56,7 +56,6 @@ public class Character : MonoBehaviour, IComparable<Character>
     public bool Moving { get => moving; set => moving = value; }
 
     #endregion
-
     public new String ToString()
     {
         return this.characterData.GetName();
@@ -70,7 +69,8 @@ public class Character : MonoBehaviour, IComparable<Character>
         direction = CardinaDirectionsEnum.South;
         agent.enabled = false;
         obstacle.enabled = true;
-
+        //Debug.Log()
+        //transform.GetComponent<SpriteRenderer>().materials
         this.Start();
     }
     private void Awake()
