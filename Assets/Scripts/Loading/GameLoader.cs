@@ -78,6 +78,7 @@ public class GameLoader : ScriptableObject
     }
     public void LoadNextSubscene()
     {//needs to check current mission and if it is done then go to map otherwise load next scene in mission
+        Debug.Log("if you get an error here while testing ignore");
         playerData.CurrentMission.Pos++;
         if (playerData.CurrentMission.Subscenes.Length > playerData.CurrentMission.Pos)
         {
