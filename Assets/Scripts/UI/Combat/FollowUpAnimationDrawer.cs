@@ -38,7 +38,15 @@ public class FollowUpAnimationDrawer : MonoBehaviour
             }
         }
     }
-
+    public void DisplayFollowUp(FollowUpData followUp)
+    {
+        SetAnimationSprites(followUp.FollowUp.Sprites);
+        SetScale(followUp.FollowUp.ScaleX, followUp.FollowUp.ScaleY);
+        SetPosition(followUp.FollowUp.PosX, followUp.FollowUp.PosY);
+        SetLength(followUp.FollowUp.GetAnimationLength());
+        SetFrameRate(followUp.FollowUp.FrameRate);
+        PlayAnimation();
+    }
     IEnumerator Play()
     {
         foreach (Sprite sprite in anim)

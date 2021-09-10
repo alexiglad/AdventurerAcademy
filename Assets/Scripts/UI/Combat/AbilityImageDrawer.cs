@@ -36,7 +36,14 @@ public class AbilityImageDrawer : MonoBehaviour
             }
         }
     }
-
+    public void DisplayAbility(Ability ability)
+    {
+        SetSprite(ability.Image);
+        SetDirection(ability.Direction);
+        SetStartingPosition(ability.StartX, ability.StartY);
+        SetTargetPosition(ability.TargetX, ability.TargetY);
+        PlayAnimation();
+    }
     public void PlayAnimation()
     {
         backgroundCanvas.alpha = 0;

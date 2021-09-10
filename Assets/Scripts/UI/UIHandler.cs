@@ -11,6 +11,7 @@ public class UIHandler : ScriptableObject
     FinishTurnButton onFinishTurnButtonClicked;
     AbilityImageDrawer abilityImageDrawer;
     FollowUpAnimationDrawer followUpAnimationDrawer;
+    StatusDrawer statusDrawer;
     TurnOrderScroll turnOrderScroll;
     GameObject doubleMovement;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
@@ -29,6 +30,7 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
         followUpAnimationDrawer = FindObjectOfType<FollowUpAnimationDrawer>();
+        statusDrawer = FindObjectOfType<StatusDrawer>();
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
         hoverHandler = FindObjectOfType<HoverHandler>();
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
@@ -67,29 +69,15 @@ public class UIHandler : ScriptableObject
 
     public void DisplayAbility(Ability ability)
     {
-        abilityImageDrawer.SetSprite(ability.Image);
-        abilityImageDrawer.SetDirection(ability.Direction);
-        abilityImageDrawer.SetStartingPosition(ability.StartX, ability.StartY);
-        abilityImageDrawer.SetTargetPosition(ability.TargetX, ability.TargetY);
-        abilityImageDrawer.PlayAnimation();        
+        abilityImageDrawer.DisplayAbility(ability);  
     }
     public void DisplayFollowUp(FollowUpData followUp)
     {
-        followUpAnimationDrawer.SetAnimationSprites(followUp.FollowUp.Sprites);
-        followUpAnimationDrawer.SetScale(followUp.FollowUp.ScaleX, followUp.FollowUp.ScaleY);
-        followUpAnimationDrawer.SetPosition(followUp.FollowUp.PosX, followUp.FollowUp.PosY);
-        followUpAnimationDrawer.SetLength(followUp.FollowUp.GetAnimationLength());
-        followUpAnimationDrawer.SetFrameRate(followUp.FollowUp.FrameRate);
-        followUpAnimationDrawer.PlayAnimation();
+        followUpAnimationDrawer.DisplayFollowUp(followUp);
     }
     public void DisplayStatus(StatusData status)
     {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            gameStateManager.GetGameController().StartCoroutineTime(1, tempRef.EnableCombatInput);
-            //TODO this is temp
-        }
+        statusDrawer.DrawStatuses(status);
     }
     public void DisplayDamage(List<DamageData> damagedCharacters)
     {
