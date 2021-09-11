@@ -14,7 +14,7 @@ public class ResourceBarUI : MonoBehaviour
     Character targetCharacter;
     Image bar;
     float fillAmmount;
-    float lerpTime = 3f;
+    float lerpTime = 1f;
     float timeElapsed = 0f;
 
     [SerializeField] GameStateManagerSO gameStateManagerSO;
@@ -42,7 +42,6 @@ public class ResourceBarUI : MonoBehaviour
 
         if (gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
         {
-            Debug.Log("Here in Resource Bar UI");
             CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
             tempRef.OnCharacterDamaged += UpdateValues;
         }
@@ -50,7 +49,6 @@ public class ResourceBarUI : MonoBehaviour
 
     public void UpdateValues(object sender, CharacterDamagedArgs data)
     {
-        Debug.Log("Here");
         if(targetCharacter != null && targetCharacter == data.character)
         {
             Debug.Log("Here pt 2");
@@ -73,11 +71,6 @@ public class ResourceBarUI : MonoBehaviour
             }
             StartCoroutine(AnimateHealthBar());
         }          
-    }
-
-    void Update()
-    {
-        
     }
 
     public void SetSize(float sizeNormalized)
@@ -141,12 +134,15 @@ public class ResourceBarUI : MonoBehaviour
             }
             if (bar.fillAmount < targetSize)
             {
-                while (bar.fillAmount < targetSize)
+                /*while (bar.fillAmount < targetSize)
                 {
+                    Debug.Log("Here Front");
                     bar.fillAmount += .05f;
                     yield return new WaitForSeconds(.1f);
-                }
-                bar.fillAmount = targetSize;
+                }*/
+
+                yield return new WaitUntil(BarFillMethod);
+                //bar.fillAmount = targetSize;
             }
         }
 
@@ -156,6 +152,7 @@ public class ResourceBarUI : MonoBehaviour
             {
                 while (bar.fillAmount < targetSize)
                 {
+                    Debug.Log("Here Back");
                     bar.fillAmount -= .05f;
                     yield return new WaitForSeconds(.1f);
                 }
@@ -167,8 +164,23 @@ public class ResourceBarUI : MonoBehaviour
             }
         }
 
+        yield return null;
         CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
         tempRef.EnableCombatInput();//Todo remove this when no longer needed
+    }
+
+    bool BarFillMethod()
+    {
+        float targetSize = currentValue / maxValue;
+        if (bar.fillAmount > targetSize)
+        {
+            return true;
+        }
+        else
+        {
+            bar.fillAmount += .1f;
+        }
+        return false;
     }
 
     public void SetCharacter(Character value)
