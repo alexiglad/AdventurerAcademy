@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     #region gamecontroller basic methods
     void OnEnable()
     {
+        Application.targetFrameRate = 60;//temp code
         gameController.SetGameController(this);
 
         controls.ManualAwake();
@@ -31,10 +32,17 @@ public class GameController : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
 
         fadeImage = GameObject.Find("LoadScreen").GetComponent<CanvasGroup>();
-
-        if (characterPositions.Length == 0)
+        bool dontLoad = false;
+        foreach(Character character in characterList.GetCharacters())
         {
-            Debug.Log("ERROR PLEASE ADD POSITIONS");
+            if(character.IsPlayer())
+            {
+                dontLoad = true;
+            }
+        }
+        if (characterPositions.Length == 0 || dontLoad)
+        {
+            //Debug.Log("ERROR PLEASE ADD POSITIONS");
             currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
             return;
         }
@@ -82,7 +90,7 @@ public class GameController : MonoBehaviour
     }
     void OnSceneUnloaded(Scene scene)
     {
-        StartCoroutine(FadeIn());
+        StartCoroutine(FadeOut());
     }
     #endregion
 

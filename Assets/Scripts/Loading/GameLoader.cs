@@ -22,6 +22,7 @@ public class GameLoader : ScriptableObject
         playerData.MissionCharacters.Add(CharacterIDEnum.Lilia);
         playerData.MissionCharacters.Add(CharacterIDEnum.Tengari);
 
+
         //also has to setup everything according to the data in playerdata/playerpreferences
         //temp code is to add bird prefab and witch prefab to character list for mission
 
