@@ -225,7 +225,7 @@ public class GameController : MonoBehaviour
             character.Agent.enabled = false;
             character.Obstacle.enabled = true;
         }
-        action.Invoke();
+        action?.Invoke();
     }
     #endregion methods
 }

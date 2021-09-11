@@ -91,6 +91,7 @@ public class UIHandler : ScriptableObject
             //TODO this is temp
             damagedCharacters.Clear();
         }
+
     }
     public void UnselectAbilities()
     {

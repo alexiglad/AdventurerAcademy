@@ -11,13 +11,13 @@ public class ResourceBarUI : MonoBehaviour
     [SerializeField] float maxValue = 1; //Default Value
     [SerializeField] BarType barType;
 
-    Character character;
+    Character targetCharacter;
     Image bar;
     float fillAmmount;
     float lerpTime = 3f;
     float timeElapsed = 0f;
 
-    GameStateManagerSO gameStateManagerSO;
+    [SerializeField] GameStateManagerSO gameStateManagerSO;
 
     public float CurrentValue { get => currentValue;}
     public float MaxValue { get => maxValue;}
@@ -30,45 +30,54 @@ public class ResourceBarUI : MonoBehaviour
         healthBack,
         staminaBack
     }
-    
+
     void Start()
     {
         bar = transform.GetComponent<Image>();
 
         if (findCharacterInParent)
         {
-            character = gameObject.GetComponentInParent<Character>();
-            UpdateValues();
-        }                   
+            targetCharacter = gameObject.GetComponentInParent<Character>();
+        }
+
+        if (gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            Debug.Log("Here in Resource Bar UI");
+            CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
+            tempRef.OnCharacterDamaged += UpdateValues;
+        }
     }
 
-    public void UpdateValues()
+    public void UpdateValues(object sender, CharacterDamagedArgs data)
     {
-        if(character != null)
+        Debug.Log("Here");
+        if(targetCharacter != null && targetCharacter == data.character)
+        {
+            Debug.Log("Here pt 2");
             switch (barType)
             {
                 case (BarType.health):
-                    currentValue = character.GetHealth();
-                    maxValue = character.GetMaxHealth();
+                    currentValue = targetCharacter.GetHealth();
+                    maxValue = targetCharacter.GetMaxHealth();
                     break;
 
                 case (BarType.stamina):
-                    currentValue = character.GetEnergy();
-                    maxValue = character.GetMaxEnergy();
+                    currentValue = targetCharacter.GetEnergy();
+                    maxValue = targetCharacter.GetMaxEnergy();
                     break;
 
                 case (BarType.healthBack):
-                    currentValue = character.GetHealth();
-                    maxValue = character.GetMaxHealth();
+                    currentValue = targetCharacter.GetHealth();
+                    maxValue = targetCharacter.GetMaxHealth();
                     break;
             }
-        fillAmmount = bar.fillAmount;
+            StartCoroutine(AnimateHealthBar());
+        }          
     }
 
     void Update()
     {
-        UpdateValues();
-        SetSize(currentValue / maxValue); 
+        
     }
 
     public void SetSize(float sizeNormalized)
@@ -115,15 +124,61 @@ public class ResourceBarUI : MonoBehaviour
 
             if (bar.fillAmount < sizeNormalized)
             {
-                Debug.Log("ran back");
                 bar.color = Color.green;
                 bar.fillAmount = sizeNormalized;
             }
         }
     }
 
+    IEnumerator AnimateHealthBar()
+    {
+        float targetSize = currentValue / maxValue;
+        if (barType == BarType.health)
+        {
+            if (bar.fillAmount > targetSize)
+            {
+                bar.fillAmount = targetSize;
+            }
+            if (bar.fillAmount < targetSize)
+            {
+                while (bar.fillAmount < targetSize)
+                {
+                    bar.fillAmount += .05f;
+                    yield return new WaitForSeconds(.1f);
+                }
+                bar.fillAmount = targetSize;
+            }
+        }
+
+        if (barType == BarType.healthBack)
+        {
+            if (bar.fillAmount > targetSize)
+            {
+                while (bar.fillAmount < targetSize)
+                {
+                    bar.fillAmount -= .05f;
+                    yield return new WaitForSeconds(.1f);
+                }
+                bar.fillAmount = targetSize;
+            }
+            if (bar.fillAmount < targetSize)
+            {
+                bar.fillAmount = targetSize;
+            }
+        }
+
+        CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
+        tempRef.EnableCombatInput();//Todo remove this when no longer needed
+    }
+
     public void SetCharacter(Character value)
     {
-        character = value;
+        targetCharacter = value;
+    }
+
+    private void OnDisable()
+    {
+        CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
+        tempRef.OnCharacterDamaged -= UpdateValues;
     }
 }

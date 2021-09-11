@@ -13,6 +13,8 @@ public class CombatManager : GameStateManager
     private SortedSet<Character> userCharacters = new SortedSet<Character>();
     private SortedSet<Character> enemyCharacters = new SortedSet<Character>();
     private List<Character> turnOrder = new List<Character>();
+    public event EventHandler<CharacterDamagedArgs> OnCharacterDamaged;
+
 
 
     private IEnumerator<Character> enumerator;
@@ -462,7 +464,12 @@ public class CombatManager : GameStateManager
         }
         else if(damagedCharacters.Count > 0)
         {
-            DisableCombatInput();
+            DisableCombatInput();            
+            foreach(DamageData data in damagedCharacters)
+            {
+                Debug.Log("Here in CombatManager");
+                OnCharacterDamaged?.Invoke(this, new CharacterDamagedArgs(data.Character));
+            }
             uiHandler.DisplayDamage(damagedCharacters);
         }
         else if(deadCharacters.Count > 0)
@@ -470,7 +477,8 @@ public class CombatManager : GameStateManager
             DisableCombatInput();
             foreach (Character character in deadCharacters)
             {
-                Action action0 = () => character.gameObject.LeanAlpha(0, 1f);
+                Action action0 = () => character.gameObject.LeanAlpha(0, 1f);// Character
+                action0 += () => character.gameObject.GetComponent<CanvasGroup>().LeanAlpha(0, 1f);// Healthbar
                 //action0 += character.setShader(); TODO implement cedric
                 Action action1 = () => character.gameObject.SetActive(false);
                 action1 += () => EnableCombatInput();
