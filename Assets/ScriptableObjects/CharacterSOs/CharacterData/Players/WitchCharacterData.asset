@@ -30,3 +30,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: abf3589bd34c930429445faa6f9040a1, type: 2}
   isPlayer: 1
   portrait: {fileID: 21300000, guid: 5269fe9e1c59c544cb7e98d2986a78bd, type: 3}
+  doubleMovmenetAnimationFrames:
+  - {fileID: 175307716357298635, guid: 0ad2a8d4ad265b845a20e8c7d3c42074, type: 3}
+  - {fileID: 5909837702583009044, guid: 0ad2a8d4ad265b845a20e8c7d3c42074, type: 3}
+  - {fileID: 2775127714488732612, guid: 0ad2a8d4ad265b845a20e8c7d3c42074, type: 3}
+  - {fileID: -2734772134610773834, guid: 0ad2a8d4ad265b845a20e8c7d3c42074, type: 3}
+  - {fileID: -7475413282782200791, guid: 0ad2a8d4ad265b845a20e8c7d3c42074, type: 3}
+  - {fileID: -8421045255368166741, guid: 0ad2a8d4ad265b845a20e8c7d3c42074, type: 3}
+  frameRate: 0.16

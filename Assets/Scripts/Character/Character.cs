@@ -17,7 +17,7 @@ public class Character : MonoBehaviour, IComparable<Character>
 
      
     [SerializeField] protected float health;
-    [SerializeField] protected float energy;    
+    [SerializeField] protected float energy; 
     private bool revived;
     private bool died;
     private bool unstable;

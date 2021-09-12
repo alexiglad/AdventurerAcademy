@@ -27,6 +27,9 @@ public class CharacterData : ScriptableObject
 
     [SerializeField] Sprite portrait;
 
+    [SerializeField] private List<Sprite> doubleMovmenetAnimationFrames;
+    [SerializeField] private float frameRate;
+
 
     #region Getters and Setters
 
@@ -77,5 +80,7 @@ public class CharacterData : ScriptableObject
     public List<Ability> InUseAbilities { get => inUseAbilities; set => inUseAbilities = value; }
     public string Name { get => name; set => name = value; }
     public Sprite Portrait { get => portrait; set => portrait = value; }
+    public List<Sprite> DoubleMovmenetAnimationFrames { get => doubleMovmenetAnimationFrames;}
+    public float FrameRate {get => frameRate;}
     #endregion
 }
