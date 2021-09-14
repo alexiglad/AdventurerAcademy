@@ -4,222 +4,89 @@ using UnityEngine;
 using Ink.Runtime;
 using Ink.UnityIntegration;
 using UnityEngine.UI;
+using TMPro;
+using System.Linq;
 
 public class DialogueHandler : MonoBehaviour
 {
+    TextMeshProUGUI dialogueBox;
+    Image portrait;
+    TextMeshProUGUI speaker;
+    RectTransform choiceContainer;
+    [SerializeField] GameObject choiceButtonPrefab;
+    List<GameObject> choiceButtons =  new List<GameObject>();
 
-    private Story story;
+    Story story;
 
-    [SerializeField] private Canvas canvas = null;
-
-    // UI Prefabs
-    [SerializeField] private Text textPrefab = null;
-    Text text;
-    [SerializeField] private Button buttonPrefab = null;
-
-    [SerializeField] DialogueProcessor dialogueProcessor;
-
-    bool isTalking = false;
-    bool ending = false;
-    List<string> tags;
-    /*
-    TextAsset nametag;
-    TextAsset message;*/
-
-    /*TextAsset inkFile;
-    GameObject textBox;
-    GameObject customButton;
-    GameObject optionPanel;
-    TextAsset nametag;
-    TextAsset message;
-    Choice choiceSelected;*/
-
-
-
-    public void StartStory(TextAsset dialogue)
+    private void Awake()
     {
-        RemoveChildren();
-        isTalking = false;
-        ending = false;
+        foreach(RectTransform child in gameObject.GetComponentsInChildren<Transform>().ToList())
+        {
+            switch (child.name)
+            {
+                case "Dialogue":
+                    dialogueBox = child.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "Portrait":
+                    portrait = child.GetComponent<Image>();
+                    break;
+                case "Speaker":
+                    speaker = child.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "Content":
+                    choiceContainer = child;
+                    break;
+            }
+        }
+    }
+
+    public void StartStory(TextAsset dialogue, DialogueProcessor processor)
+    {
         story = new Story(dialogue.text);
-        if (story != null)
-        {
-            OnCreateStory(story);
-            //COMMENT OR UNCOMMENT THIS FOR INKY EDITOR DEBUG MODE!! todo
-        }
-        RefreshView();
+        StartCoroutine(HandleStory(processor));
     }
-    void RefreshView()
+    
+    IEnumerator HandleStory(DialogueProcessor processor)
     {
-        // Remove all the UI on screen
-        RemoveChildren();
-        StopAllCoroutines();
-
-        // Display all the choices, if there are any!
-        if (story.canContinue)
-        {//add coroutine stuff here TODO
-            AdvanceDialogue();
-            if (story.currentChoices.Count != 0)
+        while(story.canContinue || story.currentChoices.Count > 0)
+        {
+            if (story.canContinue)
             {
-                StartCoroutine(ShowChoices());
+                story.Continue();
+                dialogueBox.text = story.currentText;
+                if (story.currentTags.Count > 0)
+                {
+                    speaker.text = story.currentTags[0];
+                }
             }
-        }
-        else
-        {
-            EndDialogue();
-        }
-    }
-    public void ProceedDialogue()
-    {
-        if (!ending)
-        {
-            RefreshView();
-        }
-        else
-        {
-            EndDialogue();
-        }
-    }
-    void EndDialogue()
-    {
-        dialogueProcessor.DisableDialogue();
 
-    }
-    void AdvanceDialogue()
-    {
-        ResetText();
-        string currentSentence = story.Continue();
-        if (!story.canContinue)
-        {
-            ending = true;
-        }
-        isTalking = true;
-        ParseTags();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(currentSentence));
-    }
-    void ParseTags()
-    {
-        tags = story.currentTags;
-        foreach (string t in tags)
-        {
-            string prefix = t.Split(' ')[0];
-            string param = t.Split(' ')[1];
-
-            switch (prefix.ToLower())
+            if(story.currentChoices.Count > 0 && choiceButtons.Count < 1)
             {
-                case "anim":
-                    SetAnimation(param);
-                    break;
-                case "color":
-                    SetTextColor(param);
-                    break;
+                for (int i = 0; i < story.currentChoices.Count; i++)
+                {
+                    int j = i;//Fixes pass by reference issue
+                    GameObject obj = Instantiate(choiceButtonPrefab, choiceContainer);
+                    choiceButtons.Add(obj);
+                    obj.GetComponent<Button>().onClick.AddListener(delegate()
+                    {
+                        OnClicked(j);
+                    });
+                    choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = (i + 1 + ": " + story.currentChoices[i].text);
+                }
             }
+            yield return new WaitForSeconds(.01f);
         }
-    }
-    bool IsNotTalking()
-    {
-        return !isTalking;
-    }
-    IEnumerator ShowChoices()
-    {
-        yield return new WaitUntil(IsNotTalking);
-        List<Choice> _choices = story.currentChoices;
-
-        for (int i = 0; i < story.currentChoices.Count; i++)
-        {
-            Choice choice = story.currentChoices[i];
-            Button button = CreateChoiceView(choice.text.Trim());
-            // Tell the button what to do when we press it
-            button.onClick.AddListener(delegate {
-                OnClickChoiceButton(choice);
-            });
-        }
-
-    }
-    IEnumerator TypeSentence(string sentence)
-    {
-
-        text.text = "";
-        foreach (char letter in sentence.ToCharArray())
-        {
-            text.text += letter;
-            yield return null;
-        }
+        processor.DisableDialogue();
         yield return null;
-        isTalking = false;
-    }
-    void OnClickChoiceButton(Choice choice)
-    {
-        story.ChooseChoiceIndex(choice.index);
-        RefreshView();
     }
 
-    void OnCreateStory(Story story)
+    void OnClicked(int index)
     {
-        // If you'd like NOT to automatically show the window and attach (your teammates may appreciate it!) then replace "true" with "false" here. 
-        InkPlayerWindow window = InkPlayerWindow.GetWindow(true);
-        if (window != null)
+        story.ChooseChoiceIndex(index);
+        foreach(GameObject obj in choiceButtons)
         {
-            InkPlayerWindow.Attach(story);
+            GameObject.Destroy(obj);
         }
+        choiceButtons.Clear();
     }
-
-    void ResetText()
-    {
-        text = Instantiate(textPrefab) as Text;
-        text.transform.SetParent(canvas.transform, false);
-    }
-    Button CreateChoiceView(string text)
-    {
-        // Creates the button from a prefab
-        Button choice = Instantiate(buttonPrefab) as Button;
-        choice.transform.SetParent(canvas.transform, false);
-
-        // Gets the text from the button prefab
-        Text choiceText = choice.GetComponentInChildren<Text>();
-        choiceText.text = text;
-
-        // Make the button expand to fit the text
-        HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-        layoutGroup.childForceExpandHeight = false;
-
-        return choice;
-    }
-
-    // Destroys all the children of this gameobject (all the UI)
-    void RemoveChildren()
-    {
-        int childCount = canvas.transform.childCount;
-        for (int i = childCount - 1; i >= 0; --i)
-        {
-            GameObject.Destroy(canvas.transform.GetChild(i).gameObject);
-        }
-    }
-    void SetAnimation(string _name)
-    {
-        //TODO implement animation for each character possibly
-    }
-    void SetTextColor(string _color)
-    {
-        switch (_color)
-        {
-            case "red":
-                textPrefab.color = Color.red;
-                break;
-            case "blue":
-                textPrefab.color = Color.cyan;
-                break;
-            case "green":
-                textPrefab.color = Color.green;
-                break;
-            case "white":
-                textPrefab.color = Color.white;
-                break;
-            default:
-                Debug.Log($"{_color} is not available as a text color");
-                break;
-        }
-    }
-
 }

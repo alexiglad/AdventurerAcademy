@@ -16,8 +16,8 @@ public class DialogueProcessor : ScriptableObject
     {
         substate.SetSubstate(SubstateEnum.Dialouge);
         enabled = true;
-        dialogueHandler = Instantiate(prefab).GetComponent<DialogueHandler>();
-        dialogueHandler.StartStory(dialogue);
+        dialogueHandler = Instantiate(prefab).GetComponentInChildren<DialogueHandler>();
+        dialogueHandler.StartStory(dialogue, this);
     }
     public void DisableDialogue()
     {
@@ -30,7 +30,7 @@ public class DialogueProcessor : ScriptableObject
     {
         if (enabled)
         {
-            dialogueHandler.ProceedDialogue();
+            //dialogueHandler.ProceedDialogue();
         }
     }
     

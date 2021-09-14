@@ -1089,34 +1089,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 708488508854807233, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488508854807233, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488508854807233, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509161121384, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509161121384, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509161121384, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
-      propertyPath: targetGameState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1998741355915837952, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     #region local variables
-    [SerializeField] private Interaction[] interactions;//array of all interactions in a given GO
+    [SerializeField] private Interaction[] interactions;//array of all interactions in a given Game Object
     private Interaction interaction;
     private IEnumerator enumerator;
 
