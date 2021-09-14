@@ -30,7 +30,12 @@ public class StatusDrawer : MonoBehaviour
     }
     public void DrawStatuses(StatusData status)
     {
-        //here cedric implement "tick" effect
-    }
+        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
 
+            //here cedric implement "tick" effect TODO
+            tempRef.EnableCombatInput();
+        }
+    }
 }

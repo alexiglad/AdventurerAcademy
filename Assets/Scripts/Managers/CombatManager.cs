@@ -467,10 +467,10 @@ public class CombatManager : GameStateManager
             DisableCombatInput();            
             foreach(DamageData data in damagedCharacters)
             {
-                Debug.Log("Here in CombatManager");
                 OnCharacterDamaged?.Invoke(this, new CharacterDamagedArgs(data.Character));
             }
-            uiHandler.DisplayDamage(damagedCharacters);
+            damagedCharacters.Clear();
+            EnableCombatInput();
         }
         else if(deadCharacters.Count > 0)
         {
@@ -594,6 +594,7 @@ public class CombatManager : GameStateManager
         character.Agent.enabled = true;
         initialStatus = true;
         statusProcessorInstance.HandleStatuses(character);//todo figure out a way to make this work with following line of code not killing people...
+        EnableCombatInput();//CHECK THIS TEMP CHANGE
         if (!initialStatus)
         {
             //this means initialStatus was set to false just dont do other conditions

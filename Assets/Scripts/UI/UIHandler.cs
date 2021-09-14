@@ -79,20 +79,6 @@ public class UIHandler : ScriptableObject
     {
         statusDrawer.DrawStatuses(status);
     }
-    public void DisplayDamage(List<DamageData> damagedCharacters)
-    {
-        //when done execute two lines ot code below
-        //damagedCharacters.Clear();//todo execute both lines of these code at end of animation
-        //EnableCombatInput();//TEMP CODE TODO
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
-        {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            gameStateManager.GetGameController().StartCoroutineTime(1, tempRef.EnableCombatInput);
-            //TODO this is temp
-            damagedCharacters.Clear();
-        }
-
-    }
     public void UnselectAbilities()
     {
         abilityButton.UnselectAbilities();
