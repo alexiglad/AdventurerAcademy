@@ -74,7 +74,7 @@ public class DialogueHandler : MonoBehaviour
                     choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = (i + 1 + ": " + story.currentChoices[i].text);
                 }
             }
-            yield return new WaitForSeconds(.01f);
+            yield return null;
         }
         processor.DisableDialogue();
         yield return null;

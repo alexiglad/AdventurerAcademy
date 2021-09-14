@@ -211,7 +211,7 @@ public class InputHandler : ScriptableObject
         }
         else if (gameStateManager.GetSubstate() == SubstateEnum.Dialouge)
         {
-            dialogueProcessor.ProceedDialogue();
+            dialogueProcessor.ProceedDialogue();//TODO
         }
     }
     #endregion

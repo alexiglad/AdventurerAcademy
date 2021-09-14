@@ -21,6 +21,7 @@ public class GameStateManagerSO : ScriptableObject
     {
         Destroy(currentGameStateManager);
         String managerType = manager.ToString();
+        substate.SetSubstate(SubstateEnum.Default);
         switch (managerType)
         {
             case "CombatManager":
