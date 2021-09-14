@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +14,9 @@ public class ResourceBarUI : MonoBehaviour
 
     Character targetCharacter;
     Image bar;
-    float fillAmmount;
     float lerpTime = 1f;
     float timeElapsed = 0f;
+    float change;
 
     [SerializeField] GameStateManagerSO gameStateManagerSO;
 
@@ -51,7 +52,6 @@ public class ResourceBarUI : MonoBehaviour
     {
         if(targetCharacter != null && targetCharacter == data.character)
         {
-            Debug.Log("Here pt 2");
             switch (barType)
             {
                 case (BarType.health):
@@ -128,33 +128,33 @@ public class ResourceBarUI : MonoBehaviour
         float targetSize = currentValue / maxValue;
         if (barType == BarType.health)
         {
+            change = targetSize - bar.fillAmount;
             if (bar.fillAmount > targetSize)
             {
                 bar.fillAmount = targetSize;
             }
             if (bar.fillAmount < targetSize)
             {
-                /*while (bar.fillAmount < targetSize)
-                {
-                    Debug.Log("Here Front");
-                    bar.fillAmount += .05f;
-                    yield return new WaitForSeconds(.1f);
-                }*/
-
-                yield return new WaitUntil(BarFillMethod);
-                //bar.fillAmount = targetSize;
-            }
-        }
-
-        if (barType == BarType.healthBack)
-        {
-            if (bar.fillAmount > targetSize)
-            {
                 while (bar.fillAmount < targetSize)
                 {
-                    Debug.Log("Here Back");
-                    bar.fillAmount -= .05f;
-                    yield return new WaitForSeconds(.1f);
+                    float amountLeft = targetSize - bar.fillAmount;
+                    bar.fillAmount += (float)(Math.Pow(change, 0.7)  * Time.deltaTime);
+                    yield return null;
+                }
+                bar.fillAmount = targetSize;
+            }
+        }
+        else if (barType == BarType.healthBack)
+        {
+            change = bar.fillAmount - targetSize;
+            if (bar.fillAmount > targetSize)
+            {
+                while (bar.fillAmount > targetSize)
+                {
+                    float amountLeft = bar.fillAmount - targetSize;
+
+                    bar.fillAmount -= (float)(Math.Pow(change, 0.7)  * Time.deltaTime);
+                    yield return null;
                 }
                 bar.fillAmount = targetSize;
             }
@@ -163,24 +163,6 @@ public class ResourceBarUI : MonoBehaviour
                 bar.fillAmount = targetSize;
             }
         }
-
-        yield return null;
-        CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
-        tempRef.EnableCombatInput();//Todo remove this when no longer needed
-    }
-
-    bool BarFillMethod()
-    {
-        float targetSize = currentValue / maxValue;
-        if (bar.fillAmount > targetSize)
-        {
-            return true;
-        }
-        else
-        {
-            bar.fillAmount += .1f;
-        }
-        return false;
     }
 
     public void SetCharacter(Character value)
