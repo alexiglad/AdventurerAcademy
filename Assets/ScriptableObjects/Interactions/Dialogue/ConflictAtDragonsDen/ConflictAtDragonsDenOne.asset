@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueProcessor: {fileID: 11400000, guid: 95dcb0ad6f40cc74995641d551ceddfb, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
-  inkJSONAsset: {fileID: 4900000, guid: 003f00c88acca564b9dadad25533d5df, type: 3}
+  inkJSONAsset: {fileID: 4900000, guid: 884d196ddfdd8f946b847b76960bd303, type: 3}
