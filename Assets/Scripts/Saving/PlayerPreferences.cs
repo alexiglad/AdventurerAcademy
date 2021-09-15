@@ -15,7 +15,7 @@ public class PlayerPreferences : ScriptableObject
     //data type meant for remapping controls/keybinds
 
     //data type meant for graphics
-
+    bool autosave;//0 is no 1 is yes
 
     int maxFPS;
 

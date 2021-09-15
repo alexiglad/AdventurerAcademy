@@ -9,7 +9,14 @@ public class RoamingManager : GameStateManager
     private SortedSet<Character> characters = new SortedSet<Character>();
     private IEnumerator<Character> enumerator;
     private Character character;
-    private List<GameObject> interactables;
+    private List<GameObject> interactables; 
+    //need to incorporate this with save system as follows
+
+
+
+
+
+
     private bool canContinue;
 
     [SerializeField] MovementProcessor movementProcessor;

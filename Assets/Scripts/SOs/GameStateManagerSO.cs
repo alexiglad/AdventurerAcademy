@@ -13,7 +13,6 @@ public class GameStateManagerSO : ScriptableObject
     private GameStateManager currentGameStateManager;
     [SerializeField] CombatManager combatManager;
     [SerializeField] RoamingManager roamingManager;
-    [SerializeField] LoadingManager loadingManager;
     [SerializeField] GameControllerSO gameController;
     [SerializeField] GameLoader gameLoader;
 
@@ -29,9 +28,6 @@ public class GameStateManagerSO : ScriptableObject
                 break;
             case "RoamingManager":
                 currentGameStateManager = Instantiate(roamingManager);
-                break;
-            case "LoadingManager":
-                currentGameStateManager = Instantiate(loadingManager);
                 break;
             default:
                 Debug.Log("error switching game states please investigate");

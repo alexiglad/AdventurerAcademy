@@ -594,7 +594,8 @@ public class CombatManager : GameStateManager
         character.Agent.enabled = true;
         initialStatus = true;
         statusProcessorInstance.HandleStatuses(character);//todo figure out a way to make this work with following line of code not killing people...
-        EnableCombatInput();//CHECK THIS TEMP CHANGE
+        EnableCombatInput();
+        //TODO save after every turn here
         if (!initialStatus)
         {
             //this means initialStatus was set to false just dont do other conditions

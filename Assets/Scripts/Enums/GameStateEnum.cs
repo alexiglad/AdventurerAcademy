@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum GameStateEnum
 {
-    Loading,
     Combat,
     Roaming,
 }
