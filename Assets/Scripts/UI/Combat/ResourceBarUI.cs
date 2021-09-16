@@ -172,7 +172,10 @@ public class ResourceBarUI : MonoBehaviour
 
     private void OnDisable()
     {
-        CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
-        tempRef.OnCharacterDamaged -= UpdateValues;
+        if(gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
+        {
+            CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
+            tempRef.OnCharacterDamaged -= UpdateValues;
+        }
     }
 }
