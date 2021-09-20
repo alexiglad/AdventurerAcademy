@@ -16,7 +16,13 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 88dc712ac2ac0d041b1d1bbd24ea2706
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: c9f66abbd710020429634caf3af45b91
+    m_Address: Assets/Dgv/Terrain1/Textures/T_LavaSoilBellow_is_R_Path_is_G_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c521e71668a88d44aaa341cd1732f577, type: 2}
   m_SchemaSet:
