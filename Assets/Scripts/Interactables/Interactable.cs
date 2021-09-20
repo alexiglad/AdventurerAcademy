@@ -38,5 +38,6 @@ public class Interactable : MonoBehaviour
     public void HandleInteraction()
     {
         interaction.HandleInteraction();
+
     }
 }

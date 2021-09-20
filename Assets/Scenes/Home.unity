@@ -1115,7 +1115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
       propertyPath: targetGameState
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
       propertyPath: characterPositions.Array.size
