@@ -19,5 +19,21 @@ public class PlayerPreferences : ScriptableObject
 
     int maxFPS;
 
-
+    //later have custom data container for switching controls
+    private void OnEnable()
+    {//temporary code setting it will be set from menu
+        musicOuput = .5f;
+        sfxOutput = .5f;
+        autosave = true;
+        maxFPS = 60;
+    }
+    public PPData PackData()
+    {
+        PPData ppData = new PPData();
+        ppData.musicOuput = musicOuput;
+        ppData.sfxOutput = sfxOutput;
+        ppData.autosave = autosave;
+        ppData.maxFPS = maxFPS;
+        return ppData;
+    }
 }

@@ -17,3 +17,4 @@ MonoBehaviour:
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   movementProcessor: {fileID: 11400000, guid: 61883f9db92e49848bf81670616c6e8a, type: 2}
   dialogueProcessor: {fileID: 11400000, guid: 95dcb0ad6f40cc74995641d551ceddfb, type: 2}
+  gameLoader: {fileID: 11400000, guid: a180d16b6e9c67c4e841c1a9674268f9, type: 2}

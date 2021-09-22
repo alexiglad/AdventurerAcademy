@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
+[Serializable]
 [CreateAssetMenu(menuName = "ScriptableObjects/Managers/CombatManager")]
 public class CombatManager : GameStateManager
 {

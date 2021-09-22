@@ -11,8 +11,9 @@ public class GameLoader : ScriptableObject
     [SerializeField] PlayerPreferences playerPreferences;
     [SerializeField] CharacterListSO characterList;
     [SerializeField] GameControllerSO gameController;
+    [SerializeField] SaveSystem saveSystem;
     string scene;
-
+    #region mission loading
     public void ManualStart()
     {
         //has to dynamically assign player data and player preferences
@@ -28,6 +29,7 @@ public class GameLoader : ScriptableObject
 
         LoadMissionOnStart();
     }
+    
     public void LoadMissionOnStart()
     {
         if(playerData.CurrentMission != null)
@@ -53,7 +55,7 @@ public class GameLoader : ScriptableObject
             {
                 missionn.Pos = 0;//TEMP
                 playerData.CurrentMission = missionn;
-                LoadScene(missionn.Subscenes[missionn.Pos]);
+                LoadScene(missionn.Subscenes[missionn.Pos].sceneName);
                 break;
             }
         }
@@ -61,7 +63,7 @@ public class GameLoader : ScriptableObject
     public void LoadMission(MissionDataSO mission)
     {
         playerData.CurrentMission = mission;
-        LoadScene(mission.Subscenes[mission.Pos]);
+        LoadScene(mission.Subscenes[mission.Pos].sceneName);
     }
     void LoadScene(string sceneName)
     {
@@ -71,6 +73,7 @@ public class GameLoader : ScriptableObject
         //SceneManager.UnloadSceneAsync(scene);
         //SetCurrentScene(sceneName);
     }
+    #endregion
     #region combat/roaming context loading
     public void LoadSceneAfterCombatLoss()
     {//needs to go to default place or maybe home? decide at meeting todo and also determine if need to reset pos
@@ -83,7 +86,7 @@ public class GameLoader : ScriptableObject
         playerData.CurrentMission.Pos++;
         if (playerData.CurrentMission.Subscenes.Length > playerData.CurrentMission.Pos)
         {
-            LoadScene(playerData.CurrentMission.Subscenes[playerData.CurrentMission.Pos]);
+            LoadScene(playerData.CurrentMission.Subscenes[playerData.CurrentMission.Pos].sceneName);
         }
         else
         {
@@ -114,5 +117,12 @@ public class GameLoader : ScriptableObject
             }
         }
     }
+    #endregion
+    #region saving
+    public void Save(string filename)
+    {
+        saveSystem.Save(filename);
+    }
+
     #endregion
 }

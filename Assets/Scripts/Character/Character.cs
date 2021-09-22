@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[Serializable]
 public class Character : MonoBehaviour, IComparable<Character>
 {
     #region Local Variables
@@ -33,7 +34,7 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     BoxCollider boxCollider;
 
-    private List<Status> statuses = new List<Status>();
+    [SerializeField] private List<Status> statuses = new List<Status>();
 
     NavMeshAgent agent;
     NavMeshObstacle obstacle;

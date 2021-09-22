@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52a257e56d8bc3c4c8756c26c415ed44, type: 3}
-  m_Name: GameLoader
+  m_Script: {fileID: 11500000, guid: 374c1cc036432b84b9c5b7289c908191, type: 3}
+  m_Name: SaveSystem
   m_EditorClassIdentifier: 
+  gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
   playerData: {fileID: 11400000, guid: 00feee63646be624a9a75c50ad376272, type: 2}
   playerPreferences: {fileID: 11400000, guid: 7769ce0e07ed074459308e7eddd48942, type: 2}
-  characterList: {fileID: 11400000, guid: fa52f49f11aaa064d81308a75007aa6f, type: 2}
-  gameController: {fileID: 11400000, guid: 35ef75537cd09ae4cacf2a0fda9856ea, type: 2}
-  saveSystem: {fileID: 11400000, guid: aa88470e0966e7141b1bda9726bca063, type: 2}

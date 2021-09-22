@@ -23,6 +23,7 @@ public class InputHandler : ScriptableObject
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] MovementProcessor movementProcessor;
     [SerializeField] DialogueProcessor dialogueProcessor;
+    [SerializeField] GameLoader gameLoader;//TODO remove this temp code
 
 
     public Camera ActiveCamera { get => activeCamera;}
@@ -50,6 +51,8 @@ public class InputHandler : ScriptableObject
             controls.UniversalControls.Zoom.performed += _ => SetZoom();
             controls.UniversalControls.Interact.performed += _ => OnInteract();
             controls.UniversalControls.Inventory.performed += _ => OnInventoryToggle();
+
+            controls.UniversalControls.TEMP.performed += _ => TempPressed();//TODO remove this temp code
             initialized = true;
         }
         else
@@ -60,7 +63,10 @@ public class InputHandler : ScriptableObject
             //TODO make this less sketch
         }
     }
-
+    public void TempPressed()//TODO remove this temp code
+    {
+        gameLoader.Save("testSave");
+    }
     #region generalized methods
     public void SetActiveCamera(Camera active)
     {

@@ -36,9 +36,10 @@ public class MissionDataSO : ScriptableObject
     //TODO discuss this idea with cedric
 
     int pos;
-    [SerializeField] string[] subscenes;//this is all the subscenes associated with the mission
-    //to complete a mission a user must go through all the subscenes if this array has size 0 once
-    //they complete the original mission scene they are finished
+    [SerializeField] SceneSO[] subscenes;
+    //[SerializeField] string[] subscenes;//this is all the subscenes associated with the mission
+
+
 
     [SerializeField] Vector3 mapLocation;//is vector3 just in case we wanna go with a 3D map
 
@@ -54,7 +55,7 @@ public class MissionDataSO : ScriptableObject
     public int NumRequisites { get => numRequisites; set => numRequisites = value; }
     public string[] Unlocks { get => unlocks; set => unlocks = value; }
     public Vector3 Weight { get => endingWeight; set => endingWeight = value; }
-    public string[] Subscenes { get => subscenes; set => subscenes = value; }
+    public SceneSO[] Subscenes { get => subscenes; set => subscenes = value; }
     public Vector3 MapLocation { get => mapLocation; set => mapLocation = value; }
     public Sprite Image { get => image; set => image = value; }
     public float DimWidth { get => dimWidth; set => dimWidth = value; }

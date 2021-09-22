@@ -9,13 +9,13 @@ public class GameController : MonoBehaviour
 {
 
     [SerializeField] private GameStateManagerSO currentGameStateManager;
-    [SerializeField] private GameStateEnum targetGameState;
+    [SerializeField] private GameStateEnum targetGameState;//implementing elsewhere wil be deprecated
 
     [SerializeField] UIHandler uiHandler;
     [SerializeField] GameControllerSO gameController;
     [SerializeField] InputHandler controls;
     [SerializeField] CharacterListSO characterList;
-    [SerializeField] Vector3[] characterPositions;
+    [SerializeField] Vector3[] characterPositions;//implementing elsewhere wil be deprecated
     [SerializeField] PlayerData playerData;
     [SerializeField] GameObject[] playerPrefabs;//this stores all the prefabs for all characters to create dynamically
 

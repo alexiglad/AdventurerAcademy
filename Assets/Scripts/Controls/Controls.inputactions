@@ -92,6 +92,14 @@
                     "expectedControlType": "Button",
                     "processors": "Normalize(min=-1,max=1)",
                     "interactions": ""
+                },
+                {
+                    "name": "TEMP",
+                    "type": "Button",
+                    "id": "12dd50e4-4e61-438d-ad50-4518c3a6344e",
+                    "expectedControlType": "Button",
+                    "processors": "Normalize(min=-1,max=1)",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -290,6 +298,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "678400cb-9ca0-458a-941e-f2ee534d732a",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TEMP",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
