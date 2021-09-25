@@ -55,4 +55,21 @@ public class PlayerData : ScriptableObject
     public int DaysLeft { get => daysLeft; set => daysLeft = value; }
     public MissionDataSO CurrentMission { get => currentMission; set => currentMission = value; }
     public List<CharacterIDEnum> MissionCharacters { get => missionCharacters; set => missionCharacters = value; }
+
+
+    public GameData PackData()
+    {
+        GameData gameData = new GameData();
+        gameData.difficulty = difficulty;
+        gameData.characterDataList = characterDataList;
+        gameData.playerList = playerList;
+        gameData.endingDeterminer = endingDeterminer;
+        gameData.daysLeft = daysLeft;
+        gameData.missionCharacters = missionCharacters;
+        gameData.atlasData = atlas.PackData();
+        gameData.currentMission = currentMission.PackData();
+
+
+        return gameData;
+    }
 }

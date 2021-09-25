@@ -67,4 +67,31 @@ public class MissionDataSO : ScriptableObject
     (Combat, roaming, etc^), ending weight data upon completion/failure^, mapstatus: 
     visible/invisible/completed,  Faction/Character relation data upon completion/failure^, 
     region/local map image, subscenes(list of scenes tied to a mission), location on map)*/
+    public MissionData PackData()
+    {
+        MissionData missionData = new MissionData(unlocks.Length, subscenes.Length);
+        missionData.name = name;
+        missionData.mapStatus = mapStatus;
+        missionData.numRequisites = numRequisites;
+        missionData.unlocks = unlocks;
+        missionData.endingWeight[0] = endingWeight[0];
+        missionData.endingWeight[1] = endingWeight[1];
+        missionData.endingWeight[2] = endingWeight[2];
+        missionData.pos = pos;
+        missionData.mapLocation[0] = mapLocation[0];
+        missionData.mapLocation[1] = mapLocation[1];
+        missionData.mapLocation[2] = mapLocation[2];
+        for(int i = 0; i< unlocks.Length; i++)
+        {
+            missionData.unlocks[i] = unlocks[i];
+        }
+        for (int i = 0; i < subscenes.Length; i++)
+        {
+            missionData.subscenes[i] = subscenes[i].PackData();
+        }
+        missionData.image = image;
+        missionData.dimWidth = dimWidth;
+        missionData.dimHeight = dimHeight;
+        return missionData;
+    }
 }

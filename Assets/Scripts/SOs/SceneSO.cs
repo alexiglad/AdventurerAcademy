@@ -9,4 +9,11 @@ public abstract class SceneSO : ScriptableObject
     [SerializeField] private GameStateEnum targetGameState;
     [SerializeField] Vector3[] characterPositions;
 
+    public SceneData PackData()
+    {
+        SceneData sceneData = new SceneData();
+        //todo implement
+
+        return sceneData;
+    }
 }
