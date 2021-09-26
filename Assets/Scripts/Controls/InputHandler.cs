@@ -128,19 +128,22 @@ public class InputHandler : ScriptableObject
         {
             case GameStateEnum.Combat:
             {
-                CombatManager tempCombatRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                if (tempCombatRef.CanContinue)
+                if (gameStateManager.GetSubstate() == SubstateEnum.Default)
                 {
-                    if (tempCombatRef.GetTargeting() == true)
+                    CombatManager tempCombatRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                    if (tempCombatRef.CanContinue)
                     {
-                        SendTarget(data, tempCombatRef);
-                    }
-                    else
-                    {
-                        Vector3 pos = GetLocation(data);
-                        if (pos != Vector3.zero)
+                        if (tempCombatRef.GetTargeting() == true)
                         {
-                            tempCombatRef.CombatMovement(pos);
+                            SendTarget(data, tempCombatRef);
+                        }
+                        else
+                        {
+                            Vector3 pos = GetLocation(data);
+                            if (pos != Vector3.zero)
+                            {
+                                tempCombatRef.CombatMovement(pos);
+                            }
                         }
                     }
                 }
@@ -149,34 +152,37 @@ public class InputHandler : ScriptableObject
 
             case GameStateEnum.Roaming:
             {
-                RoamingManager tempRoamingRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
+                if (gameStateManager.GetSubstate() == SubstateEnum.Default)
+                {
+                        RoamingManager tempRoamingRef = (RoamingManager)gameStateManager.GetCurrentGameStateManager();
 
-                if (data.HitBool && VerifyTag(data, "Terrain"))
-                {
-                    Vector3 pos = GetLocation(data);
-                    if (pos != Vector3.zero)
-                    {
-                        tempRoamingRef.MoveToLocation(pos);
+                        if (data.HitBool && VerifyTag(data, "Terrain"))
+                        {
+                            Vector3 pos = GetLocation(data);
+                            if (pos != Vector3.zero)
+                            {
+                                tempRoamingRef.MoveToLocation(pos);
+                            }
+                        }
+                        else if (data.HitBool && VerifyTag(data, "Interactable"))
+                        {
+                            if (CanInteract(tempRoamingRef, data))
+                            {
+                                //just call interact method
+                                tempRoamingRef.Interact(data.Hit.transform.GetComponent<Interactable>());
+                            }
+                            else if (ClickHasInteractable(data))
+                            {
+                                //click and move
+                                tempRoamingRef.MoveAndInteract(data.Hit.point, data.Hit.transform.GetComponent<Interactable>());
+                            }
+                            else
+                            {
+                                //just move to location
+                                tempRoamingRef.MoveToLocation(data.Hit.point);
+                            }
+                        }
                     }
-                }
-                else if (data.HitBool && VerifyTag(data, "Interactable"))
-                {
-                    if (CanInteract(tempRoamingRef, data))
-                    {
-                        //just call interact method
-                        tempRoamingRef.Interact(data.Hit.transform.GetComponent<Interactable>());
-                    }
-                    else if (ClickHasInteractable(data))
-                    {
-                        //click and move
-                        tempRoamingRef.MoveAndInteract(data.Hit.point, data.Hit.transform.GetComponent<Interactable>());
-                    }
-                    else
-                    {
-                        //just move to location
-                        tempRoamingRef.MoveToLocation(data.Hit.point);
-                    }
-                }
                 break;
             }
 
@@ -190,19 +196,21 @@ public class InputHandler : ScriptableObject
     {
         switch (gameStateManager.GetCurrentGameState())
         {
+
             case GameStateEnum.Combat:
             {
-                CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                tempRef.CombatAbilityDeselect();
+                if(gameStateManager.GetSubstate() == SubstateEnum.Default)
+                {
+                    CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                    tempRef.CombatAbilityDeselect();
+                }
                 break;
             }
-
             default:
             {
                 DisplayError();
                 break;
             }
-
         }
     }
     void OnSpace()

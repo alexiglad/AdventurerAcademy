@@ -7,4 +7,6 @@ using System;
 public class RoamingSceneSO : SceneSO
 {
     [SerializeField] List<Interactable> interactions;
+
+    public List<Interactable> Interactions { get => interactions; set => interactions = value; }
 }

@@ -21,11 +21,10 @@ public class SaveData
 
     //PPData
     public PPData ppData;
-    public List<int> test;
 
 
     //PData
-
+    public GameData gameData;
 
 
 
@@ -43,23 +42,20 @@ public class SaveData
         substate = gameStateManager.GetSubstate();
         ExtractStateData();
         ExtractPreferenceData();
-        ExtractPlayerData();
+        ExtractGameData();
     }
     void ExtractStateData()
     {
-
+        gameStateManager.PackData();
         //will call associated packing methods for individual classes and custom data container created for the sole purpose of saving
     }
     void ExtractPreferenceData()
     { 
-        test = new List<int>();
-        test.Add(1);
-        test.Add(2);
         ppData = playerPreferences.PackData();
     }
-    void ExtractPlayerData()
+    void ExtractGameData()
     {
-
+        gameData = playerData.PackData();
     }
 
 }

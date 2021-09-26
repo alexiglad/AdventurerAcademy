@@ -8,7 +8,6 @@ public class Interactable : MonoBehaviour
     [SerializeField] private Interaction[] interactions;//array of all interactions in a given Game Object
     private Interaction interaction;
     private IEnumerator enumerator;
-    private InteractionData currentInteractionData;//TODO cedric implement this where we can use it to save the state of given interactions in progress
 
 
 
@@ -41,10 +40,5 @@ public class Interactable : MonoBehaviour
         interaction.HandleInteraction();
 
     }
-    public void WriteToCurrentInteractionData()
-    {
-        //todo implement cedric
-        //this would get called by save system and must save current interaction data (is dialogue the only one)
-        //to interaction data
-    }
+
 }

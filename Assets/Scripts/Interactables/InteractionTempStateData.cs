@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 [Serializable]
-public class InteractionData 
+public class InteractionTempStateData 
 {
     //implement fields here that determines
     //  type of interaction

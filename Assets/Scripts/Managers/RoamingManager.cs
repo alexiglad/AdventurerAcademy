@@ -9,8 +9,9 @@ public class RoamingManager : GameStateManager
     private SortedSet<Character> characters = new SortedSet<Character>();
     private IEnumerator<Character> enumerator;//todo delete this just use main character
     private Character character;
-    private List<GameObject> interactables; 
-    //need to incorporate this with save system as follows
+    private List<GameObject> interactables;
+    private InteractionTempStateData currentInteractionData;//TODO cedric implement this where we can use it to save the state of given interactions in progress
+
 
 
 

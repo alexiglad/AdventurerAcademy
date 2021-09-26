@@ -9,22 +9,42 @@ public class GameController : MonoBehaviour
 {
 
     [SerializeField] private GameStateManagerSO currentGameStateManager;
-    [SerializeField] private GameStateEnum targetGameState;//implementing elsewhere wil be deprecated
-
     [SerializeField] UIHandler uiHandler;
     [SerializeField] GameControllerSO gameController;
     [SerializeField] InputHandler controls;
     [SerializeField] CharacterListSO characterList;
-    [SerializeField] Vector3[] characterPositions;//implementing elsewhere wil be deprecated
+
     [SerializeField] PlayerData playerData;
     [SerializeField] GameObject[] playerPrefabs;//this stores all the prefabs for all characters to create dynamically
-
+    SceneSO sceneSO;
+    [SerializeField] AllSceneReferencesSO sceneReferences;
     CanvasGroup fadeImage;
 
     #region gamecontroller basic methods
     void OnEnable()
     {
+        if(playerData.CurrentMission == null)
+        {            //temp code to load up immediate scene (aka when testing)
+            foreach(SceneSO scene in sceneReferences.scenes)
+            {
+                if(scene.name.Equals(SceneManager.GetActiveScene().name))
+                {
+                    sceneSO = scene;
+                    break;
+                }
+            }
+            if (sceneSO == null)
+            {
+                Debug.Log("missing sceneSO for given scene please create and add to allSceneReferencesSO");
+                //if this is still true
+            }
+        }
+        else//when using load system
+        {
+            sceneSO = playerData.CurrentMission.Subscenes[playerData.CurrentMission.Pos];
+        }
         Application.targetFrameRate = 60;//temp code
+
         gameController.SetGameController(this);
 
         controls.ManualAwake();
@@ -40,20 +60,20 @@ public class GameController : MonoBehaviour
                 dontLoad = true;
             }
         }
-        if (characterPositions.Length == 0 || dontLoad)
+        if (sceneSO.CharacterPositions.Length == 0 || dontLoad)
         {
             //Debug.Log("ERROR PLEASE ADD POSITIONS");
-            currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());//actual code for release
+            currentGameStateManager.CreateStateInstance(sceneSO.TargetGameState, characterList.GetCharacters());//actual code for release
             return;
         }
         int pos = 0;
-        if (characterPositions.Length == 0)
+        if (sceneSO.CharacterPositions.Length == 0)
         {
             Debug.Log("please add positions on gamecontroller for characters to spawn");
         }
         foreach (CharacterIDEnum name in playerData.MissionCharacters)
         {
-            if (pos >= characterPositions.Length)
+            if (pos >= sceneSO.CharacterPositions.Length)
             {
                 Debug.Log("possible error tried to add to many characters to given scene");
             }
@@ -61,7 +81,7 @@ public class GameController : MonoBehaviour
             {
                 if (prefab.GetComponent<Player>().CharacterID == name)
                 {
-                    GameObject go = Instantiate(prefab, characterPositions[pos], Quaternion.identity);
+                    GameObject go = Instantiate(prefab, sceneSO.CharacterPositions[pos], Quaternion.identity);
                     Character character = go.GetComponent<Character>();
                     characterList.AddCharacter(character);
                     character.ManualAwake();
@@ -71,7 +91,7 @@ public class GameController : MonoBehaviour
             pos++;
         }
 
-        currentGameStateManager.CreateStateInstance(targetGameState, characterList.GetCharacters());
+        currentGameStateManager.CreateStateInstance(sceneSO.TargetGameState, characterList.GetCharacters());
 
 
     }

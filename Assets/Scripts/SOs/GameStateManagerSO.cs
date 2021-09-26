@@ -70,4 +70,13 @@ public class GameStateManagerSO : ScriptableObject
     {
         substate.SetSubstate(state);
     }
+    public StateData PackData()
+    {
+        //todo implement
+        StateData stateData = new StateData(GetCurrentGameState(), GetCurrentGameStateManager());
+
+
+
+        return stateData;
+    } 
 }
