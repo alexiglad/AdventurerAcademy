@@ -67,7 +67,14 @@ public class PlayerData : ScriptableObject
         gameData.daysLeft = daysLeft;
         gameData.missionCharacters = missionCharacters;
         gameData.atlasData = atlas.PackData();
-        gameData.currentMission = currentMission.PackData();
+        if(currentMission != null)
+        {
+            gameData.currentMission = currentMission.PackData();
+        }
+        else
+        {
+            Debug.Log("Please investigate if current mission should not be null");
+        }
 
 
         return gameData;
