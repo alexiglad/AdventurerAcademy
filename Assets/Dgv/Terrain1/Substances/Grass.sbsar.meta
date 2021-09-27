@@ -16,7 +16,27 @@ ScriptedImporter:
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n </sbspreset>\n"
+    preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n  <presetinput identifier=\"GrassColor1\"
+      uid=\"2761422886\" type=\"3\" value=\"0.335552,0.541176,0,1\" />\n  <presetinput
+      identifier=\"GrassColor4\" uid=\"2761422936\" type=\"3\" value=\"0.233848,0.292453,0,1\"
+      />\n  <presetinput identifier=\"GrassColor5\" uid=\"2761422914\" type=\"3\"
+      value=\"0.537325,0.717647,0.0666667,1\" />\n  <presetinput identifier=\"GrassColor6\"
+      uid=\"2761423016\" type=\"3\" value=\"0.596222,0.784314,0,1\" />\n  <presetinput
+      identifier=\"GrassColor7\" uid=\"2761422986\" type=\"3\" value=\"0.782739,0.811765,0.482353,1\"
+      />\n  <presetinput identifier=\"DirtColor\" uid=\"2761423084\" type=\"3\" value=\"0.551899,0.705882,0.101961,1\"
+      />\n  <presetinput identifier=\"Grass5Scale\" uid=\"2760901938\" type=\"4\"
+      value=\"5\" />\n  <presetinput identifier=\"Grass7Visibility\" uid=\"2760901364\"
+      type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Grass7Balance\" uid=\"2760901339\"
+      type=\"0\" value=\"0.428\" />\n  <presetinput identifier=\"Grass7Contrast\"
+      uid=\"2760903787\" type=\"0\" value=\"0.447\" />\n  <presetinput identifier=\"Grass8Visibility\"
+      uid=\"2760905000\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Grass8Balance\"
+      uid=\"2760905043\" type=\"0\" value=\"0.522\" />\n  <presetinput identifier=\"Grass8Contrast\"
+      uid=\"2760907596\" type=\"0\" value=\"0.131\" />\n  <presetinput identifier=\"GrassNormalIntensity\"
+      uid=\"2760912829\" type=\"0\" value=\"0.19\" />\n  <presetinput identifier=\"DirtNormalIntensity\"
+      uid=\"2760912798\" type=\"0\" value=\"0.15\" />\n  <presetinput identifier=\"Grass_Dirt_FinalNormalMixing\"
+      uid=\"2760912875\" type=\"0\" value=\"0.889\" />\n  <presetinput identifier=\"GrassRoughness\"
+      uid=\"2760911902\" type=\"0\" value=\"0.793\" />\n  <presetinput identifier=\"DirtRoughness\"
+      uid=\"2760912061\" type=\"0\" value=\"0.146\" />\n </sbspreset>\n"
     shaderName: Universal Render Pipeline/Lit
     materialProperties:
       shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
@@ -240,31 +260,34 @@ ScriptedImporter:
     generateAllOutputs: 1
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n  <presetinput identifier=\"GrassColor1\"
-      uid=\"2761422886\" type=\"3\" value=\"0.368552,0.849057,0,1\" />\n  <presetinput
-      identifier=\"GrassColor5\" uid=\"2761422914\" type=\"3\" value=\"0.865708,1,0.184314,1\"
-      />\n  <presetinput identifier=\"GrassColor6\" uid=\"2761423016\" type=\"3\"
-      value=\"0.745098,0.467101,0.0392157,1\" />\n  <presetinput identifier=\"GrassColor7\"
-      uid=\"2761422986\" type=\"3\" value=\"0.527813,0.688679,0,1\" />\n  <presetinput
-      identifier=\"DirtColor\" uid=\"2761423084\" type=\"3\" value=\"0.98857,1,0.70283,1\"
-      />\n  <presetinput identifier=\"Grass3Scale\" uid=\"2760902416\" type=\"4\"
-      value=\"2\" />\n  <presetinput identifier=\"Grass3_angle_random\" uid=\"2760901641\"
-      type=\"0\" value=\"0.717\" />\n  <presetinput identifier=\"Grass3_color_random\"
-      uid=\"2760901755\" type=\"0\" value=\"0.442\" />\n  <presetinput identifier=\"Grass5Scale\"
-      uid=\"2760901938\" type=\"4\" value=\"5\" />\n  <presetinput identifier=\"Grass5_angle_random\"
+      uid=\"2761422886\" type=\"3\" value=\"0.726808,0.831373,0,1\" />\n  <presetinput
+      identifier=\"GrassColor3\" uid=\"2761422961\" type=\"3\" value=\"0.0323667,0.330189,0.0015575,1\"
+      />\n  <presetinput identifier=\"GrassColor4\" uid=\"2761422936\" type=\"3\"
+      value=\"0.170521,0.290196,0,1\" />\n  <presetinput identifier=\"GrassColor5\"
+      uid=\"2761422914\" type=\"3\" value=\"0.723246,1,0.184314,1\" />\n  <presetinput
+      identifier=\"GrassColor6\" uid=\"2761423016\" type=\"3\" value=\"0.665911,0.858824,0.164706,1\"
+      />\n  <presetinput identifier=\"GrassColor7\" uid=\"2761422986\" type=\"3\"
+      value=\"0.680476,0.792157,0,1\" />\n  <presetinput identifier=\"DirtColor\"
+      uid=\"2761423084\" type=\"3\" value=\"0.950042,1,0.127358,1\" />\n  <presetinput
+      identifier=\"Grass3Scale\" uid=\"2760902416\" type=\"4\" value=\"3\" />\n 
+      <presetinput identifier=\"Grass3_angle_random\" uid=\"2760901641\" type=\"0\"
+      value=\"0.717\" />\n  <presetinput identifier=\"Grass3_color_random\" uid=\"2760901755\"
+      type=\"0\" value=\"0.442\" />\n  <presetinput identifier=\"Grass5Scale\" uid=\"2760901938\"
+      type=\"4\" value=\"11\" />\n  <presetinput identifier=\"Grass5_angle_random\"
       uid=\"2760901906\" type=\"0\" value=\"0.895\" />\n  <presetinput identifier=\"Grass5_color_random\"
-      uid=\"2760902013\" type=\"0\" value=\"0.853\" />\n  <presetinput identifier=\"Grass7Visibility\"
-      uid=\"2760901364\" type=\"0\" value=\"0.842\" />\n  <presetinput identifier=\"Grass7Balance\"
-      uid=\"2760901339\" type=\"0\" value=\"0.413\" />\n  <presetinput identifier=\"Grass7Contrast\"
-      uid=\"2760903787\" type=\"0\" value=\"0.388\" />\n  <presetinput identifier=\"Grass8Blurr\"
-      uid=\"2760905080\" type=\"0\" value=\"11.81\" />\n  <presetinput identifier=\"Grass8Balance\"
-      uid=\"2760905043\" type=\"0\" value=\"0.421\" />\n  <presetinput identifier=\"Grass8Contrast\"
-      uid=\"2760907596\" type=\"0\" value=\"0.495\" />\n  <presetinput identifier=\"Grass8Invert\"
+      uid=\"2760902013\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Grass7Visibility\"
+      uid=\"2760901364\" type=\"0\" value=\"0.684\" />\n  <presetinput identifier=\"Grass7Balance\"
+      uid=\"2760901339\" type=\"0\" value=\"0.792\" />\n  <presetinput identifier=\"Grass7Contrast\"
+      uid=\"2760903787\" type=\"0\" value=\"0.408\" />\n  <presetinput identifier=\"Grass8Blurr\"
+      uid=\"2760905080\" type=\"0\" value=\"10.86\" />\n  <presetinput identifier=\"Grass8Balance\"
+      uid=\"2760905043\" type=\"0\" value=\"0.334\" />\n  <presetinput identifier=\"Grass8Contrast\"
+      uid=\"2760907596\" type=\"0\" value=\"0.045\" />\n  <presetinput identifier=\"Grass8Invert\"
       uid=\"2760910156\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"GrassNormalIntensity\"
-      uid=\"2760912829\" type=\"0\" value=\"3\" />\n  <presetinput identifier=\"DirtNormalIntensity\"
+      uid=\"2760912829\" type=\"0\" value=\"0.05\" />\n  <presetinput identifier=\"DirtNormalIntensity\"
       uid=\"2760912798\" type=\"0\" value=\"0.44\" />\n  <presetinput identifier=\"Grass_Dirt_FinalNormalMixing\"
       uid=\"2760912875\" type=\"0\" value=\"0.663\" />\n  <presetinput identifier=\"GrassRoughness\"
-      uid=\"2760911902\" type=\"0\" value=\"0.886\" />\n  <presetinput identifier=\"DirtRoughness\"
-      uid=\"2760912061\" type=\"0\" value=\"0.305\" />\n  <presetinput identifier=\"Mask_2456_finalBalance\"
+      uid=\"2760911902\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"DirtRoughness\"
+      uid=\"2760912061\" type=\"0\" value=\"0.913\" />\n  <presetinput identifier=\"Mask_2456_finalBalance\"
       uid=\"2760939620\" type=\"0\" value=\"0.274\" />\n </sbspreset>\n"
     shaderName: Universal Render Pipeline/Lit
     materialProperties:
@@ -490,12 +513,14 @@ ScriptedImporter:
     graphDescIndex: 0
     generateAllOutputs: 1
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n  <presetinput identifier=\"Mask1Scale\"
-      uid=\"2760919905\" type=\"4\" value=\"2\" />\n  <presetinput identifier=\"Mask2Scale\"
-      uid=\"2760919082\" type=\"4\" value=\"64\" />\n  <presetinput identifier=\"Mask3Cracks\"
-      uid=\"2760919116\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Mask3Balance\"
-      uid=\"2760919105\" type=\"0\" value=\"0.563\" />\n  <presetinput identifier=\"Mask3Contrast\"
-      uid=\"2760921665\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Mask4Balance\"
+    preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n  <presetinput identifier=\"GrassColor3\"
+      uid=\"2761422961\" type=\"3\" value=\"0.106805,0.490566,0.0671057,1\" />\n 
+      <presetinput identifier=\"Mask2Scale\" uid=\"2760919082\" type=\"4\" value=\"4\"
+      />\n  <presetinput identifier=\"Mask3Cracks\" uid=\"2760919116\" type=\"0\"
+      value=\"0.126\" />\n  <presetinput identifier=\"Mask3Balance\" uid=\"2760919105\"
+      type=\"0\" value=\"0.561\" />\n  <presetinput identifier=\"Mask3Contrast\"
+      uid=\"2760921665\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Mask3Blurr\"
+      uid=\"2760926784\" type=\"0\" value=\"0.5\" />\n  <presetinput identifier=\"Mask4Balance\"
       uid=\"2760926870\" type=\"0\" value=\"0.492\" />\n  <presetinput identifier=\"Mask1_3Visibility\"
       uid=\"2760940466\" type=\"0\" value=\"0.088\" />\n </sbspreset>\n"
     shaderName: Universal Render Pipeline/Lit
