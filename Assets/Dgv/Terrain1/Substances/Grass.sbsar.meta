@@ -17,13 +17,16 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n  <presetinput identifier=\"GrassColor1\"
-      uid=\"2761422886\" type=\"3\" value=\"0.335552,0.541176,0,1\" />\n  <presetinput
-      identifier=\"GrassColor4\" uid=\"2761422936\" type=\"3\" value=\"0.233848,0.292453,0,1\"
-      />\n  <presetinput identifier=\"GrassColor5\" uid=\"2761422914\" type=\"3\"
-      value=\"0.537325,0.717647,0.0666667,1\" />\n  <presetinput identifier=\"GrassColor6\"
-      uid=\"2761423016\" type=\"3\" value=\"0.596222,0.784314,0,1\" />\n  <presetinput
-      identifier=\"GrassColor7\" uid=\"2761422986\" type=\"3\" value=\"0.782739,0.811765,0.482353,1\"
-      />\n  <presetinput identifier=\"DirtColor\" uid=\"2761423084\" type=\"3\" value=\"0.551899,0.705882,0.101961,1\"
+      uid=\"2761422886\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\" />\n 
+      <presetinput identifier=\"GrassColor2\" uid=\"2761422861\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\"
+      />\n  <presetinput identifier=\"GrassColor3\" uid=\"2761422961\" type=\"3\"
+      value=\"0.341176,0.576471,0.196078,1\" />\n  <presetinput identifier=\"GrassColor4\"
+      uid=\"2761422936\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\" />\n 
+      <presetinput identifier=\"GrassColor5\" uid=\"2761422914\" type=\"3\" value=\"0.537325,0.717647,0.0666667,1\"
+      />\n  <presetinput identifier=\"GrassColor6\" uid=\"2761423016\" type=\"3\"
+      value=\"0.596222,0.784314,0,1\" />\n  <presetinput identifier=\"GrassColor7\"
+      uid=\"2761422986\" type=\"3\" value=\"0.782739,0.811765,0.482353,1\" />\n 
+      <presetinput identifier=\"DirtColor\" uid=\"2761423084\" type=\"3\" value=\"0.551899,0.705882,0.101961,1\"
       />\n  <presetinput identifier=\"Grass5Scale\" uid=\"2760901938\" type=\"4\"
       value=\"5\" />\n  <presetinput identifier=\"Grass7Visibility\" uid=\"2760901364\"
       type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Grass7Balance\" uid=\"2760901339\"
@@ -260,20 +263,21 @@ ScriptedImporter:
     generateAllOutputs: 1
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n  <presetinput identifier=\"GrassColor1\"
-      uid=\"2761422886\" type=\"3\" value=\"0.726808,0.831373,0,1\" />\n  <presetinput
-      identifier=\"GrassColor3\" uid=\"2761422961\" type=\"3\" value=\"0.0323667,0.330189,0.0015575,1\"
-      />\n  <presetinput identifier=\"GrassColor4\" uid=\"2761422936\" type=\"3\"
-      value=\"0.170521,0.290196,0,1\" />\n  <presetinput identifier=\"GrassColor5\"
-      uid=\"2761422914\" type=\"3\" value=\"0.723246,1,0.184314,1\" />\n  <presetinput
-      identifier=\"GrassColor6\" uid=\"2761423016\" type=\"3\" value=\"0.665911,0.858824,0.164706,1\"
-      />\n  <presetinput identifier=\"GrassColor7\" uid=\"2761422986\" type=\"3\"
-      value=\"0.680476,0.792157,0,1\" />\n  <presetinput identifier=\"DirtColor\"
-      uid=\"2761423084\" type=\"3\" value=\"0.950042,1,0.127358,1\" />\n  <presetinput
-      identifier=\"Grass3Scale\" uid=\"2760902416\" type=\"4\" value=\"3\" />\n 
-      <presetinput identifier=\"Grass3_angle_random\" uid=\"2760901641\" type=\"0\"
-      value=\"0.717\" />\n  <presetinput identifier=\"Grass3_color_random\" uid=\"2760901755\"
-      type=\"0\" value=\"0.442\" />\n  <presetinput identifier=\"Grass5Scale\" uid=\"2760901938\"
-      type=\"4\" value=\"11\" />\n  <presetinput identifier=\"Grass5_angle_random\"
+      uid=\"2761422886\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\" />\n 
+      <presetinput identifier=\"GrassColor2\" uid=\"2761422861\" type=\"3\" value=\"0.33755,0.575472,0.192729,1\"
+      />\n  <presetinput identifier=\"GrassColor3\" uid=\"2761422961\" type=\"3\"
+      value=\"0.341176,0.576471,0.196078,1\" />\n  <presetinput identifier=\"GrassColor4\"
+      uid=\"2761422936\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\" />\n 
+      <presetinput identifier=\"GrassColor5\" uid=\"2761422914\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\"
+      />\n  <presetinput identifier=\"GrassColor6\" uid=\"2761423016\" type=\"3\"
+      value=\"0.341176,0.576471,0.196078,1\" />\n  <presetinput identifier=\"GrassColor7\"
+      uid=\"2761422986\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\" />\n 
+      <presetinput identifier=\"DirtColor\" uid=\"2761423084\" type=\"3\" value=\"0.341176,0.576471,0.196078,1\"
+      />\n  <presetinput identifier=\"Grass3Scale\" uid=\"2760902416\" type=\"4\"
+      value=\"3\" />\n  <presetinput identifier=\"Grass3_angle_random\" uid=\"2760901641\"
+      type=\"0\" value=\"0.717\" />\n  <presetinput identifier=\"Grass3_color_random\"
+      uid=\"2760901755\" type=\"0\" value=\"0.442\" />\n  <presetinput identifier=\"Grass5Scale\"
+      uid=\"2760901938\" type=\"4\" value=\"11\" />\n  <presetinput identifier=\"Grass5_angle_random\"
       uid=\"2760901906\" type=\"0\" value=\"0.895\" />\n  <presetinput identifier=\"Grass5_color_random\"
       uid=\"2760902013\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Grass7Visibility\"
       uid=\"2760901364\" type=\"0\" value=\"0.684\" />\n  <presetinput identifier=\"Grass7Balance\"
@@ -515,11 +519,13 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://Grass\" label=\"\" >\n  <presetinput identifier=\"GrassColor3\"
       uid=\"2761422961\" type=\"3\" value=\"0.106805,0.490566,0.0671057,1\" />\n 
-      <presetinput identifier=\"Mask2Scale\" uid=\"2760919082\" type=\"4\" value=\"4\"
-      />\n  <presetinput identifier=\"Mask3Cracks\" uid=\"2760919116\" type=\"0\"
-      value=\"0.126\" />\n  <presetinput identifier=\"Mask3Balance\" uid=\"2760919105\"
-      type=\"0\" value=\"0.561\" />\n  <presetinput identifier=\"Mask3Contrast\"
-      uid=\"2760921665\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Mask3Blurr\"
+      <presetinput identifier=\"Mask1Blurr\" uid=\"2760920028\" type=\"0\" value=\"16\"
+      />\n  <presetinput identifier=\"Mask2Scale\" uid=\"2760919082\" type=\"4\"
+      value=\"1\" />\n  <presetinput identifier=\"Mask3Cracks\" uid=\"2760919116\"
+      type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Mask3Balance\" uid=\"2760919105\"
+      type=\"0\" value=\"0.212\" />\n  <presetinput identifier=\"Mask3Contrast\"
+      uid=\"2760921665\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Mask3Invert\"
+      uid=\"2760924231\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Mask3Blurr\"
       uid=\"2760926784\" type=\"0\" value=\"0.5\" />\n  <presetinput identifier=\"Mask4Balance\"
       uid=\"2760926870\" type=\"0\" value=\"0.492\" />\n  <presetinput identifier=\"Mask1_3Visibility\"
       uid=\"2760940466\" type=\"0\" value=\"0.088\" />\n </sbspreset>\n"
