@@ -18,8 +18,8 @@ MonoBehaviour:
   unlocks: []
   endingWeight: {x: 0, y: 0, z: 0}
   subscenes:
-  - CombatDemo
-  - RoamingDemo
+  - {fileID: 11400000, guid: 6ffa4b67556ebee4db75ece748728559, type: 2}
+  - {fileID: 11400000, guid: f3c1d953a71a5de489c78d586ddb9744, type: 2}
   mapLocation: {x: 0, y: 0, z: 0}
   image: {fileID: 0}
   dimWidth: 0
