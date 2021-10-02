@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 14
+    m_Value: 25
     min: -100
     max: 100
   tint:
@@ -80,6 +80,7 @@ MonoBehaviour:
   - {fileID: -2396918873148349396}
   - {fileID: 1533338751704662728}
   - {fileID: -1712450701712226733}
+  - {fileID: 5722073204785600642}
 --- !u!114 &1533338751704662728
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -102,7 +103,7 @@ MonoBehaviour:
     m_Value: {x: 0.9350626, y: 0.96881837, z: 1, w: 0.10204082}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.88747096, z: 0.8002453, w: 0.71298164}
+    m_Value: {x: 1, y: 0.88747096, z: 0.8002453, w: 0.31344783}
 --- !u!114 &4314950328248699139
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -119,15 +120,15 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 1.02
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 4.49
+    m_Value: 2.14
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.798
+    m_Value: 0.53
     min: 0
     max: 1
   clamp:
@@ -155,6 +156,45 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
     min: 0
+--- !u!114 &5722073204785600642
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
+  m_Name: ShadowsMidtonesHighlights
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  shadows:
+    m_OverrideState: 0
+    m_Value: {x: 0.47833788, y: 0.7190015, z: 1, w: 0.2728227}
+  midtones:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.8920398, z: 0.7021169, w: 0.04197272}
+  highlights:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.9379529, z: 0.3980676, w: 0.43022043}
+  shadowsStart:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+  shadowsEnd:
+    m_OverrideState: 1
+    m_Value: 0.15
+    min: 0
+  highlightsStart:
+    m_OverrideState: 0
+    m_Value: 0.55
+    min: 0
+  highlightsEnd:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
 --- !u!114 &6670496274500655906
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -171,7 +211,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -180,7 +220,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.136
+    m_Value: 0.312
     min: 0
     max: 1
   smoothness:

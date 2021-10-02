@@ -23,9 +23,9 @@ Material:
   m_Name: M_wolfShadowTest
   m_Shader: {fileID: -6465566751694194690, guid: 460fa504cac0ff8498f42a4bd47d20ee, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -125,7 +125,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_e1dc819ebe6d4118af363630bbdd5673: 0.67
+    - Vector1_12a0972dffeb4f51b539cf2dab2a8a9d: 0.3
+    - Vector1_2c086295a9cb4e85b04190ab5891478b: 6
+    - Vector1_5bb05e6951e94d66bb3c14d85c156b19: 0.87
+    - Vector1_8137447318c644bf8555a7c1bfe53c94: 14
+    - Vector1_8f2b7d81ce1d4d098371822aa5191f0d: 0.79
+    - Vector1_c2994fc1d61d46fb86b239c75eb24c72: 452
+    - Vector1_e1dc819ebe6d4118af363630bbdd5673: 0.2
     - _AO: 2.4
     - _AlphaClip: 0
     - _BaseLight: 0.35
@@ -186,6 +192,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_594f4600971740669f61212492c6bc61: {r: 0.043715835, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
