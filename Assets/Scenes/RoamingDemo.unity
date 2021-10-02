@@ -1090,6 +1090,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
+      propertyPath: sceneReferences
+      value: 
+      objectReference: {fileID: 11400000, guid: bd31f5353ca645c4081d29859aa8f9e7, type: 2}
+    - target: {fileID: 708488509845201480, guid: d2cdfcc92cd152f428897dab01b21cde, type: 3}
       propertyPath: targetGameState
       value: 1
       objectReference: {fileID: 0}

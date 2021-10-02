@@ -10,14 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f34dc1dd64606143afb1bf503099f6f, type: 3}
-  m_Name: AllSceneReferences
+  m_Name: AllSceneReferences 1
   m_EditorClassIdentifier: 
   scenes:
   - {fileID: 11400000, guid: 6ffa4b67556ebee4db75ece748728559, type: 2}
   - {fileID: 11400000, guid: 026297f12275ece40a1829ddc63d213d, type: 2}
   - {fileID: 11400000, guid: f3c1d953a71a5de489c78d586ddb9744, type: 2}
-<<<<<<< Updated upstream
-  - {fileID: 11400000, guid: cdf783827b779f242afb57f20f1d1367, type: 2}
-=======
   - {fileID: 11400000, guid: 5455638e940f06346b964d6efae52727, type: 2}
->>>>>>> Stashed changes
+  - {fileID: 11400000, guid: cdf783827b779f242afb57f20f1d1367, type: 2}

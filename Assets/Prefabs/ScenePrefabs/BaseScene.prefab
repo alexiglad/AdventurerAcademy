@@ -301,7 +301,7 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 6499003185554428563, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
   - {fileID: 7640261090172070349, guid: 8f3a5411432e96e40ad4d0a10ac963f2, type: 3}
-  sceneReferences: {fileID: 11400000, guid: eddcfd60b8f627d4783395195ae47048, type: 2}
+  sceneReferences: {fileID: 11400000, guid: bd31f5353ca645c4081d29859aa8f9e7, type: 2}
 --- !u!1 &708488510130725706
 GameObject:
   m_ObjectHideFlags: 0
