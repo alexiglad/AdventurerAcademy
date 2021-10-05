@@ -26,7 +26,7 @@ public class AbilityButton : MonoBehaviour
 
     public void ManualAwake()
     {
-        Button[] buttons = gameObject.GetComponentsInChildren<Button>();
+        Button[] buttons = gameObject.GetComponentsInChildren<Button>(true);
         for (int i = 0; i < abilityButtons.Length; i++)
         {
             abilityButtons[i] = buttons[i].gameObject;
