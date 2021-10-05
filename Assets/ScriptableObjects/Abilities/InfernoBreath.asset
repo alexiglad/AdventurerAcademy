@@ -17,6 +17,7 @@ MonoBehaviour:
   gameStateManager: {fileID: 0}
   damage: 4
   range: 4
+  radius: 1.5
   abilityType: 2
   icon: {fileID: 0}
   image: {fileID: 0}
@@ -25,4 +26,5 @@ MonoBehaviour:
   dimHeight: 0
   startX: 0
   startY: 0
-  radius: 2
+  targetX: 0
+  targetY: 0
