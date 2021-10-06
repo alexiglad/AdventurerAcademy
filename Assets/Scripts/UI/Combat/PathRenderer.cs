@@ -8,22 +8,17 @@ public class PathRenderer : MonoBehaviour
     [SerializeField] InputHandler controls;
     [SerializeField] GameStateManagerSO gameStateManager;
     Camera defaultCamera;
-    [SerializeField] float startWidth;
-    [SerializeField] float endWidth;
     bool moving;
     RaycastData data;
     Vector3 prevData;
     NavMeshAgent agent;
-    LineRenderer line;
     readonly float PathDistance = 0.25f;
+    readonly float deleteDistance = .5f;
     int prevNumDots = 0;
 
     void Start()
     {
         defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        line = GetComponent<LineRenderer>();
-        line.startWidth = startWidth;
-        line.endWidth = endWidth;
     }
 
     void Update()
@@ -39,9 +34,6 @@ public class PathRenderer : MonoBehaviour
                     if (tempRef.Character.Animator.GetBool("moving"))
                     {
                         moving = true;
-                        line.positionCount = 0;
-                        line.startColor = Color.blue;
-                        line.endColor = Color.blue;
                         DisplayActivePath(tempRef.Character);
                     }
                     else if (tempRef.HasMovement && tempRef.CanContinue && tempRef.Character.Agent != null)
@@ -51,7 +43,6 @@ public class PathRenderer : MonoBehaviour
                             return;
                         }
                         moving = false;
-                        line.positionCount = 0;
                         NavMeshPath path = new NavMeshPath();
                         agent = tempRef.Character.Agent;
                         agent.CalculatePath(data.Hit.point, path);
@@ -74,49 +65,22 @@ public class PathRenderer : MonoBehaviour
     public void DisplayActivePath(Character character)
     {
         //todo implement differently
-        PathPooling.sharedInstance.DeleteDots(prevNumDots);
+        //PathPooling.sharedInstance.DeleteDots(prevNumDots);
         if (agent.hasPath)
         {
-            int numDots = 0;
-            line.positionCount = agent.path.corners.Length;
-            //DisplayDot(character.CharacterBottom());
-            float totalPathlength = 0;
-            for (int i = 1; i < agent.path.corners.Length; i++)
+            for(int i = 0; i<=prevNumDots; i++) 
             {
-                totalPathlength += (agent.path.corners[i] - agent.path.corners[i - 1]).magnitude;
-            }
-            int place = 1;
-            Vector3 location = character.CharacterBottom();
-            float currentLengthLeft = agent.path.corners[place].magnitude;
-            
-            for (float i = 0; i < totalPathlength; i+=PathDistance)
-            {
-                Vector3 direction = (agent.path.corners[place] - agent.path.corners[place - 1]).normalized;//todo optimize?
-                if (PathDistance <= currentLengthLeft)
+                
+                if(PathPooling.sharedInstance.pooledObjects[i] == null)
                 {
-                    //draw dot
-                    location += direction * PathDistance;
-                    currentLengthLeft -= PathDistance;
-                }
-                else
-                {//go onto next path with remaining of this path
-                    location += direction * currentLengthLeft;//sets location to end of first path
-                    place++;
-                    if(place >= agent.path.corners.Length)
-                    {
-                        DisplayDot(location, numDots, ShaderTypeEnum.EndPath);
-                        numDots++;
-                        break;
-                    }
-                    Vector3 tip = (PathDistance - currentLengthLeft) * ((agent.path.corners[place] - agent.path.corners[place - 1]).normalized);
-                    location += tip;
-                    currentLengthLeft = agent.path.corners[place].magnitude - tip.magnitude;
-                }
 
-                DisplayDot(location, numDots, ShaderTypeEnum.ValidPath);
-                numDots++;
+                }
+                else if(Mathf.Abs((character.CharacterBottom() - PathPooling.sharedInstance.pooledObjects[i].transform.position).magnitude) <= deleteDistance)
+                {
+                    Debug.Log("CBM" + character.CharacterBottom() + " PPPP " + PathPooling.sharedInstance.pooledObjects[i].transform.position);
+                    PathPooling.sharedInstance.DeleteDots(i);
+                }
             }
-            prevNumDots = numDots;
         }
     }
 
@@ -128,7 +92,6 @@ public class PathRenderer : MonoBehaviour
         }
         PathPooling.sharedInstance.DeleteDots(prevNumDots);
         int numDots = 0;
-        line.positionCount = path.corners.Length;
         float totalPathlength = 0;
         for (int i = 1; i < path.corners.Length; i++)
         {
@@ -171,38 +134,6 @@ public class PathRenderer : MonoBehaviour
             numDots++;
         }
         prevNumDots = numDots;
-        /*
-        line.positionCount = path.corners.Length;
-
-        Vector3 bottom = character.BoxCollider.bounds.center;
-        bottom.y -= character.BoxCollider.bounds.size.y / 2;
-
-        if (line.positionCount != 0)
-        {
-            line.SetPosition(0, bottom);
-        }            
-
-        if (path.corners.Length < 2)
-        {
-            return;
-        }
-
-        for (int i = 1; i < path.corners.Length; i++)
-        {
-            line.SetPosition(i, path.corners[i]);
-        }
-        
-        if(tempRef.IsInvalidPath(data.Hit.point))
-        {
-            line.startColor = Color.red;
-            line.endColor = Color.red;
-        }
-        else
-        {
-            line.startColor = Color.blue;
-            line.endColor = Color.blue;
-        }
-        */
     }
     void DisplayDot(Vector3 position, int i, ShaderTypeEnum shader)
     {
