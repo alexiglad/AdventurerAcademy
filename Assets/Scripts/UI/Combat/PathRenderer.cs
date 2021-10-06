@@ -12,8 +12,8 @@ public class PathRenderer : MonoBehaviour
     RaycastData data;
     Vector3 prevData;
     NavMeshAgent agent;
-    readonly float PathDistance = 0.25f;
-    readonly float deleteDistance = .5f;
+    readonly float PathDistance = 0.1f;
+    readonly float deleteDistance = .4f;
     int prevNumDots = 0;
 
     void Start()

@@ -24,6 +24,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     private bool unstable;
     private bool moving;
     Vector3 lastPos;
+    Vector3 previousSteeringTarget;
     int movementIdleCounter;
     [SerializeField] private bool inanimate;
     private Character voodooTarget;
@@ -55,6 +56,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public List<Interactable> InteractablesWithinRange { get => interactablesWithinRange; set => interactablesWithinRange = value; }
     public bool Unstable { get => unstable; set => unstable = value; }
     public bool Moving { get => moving; set => moving = value; }
+    public Vector3 PreviousSteeringTarget { get => previousSteeringTarget; set => previousSteeringTarget = value; }
 
     #endregion
     public new String ToString()
@@ -134,6 +136,28 @@ public class Character : MonoBehaviour, IComparable<Character>
             }
             else if (agent.enabled)
             {
+                if(agent.steeringTarget != previousSteeringTarget)
+                {
+                    Vector3 steeringTarget = Agent.steeringTarget;
+                    Debug.Log("mag" + (steeringTarget - CharacterBottom()).magnitude);
+                    if((steeringTarget - CharacterBottom()).magnitude <= 1)
+                    {
+                        Debug.Log("here");
+
+                        Animator.SetBool("running", false);
+                        Animator.SetBool("walking", true);
+                    }
+                    else
+                    {
+                        Animator.SetBool("walking", false);
+                        Animator.SetBool("running", true);
+                    }
+                    float xChange = steeringTarget.x - CharacterBottom().x;
+                    float zChange = steeringTarget.z - CharacterBottom().z;
+                    Animator.SetFloat("moveX", xChange);
+                    Animator.SetFloat("moveZ", zChange);
+                    previousSteeringTarget = agent.steeringTarget;
+                }
                 if (IsStationary())
                 {
                     movementIdleCounter++;

@@ -7004,6 +7004,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 869340736, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
+      propertyPath: amountToPool
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 892881473, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 892881473, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 892881473, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 3959214076343035577, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.21411133

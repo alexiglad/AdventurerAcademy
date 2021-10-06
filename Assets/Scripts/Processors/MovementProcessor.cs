@@ -19,8 +19,7 @@ public class MovementProcessor : ScriptableObject
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             tempRef.DisableCombatInput();
         }
-        Vector3 characterBottom = character.BoxCollider.bounds.center;
-        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        Vector3 characterBottom = character.CharacterBottom();
         character.Agent.SetDestination(movement + characterBottom);
 
         if(Mathf.Abs(movement.x) >= Mathf.Abs(movement.z))
@@ -45,8 +44,12 @@ public class MovementProcessor : ScriptableObject
                 character.Direction = CardinaDirectionsEnum.South;
             }
         }
-        character.Animator.SetFloat("moveX", movement.x);
-        character.Animator.SetFloat("moveZ", movement.z);
+        Vector3 steeringTarget = character.Agent.steeringTarget;
+        character.PreviousSteeringTarget = steeringTarget;
+        float xChange = steeringTarget.x - characterBottom.x;
+        float zChange = steeringTarget.z - characterBottom.z;
+        character.Animator.SetFloat("moveX", xChange);
+        character.Animator.SetFloat("moveZ", zChange);
         character.Animator.SetBool("moving", true);
         if (!character.IsPlayer() || movement.magnitude >= threshold)
         {
