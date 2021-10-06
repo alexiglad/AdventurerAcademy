@@ -11,7 +11,9 @@ class HoverHandler : MonoBehaviour
 {
     [SerializeField] InputHandler controls;
     TextMeshProUGUI characterName;
-    TextMeshProUGUI healthDisplay;
+    TextMeshProUGUI healthText;
+    ResourceBarUI healthBarBack;
+    ResourceBarUI healthBarFill;
     GameObject characterHoverObject;
 
     void OnEnable()
@@ -20,7 +22,7 @@ class HoverHandler : MonoBehaviour
         {
             if(child.name == "HealthText")
             {
-                healthDisplay = child.GetComponent<TextMeshProUGUI>();
+                healthText = child.GetComponent<TextMeshProUGUI>();
             }
 
             if (child.name == "CharacterName")
@@ -33,6 +35,15 @@ class HoverHandler : MonoBehaviour
                 characterHoverObject = child.gameObject;
             }
 
+            if (child.name == "HealthBarBack")
+            {
+                healthBarBack = child.GetComponent<ResourceBarUI>();
+            }
+
+            if (child.name == "HealthBarFill")
+            {
+                healthBarFill = child.GetComponent<ResourceBarUI>();
+            }
         }
     }
 
@@ -61,8 +72,16 @@ class HoverHandler : MonoBehaviour
     {
         if(character != null)
         {
-            healthDisplay.SetText(character.GetHealth() +"/" +character.GetMaxHealth());
+            healthText.SetText(character.GetHealth() +"/" +character.GetMaxHealth());
             characterName.SetText(character.GetName());
+            healthBarBack.MaxValue = character.GetMaxHealth();
+            healthBarBack.CurrentValue = character.GetHealth();
+            healthBarBack.TargetCharacter = character;
+            healthBarFill.MaxValue = character.GetMaxHealth();
+            healthBarFill.CurrentValue = character.GetHealth();
+            healthBarFill.TargetCharacter = character;
+            healthBarBack.UpdateValues(null, new CharacterDamagedArgs(character));
+            healthBarFill.UpdateValues(null, new CharacterDamagedArgs(character));
             characterHoverObject.SetActive(true);
         }
     }

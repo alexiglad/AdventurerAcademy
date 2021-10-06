@@ -12,7 +12,7 @@ public class ResourceBarUI : MonoBehaviour
     [SerializeField] float maxValue = 1; //Default Value
     [SerializeField] BarType barType;
 
-    Character targetCharacter;
+    [SerializeField] Character targetCharacter;
     Image bar;
     float lerpTime = 1f;
     float timeElapsed = 0f;
@@ -20,9 +20,11 @@ public class ResourceBarUI : MonoBehaviour
 
     [SerializeField] GameStateManagerSO gameStateManagerSO;
 
-    public float CurrentValue { get => currentValue;}
-    public float MaxValue { get => maxValue;}
+
     private BarType BarType1 { get => barType;}
+    public float CurrentValue { get => currentValue; set => currentValue = value; }
+    public float MaxValue { get => maxValue; set => maxValue = value; }
+    public Character TargetCharacter { get => targetCharacter; set => targetCharacter = value; }
 
     private enum BarType
     {
@@ -38,7 +40,7 @@ public class ResourceBarUI : MonoBehaviour
 
         if (findCharacterInParent)
         {
-            targetCharacter = gameObject.GetComponentInParent<Character>();
+            TargetCharacter = gameObject.GetComponentInParent<Character>();
         }
 
         if (gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
@@ -50,23 +52,23 @@ public class ResourceBarUI : MonoBehaviour
 
     public void UpdateValues(object sender, CharacterDamagedArgs data)
     {
-        if(targetCharacter != null && targetCharacter == data.character)
+        if(TargetCharacter != null && TargetCharacter == data.character)
         {
             switch (barType)
             {
                 case (BarType.health):
-                    currentValue = targetCharacter.GetHealth();
-                    maxValue = targetCharacter.GetMaxHealth();
+                    CurrentValue = TargetCharacter.GetHealth();
+                    MaxValue = TargetCharacter.GetMaxHealth();
                     break;
 
                 case (BarType.stamina):
-                    currentValue = targetCharacter.GetEnergy();
-                    maxValue = targetCharacter.GetMaxEnergy();
+                    CurrentValue = TargetCharacter.GetEnergy();
+                    MaxValue = TargetCharacter.GetMaxEnergy();
                     break;
 
                 case (BarType.healthBack):
-                    currentValue = targetCharacter.GetHealth();
-                    maxValue = targetCharacter.GetMaxHealth();
+                    CurrentValue = TargetCharacter.GetHealth();
+                    MaxValue = TargetCharacter.GetMaxHealth();
                     break;
             }
             StartCoroutine(AnimateHealthBar());
@@ -125,7 +127,7 @@ public class ResourceBarUI : MonoBehaviour
 
     IEnumerator AnimateHealthBar()
     {
-        float targetSize = currentValue / maxValue;
+        float targetSize = CurrentValue / MaxValue;
         if (barType == BarType.health)
         {
             change = targetSize - bar.fillAmount;
@@ -167,7 +169,7 @@ public class ResourceBarUI : MonoBehaviour
 
     public void SetCharacter(Character value)
     {
-        targetCharacter = value;
+        TargetCharacter = value;
     }
 
     private void OnDisable()

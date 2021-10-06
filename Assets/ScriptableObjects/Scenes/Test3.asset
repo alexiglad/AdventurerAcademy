@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1747daf632f012846b2f614ec9b903eb, type: 3}
+  m_Name: Test3
+  m_EditorClassIdentifier: 
+  sceneName: Test3
+  targetGameState: 0
+  characterPositions:
+  - {x: 5.79, y: -4.417965, z: -6.035}
+  - {x: 5.424, y: -4.3, z: -6.391353}
