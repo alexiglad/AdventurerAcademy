@@ -77,7 +77,6 @@ public class PathRenderer : MonoBehaviour
                 }
                 else if(Mathf.Abs((character.CharacterBottom() - PathPooling.sharedInstance.pooledObjects[i].transform.position).magnitude) <= deleteDistance)
                 {
-                    Debug.Log("CBM" + character.CharacterBottom() + " PPPP " + PathPooling.sharedInstance.pooledObjects[i].transform.position);
                     PathPooling.sharedInstance.DeleteDots(i);
                 }
             }
