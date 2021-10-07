@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Grass4
+  m_Name: M_Tree2
   m_Shader: {fileID: -6465566751694194690, guid: d16f4b1f60077ce43b681028fe112520, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_bd23ee0ca8124ab5acd1233fc7bf99d2:
-        m_Texture: {fileID: 2800000, guid: 0fcb79684b2635445b46ef37b705eec1, type: 3}
+        m_Texture: {fileID: 2800000, guid: e5949f3f02e8cd24e97605b8c7ed5b30, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_e0c1d8f262944696969277c71e46c91f:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 06e6b2458a47542428bca89ee8a27e44, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -84,11 +84,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Boolean_e143131262e9486abea7ddea18536fd3: 0
-    - Vector1_1bd5d8876f494c989a918a3e95a434ec: 0.68
-    - Vector1_296efa3cc1e948998c0b3d9a289a04b9: 0.272
-    - Vector1_4091d18b3e874f7e81a4a27dc0e6a507: 0.305
-    - Vector1_91e97de404444d54891defafb94b8997: 4000
+    - Boolean_e143131262e9486abea7ddea18536fd3: 1
+    - Vector1_1bd5d8876f494c989a918a3e95a434ec: 1.26
+    - Vector1_296efa3cc1e948998c0b3d9a289a04b9: 0
+    - Vector1_4091d18b3e874f7e81a4a27dc0e6a507: 0.039
+    - Vector1_91e97de404444d54891defafb94b8997: 2445
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -116,7 +116,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_ca820d0c0f62407f8614b9125f768bf4: {r: 0.15492992, g: 0.254717, b: 0.094918124, a: 1}
+    - Color_ca820d0c0f62407f8614b9125f768bf4: {r: 0.4433962, g: 0.3199982, b: 0.3199982, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
