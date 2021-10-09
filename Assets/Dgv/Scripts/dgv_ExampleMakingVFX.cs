@@ -14,7 +14,7 @@ public class dgv_ExampleMakingVFX : MonoBehaviour
     {
         _spriteGoRenderer = _spriteGO.GetComponent<SpriteRenderer>();
 
-        StartCoroutine(_DoVfx());
+        //StartCoroutine(_DoVfx());
     }
 
 

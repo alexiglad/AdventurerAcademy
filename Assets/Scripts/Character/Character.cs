@@ -39,6 +39,7 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
+    SpriteRenderer spriteRenderer;
 
     List<Interactable> interactablesWithinRange;
 
@@ -139,17 +140,16 @@ public class Character : MonoBehaviour, IComparable<Character>
                 if(agent.steeringTarget != previousSteeringTarget)
                 {
                     Vector3 steeringTarget = Agent.steeringTarget;
-                    Debug.Log("mag" + (steeringTarget - CharacterBottom()).magnitude);
                     if((steeringTarget - CharacterBottom()).magnitude <= 1)
                     {
-                        Debug.Log("here");
 
-                        Animator.SetBool("running", false);
+                        Debug.Log("here");
+                        //Animator.SetBool("running", false);
                         Animator.SetBool("walking", true);
                     }
                     else
                     {
-                        Animator.SetBool("walking", false);
+                        //Animator.SetBool("walking", false);
                         Animator.SetBool("running", true);
                     }
                     float xChange = steeringTarget.x - CharacterBottom().x;
@@ -378,6 +378,135 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return this.health / this.characterData.GetMaxHealth();
     }
+    #endregion
+    #region ShaderManipulation
+    public void SetSpriteShader(SpriteShaderTypeEnum spriteShader)
+    {
+        switch (spriteShader)
+        {
+            case SpriteShaderTypeEnum.Damage:
+                {
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Heal:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Selected:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Unable:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Death:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Regen:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Burn:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Poison:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Frozen:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Sleep:
+                {
+
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Knocked:
+                {
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Drunk:
+                {
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.Blind:
+                {
+
+                    break;
+                }
+            case SpriteShaderTypeEnum.None:
+                {
+                    StopAllShaders();
+                    break;
+                }
+            default:
+                {
+                    Debug.Log("ERROR - add shader to enum and case list");
+                    StopAllShaders();
+                    break;
+                }
+
+        }
+    }
+
+
+
+
+    public void StopAllShaders()
+    {
+        Debug.Log("HERE " + spriteRenderer.material);
+        spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 0);
+        spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 0);
+        spriteRenderer.material.SetFloat(ShaderInformation.doSelection, 0);
+        spriteRenderer.material.SetFloat(ShaderInformation.grayOut, 0);
+        spriteRenderer.material.SetFloat(ShaderInformation.fadeAmount, 0);
+        spriteRenderer.material.SetFloat(ShaderInformation.doShake, 0);
+    }
+    public void DisplayStatusShader()
+    {
+        StartCoroutine(StatusShaderCoroutine());
+    }
+    IEnumerator StatusShaderCoroutine()
+    {
+        spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, 1);
+        spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+        yield return new WaitForSeconds(1);
+        StopAllShaders();
+        if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+            tempRef.EnableCombatInput();
+        }
+        else
+        {
+            Debug.Log("combat should be over if not then error");
+        }
+    }
+
     #endregion
     public int CompareTo(Character character)//test if this is actually working
     {

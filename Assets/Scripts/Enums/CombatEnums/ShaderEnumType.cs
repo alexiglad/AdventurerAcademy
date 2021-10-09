@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ShaderTypeEnum
+public enum PathShaderTypeEnum
 {
     InvalidPath,
     ValidPath, 

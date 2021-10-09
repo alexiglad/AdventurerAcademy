@@ -17,6 +17,7 @@ public class ResourceBarUI : MonoBehaviour
     float lerpTime = 1f;
     float timeElapsed = 0f;
     float change;
+    bool important;
 
     [SerializeField] GameStateManagerSO gameStateManagerSO;
 
@@ -134,10 +135,12 @@ public class ResourceBarUI : MonoBehaviour
             change = targetSize - bar.fillAmount;
             if (bar.fillAmount > targetSize)
             {
+                important = false;
                 bar.fillAmount = targetSize;
             }
             if (bar.fillAmount < targetSize)
             {
+                important = true;
                 while (bar.fillAmount < targetSize)
                 {
                     float amountLeft = targetSize - bar.fillAmount;
@@ -152,6 +155,7 @@ public class ResourceBarUI : MonoBehaviour
             change = bar.fillAmount - targetSize;
             if (bar.fillAmount > targetSize)
             {
+                important = true;
                 while (bar.fillAmount > targetSize)
                 {
                     float amountLeft = bar.fillAmount - targetSize;
@@ -163,8 +167,15 @@ public class ResourceBarUI : MonoBehaviour
             }
             if (bar.fillAmount < targetSize)
             {
+                important = false;
                 bar.fillAmount = targetSize;
             }
+        }
+        if (important)
+        {
+            Debug.Log("here");
+
+            targetCharacter.StopAllShaders();//TODO check if this works
         }
     }
 
