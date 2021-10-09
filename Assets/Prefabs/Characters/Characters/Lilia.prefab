@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -5657599166074267914}
   - component: {fileID: 6632387754602606356}
   - component: {fileID: 468944689}
+  - component: {fileID: 90318553}
   m_Layer: 3
   m_Name: Lilia
   m_TagString: Character
@@ -209,3 +210,15 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!225 &90318553
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499003185554428563}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
