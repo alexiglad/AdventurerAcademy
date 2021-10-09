@@ -71,8 +71,8 @@ public class ResourceBarUI : MonoBehaviour
                     MaxValue = TargetCharacter.GetMaxHealth();
                     break;
             }
-            while (!this.gameObject.activeInHierarchy) { }
-            StartCoroutine(AnimateHealthBar());
+            if (this.gameObject.activeInHierarchy)
+                StartCoroutine(AnimateHealthBar());
         }          
     }
 
