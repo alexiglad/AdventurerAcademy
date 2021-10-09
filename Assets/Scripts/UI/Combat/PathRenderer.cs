@@ -124,17 +124,17 @@ public class PathRenderer : MonoBehaviour
                 location += tip;
                 currentLengthLeft = (path.corners[place] - path.corners[place - 1]).magnitude - tip.magnitude;
             }
-            ShaderTypeEnum shader = ShaderTypeEnum.ValidPath;
+            PathShaderTypeEnum shader = PathShaderTypeEnum.ValidPath;
             if(i > tempRef.GetRemainingMovement())
             {
-                shader = ShaderTypeEnum.InvalidPath;
+                shader = PathShaderTypeEnum.InvalidPath;
             }
             DisplayDot(location, numDots, shader);
             numDots++;
         }
         prevNumDots = numDots;
     }
-    void DisplayDot(Vector3 position, int i, ShaderTypeEnum shader)
+    void DisplayDot(Vector3 position, int i, PathShaderTypeEnum shader)
     {
         position.y += .2f;
         //TODO REPLACE WITH RAYCAST CODE

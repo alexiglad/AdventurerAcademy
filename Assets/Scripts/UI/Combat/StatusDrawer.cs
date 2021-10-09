@@ -30,12 +30,47 @@ public class StatusDrawer : MonoBehaviour
     }
     public void DrawStatuses(StatusData status)
     {
-        if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
+        SpriteShaderTypeEnum shader = ConvertShader(status.Status.StatusEffect);
+        status.Attackee.SetSpriteShader(shader);
+    }
+    SpriteShaderTypeEnum ConvertShader(StatusTypeEnum status)
+    {
+        if(status == StatusTypeEnum.Regen)
         {
-            CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-
-            //here cedric implement "tick" effect TODO
-            tempRef.EnableCombatInput();
+            return SpriteShaderTypeEnum.Regen;
+        }
+        else if (status == StatusTypeEnum.Burn)
+        {
+            return SpriteShaderTypeEnum.Burn;
+        }
+        else if (status == StatusTypeEnum.Poison)
+        {
+            return SpriteShaderTypeEnum.Poison;
+        }
+        else if (status == StatusTypeEnum.Frozen)
+        {
+            return SpriteShaderTypeEnum.Frozen;
+        }
+        else if (status == StatusTypeEnum.Sleep)
+        {
+            return SpriteShaderTypeEnum.Sleep;
+        }
+        else if (status == StatusTypeEnum.Knocked)
+        {
+            return SpriteShaderTypeEnum.Knocked;
+        }
+        else if (status == StatusTypeEnum.Blind)
+        {
+            return SpriteShaderTypeEnum.Blind;
+        }
+        else if (status == StatusTypeEnum.Drunk)
+        {
+            return SpriteShaderTypeEnum.Drunk;
+        }
+        else
+        {
+            Debug.Log("error");
+            return SpriteShaderTypeEnum.None;
         }
     }
 }
