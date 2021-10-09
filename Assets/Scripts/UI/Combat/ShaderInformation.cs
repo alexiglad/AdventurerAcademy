@@ -5,6 +5,10 @@ public static class ShaderInformation
     public static Color heal;
 
 
+    //status colors
+    public static Color burn = new Color();
+
+
 
 
 

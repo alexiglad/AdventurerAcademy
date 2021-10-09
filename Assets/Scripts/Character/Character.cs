@@ -144,12 +144,12 @@ public class Character : MonoBehaviour, IComparable<Character>
                     {
 
                         Debug.Log("here");
-                        //Animator.SetBool("running", false);
+                        Animator.SetBool("running", false);
                         Animator.SetBool("walking", true);
                     }
                     else
                     {
-                        //Animator.SetBool("walking", false);
+                        Animator.SetBool("walking", false);
                         Animator.SetBool("running", true);
                     }
                     float xChange = steeringTarget.x - CharacterBottom().x;
