@@ -82,6 +82,7 @@ public class Character : MonoBehaviour, IComparable<Character>
         agent = transform.GetComponent<NavMeshAgent>();
         obstacle = transform.GetComponent<NavMeshObstacle>();
         direction = CardinaDirectionsEnum.South;
+        spriteRenderer = transform.GetComponent<SpriteRenderer>();
         if (!inanimate)
         {
             characterList.AddCharacter(this);
@@ -142,8 +143,6 @@ public class Character : MonoBehaviour, IComparable<Character>
                     Vector3 steeringTarget = Agent.steeringTarget;
                     if((steeringTarget - CharacterBottom()).magnitude <= 1)
                     {
-
-                        Debug.Log("here");
                         Animator.SetBool("running", false);
                         Animator.SetBool("walking", true);
                     }
@@ -386,7 +385,10 @@ public class Character : MonoBehaviour, IComparable<Character>
         {
             case SpriteShaderTypeEnum.Damage:
                 {
+                    //TEMP
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.damage * 2f);
 
+                    DisplayStatusShader();
                     break;
                 }
             case SpriteShaderTypeEnum.Heal:
@@ -478,7 +480,6 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     public void StopAllShaders()
     {
-        Debug.Log("HERE " + spriteRenderer.material);
         spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 0);
         spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 0);
         spriteRenderer.material.SetFloat(ShaderInformation.doSelection, 0);
@@ -492,6 +493,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     IEnumerator StatusShaderCoroutine()
     {
+        Debug.Log("here");
         spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, 1);
         spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
         yield return new WaitForSeconds(1);

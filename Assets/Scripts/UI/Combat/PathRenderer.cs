@@ -13,8 +13,9 @@ public class PathRenderer : MonoBehaviour
     Vector3 prevData;
     NavMeshAgent agent;
     readonly float PathDistance = 0.1f;
-    readonly float deleteDistance = .4f;
+    readonly float deleteDistance = .2f;
     int prevNumDots = 0;
+    int dotLoc = 0;
 
     void Start()
     {
@@ -29,15 +30,16 @@ public class PathRenderer : MonoBehaviour
         {
             case GameStateEnum.Combat:
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                if (tempRef.Character != null && tempRef.Character.IsPlayer() && !tempRef.GetTargeting() && data.HitBool && controls.VerifyTag(data, "Terrain") && tempRef.Character.GetComponent<NavMeshAgent>().enabled)
+                if (tempRef.Character != null && tempRef.Character.IsPlayer() && !tempRef.GetTargeting() &&  tempRef.Character.Agent.enabled)
                 {
                     if (tempRef.Character.Animator.GetBool("moving"))
                     {
                         moving = true;
                         DisplayActivePath(tempRef.Character);
                     }
-                    else if (tempRef.HasMovement && tempRef.CanContinue && tempRef.Character.Agent != null)
+                    else if (tempRef.HasMovement && tempRef.CanContinue && tempRef.Character.Agent != null && data.HitBool && controls.VerifyTag(data, "Terrain"))
                     {
+                        dotLoc = 0;
                         if (!moving && data.Hit.point.Equals(prevData))
                         {//optimization todo fix where line stays
                             return;
@@ -50,11 +52,13 @@ public class PathRenderer : MonoBehaviour
                     }
                     else
                     {
+                        dotLoc = 0;
                         PathPooling.sharedInstance.DeleteDots(prevNumDots);
                     }
                 }
                 else
                 {
+                    dotLoc = 0;
                     PathPooling.sharedInstance.DeleteDots(prevNumDots);
                 }
                 break;
@@ -64,21 +68,28 @@ public class PathRenderer : MonoBehaviour
 
     public void DisplayActivePath(Character character)
     {
-        //todo implement differently
-        //PathPooling.sharedInstance.DeleteDots(prevNumDots);
-        if (agent.hasPath)
+        if(PathPooling.sharedInstance.pooledObjects[dotLoc] != null)
         {
-            for(int i = 0; i<=prevNumDots; i++) 
-            {
-                
-                if(PathPooling.sharedInstance.pooledObjects[i] == null)
-                {
+            Vector3 dotLocation = PathPooling.sharedInstance.pooledObjects[dotLoc].transform.position;
+            dotLocation.y -= .1f;
+            dotLocation.z += .1f;
 
-                }
-                else if(Mathf.Abs((character.CharacterBottom() - PathPooling.sharedInstance.pooledObjects[i].transform.position).magnitude) <= deleteDistance)
-                {
-                    PathPooling.sharedInstance.DeleteDots(i);
-                }
+            if (Mathf.Abs((character.CharacterBottom() - dotLocation).magnitude) <= deleteDistance)
+            {
+                PathPooling.sharedInstance.DeleteDots(dotLoc);
+                dotLoc++;
+            }
+        }
+        else if (PathPooling.sharedInstance.pooledObjects[dotLoc + 1] != null)//check one ahead as well as a fail safe
+        {
+            Vector3 dotLocation = PathPooling.sharedInstance.pooledObjects[dotLoc + 1].transform.position;
+            dotLocation.y -= .1f;
+            dotLocation.z += .1f;
+
+            if (Mathf.Abs((character.CharacterBottom() - dotLocation).magnitude) <= deleteDistance)
+            {
+                PathPooling.sharedInstance.DeleteDots(dotLoc + 1);
+                dotLoc+=2;
             }
         }
     }
@@ -136,7 +147,8 @@ public class PathRenderer : MonoBehaviour
     }
     void DisplayDot(Vector3 position, int i, PathShaderTypeEnum shader)
     {
-        position.y += .2f;
+        position.y += .1f;
+        position.z -= .1f;
         //TODO REPLACE WITH RAYCAST CODE
         Vector3 vector = defaultCamera.ScreenToWorldPoint(position);
         //Ray ray = defaultCamera.ScreenToWorldPoint(position);

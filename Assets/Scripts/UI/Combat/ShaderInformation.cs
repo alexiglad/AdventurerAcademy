@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 public static class ShaderInformation
 {
-    public static Color damage = new Color(30, 40, 40);
+    public static Color damage = new Color(5, 55, 8);
     public static Color heal;
 
 
     //status colors
+    public static Color regen = new Color();
     public static Color burn = new Color();
 
 

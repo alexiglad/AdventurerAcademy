@@ -468,6 +468,18 @@ public class CombatManager : GameStateManager
             DisableCombatInput();            
             foreach(DamageData data in damagedCharacters)
             {
+                if(data.HealthChange == 0)
+                {
+
+                }
+                else if(data.HealthChange > 0)
+                {
+                    data.Character.SetSpriteShader(SpriteShaderTypeEnum.Heal);
+                }
+                else
+                {
+                    data.Character.SetSpriteShader(SpriteShaderTypeEnum.Damage);
+                }
                 OnCharacterDamaged?.Invoke(this, new CharacterDamagedArgs(data.Character));
             }
             damagedCharacters.Clear();

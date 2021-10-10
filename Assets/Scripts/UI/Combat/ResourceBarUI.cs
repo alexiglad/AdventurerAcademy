@@ -173,8 +173,6 @@ public class ResourceBarUI : MonoBehaviour
         }
         if (important)
         {
-            Debug.Log("here");
-
             targetCharacter.StopAllShaders();//TODO check if this works
         }
     }

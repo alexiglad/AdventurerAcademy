@@ -196,14 +196,14 @@ Material:
     - _WindQuality: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _doFlash: 0
+    - _doFlash: 1
     - _doSelection: 0
     - _doShake: 0
-    - _flashOrPulsate: 0
-    - _flashSpeed: 1
+    - _flashOrPulsate: 1
+    - _flashSpeed: 1.46
     - _grayOut: 0
-    - _shakeAmount: 0.32
-    - _shakeSpeed: 20
+    - _shakeAmount: 0.474
+    - _shakeSpeed: 3
     - _thanosSnapAmount: 0
     m_Colors:
     - Color_594f4600971740669f61212492c6bc61: {r: 0.043715835, g: 1, b: 0, a: 0}
@@ -222,8 +222,8 @@ Material:
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
-    - _flashColor: {r: 0.11320752, g: 0, b: 0.015009247, a: 0}
-    - _selectionColor: {r: 0.18039216, g: 0.18039216, b: 0, a: 0}
-    - _shakeDirection: {r: 1.11, g: 0, b: 0, a: 0}
+    - _flashColor: {r: 0.03529412, g: 0.011764706, b: 0.009803922, a: 0.61960787}
+    - _selectionColor: {r: 0, g: 0.052205883, b: 0.0625, a: 0}
+    - _shakeDirection: {r: 1, g: 0.5, b: 0, a: 0}
     - _thanosSnapColor: {r: 4.1072383, g: 0.8128411, b: 0.48434407, a: 0}
   m_BuildTextureStacks: []
