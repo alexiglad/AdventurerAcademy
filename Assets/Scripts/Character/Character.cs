@@ -23,6 +23,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     private bool died;
     private bool unstable;
     private bool moving;
+    bool takingDamage;
     Vector3 lastPos;
     Vector3 previousSteeringTarget;
     int movementIdleCounter;
@@ -58,6 +59,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public bool Unstable { get => unstable; set => unstable = value; }
     public bool Moving { get => moving; set => moving = value; }
     public Vector3 PreviousSteeringTarget { get => previousSteeringTarget; set => previousSteeringTarget = value; }
+    public bool TakingDamage { get => takingDamage; set => takingDamage = value; }
 
     #endregion
     public new String ToString()
@@ -377,87 +379,106 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return this.health / this.characterData.GetMaxHealth();
     }
+    public bool IsNotTakingDamage()
+    {
+        return !takingDamage;
+    }
     #endregion
     #region ShaderManipulation
+    public void AwaitTakingDamage(Action gc, Action c)
+    {
+        StartCoroutine(WaitForDamageCoroutine(gc, c));
+    }
+    IEnumerator WaitForDamageCoroutine(Action gc, Action c)
+    {
+        yield return new WaitUntil(IsNotTakingDamage);
+        gc.Invoke();
+        c.Invoke();
+
+    }
     public void SetSpriteShader(SpriteShaderTypeEnum spriteShader)
     {
         switch (spriteShader)
         {
             case SpriteShaderTypeEnum.Damage:
                 {
-                    //TEMP
-                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.damage * 2f);
-
-                    DisplayStatusShader();
+                    takingDamage = true;
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.damage);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.damageFlashSpeed);
+                    spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    //DisplayStatusShader();
                     break;
                 }
             case SpriteShaderTypeEnum.Heal:
                 {
-
-
+                    takingDamage = true;
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.heal);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.damageFlashSpeed);
+                    spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
                     break;
                 }
             case SpriteShaderTypeEnum.Selected:
                 {
-
-
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.selected);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.pulsateSpeed);
+                    spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 1);
                     break;
                 }
             case SpriteShaderTypeEnum.Unable:
                 {
-
-
+                    spriteRenderer.material.SetFloat(ShaderInformation.grayOut, ShaderInformation.grayOutAmount);
                     break;
                 }
             case SpriteShaderTypeEnum.Death:
                 {
-
-
+                    StartCoroutine(DeathShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Regen:
                 {
 
-
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Burn:
                 {
 
-
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Poison:
                 {
 
-
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Frozen:
                 {
 
-
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Sleep:
                 {
 
-
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Knocked:
                 {
-
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Drunk:
                 {
-
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Blind:
                 {
 
+                    StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.None:
@@ -487,13 +508,18 @@ public class Character : MonoBehaviour, IComparable<Character>
         spriteRenderer.material.SetFloat(ShaderInformation.fadeAmount, 0);
         spriteRenderer.material.SetFloat(ShaderInformation.doShake, 0);
     }
-    public void DisplayStatusShader()
+    IEnumerator DeathShaderCoroutine()
     {
-        StartCoroutine(StatusShaderCoroutine());
+        float time = 0;
+        while(time < 1)
+        {
+            time += Time.deltaTime;
+            spriteRenderer.material.SetFloat(ShaderInformation.fadeAmount, time);
+            yield return null;
+        }
     }
     IEnumerator StatusShaderCoroutine()
     {
-        Debug.Log("here");
         spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, 1);
         spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
         yield return new WaitForSeconds(1);

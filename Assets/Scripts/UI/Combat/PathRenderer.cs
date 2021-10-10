@@ -80,7 +80,7 @@ public class PathRenderer : MonoBehaviour
                 dotLoc++;
             }
         }
-        else if (PathPooling.sharedInstance.pooledObjects[dotLoc + 1] != null)//check one ahead as well as a fail safe
+        if (PathPooling.sharedInstance.pooledObjects[dotLoc + 1] != null)//check one ahead as well as a fail safe
         {
             Vector3 dotLocation = PathPooling.sharedInstance.pooledObjects[dotLoc + 1].transform.position;
             dotLocation.y -= .1f;
@@ -90,6 +90,18 @@ public class PathRenderer : MonoBehaviour
             {
                 PathPooling.sharedInstance.DeleteDots(dotLoc + 1);
                 dotLoc+=2;
+            }
+        }
+        if (PathPooling.sharedInstance.pooledObjects[dotLoc + 2] != null)//check one ahead as well as a fail safe
+        {
+            Vector3 dotLocation = PathPooling.sharedInstance.pooledObjects[dotLoc + 2].transform.position;
+            dotLocation.y -= .1f;
+            dotLocation.z += .1f;
+
+            if (Mathf.Abs((character.CharacterBottom() - dotLocation).magnitude) <= deleteDistance)
+            {
+                PathPooling.sharedInstance.DeleteDots(dotLoc + 2);
+                dotLoc += 3;
             }
         }
     }

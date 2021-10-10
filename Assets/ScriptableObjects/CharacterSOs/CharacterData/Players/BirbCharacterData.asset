@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BirbCharacterData
   m_EditorClassIdentifier: 
   name: Tengari
-  maxHealth: 20
+  maxHealth: 1
   maxEnergy: 100
   maxMovement: 100
   moveSpeed: 5
-  initiative: 1500
+  initiative: 100
   damage: 1
   damageMultiplier: 1
   damageRange: 1

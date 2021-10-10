@@ -17,7 +17,7 @@ MonoBehaviour:
   maxEnergy: 100
   maxMovement: 8
   moveSpeed: 5
-  initiative: 150
+  initiative: 300
   damage: 1
   damageMultiplier: 1
   damageRange: 1

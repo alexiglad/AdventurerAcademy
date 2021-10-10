@@ -34,7 +34,7 @@ public class TargetDisplay : MonoBehaviour
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.Character != null && tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
+            if (tempRef.CanContinue && tempRef.Character != null && tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
                 /*if (data.Hit.point.Equals(prevData))
                 {//optimization todo fix where line stays
@@ -98,22 +98,15 @@ public class TargetDisplay : MonoBehaviour
     {
         if (charactere == tempRef.Character)
         {
-            charactere.GetComponent<SpriteRenderer>().color = Color.white;
+            charactere.StopAllShaders();
         }
         else if (movementProcessor.WithinRange(tempRef, charactere))
         {//character is valid to display
-            if (tempRef.Character.IsPlayer() ^ charactere.IsPlayer())
-            {
-                charactere.GetComponent<SpriteRenderer>().color = Color.green;
-            }
-            else
-            {
-                charactere.GetComponent<SpriteRenderer>().color = Color.yellow;
-            }
+            charactere.StopAllShaders();
         }
         else
         {//character is invalid to display
-            charactere.GetComponent<SpriteRenderer>().color = Color.black;
+            charactere.SetSpriteShader(SpriteShaderTypeEnum.Unable);
         }
     }
     public void DisplayWithinRange(CombatManager tempRef)
@@ -147,6 +140,7 @@ public class TargetDisplay : MonoBehaviour
     }
     public void DisplayPointsWithinRange(CombatManager tempRef)
     {
+        //TODO figure out better way to do this (i.e. just flash a circle shader in region)?
         line.positionCount = segments + 1;
 
         CreatePoints(data.Hit.point, tempRef.Turn.GetAbility().Radius);
@@ -155,7 +149,8 @@ public class TargetDisplay : MonoBehaviour
         {
             if (movementProcessor.WithinRange(tempRef, charactere, data.Hit.point))
             {
-                charactere.GetComponent<SpriteRenderer>().color = Color.red;
+                charactere.StopAllShaders();
+                //charactere.GetComponent<SpriteRenderer>().color = Color.red;
             }
             else
             {
@@ -205,7 +200,7 @@ public class TargetDisplay : MonoBehaviour
             }
             else
             {
-                character.GetComponent<SpriteRenderer>().color = Color.red;
+                character.SetSpriteShader(SpriteShaderTypeEnum.Selected);
                 foreach (Character charactere in tempRef.Characters)
                 {
                     if (charactere != character)
@@ -245,7 +240,9 @@ public class TargetDisplay : MonoBehaviour
     {
         foreach (Character charactere in tempRef.Characters)
         {
-            charactere.GetComponent<SpriteRenderer>().color = Color.white;
+            if(!charactere.TakingDamage)
+                charactere.StopAllShaders();
+            //HERE uncomment this line to test out shader colors
         }
     }
     void CreatePoints(Vector3 position, float radius)

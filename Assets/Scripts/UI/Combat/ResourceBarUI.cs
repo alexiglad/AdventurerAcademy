@@ -129,6 +129,14 @@ public class ResourceBarUI : MonoBehaviour
 
     IEnumerator AnimateHealthBar()
     {
+        if(currentValue < 0)
+        {
+            currentValue = 0;
+        }
+        else if(currentValue > maxValue)
+        {
+            currentValue = maxValue;
+        }
         float targetSize = CurrentValue / MaxValue;
         if (barType == BarType.health)
         {
@@ -144,7 +152,7 @@ public class ResourceBarUI : MonoBehaviour
                 while (bar.fillAmount < targetSize)
                 {
                     float amountLeft = targetSize - bar.fillAmount;
-                    bar.fillAmount += (float)(Math.Pow(change, 0.7)  * Time.deltaTime);
+                    bar.fillAmount += (float)(Math.Pow(change, 0.7)  * .5 * Time.deltaTime);
                     yield return null;
                 }
                 bar.fillAmount = targetSize;
@@ -160,7 +168,7 @@ public class ResourceBarUI : MonoBehaviour
                 {
                     float amountLeft = bar.fillAmount - targetSize;
 
-                    bar.fillAmount -= (float)(Math.Pow(change, 0.7)  * Time.deltaTime);
+                    bar.fillAmount -= (float)(Math.Pow(change, 0.7)  * .5 * Time.deltaTime);
                     yield return null;
                 }
                 bar.fillAmount = targetSize;
@@ -174,6 +182,12 @@ public class ResourceBarUI : MonoBehaviour
         if (important)
         {
             targetCharacter.StopAllShaders();//TODO check if this works
+            targetCharacter.TakingDamage = false;
+            /*if (gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
+            {
+                CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
+                tempRef.EnableCombatInput();
+            }*/
         }
     }
 

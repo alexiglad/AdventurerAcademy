@@ -15,8 +15,6 @@ public class AZap : Ability
 {
     void OnEnable()
     {
-        damage = 5;
-        range = 5;
     }
 
 

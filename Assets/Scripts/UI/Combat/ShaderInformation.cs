@@ -1,14 +1,24 @@
 ﻿using UnityEngine;
 public static class ShaderInformation
 {
-    public static Color damage = new Color(5, 55, 8);
-    public static Color heal;
+    public static Color damage = new Color(0.4528302f, 0.01452471f, 0.0189505f);
+    public static Color heal = new Color(0.04372039f, 0.1667705f, 0f);
+    public static float damageFlashSpeed = 2.5f;
 
+    public static Color selected = new Color(0.1415094f, 0.07451841f, 0.05526876f);
+    public static float pulsateSpeed = 0.65f;
+
+    public static float grayOutAmount = 0.85f;
 
     //status colors
-    public static Color regen = new Color();
-    public static Color burn = new Color();
-
+    public static Color regen = new Color(0f, 0f, 0f);
+    public static Color burn = new Color(0f, 0f, 0f);
+    public static Color poison = new Color(0f, 0f, 0f);
+    public static Color frozen = new Color(0f, 0f, 0f);
+    public static Color sleep = new Color(0f, 0f, 0f);
+    public static Color knocked = new Color(0f, 0f, 0f);
+    public static Color drunk = new Color(0f, 0f, 0f);
+    public static Color blind = new Color(0f, 0f, 0f);
 
 
 

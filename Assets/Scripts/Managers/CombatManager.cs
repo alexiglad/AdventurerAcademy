@@ -495,7 +495,10 @@ public class CombatManager : GameStateManager
                 //action0 += character.setShader(); TODO implement cedric
                 Action action1 = () => character.gameObject.SetActive(false);
                 action1 += () => EnableCombatInput();
-                gameStateManager.GetGameController().StartDoubleCoroutineTime(1, action0, action1);
+                Action gameContollerAction = () => gameStateManager.GetGameController().StartDoubleCoroutineTime(1, action0, action1);
+                Action characterAction = () => character.SetSpriteShader(SpriteShaderTypeEnum.Death);
+                character.AwaitTakingDamage(gameContollerAction, characterAction);
+                //gameStateManager.GetGameController().StartDoubleCoroutineTime(1, action0, action1);
 
             }
             deadCharacters.Clear();
