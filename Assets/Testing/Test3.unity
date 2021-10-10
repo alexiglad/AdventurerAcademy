@@ -31614,6 +31614,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 267904322}
     m_Modifications:
+    - target: {fileID: 6499003185554428562, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e00e19e0e4cd504f95b5284e00893ab, type: 2}
     - target: {fileID: 6499003185554428563, guid: 6295d58367b97ed4e8e5e24a94155679, type: 3}
       propertyPath: m_Name
       value: Lilia

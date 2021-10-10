@@ -222,7 +222,7 @@ Material:
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
-    - _flashColor: {r: 0.11320752, g: 0, b: 0.015009247, a: 0}
+    - _flashColor: {r: 0.6313726, g: 0.11698109, b: 0.19725546, a: 0}
     - _selectionColor: {r: 0.18039216, g: 0.18039216, b: 0, a: 0}
     - _shakeDirection: {r: 1.11, g: 0, b: 0, a: 0}
     - _thanosSnapColor: {r: 4.1072383, g: 0.8128411, b: 0.48434407, a: 0}

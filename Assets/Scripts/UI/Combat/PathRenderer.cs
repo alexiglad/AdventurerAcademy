@@ -13,7 +13,7 @@ public class PathRenderer : MonoBehaviour
     Vector3 prevData;
     NavMeshAgent agent;
     readonly float PathDistance = 0.1f;
-    readonly float deleteDistance = .2f;
+    readonly float deleteDistance = .25f;
     int prevNumDots = 0;
     int dotLoc = 0;
 
