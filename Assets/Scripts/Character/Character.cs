@@ -25,6 +25,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     private bool unstable;
     private bool moving;
     bool takingDamage;
+    bool shaderActive;
     Vector3 lastPos;
     Vector3 previousSteeringTarget;
     int movementIdleCounter;
@@ -61,6 +62,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     public bool Moving { get => moving; set => moving = value; }
     public Vector3 PreviousSteeringTarget { get => previousSteeringTarget; set => previousSteeringTarget = value; }
     public bool TakingDamage { get => takingDamage; set => takingDamage = value; }
+    public bool ShaderActive { get => shaderActive; set => shaderActive = value; }
 
     #endregion
     public new String ToString()
@@ -458,25 +460,37 @@ public class Character : MonoBehaviour, IComparable<Character>
                 }
             case SpriteShaderTypeEnum.Regen:
                 {
-
+                    spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.statusPulsateSpeed);
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.regen);
                     StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Burn:
                 {
-
+                    spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.statusPulsateSpeed);
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.burn);
                     StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Poison:
                 {
-
+                    spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.statusPulsateSpeed);
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.poison);
                     StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
             case SpriteShaderTypeEnum.Frozen:
                 {
-
+                    spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.statusPulsateSpeed);
+                    spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.frozen);
                     StartCoroutine(StatusShaderCoroutine());
                     break;
                 }
@@ -528,9 +542,11 @@ public class Character : MonoBehaviour, IComparable<Character>
         spriteRenderer.material.SetFloat(ShaderInformation.grayOut, 0);
         spriteRenderer.material.SetFloat(ShaderInformation.fadeAmount, 0);
         spriteRenderer.material.SetFloat(ShaderInformation.doShake, 0);
+        shaderActive = false;
     }
     IEnumerator DeathShaderCoroutine()
     {
+        shaderActive = true;
         float time = 0;
         while(time < 1)
         {
@@ -541,9 +557,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     IEnumerator StatusShaderCoroutine()
     {
-        spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, 1);
-        spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
-        yield return new WaitForSeconds(1);
+        shaderActive = true;
+        yield return new WaitForSeconds(1.3f);
         StopAllShaders();
         if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {

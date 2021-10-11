@@ -11,10 +11,11 @@ public static class ShaderInformation
     public static float grayOutAmount = 0.85f;
 
     //status colors
-    public static Color regen = new Color(0f, 0f, 0f);
-    public static Color burn = new Color(0f, 0f, 0f);
-    public static Color poison = new Color(0f, 0f, 0f);
-    public static Color frozen = new Color(0f, 0f, 0f);
+    public static float statusPulsateSpeed = 1.3f;
+    public static Color regen = new Color(0.3679245f, 0.08122106f, 0.2086826f);
+    public static Color burn = new Color(0.3686275f, 0.1349135f, 0.08235294f);
+    public static Color poison = new Color(0.02148803f, 0.1037736f, 0.01213955f);
+    public static Color frozen = new Color(0.03843004f, 0.1581033f, 0.1603774f);
     public static Color sleep = new Color(0f, 0f, 0f);
     public static Color knocked = new Color(0f, 0f, 0f);
     public static Color drunk = new Color(0f, 0f, 0f);

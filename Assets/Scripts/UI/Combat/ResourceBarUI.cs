@@ -102,7 +102,7 @@ public class ResourceBarUI : MonoBehaviour
                 important = true;
                 while (bar.fillAmount < targetSize)
                 {
-                    bar.fillAmount += (float)(Math.Pow(change, 0.7)  * .5 * Time.deltaTime);
+                    bar.fillAmount += (float)(Math.Pow(change, 0.7)  * .8 * Time.deltaTime);
                     yield return null;
                 }
                 bar.fillAmount = targetSize;
@@ -116,7 +116,7 @@ public class ResourceBarUI : MonoBehaviour
                 important = true;
                 while (bar.fillAmount > targetSize)
                 {
-                    bar.fillAmount -= (float)(Math.Pow(change, 0.7)  * .5 * Time.deltaTime);
+                    bar.fillAmount -= (float)(Math.Pow(change, 0.7)  * .8 * Time.deltaTime);
                     yield return null;
                 }
                 bar.fillAmount = targetSize;

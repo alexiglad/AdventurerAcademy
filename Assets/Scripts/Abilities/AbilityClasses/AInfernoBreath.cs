@@ -7,12 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/MoltenBite")]
 public class AInfernoBreath : Ability
 {
-    private void OnEnable()
-    {
-        damage = 4;
-        range = 1;
-        radius = 1.5f;
-    }
+
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {

@@ -240,7 +240,7 @@ public class TargetDisplay : MonoBehaviour
     {
         foreach (Character charactere in tempRef.Characters)
         {
-            if(!charactere.TakingDamage)
+            if(!charactere.TakingDamage && !charactere.ShaderActive)
                 charactere.StopAllShaders();
             //HERE uncomment this line to test out shader colors
         }
