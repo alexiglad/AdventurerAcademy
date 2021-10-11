@@ -10,7 +10,7 @@ public class AInfernoBreath : Ability
     private void OnEnable()
     {
         damage = 4;
-        range = 4;
+        range = 1;
         radius = 1.5f;
     }
 

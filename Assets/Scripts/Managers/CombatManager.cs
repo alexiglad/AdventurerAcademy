@@ -470,7 +470,7 @@ public class CombatManager : GameStateManager
             {
                 if(data.HealthChange == 0)
                 {
-
+                    continue;
                 }
                 else if(data.HealthChange > 0)
                 {
@@ -490,8 +490,8 @@ public class CombatManager : GameStateManager
             DisableCombatInput();
             foreach (Character character in deadCharacters)
             {
-                Action action0 = () => character.gameObject.LeanAlpha(0, 1f);// Character
-                action0 += () => character.gameObject.GetComponent<CanvasGroup>().LeanAlpha(0, 1f);// Healthbar
+                Action action0 = () => character.gameObject.LeanAlpha(0, .7f);// Character
+                action0 += () => character.gameObject.GetComponent<CanvasGroup>().LeanAlpha(0, .7f);// Healthbar
                 //action0 += character.setShader(); TODO implement cedric
                 Action action1 = () => character.gameObject.SetActive(false);
                 action1 += () => EnableCombatInput();
@@ -543,6 +543,10 @@ public class CombatManager : GameStateManager
     }
     public void AddDamagedCharacter(DamageData damageData)
     {
+        if(damageData.HealthChange == 0)
+        {
+            return;
+        }
         foreach(DamageData dd in damagedCharacters)
         {
             if(dd.Character == damageData.Character)

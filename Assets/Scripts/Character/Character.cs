@@ -15,8 +15,9 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] GameStateManagerSO gameStateManager;
     [SerializeField] FollowUpProcessor followUpProcessor;
     [SerializeField] CharacterListSO characterList;
+    public event EventHandler<CharacterDeathEventArgs> OnCharacterDeath;
 
-     
+
     [SerializeField] protected float health;
     [SerializeField] protected float energy; 
     private bool revived;
@@ -353,7 +354,15 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public bool DecrementHealth(float value)
     {
-        health -= value;
+        if(health - value < 0)
+        {
+            value = health;
+            health = 0;
+        }
+        else
+        {
+            health -= value;
+        }
         if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
@@ -368,7 +377,16 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public virtual void IncrementHealth(float value)
     {
-        health += value;
+
+        if (health + value > GetMaxHealth())
+        {
+            value = GetMaxHealth() - health;
+            health = GetMaxHealth();
+        }
+        else
+        {
+            health += value;
+        }
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
@@ -394,7 +412,10 @@ public class Character : MonoBehaviour, IComparable<Character>
         yield return new WaitUntil(IsNotTakingDamage);
         gc.Invoke();
         c.Invoke();
-
+        if (this.IsPlayer())
+        {
+            OnCharacterDeath?.Invoke(this, new CharacterDeathEventArgs(this));
+        }
     }
     public void SetSpriteShader(SpriteShaderTypeEnum spriteShader)
     {

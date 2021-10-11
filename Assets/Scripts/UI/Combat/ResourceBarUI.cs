@@ -14,8 +14,6 @@ public class ResourceBarUI : MonoBehaviour
 
     [SerializeField] Character targetCharacter;
     Image bar;
-    float lerpTime = 1f;
-    float timeElapsed = 0f;
     float change;
     bool important;
 
@@ -43,14 +41,25 @@ public class ResourceBarUI : MonoBehaviour
         {
             TargetCharacter = gameObject.GetComponentInParent<Character>();
         }
-
+        if (TargetCharacter.IsPlayer() && barType == BarType.health)//had to choose only one as dont want both health bar parts adjusting the lean
+        {
+            TargetCharacter.OnCharacterDeath += HandleDeath;
+        }
         if (gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
             tempRef.OnCharacterDamaged += UpdateValues;
         }
     }
+    public void HandleDeath(object sender, CharacterDeathEventArgs data)
+    {
+        if(gameObject.GetComponentInParent<CanvasGroup>() != null)
+        {
+            gameObject.GetComponentInParent<CanvasGroup>().LeanAlpha(0, .7f);
+            //TODO cedric right here implement thing adjusting canvases/portrait order (move all portraits below up)
+        }
 
+    }
     public void UpdateValues(object sender, CharacterDamagedArgs data)
     {
         if(TargetCharacter != null && TargetCharacter == data.character)
@@ -77,66 +86,8 @@ public class ResourceBarUI : MonoBehaviour
         }          
     }
 
-    public void SetSize(float sizeNormalized)
-    {
-        if (barType == BarType.health)
-        {
-            if (bar.fillAmount > sizeNormalized)
-            {
-                bar.fillAmount = sizeNormalized;
-            }
-
-            if (bar.fillAmount < sizeNormalized)
-            {
-                if (timeElapsed < lerpTime)
-                {
-                    bar.fillAmount = sizeNormalized / (this.timeElapsed / lerpTime);
-                    timeElapsed += 1 * Time.deltaTime;
-                    Debug.Log(this.timeElapsed);
-                }
-                else
-                {
-                    bar.fillAmount = sizeNormalized;
-                    this.timeElapsed = 0;
-                }
-            }            
-        }
-
-        if (barType == BarType.healthBack)
-        {
-            if (bar.fillAmount > sizeNormalized)
-            {
-                bar.color = Color.gray;
-                if (this.timeElapsed < lerpTime)
-                {
-                    bar.fillAmount = sizeNormalized / (this.timeElapsed / lerpTime);
-                    this.timeElapsed += 1 * Time.deltaTime;
-                }
-                else
-                {
-                    bar.fillAmount = sizeNormalized;
-                    this.timeElapsed = 0;
-                }
-            }
-
-            if (bar.fillAmount < sizeNormalized)
-            {
-                bar.color = Color.green;
-                bar.fillAmount = sizeNormalized;
-            }
-        }
-    }
-
     IEnumerator AnimateHealthBar()
     {
-        if(currentValue < 0)
-        {
-            currentValue = 0;
-        }
-        else if(currentValue > maxValue)
-        {
-            currentValue = maxValue;
-        }
         float targetSize = CurrentValue / MaxValue;
         if (barType == BarType.health)
         {
@@ -151,7 +102,6 @@ public class ResourceBarUI : MonoBehaviour
                 important = true;
                 while (bar.fillAmount < targetSize)
                 {
-                    float amountLeft = targetSize - bar.fillAmount;
                     bar.fillAmount += (float)(Math.Pow(change, 0.7)  * .5 * Time.deltaTime);
                     yield return null;
                 }
@@ -166,8 +116,6 @@ public class ResourceBarUI : MonoBehaviour
                 important = true;
                 while (bar.fillAmount > targetSize)
                 {
-                    float amountLeft = bar.fillAmount - targetSize;
-
                     bar.fillAmount -= (float)(Math.Pow(change, 0.7)  * .5 * Time.deltaTime);
                     yield return null;
                 }

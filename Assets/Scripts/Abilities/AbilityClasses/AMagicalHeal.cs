@@ -13,7 +13,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/MagicalHeal")]
 public class AMagicalHeal : Ability
 {
-    private float regen;
+    [SerializeField] private float regen;
+    [SerializeField] private float probability;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -27,7 +28,7 @@ public class AMagicalHeal : Ability
     {
         abilityProcessor.Heal(attackee, damage);
 
-        if (Random.value >= 0.5)//give target regen
+        if (Random.value <= probability)//give target regen
         {
             Status status = new Status(regen, StatusTypeEnum.Regen, 3);
             statusProcessor.CreateStatus(attacker, attackee, status);

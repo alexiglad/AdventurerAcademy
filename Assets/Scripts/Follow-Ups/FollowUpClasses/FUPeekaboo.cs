@@ -13,7 +13,7 @@ public class FUPeekaboo : FollowUp
     void OnEnable()
     {
         damage = 20;
-        range = 6;
+        range = 1;
     }
 
 

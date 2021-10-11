@@ -10,7 +10,7 @@ public class AFieryBite : Ability
     private void OnEnable()
     {
         damage = 3;
-        range = 3;
+        range = 1;
     }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
