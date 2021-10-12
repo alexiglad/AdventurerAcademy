@@ -69,7 +69,7 @@ public class PortraitManager : MonoBehaviour
             //Every third bar            
             if (bar.transform.parent.parent.gameObject.activeSelf)
             {
-                bar.SetCharacter(overlayCharacters[index / 3]);
+                bar.SetCharacter(overlayCharacters[index / 2]);
                 index += 1;
             }            
         }

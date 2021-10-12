@@ -484,7 +484,7 @@ MonoBehaviour:
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
   characterList: {fileID: 11400000, guid: fa52f49f11aaa064d81308a75007aa6f, type: 2}
   health: 0
-  energy: 0
+  actionPoints: 0
   inanimate: 0
 --- !u!54 &1872274231488310998
 Rigidbody:
@@ -622,6 +622,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6174382709882193814}
     m_Modifications:
+    - target: {fileID: 1254684421883438705, guid: 7bcb95aba9844fa41bf9c14052567c5b, type: 3}
+      propertyPath: barType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1254684421883438705, guid: 7bcb95aba9844fa41bf9c14052567c5b, type: 3}
       propertyPath: gameStateManagerSO
       value: 

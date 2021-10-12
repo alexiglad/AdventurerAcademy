@@ -6,5 +6,6 @@ public enum MapStatusEnum
 {//visible/invisible/completed
     Visible,
     Invisible,
-    Completed
-}//todo determine do we want to add in progress?
+    Completed,
+    InProgress
+}

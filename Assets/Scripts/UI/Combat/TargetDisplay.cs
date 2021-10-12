@@ -36,58 +36,37 @@ public class TargetDisplay : MonoBehaviour
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
             if (tempRef.CanContinue && tempRef.Character != null && tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
-                /*if (data.Hit.point.Equals(prevData))
-                {//optimization todo fix where line stays
-                    return;
-                }*/
                 line.positionCount = 0;
                 HoverTarget(tempRef, data.Hit.transform.GetComponent<Character>());
             }
             else if (data.HitBool && tempRef.GetTargeting())//user is targeting and is on terrain 
             {
-                if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
-                    tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged ||
-                    tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
-                {//display characters within range
-                    /*if (data.Hit.point.Equals(prevData))
-                {//optimization todo fix where line stays
-                    return;
-                }*/
+                if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Melee ||
+                    tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Ranged ||
+                    tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Heal)
+                {
                     line.positionCount = 0;
                     DisplayWithinRange(tempRef);
                 }
-                else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
+                else if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Movement)
                 {
-                    /*if (data.Hit.point.Equals(prevData))
-                {//optimization todo fix where line stays
-                    return;
-                }*/
                     line.positionCount = 0;
                     DisplayWithinPathRange(tempRef);
                 }
                 else
-                {//Display splash
-                    /*if (data.Hit.point.Equals(prevData))
-                {//optimization todo fix where line stays
-                    return;
-                }*/
+                {
                     line.positionCount = 0;
                     DisplayPointsWithinRange(tempRef);
                 }
             }
-            else if(data.HitBool && tempRef.Attacked && tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement && tempRef.Character.Animator.GetBool("moving"))
+            /*else if(data.HitBool && tempRef.Attacked && tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement && tempRef.Character.Animator.GetBool("moving"))
             {
                 line.positionCount = 0;
                 DisplayActivePath(tempRef.Character);
                 MainDisplay(tempRef, tempRef.Character);
-            }
+            }*///TODO
             else
             {
-                //display nothing
-                /*if (data.Hit.point.Equals(prevData))
-                {//optimization todo fix where line stays
-                    return;
-                }*/
                 line.positionCount = 0;
                 ResetTargeting(tempRef);
             }
@@ -124,7 +103,7 @@ public class TargetDisplay : MonoBehaviour
         //actually im gonna say just characters
 
 
-        List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
+        List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.CurrentAbility.Radius);
         foreach (Character charactere in tempRef.Characters)
         {
             if (tempRef.Character != charactere && charactersWithinRange.Contains(charactere) && movementProcessor.WithinRange(tempRef, charactere))
@@ -143,7 +122,7 @@ public class TargetDisplay : MonoBehaviour
         //TODO figure out better way to do this (i.e. just flash a circle shader in region)?
         line.positionCount = segments + 1;
 
-        CreatePoints(data.Hit.point, tempRef.Turn.GetAbility().Radius);
+        CreatePoints(data.Hit.point, tempRef.CurrentAbility.Radius);
         CheckForLineColor(tempRef, data.Hit.point);
         foreach (Character charactere in tempRef.Characters)
         {
@@ -162,12 +141,12 @@ public class TargetDisplay : MonoBehaviour
     {
         if(movementProcessor.WithinRange(tempRef, character))
         {
-            if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
+            if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Splash)
             {
                 line.positionCount = segments + 1;
                 Vector3 bottom = character.BoxCollider.bounds.center;
                 bottom.y -= character.BoxCollider.bounds.size.y / 2;
-                CreatePoints(bottom, tempRef.Turn.GetAbility().Radius);
+                CreatePoints(bottom, tempRef.CurrentAbility.Radius);
                 foreach (Character charactere in tempRef.Characters)
                 {
                     if (movementProcessor.WithinRange(tempRef, charactere, bottom))
@@ -180,10 +159,10 @@ public class TargetDisplay : MonoBehaviour
                     }
                 }
             }
-            else if(tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
+            else if(tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Movement)
             {
                 DisplayPath(tempRef);//change this to special method which just goes close to obstacle
-                List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.Turn.GetAbility().Radius);
+                List<Character> charactersWithinRange = movementProcessor.GetCharactersInLine(tempRef.Character.transform.position, data.Hit.point, tempRef.CurrentAbility.Radius);
                 foreach (Character charactere in tempRef.Characters)
                 {
                     if (tempRef.Character != charactere && charactersWithinRange.Contains(charactere) && movementProcessor.WithinRange(tempRef, charactere))
@@ -213,12 +192,12 @@ public class TargetDisplay : MonoBehaviour
         else
         {
             DisplayWithinRange(tempRef);
-            if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
+            if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Splash)
             {
                 line.positionCount = segments + 1;
                 Vector3 bottom = character.BoxCollider.bounds.center;
                 bottom.y -= character.BoxCollider.bounds.size.y / 2;
-                CreatePoints(bottom, tempRef.Turn.GetAbility().Radius);
+                CreatePoints(bottom, tempRef.CurrentAbility.Radius);
             }
         }
     }
@@ -321,7 +300,7 @@ public class TargetDisplay : MonoBehaviour
     }
     bool IsValidPath(CombatManager tempRef)
     {
-        return Vector3.Distance(data.Hit.point, tempRef.Character.transform.position) <= tempRef.Turn.GetAbility().Range;
+        return Vector3.Distance(data.Hit.point, tempRef.Character.transform.position) <= tempRef.CurrentAbility.Range;
     }
 
 

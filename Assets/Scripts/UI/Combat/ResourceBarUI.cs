@@ -16,11 +16,10 @@ public class ResourceBarUI : MonoBehaviour
     Image bar;
     float change;
     bool important;
-
+    [SerializeField] bool hoverBar;
     [SerializeField] GameStateManagerSO gameStateManagerSO;
 
 
-    private BarType BarType1 { get => barType;}
     public float CurrentValue { get => currentValue; set => currentValue = value; }
     public float MaxValue { get => maxValue; set => maxValue = value; }
     public Character TargetCharacter { get => targetCharacter; set => targetCharacter = value; }
@@ -28,9 +27,7 @@ public class ResourceBarUI : MonoBehaviour
     private enum BarType
     {
         health,
-        stamina,
         healthBack,
-        staminaBack
     }
 
     void Start()
@@ -69,11 +66,6 @@ public class ResourceBarUI : MonoBehaviour
                 case (BarType.health):
                     CurrentValue = TargetCharacter.GetHealth();
                     MaxValue = TargetCharacter.GetMaxHealth();
-                    break;
-
-                case (BarType.stamina):
-                    CurrentValue = TargetCharacter.GetEnergy();
-                    MaxValue = TargetCharacter.GetMaxEnergy();
                     break;
 
                 case (BarType.healthBack):
@@ -127,15 +119,10 @@ public class ResourceBarUI : MonoBehaviour
                 bar.fillAmount = targetSize;
             }
         }
-        if (important)
+        if (important && !hoverBar)
         {
             targetCharacter.StopAllShaders();//TODO check if this works
             targetCharacter.TakingDamage = false;
-            /*if (gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
-            {
-                CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
-                tempRef.EnableCombatInput();
-            }*/
         }
     }
 

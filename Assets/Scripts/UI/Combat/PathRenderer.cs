@@ -30,14 +30,14 @@ public class PathRenderer : MonoBehaviour
         {
             case GameStateEnum.Combat:
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                if (tempRef.Character != null && tempRef.Character.IsPlayer() && !tempRef.GetTargeting() &&  tempRef.Character.Agent.enabled)
+                if (!tempRef.AttackingOrMoving && tempRef.Character != null && tempRef.Character.IsPlayer() && !tempRef.GetTargeting() &&  tempRef.Character.Agent.enabled)
                 {
                     if (tempRef.Character.Animator.GetBool("moving"))
                     {
                         moving = true;
                         DisplayActivePath(tempRef.Character);
                     }
-                    else if (tempRef.HasMovement && tempRef.CanContinue && tempRef.Character.Agent != null && data.HitBool && controls.VerifyTag(data, "Terrain"))
+                    else if (tempRef.Character.GetMaxMovement() >0 && tempRef.CanContinue && tempRef.Character.Agent != null && data.HitBool && controls.VerifyTag(data, "Terrain"))
                     {
                         dotLoc = 0;
                         if (!moving && data.Hit.point.Equals(prevData))
@@ -54,12 +54,14 @@ public class PathRenderer : MonoBehaviour
                     {
                         dotLoc = 0;
                         PathPooling.sharedInstance.DeleteDots(prevNumDots);
+                        prevNumDots = 0;
                     }
                 }
                 else
                 {
                     dotLoc = 0;
                     PathPooling.sharedInstance.DeleteDots(prevNumDots);
+                    prevNumDots = 0;
                 }
                 break;
         }
@@ -119,6 +121,10 @@ public class PathRenderer : MonoBehaviour
         {
             totalPathlength += (path.corners[i] - path.corners[i-1]).magnitude;
         }
+        if(totalPathlength > character.GetMaxMovement())
+        {
+            totalPathlength = character.GetMaxMovement();
+        }
         int place = 1;
         Vector3 location = character.CharacterBottom();
         float currentLengthLeft = (path.corners[place] - path.corners[place - 1]).magnitude;
@@ -148,7 +154,7 @@ public class PathRenderer : MonoBehaviour
                 currentLengthLeft = (path.corners[place] - path.corners[place - 1]).magnitude - tip.magnitude;
             }
             PathShaderTypeEnum shader = PathShaderTypeEnum.ValidPath;
-            if(i > tempRef.GetRemainingMovement())
+            if(i > tempRef.Character.GetMaxMovement())
             {
                 shader = PathShaderTypeEnum.InvalidPath;
             }

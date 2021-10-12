@@ -16,16 +16,12 @@ public class CombatManager : GameStateManager
     private List<Character> turnOrder = new List<Character>();
     public event EventHandler<CharacterDamagedArgs> OnCharacterDamaged;
 
-
-
     private IEnumerator<Character> enumerator;
-    Turn turn;
     Character character;
 
-    bool targeting;
-    bool attacked;
-    bool hasMovement;
-    bool doubleMovement;
+    Ability currentAbility;//user for storage of current ability
+
+    bool attackingOrMoving;//true is attacking false is moving, defaults to true
     bool canContinue;
     bool redoTurnOrder;
     bool resetted;
@@ -47,27 +43,22 @@ public class CombatManager : GameStateManager
 
     public Character Character { get => character; set => character = value; }
     public SortedSet<Character> Characters { get => characters; set => characters = value; }
-    public Turn Turn { get => turn; set => turn = value; }
     public SortedSet<Character> UserCharacters { get => userCharacters; set => userCharacters = value; }
-    public bool HasMovement { get => hasMovement; set => hasMovement = value; }
     public List<Character> TurnOrder { get => turnOrder; set => turnOrder = value; }
     public bool CanContinue { get => canContinue; set => canContinue = value; }
-    public bool Attacked { get => attacked; set => attacked = value; }
+    public Ability CurrentAbility { get => currentAbility; set => currentAbility = value; }
+    public bool AttackingOrMoving { get => attackingOrMoving; set => attackingOrMoving = value; }
 
 
     #endregion
     public override void Start()
     {
-        turn = new Turn();
         enumerator = characters.GetEnumerator();
         enumerator.MoveNext();
         character = enumerator.Current;
         character.GetComponent<SpriteRenderer>().color = Color.white;//eventually add shaders
         //TODO add shader for character
-        targeting = false;
-        attacked = false;
-        hasMovement = true;
-        doubleMovement = false;
+        attackingOrMoving = true;
         canContinue = true;
         redoTurnOrder = false;
         resetted = false;
@@ -108,141 +99,51 @@ public class CombatManager : GameStateManager
 
         if (!character.IsPlayer())
         {//only do this if is an enemy
-            UpdateIteration(DetermineEnemyTurn(character), true);
+            DetermineEnemyTurn(character);
         }
     }
 
-    public void UpdateIteration(Turn turnChange, bool turnFinished)
+    public void EndTurn()
     {
-        if (turnFinished)
-        {
-            UpdateEnemyTurn(turnChange);
-        }
-        if (ValidTurn(turnChange))
-        {
-            UpdateCharacters(turnChange);
-        }
-        
-        if (turnFinished || TurnFinished())
-        {
-            gameStateManager.GetGameController().StartCoroutineCC(IterateCharacters);
-
-        }
+        gameStateManager.GetGameController().StartCoroutineCC(IterateCharacters);
     }
+
     public bool CanContinueMethod()
     {
         return canContinue;
     }
-    public void UpdateEnemyTurn(Turn turnChange)
+
+    public void UpdateAbility(Ability ability)
     {
-        if (turnChange.GetMovement() != Vector3.zero && turn.AmountMoved <= character.GetMaxMovement() && hasMovement)
-        {//add x and y components to turn only if the movement is less than the max movement
-            turn.SetMovement(turnChange.GetMovement() + turn.GetMovement());//all turn.movement does is just store the total movement done on a given turn
-            //turn.AmountMoved += Math.Abs(turnChange.GetMovement().magnitude - character.transform.position.magnitude);
-            turn.AmountMoved += Vector3.Distance(character.transform.position, turnChange.GetMovement());
-        }
-        if (turnChange.GetAbility() != null && turn.GetTarget() == null)//once they've invoked target with ability they cant do it again
-        {
-            turn.SetAbility(turnChange.GetAbility());
-        }
-        if (turnChange.GetTarget() != null && turn.GetTarget() == null)
-        {
-            turn.SetTarget(turnChange.GetTarget());
-        }
+        this.currentAbility = ability;
     }
-    public bool UpdateAbility(Ability ability)
+    public bool GetTargeting()
     {
-        if (!attacked && !doubleMovement)
+        return this.currentAbility != null;
+    }
+    public void UpdateTarget(Character target)
+    {
+        DisableCombatInput();
+        uiHandler.UnselectAbilities();
+        uiHandler.DisplayAbility(currentAbility);
+        character.DecrementActionPoints(currentAbility.ActionPointCost);
+
+        if (target.Inanimate)
         {
-            turn.SetAbility(ability);
-            if(ability == null)
-            {
-                targeting = false;
-            }
-            else
-            {
-                targeting = true;
-            }
-            return true;
+            HandleInanimateTarget(target);
         }
         else
         {
-            return false;
+            abilityProcessorInstance.HandleAbility(character, target, currentAbility);
         }
+        currentAbility = null;
     }
-    public bool UpdateTarget(Character target)
+    public void UpdateMovement(Vector3 movement, float pathLength)
     {
-        if (!attacked && targeting && !doubleMovement)
-        {
-            turn.SetTarget(target);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public bool UpdateMovement(Vector3 movement)
-    {
-        if (doubleMovement && hasMovement && turn.AmountMoved + movement.magnitude <= 2* character.GetMaxMovement())
-        {
-            turn.SetMovement(movement + turn.GetMovement());
-            turn.AmountMoved += movement.magnitude;
-            float error = .2f;
-            if (GetRemainingMovement() <= error)
-            {
-                Debug.Log("User has used up movement for turn");
-                hasMovement = false;
-            }
-            return true;
-        }
-        else if(hasMovement && turn.AmountMoved + movement.magnitude <= character.GetMaxMovement() )
-        {
-            turn.SetMovement(movement + turn.GetMovement());
-            turn.AmountMoved += movement.magnitude;
-            float error = .2f;
-            if (GetRemainingMovement() <= error)
-            {
-                Debug.Log("User has used up movement for turn");
-                hasMovement = false;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public bool UpdateMovement(Vector3 changeInLoc, float magnitude)//update this to take a destination and magnitude
-    {
-        if (doubleMovement && hasMovement && magnitude <= 2 * GetRemainingMovement())
-        {
-            turn.SetMovement(changeInLoc + turn.GetMovement());
-            turn.AmountMoved += magnitude;
-            float error = .2f;
-            if (GetRemainingMovement() <= error)
-            {
-                Debug.Log("User has used up movement for turn");
-                hasMovement = false;
-            }
-            return true;
-        }
-        else if (hasMovement && magnitude <= GetRemainingMovement())
-        {
-            turn.SetMovement(changeInLoc + turn.GetMovement());
-            turn.AmountMoved += magnitude;
-            float error = .2f;
-            if (GetRemainingMovement() <= error)
-            {
-                Debug.Log("User has used up movement for turn");
-                hasMovement = false;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        DisableCombatInput();
+        int cost = (int)Math.Ceiling(pathLength * character.DistancePerActionPoint);
+        character.DecrementActionPoints(cost);
+        movementProcesssor.HandleMovement(character, movement);
     }
 
     public override void SetSubstateEnum(SubstateEnum state)
@@ -256,97 +157,34 @@ public class CombatManager : GameStateManager
         this.characters = charactersPassed;
     }
 
-    public bool GetTargeting()
-    {
-        return targeting;
-    }
 
     #region Custom Combat Manager Methods 
 
-    public Turn DetermineEnemyTurn(Character character)//TODO
+    public void DetermineEnemyTurn(Character character)//TODO
     {
-        return character.EnemyAI.DetermineTurn(character, this);
-    }
-    public float GetRemainingMovement()
-    {
-        if (doubleMovement)
-        {
-            return 2*this.character.GetMaxMovement() - this.turn.AmountMoved;
+        Turn turn = character.EnemyAI.DetermineTurn(character, this);
+        if(turn.GetMovement() != Vector3.zero)
+            UpdateMovement(turn.GetMovement(), 2);
+        else if(turn.GetAbility() != null)
+        {//assumes if it has an ability it has a target
+            UpdateAbility(turn.GetAbility());
+            UpdateTarget(turn.GetTarget());
         }
-        else
-        {
-            return this.character.GetMaxMovement() - this.turn.AmountMoved;
-        }
+        EndTurn();
     }
 
-    public void UpdateCharacters(Turn turnChange)
+    public void HandleInanimateTarget(Character target)
     {
-        Ability currentAbility = turn.GetAbility();
-        Vector3 currentMovement = turnChange.GetMovement();
-        //call ability or move method if necessary
-        if (currentMovement != Vector3.zero)//move turn
+        if (target.name == "voodoo")
         {
-            DisableCombatInput();
-            movementProcesssor.HandleMovement(character, currentMovement);
+            Debug.Log("Voodoo ability used from " + character  + " onto " + target.VoodooTarget);
+            RemoveCharacter(target);
+            abilityProcessorInstance.HandleAbility(character, target.VoodooTarget, currentAbility);//TODO MAKE GET TARGET OF VOODOO
         }
-        if(currentAbility != null && currentAbility != null && !attacked)//ability turn
+        else if(target.name == "TempCharacter(Clone)")
         {
-            DisableCombatInput();
-            uiHandler.StopDisplayingAbilities();
-            uiHandler.DisplayAbility(currentAbility);
-            targeting = false;
-            attacked = true;
-            if (turn.GetTarget().Inanimate)
-            {
-                HandleInanimateTarget(turnChange);
-            }
-            else
-            {
-                abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), currentAbility);
-            }
-        }
-    }
-    public void HandleInanimateTarget(Turn turnChange)
-    {
-        if (turn.GetTarget().name == "voodoo")
-        {
-            Debug.Log("Voodoo ability used from " + character  + " onto " + turn.GetTarget().VoodooTarget);
-            RemoveCharacter(turn.GetTarget());
-            abilityProcessorInstance.HandleAbility(character, turn.GetTarget().VoodooTarget, turn.GetAbility());//TODO MAKE GET TARGET OF VOODOO
-        }
-        else if(turn.GetTarget().name == "TempCharacter(Clone)")
-        {
-            RemoveCharacter(turn.GetTarget());//TODO determine if this is necessary
-            abilityProcessorInstance.HandleAbility(character, turn.GetTarget(), turn.GetAbility());//TODO MAKE GET TARGET OF VOODOO
-        }
-    }
-
-    bool ValidTurn(Turn pushTurn)
-    {
-        if (pushTurn.GetMovement() != Vector3.zero)
-        {
-            return true;
-        }
-        if (turn.GetAbility() != null && turn.GetTarget() != null)
-        {
-            return true;
-        }       
-        return false;        
-    }
-
-    bool TurnFinished()
-    {
-        if (!hasMovement && attacked)
-        {
-            return true;
-        }
-        else if (!character.IsPlayer())//temp code enemies automatically finish turn in one go
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            RemoveCharacter(target);//TODO determine if this is necessary
+            abilityProcessorInstance.HandleAbility(character, target, currentAbility);//TODO MAKE GET TARGET OF VOODOO
         }
     }
     public void ResetEnumerator()
@@ -390,6 +228,7 @@ public class CombatManager : GameStateManager
             }
             if (character.Moving)//TODO change when adding follow up coroutines
             {
+                Debug.Log("here");
                 character.Agent.isStopped = true;
                 moving = true;
             }
@@ -413,14 +252,14 @@ public class CombatManager : GameStateManager
         if (turnOrder.Remove(character))//this happens after which is why its not working
         {
             deadCharacters.Add(character);
-            if (TurnFinished())
+            if (character.IsPlayer())
             {
                 if (moving)
                 {
                     EnableCombatInput();
                 }
             }
-            else if (!TurnFinished() && !resetted)
+            else if (!resetted)
             {
                 if (!canContinue)
                 {
@@ -579,8 +418,6 @@ public class CombatManager : GameStateManager
         }
         if (MoreThanOneSideIsAlive())
         {
-            character.GetComponent<SpriteRenderer>().color = Color.white;//todo fix with shaders
-            turn = new Turn();
             if (enumerator.MoveNext())
             {
                 character = enumerator.Current;
@@ -591,11 +428,9 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 character = enumerator.Current;
             }
-            //statusProcessorInstance.HandleStatuses(character);//CHANGE THIS TO BE AFTER IN FINISH ITERATING
-            targeting = false;
-            attacked = false;
-            hasMovement = true;
-            doubleMovement = false;
+            //@HERE SET ANIMATION FOR CURRENT SPRITE AND USE CINEMACHINE
+            currentAbility = null;
+            attackingOrMoving = true;
             
             if (character.Inanimate)
             {
@@ -612,6 +447,7 @@ public class CombatManager : GameStateManager
     public void FinishIterating()
     {
         character.Agent.enabled = true;
+        character.IncrementActionPoints(character.ActionPointsPerTurn);
         initialStatus = true;
         statusProcessorInstance.HandleStatuses(character);//todo figure out a way to make this work with following line of code not killing people...
         EnableCombatInput();
@@ -625,7 +461,7 @@ public class CombatManager : GameStateManager
             initialStatus = false;
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
-            UpdateIteration(DetermineEnemyTurn(character), true);
+            DetermineEnemyTurn(character);
         }
         else
         {
@@ -636,11 +472,9 @@ public class CombatManager : GameStateManager
     }
     public void ResetTurn()
     {
-        turn = new Turn();
-        targeting = false;
-        attacked = false;
-        hasMovement = true;
-        doubleMovement = false;
+        //@HERE SET ANIMATION FOR CURRENT SPRITE AND USE CINEMACHINE
+        currentAbility = null;
+        attackingOrMoving = true;
         resetted = false;
 
         if (character.Inanimate)
@@ -697,89 +531,59 @@ public class CombatManager : GameStateManager
             gameStateManager.GetGameLoader().LoadSceneAfterCombatLoss();
         }
     }
+    public bool HasSufficientAP(Ability ability)//has enough ap for an ability
+    {
+        if(character.GetActionPoints() >= ability.ActionPointCost)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool HasSufficientAP(Vector3 destination)
+    {
+        return true;//TODO determine if we want to make it so they can click even when their path is too long (will only go to end of path being displayed)
+    }
     public void CombatAbility(object sender, AbilityEventArgs e)
     {
-        if (UpdateAbility(e.NewAbility) && e.Selected)
-        {
-            Turn turnUpdate = new Turn(e.NewAbility);
-            UpdateIteration(turnUpdate, false) ;
-        }
+        UpdateAbility(e.NewAbility);
     }
     public void CombatAbilityDeselect()
     {
-        if (UpdateAbility(null))
-        {
-            AbilityEventArgs e = new AbilityEventArgs(null, false);
-            Turn turnUpdate = new Turn(e.NewAbility);
-            UpdateIteration(turnUpdate, false);
-        }
+        UpdateAbility(null);
         uiHandler.UnselectAbilities();
     }
     public void CombatTarget(Character target)
     {
-        if (UpdateTarget(target))
-        {
-            Turn turnUpdate = new Turn(target);
-            UpdateIteration(turnUpdate, false);
-        }
+        UpdateTarget(target);
     }
-    public void CombatDoubleMove()
+    public void ToggleCombatTurn()
     {
-        if (doubleMovement)
+        attackingOrMoving = !attackingOrMoving;
+        if (attackingOrMoving)
         {
-            if(turn.AmountMoved >= character.GetMaxMovement())
-            {
-                Debug.Log("cannot disable double movement you have already moved too much");
-            }
-            else
-            {
-                doubleMovement = false;
-                uiHandler.DisplayDoubleMovement(doubleMovement);
-                uiHandler.UpdateCombatTurnUI(character);
-            }
+            uiHandler.UpdateCombatTurnUI(character);
         }
-        else
-        {
-            if(!attacked && !targeting)
-            {
-                doubleMovement = true;
-                hasMovement = true;
-                uiHandler.DisplayDoubleMovement(doubleMovement);
-                uiHandler.StopDisplayingAbilities();
-            }
-            else
-            {
-                if (attacked)
-                {
-                    Debug.Log("cannot enable double movement you have already attacked");
-                }
-                else
-                {
-                    Debug.Log("cannot enable double movement while targeting");
-                }
-            }
+        else{
+            uiHandler.DisplayDoubleMovement(true);
+            uiHandler.StopDisplayingAbilities();
         }
     }
 
     public void CombatMovement(Vector3 destination)
     {
-        Vector3 characterBottom = character.BoxCollider.bounds.center;
-        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
+        Vector3 characterBottom = character.CharacterBottom();
         Vector3 adjustedDestination = new Vector3(destination.x, destination.y , destination.z);
         NavMeshPath path = new NavMeshPath();
         if (character.Agent.CalculatePath(adjustedDestination, path) && path.status == NavMeshPathStatus.PathComplete)
         {
-            if (Vector3.Distance(adjustedDestination, characterBottom) <= GetRemainingMovement())
+            float pathLength = movementProcesssor.CalculatePathLength(path, character);
+            if (pathLength <= character.GetMaxMovement())
             {
                 //If the destination is valid, move to destination
-                if (UpdateMovement(adjustedDestination - characterBottom))
-                {
-                    UpdateIteration(new Turn(adjustedDestination - characterBottom), false);
-                }
-
+                UpdateMovement(adjustedDestination - characterBottom, pathLength);
             }
             else
-            {
+            {//move to closest point on destination (should be where path renderer is displayed last)
                 float distanceTraveled = 0;
                 Vector3 location = new Vector3();
                 Vector3 prev = characterBottom;
@@ -787,10 +591,10 @@ public class CombatManager : GameStateManager
                 //prev.y += 0.08448386f;//TODO investigate why this helps eventually
                 foreach (Vector3 vector in path.corners)
                 {
-                    if (distanceTraveled + Vector3.Distance(vector, prev) >= GetRemainingMovement())
+                    if (distanceTraveled + Vector3.Distance(vector, prev) >= character.GetMaxMovement())
                     {
                         Vector3 temp = vector - prev;
-                        Vector3 lastPath = (GetRemainingMovement() - distanceTraveled) * (temp.normalized);
+                        Vector3 lastPath = (character.GetMaxMovement() - distanceTraveled) * (temp.normalized);
                         location += lastPath;
                         break;
                     }
@@ -814,14 +618,7 @@ public class CombatManager : GameStateManager
                 if (character.Agent.CalculatePath(location + characterBottom, path2) && path2.status == NavMeshPathStatus.PathComplete)
                 {
                     //this is creating the movement in the case of being outside the radius
-                    if (UpdateMovement(location, GetRemainingMovement()))
-                    {
-                        UpdateIteration(new Turn(location), false);
-                    }
-                    else
-                    {
-                        Debug.Log("another error occured");
-                    }
+                    UpdateMovement(location, character.GetMaxMovement());
                     //UpdateIteration(new Turn(location), false);
                 }
                 else
@@ -831,24 +628,9 @@ public class CombatManager : GameStateManager
             }
         }
     }
-
-    public bool IsInvalidPath(Vector3 destination)
-    {
-        Vector3 characterBottom = character.BoxCollider.bounds.center;
-        characterBottom.y -= character.BoxCollider.bounds.size.y / 2;
-        Vector3 adjustedDestination = new Vector3(destination.x, destination.y, destination.z);
-        if (Vector3.Distance(adjustedDestination, characterBottom) <= GetRemainingMovement())
-        {
-            return false;
-        }
-        return true;
-    }
-
     public void FinishTurn(object sender, EventArgs e)
     {
         IterateCharacters();
     }
-
-
     #endregion
 }

@@ -45,7 +45,8 @@ public class StatusProcessor : ScriptableObject
                 }
                 else if (status.StatusEffect == StatusTypeEnum.Knocked)
                 {
-                    tempRef.Turn.AmountMoved = character.GetMaxMovement();
+                    //tempRef.Turn.AmountMoved = character.GetMaxMovement();
+                    //todo make it so it takes AP to get back up
                 }
             }
             for (int i = 0; i < character.Statuses.Count; i++)

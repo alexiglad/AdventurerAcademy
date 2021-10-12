@@ -6866,6 +6866,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
     - target: {fileID: 869340736, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: amountToPool
       value: 250
@@ -6898,6 +6899,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.13300514
       objectReference: {fileID: 0}
+=======
+>>>>>>> Stashed changes
     - target: {fileID: 4175138499790697740, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_Name
       value: Battle UI
@@ -6946,6 +6949,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 4197517843021202097, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.13300037
@@ -7038,6 +7042,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 48
       objectReference: {fileID: 0}
+=======
+>>>>>>> Stashed changes
     - target: {fileID: 7607190366878741217, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7061,14 +7067,6 @@ PrefabInstance:
     - target: {fileID: 7607190366878741217, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7607190366878741218, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7607190367338737576, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7607190367338737583, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7118,10 +7116,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7607190367884009266, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7607190368256482268, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7145,10 +7139,6 @@ PrefabInstance:
     - target: {fileID: 7607190368256482268, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7607190368256482269, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7607190368578227994, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7174,6 +7164,7 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 7607190368578227995, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -7202,6 +7193,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.13299751
       objectReference: {fileID: 0}
+=======
+>>>>>>> Stashed changes
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d53be9e6cd90fa946a29b52534029482, type: 3}
 --- !u!1 &464417506

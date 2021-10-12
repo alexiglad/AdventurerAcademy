@@ -61,14 +61,16 @@ public class MovementProcessor : ScriptableObject
         }
 
         //Debug.Log(character + " traveled " + movement + " tiles with magnitude " + movement.magnitude + " at " + Vector3.Angle(new Vector3(1, 0, 0), movement) + " degrees");
-        Stabilize(character);
+        character.Stabilize(true);
     }
-    void Stabilize(Character character)
+    public float CalculatePathLength(NavMeshPath path, Character character)
     {
-        if (character.Unstable)
+        float totalPathlength = 0;
+        for (int i = 1; i < path.corners.Length; i++)
         {
-            character.Unstable = false;
+            totalPathlength += (path.corners[i] - path.corners[i - 1]).magnitude;
         }
+        return totalPathlength;
     }
     public List<Character> GetCharactersInRange(Vector3 position2, float radius)
     {
@@ -113,16 +115,16 @@ public class MovementProcessor : ScriptableObject
     }
     public bool WithinRange(CombatManager tempref, Character character2)
     {
-        return Vector3.Distance(tempref.Character.transform.position, character2.transform.position) <= tempref.Turn.GetAbility().Range + tempref.Turn.GetAbility().Radius;
+        return Vector3.Distance(tempref.Character.transform.position, character2.transform.position) <= tempref.CurrentAbility.Range + tempref.CurrentAbility.Radius;
     }
     public bool WithinRange(CombatManager tempref, Character character, Vector3 pos)
     {
-        return Vector3.Distance(character.transform.position, pos) <= tempref.Turn.GetAbility().Radius &&
-            Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.Turn.GetAbility().Range;
+        return Vector3.Distance(character.transform.position, pos) <= tempref.CurrentAbility.Radius &&
+            Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.CurrentAbility.Range;
     }
     public bool WithinSplashRange(CombatManager tempref, Vector3 pos)
     {
-        return Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.Turn.GetAbility().Range;
+        return Vector3.Distance(tempref.Character.transform.position, pos) <= tempref.CurrentAbility.Range;
     }
 
     public Vector3 ClosestPointOnLine(Vector3 vA, Vector3 vB, Vector3 vPoint)

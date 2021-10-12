@@ -18,6 +18,7 @@ MonoBehaviour:
   damage: 10
   range: 5
   radius: 1
+  actionPointCost: 8
   abilityType: 4
   icon: {fileID: 0}
   image: {fileID: 0}

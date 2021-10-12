@@ -46,7 +46,7 @@ public class InputHandler : ScriptableObject
             controls.UniversalControls.Select.performed += _ => OnSelect();
             controls.UniversalControls.Deselect.performed += _ => OnDeselect();
             controls.UniversalControls.Space.performed += _ => OnSpace();
-            controls.UniversalControls.DoubleMovement.performed += _ => OnDoubleMovement();
+            controls.UniversalControls.DoubleMovement.performed += _ => OnToggleCombatTurn();
             controls.UniversalControls.Pan.performed += _ => SetPan();
             controls.UniversalControls.Zoom.performed += _ => SetZoom();
             controls.UniversalControls.Interact.performed += _ => OnInteract();
@@ -140,7 +140,7 @@ public class InputHandler : ScriptableObject
                         else
                         {
                             Vector3 pos = GetLocation(data);
-                            if (pos != Vector3.zero)
+                            if (!tempCombatRef.AttackingOrMoving && tempCombatRef.HasSufficientAP(pos) && pos != Vector3.zero)
                             {
                                 tempCombatRef.CombatMovement(pos);
                             }
@@ -231,13 +231,13 @@ public class InputHandler : ScriptableObject
     #endregion
     #region combat manager methods
 
-    public void OnDoubleMovement()
+    public void OnToggleCombatTurn()
     {
         switch (gameStateManager.GetCurrentGameState())
         {
             case GameStateEnum.Combat:
                 CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-                tempRef.CombatDoubleMove();
+                tempRef.ToggleCombatTurn();
                 break;
 
             default:
@@ -248,8 +248,8 @@ public class InputHandler : ScriptableObject
 
     void SendTarget(RaycastData ray, CombatManager tempRef)
     {
-        if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Melee ||
-            tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Ranged)
+        if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Melee ||
+            tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Ranged)
         {
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
                 movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
@@ -267,7 +267,7 @@ public class InputHandler : ScriptableObject
             }
 
         }
-        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Heal)
+        else if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Heal)
         {
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
                 movementProcessor.WithinRange(tempRef, ray.Hit.transform.GetComponent<Character>()))
@@ -284,7 +284,7 @@ public class InputHandler : ScriptableObject
                 return;
             }
         }
-        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Movement)
+        else if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Movement)
         {
             //create method to create character at set position
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
@@ -303,7 +303,7 @@ public class InputHandler : ScriptableObject
             }
             else if (ray.HitBool && VerifyTag(ray, "Terrain"))
             {
-                if (Vector3.Distance(tempRef.Character.transform.position, ray.Hit.point) <= tempRef.Turn.GetAbility().Range)
+                if (Vector3.Distance(tempRef.Character.transform.position, ray.Hit.point) <= tempRef.CurrentAbility.Range)
                 {
                     GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
                     Character temp1 = temp2.GetComponent<Character>();
@@ -316,7 +316,7 @@ public class InputHandler : ScriptableObject
                 }
             }
         }
-        else if (tempRef.Turn.GetAbility().AbilityType == AbilityTypeEnum.Splash)
+        else if (tempRef.CurrentAbility.AbilityType == AbilityTypeEnum.Splash)
         {
             //create method to create character at set position
             if (ray.HitBool && VerifyTag(ray, "Character") && ray.Hit.transform.GetComponent<Character>() != null &&
@@ -335,7 +335,7 @@ public class InputHandler : ScriptableObject
             }
             else if(ray.HitBool && VerifyTag(ray, "Terrain"))
             {
-                if(Vector3.Distance(tempRef.Character.transform.position, ray.Hit.point) <= tempRef.Turn.GetAbility().Range)
+                if(Vector3.Distance(tempRef.Character.transform.position, ray.Hit.point) <= tempRef.CurrentAbility.Range)
                 {
                     GameObject temp2 = Instantiate(tempCharacter, ray.Hit.point, Quaternion.identity);
                     Character temp1 = temp2.GetComponent<Character>();

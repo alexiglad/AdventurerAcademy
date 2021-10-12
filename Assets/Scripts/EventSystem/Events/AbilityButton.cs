@@ -10,7 +10,7 @@ public class AbilityButton : MonoBehaviour
     //these are created programmatically for each button 
     public event EventHandler<AbilityEventArgs> OnAbilityButtonClicked;
     public event EventHandler<AbilityEventArgs> OnAbilityButtonHover;
-
+    [SerializeField] GameStateManagerSO gameStateManager;
     List<Coroutine> runningCorutines = new List<Coroutine>();
 
     bool selected = false;
@@ -81,7 +81,19 @@ public class AbilityButton : MonoBehaviour
         {
             if(i == pos)
             {
-                abilityButtons[i].GetComponent<Image>().color = Color.green;
+                if (gameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+                {
+                    CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
+                    if (!tempRef.HasSufficientAP(abilityButtonAbilities[pos]))
+                    {
+                        Debug.Log("Insufficient AP for selected ability");
+                        return;
+                    }
+                    else
+                    {
+                        abilityButtons[i].GetComponent<Image>().color = Color.green;
+                    }
+                }
             }
             else
             {

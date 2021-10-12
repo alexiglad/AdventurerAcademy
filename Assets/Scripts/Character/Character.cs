@@ -19,7 +19,10 @@ public class Character : MonoBehaviour, IComparable<Character>
 
 
     [SerializeField] protected float health;
-    [SerializeField] protected float energy; 
+    [SerializeField] protected int actionPoints;
+    readonly int maxActionPoints = 10;
+    readonly int actionPointsPerTurn = 6;
+    readonly float distancePerActionPoint = 2;
     private bool revived;
     private bool died;
     private bool unstable;
@@ -64,13 +67,17 @@ public class Character : MonoBehaviour, IComparable<Character>
     public bool TakingDamage { get => takingDamage; set => takingDamage = value; }
     public bool ShaderActive { get => shaderActive; set => shaderActive = value; }
 
+    public int ActionPointsPerTurn => actionPointsPerTurn;
+
+    public float DistancePerActionPoint => distancePerActionPoint;
+
     #endregion
     public new String ToString()
     {
         return this.characterData.GetName();
     }
     public void ManualAwake()
-    {
+    {//todo figure out if i can delete this (has to do with load system)
         //this.Awake();
         this.gameObject.SetActive(true);
         agent = transform.GetComponent<NavMeshAgent>();
@@ -99,9 +106,9 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     protected void Start()
     {
-        //Resets Character's Health,and Energy to maximum on runtime
+        //Resets Character's Health,and action points to maximum on runtime
         health = characterData.GetMaxHealth();
-        energy = characterData.GetMaxEnergy();
+        actionPoints = maxActionPoints;//is this the number we wanna use?
         revived = false;
         died = false;
         animator = GetComponent<Animator>();
@@ -309,19 +316,49 @@ public class Character : MonoBehaviour, IComparable<Character>
     {
         return characterData.GetMaxHealth();
     }
-    public float GetEnergy()
-    {
-        return energy;
-    }
-    public float GetMaxEnergy()
-    {
-        return characterData.GetMaxEnergy();
-    }
     public float GetMaxMovement()
     {
-        return characterData.GetMaxMovement();
+        return characterData.GetMaxMovement() * actionPoints * distancePerActionPoint;
     }
-    
+    public void Stabilize(bool stabilize)
+    {
+        this.unstable = !stabilize;
+    }
+    public int GetActionPoints()
+    {
+        return this.actionPoints;
+    }
+    public void DecrementActionPoints(int decrement)
+    {
+        if (!IsPlayer())
+        {//only needs to do this for users
+            return;
+        }
+        if(actionPoints - decrement < 0)
+        {
+            Debug.Log("error please investigate");
+            actionPoints = 0;
+        }
+        else
+        {
+            actionPoints -= decrement;
+        }
+    }
+    public void IncrementActionPoints(int increment)
+    {
+        if (!IsPlayer())
+        {//only needs to do this for users
+            return;
+        }
+        if (actionPoints + increment > maxActionPoints)
+        {
+            actionPoints = maxActionPoints;
+        }
+        else
+        {
+            actionPoints += increment;
+        }
+    }
     public float GetMoveSpeed()
     {
         return characterData.GetMoveSpeed();

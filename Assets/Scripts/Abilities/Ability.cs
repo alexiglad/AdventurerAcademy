@@ -14,6 +14,7 @@ public class Ability : ScriptableObject
     [SerializeField] protected float damage;
     [SerializeField] protected float range;
     [SerializeField] protected float radius;
+    [SerializeField] private int actionPointCost;
 
 
 
@@ -44,6 +45,7 @@ public class Ability : ScriptableObject
     public float Radius { get => radius; set => radius = value; }
     public float TargetX { get => targetX; }
     public float TargetY { get => targetY; }
+    public int ActionPointCost { get => actionPointCost; set => actionPointCost = value; }
 
     private void Awake()
     {

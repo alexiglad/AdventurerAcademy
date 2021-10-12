@@ -200,7 +200,7 @@ Material:
     - _doSelection: 0
     - _doShake: 0
     - _flashOrPulsate: 0
-    - _flashSpeed: 0.74
+    - _flashSpeed: 1
     - _grayOut: 0
     - _shakeAmount: 0.32
     - _shakeSpeed: 20
@@ -222,7 +222,7 @@ Material:
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
-    - _flashColor: {r: 0.14150941, g: 0.07451841, b: 0.055268764, a: 0}
+    - _flashColor: {r: 0.029987838, g: 0, b: 0.1981132, a: 0}
     - _selectionColor: {r: 0.31132078, g: 0.21079916, b: 0.13040228, a: 0}
     - _shakeDirection: {r: 1.11, g: 0, b: 0, a: 0}
     - _thanosSnapColor: {r: 4.1072383, g: 0.8128411, b: 0.48434407, a: 0}

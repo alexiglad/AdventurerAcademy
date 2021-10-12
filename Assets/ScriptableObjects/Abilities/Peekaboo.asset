@@ -18,6 +18,7 @@ MonoBehaviour:
   damage: 0
   range: 0
   radius: 0
+  actionPointCost: 6
   abilityType: 3
   icon: {fileID: 21300000, guid: ed784f7f25c8a0248b3892a992f8728d, type: 3}
   image: {fileID: 21300000, guid: c831471fd5581ac40acbc1111e252aaa, type: 3}
