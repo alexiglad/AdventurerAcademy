@@ -46,7 +46,7 @@ public class InputHandler : ScriptableObject
             controls.UniversalControls.Select.performed += _ => OnSelect();
             controls.UniversalControls.Deselect.performed += _ => OnDeselect();
             controls.UniversalControls.Space.performed += _ => OnSpace();
-            controls.UniversalControls.DoubleMovement.performed += _ => OnToggleCombatTurn();
+            controls.UniversalControls.ToggleAction.performed += _ => OnToggleCombatTurn();
             controls.UniversalControls.Pan.performed += _ => SetPan();
             controls.UniversalControls.Zoom.performed += _ => SetZoom();
             controls.UniversalControls.Interact.performed += _ => OnInteract();
@@ -372,7 +372,7 @@ public class InputHandler : ScriptableObject
 
             default:
             {
-                DisplayError();
+                //DisplayError();
                 break;
             }
         }

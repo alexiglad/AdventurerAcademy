@@ -7,11 +7,6 @@ using UnityEngine;
 ///
 public class FUBirdSlam : FollowUp
 {
-    void OnEnable()
-    {
-        damage = 15;
-        range = 1;
-    }
 
 
     public override bool IsValid(FollowUpAction followUpAction, Character character)//the character passes is from the followUp list

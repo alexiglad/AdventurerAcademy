@@ -34,7 +34,11 @@ public class TargetDisplay : MonoBehaviour
         if (gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
-            if (tempRef.CanContinue && tempRef.Character != null && tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
+            if (tempRef.GetTargeting() && tempRef.CurrentAbility.SelfInvoking)
+            {
+                tempRef.Character.SetSpriteShader(SpriteShaderTypeEnum.Selected);
+            }
+            else if (tempRef.CanContinue && tempRef.Character != null && tempRef.Character.IsPlayer() && data.HitBool && tempRef.GetTargeting() && controls.VerifyTag(data, "Character") && data.Hit.transform.GetComponent<Character>() != null)//user is targeting and selecting a character, make sure character us proper otherwise do not highlight character
             {
                 line.positionCount = 0;
                 HoverTarget(tempRef, data.Hit.transform.GetComponent<Character>());

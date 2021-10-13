@@ -16,12 +16,6 @@ public class AMagicalHeal : Ability
     [SerializeField] private float regen;
     [SerializeField] private float probability;
     // Start is called before the first frame update
-    void OnEnable()
-    {
-        damage = 5;
-        range = 8;
-        regen = 2;
-    }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

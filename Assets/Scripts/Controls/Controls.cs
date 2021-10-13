@@ -75,7 +75,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""DoubleMovement"",
+                    ""name"": ""ToggleAction"",
                     ""type"": ""Button"",
                     ""id"": ""bcf00b55-43cd-4838-8e20-7ec29b0edfb7"",
                     ""expectedControlType"": ""Button"",
@@ -273,11 +273,11 @@ public class @Controls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f3346a2e-7cae-466a-82eb-62583c23268d"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""DoubleMovement"",
+                    ""action"": ""ToggleAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -356,7 +356,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_UniversalControls_Pan = m_UniversalControls.FindAction("Pan", throwIfNotFound: true);
         m_UniversalControls_Zoom = m_UniversalControls.FindAction("Zoom", throwIfNotFound: true);
         m_UniversalControls_Deselect = m_UniversalControls.FindAction("Deselect", throwIfNotFound: true);
-        m_UniversalControls_DoubleMovement = m_UniversalControls.FindAction("DoubleMovement", throwIfNotFound: true);
+        m_UniversalControls_ToggleAction = m_UniversalControls.FindAction("ToggleAction", throwIfNotFound: true);
         m_UniversalControls_PauseMenu = m_UniversalControls.FindAction("PauseMenu", throwIfNotFound: true);
         m_UniversalControls_Interact = m_UniversalControls.FindAction("Interact", throwIfNotFound: true);
         m_UniversalControls_Space = m_UniversalControls.FindAction("Space", throwIfNotFound: true);
@@ -417,7 +417,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_UniversalControls_Pan;
     private readonly InputAction m_UniversalControls_Zoom;
     private readonly InputAction m_UniversalControls_Deselect;
-    private readonly InputAction m_UniversalControls_DoubleMovement;
+    private readonly InputAction m_UniversalControls_ToggleAction;
     private readonly InputAction m_UniversalControls_PauseMenu;
     private readonly InputAction m_UniversalControls_Interact;
     private readonly InputAction m_UniversalControls_Space;
@@ -433,7 +433,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Pan => m_Wrapper.m_UniversalControls_Pan;
         public InputAction @Zoom => m_Wrapper.m_UniversalControls_Zoom;
         public InputAction @Deselect => m_Wrapper.m_UniversalControls_Deselect;
-        public InputAction @DoubleMovement => m_Wrapper.m_UniversalControls_DoubleMovement;
+        public InputAction @ToggleAction => m_Wrapper.m_UniversalControls_ToggleAction;
         public InputAction @PauseMenu => m_Wrapper.m_UniversalControls_PauseMenu;
         public InputAction @Interact => m_Wrapper.m_UniversalControls_Interact;
         public InputAction @Space => m_Wrapper.m_UniversalControls_Space;
@@ -468,9 +468,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Deselect.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDeselect;
                 @Deselect.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDeselect;
                 @Deselect.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDeselect;
-                @DoubleMovement.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDoubleMovement;
-                @DoubleMovement.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDoubleMovement;
-                @DoubleMovement.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnDoubleMovement;
+                @ToggleAction.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnToggleAction;
+                @ToggleAction.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnToggleAction;
+                @ToggleAction.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnToggleAction;
                 @PauseMenu.started -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPauseMenu;
                 @PauseMenu.performed -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPauseMenu;
                 @PauseMenu.canceled -= m_Wrapper.m_UniversalControlsActionsCallbackInterface.OnPauseMenu;
@@ -508,9 +508,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Deselect.started += instance.OnDeselect;
                 @Deselect.performed += instance.OnDeselect;
                 @Deselect.canceled += instance.OnDeselect;
-                @DoubleMovement.started += instance.OnDoubleMovement;
-                @DoubleMovement.performed += instance.OnDoubleMovement;
-                @DoubleMovement.canceled += instance.OnDoubleMovement;
+                @ToggleAction.started += instance.OnToggleAction;
+                @ToggleAction.performed += instance.OnToggleAction;
+                @ToggleAction.canceled += instance.OnToggleAction;
                 @PauseMenu.started += instance.OnPauseMenu;
                 @PauseMenu.performed += instance.OnPauseMenu;
                 @PauseMenu.canceled += instance.OnPauseMenu;
@@ -545,7 +545,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnPan(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnDeselect(InputAction.CallbackContext context);
-        void OnDoubleMovement(InputAction.CallbackContext context);
+        void OnToggleAction(InputAction.CallbackContext context);
         void OnPauseMenu(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);

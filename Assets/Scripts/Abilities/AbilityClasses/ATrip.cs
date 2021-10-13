@@ -8,12 +8,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Trip")]
 public class ATrip : Ability
 {
-    void OnEnable()
-    {
-        damage = 6;
-        range = 3;
-
-    }
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {

@@ -8,12 +8,6 @@ using UnityEngine;
 public class FUBite : FollowUp
 {
 
-    void OnEnable()
-    {
-        damage = 5;
-        range = 1;
-    }
-
 
     public override bool IsValid(FollowUpAction followUpAction, Character character)//the character passes is from the followUp list
     {

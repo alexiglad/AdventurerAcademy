@@ -12,11 +12,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/SelfKill")]
 public class ASelfKill : Ability
 {
-    void OnEnable()
-    {
-        //damage = 0;
-        //range = 0;
-    }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

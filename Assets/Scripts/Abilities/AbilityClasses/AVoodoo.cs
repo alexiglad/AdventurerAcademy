@@ -13,11 +13,7 @@ public class AVoodoo : Ability
     [SerializeField] private GameObject voodooPrefab;
     [SerializeField] private CharacterData characterData;
     Character target;
-    private void OnEnable()
-    {
-        damage = 0;
-        range = 10;
-    }
+
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {

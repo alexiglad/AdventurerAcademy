@@ -62,7 +62,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "DoubleMovement",
+                    "name": "ToggleAction",
                     "type": "Button",
                     "id": "bcf00b55-43cd-4838-8e20-7ec29b0edfb7",
                     "expectedControlType": "Button",
@@ -260,11 +260,11 @@
                 {
                     "name": "",
                     "id": "f3346a2e-7cae-466a-82eb-62583c23268d",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "DoubleMovement",
+                    "action": "ToggleAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

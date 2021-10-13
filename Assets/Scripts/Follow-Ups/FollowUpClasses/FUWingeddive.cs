@@ -12,11 +12,6 @@ using UnityEngine;
 public class FUWingeddive : FollowUp
 {
 
-    void OnEnable()
-    {
-        damage = .5f;
-        range = 1;
-    }
 
 
     public override bool IsValid(FollowUpAction followUpAction, Character character)//the character passes is from the followUp list

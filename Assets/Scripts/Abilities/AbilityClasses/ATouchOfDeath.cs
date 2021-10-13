@@ -18,12 +18,6 @@ public class ATouchOfDeath : Ability
 {
     [SerializeField] private float damageDivider;
     // Start is called before the first frame update
-    void OnEnable()
-    {
-        damageDivider = 3;
-        damage = 0;
-        range = 10;
-    }
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)

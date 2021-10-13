@@ -10,11 +10,6 @@ using UnityEngine;
 public class FUDefault : FollowUp
 {
 
-    void OnEnable()
-    {
-        //damage = 1;
-        //range = 1;
-    }
 
 
     public override bool IsValid(FollowUpAction followUpAction, Character character)//the character passes is from the followUp list

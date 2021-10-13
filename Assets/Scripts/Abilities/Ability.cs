@@ -15,6 +15,7 @@ public class Ability : ScriptableObject
     [SerializeField] protected float range;
     [SerializeField] protected float radius;
     [SerializeField] private int actionPointCost;
+    [SerializeField] private bool selfInvoking;
 
 
 
@@ -46,6 +47,7 @@ public class Ability : ScriptableObject
     public float TargetX { get => targetX; }
     public float TargetY { get => targetY; }
     public int ActionPointCost { get => actionPointCost; set => actionPointCost = value; }
+    public bool SelfInvoking { get => selfInvoking; set => selfInvoking = value; }
 
     private void Awake()
     {

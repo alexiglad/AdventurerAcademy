@@ -13,9 +13,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Zap")]
 public class AZap : Ability
 {
-    void OnEnable()
-    {
-    }
+
 
 
     //this is generally how we will format individual ability class
