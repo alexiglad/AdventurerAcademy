@@ -125,6 +125,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_a5edac22f5f04ca0bb731eb80dd368e6: 0
     - Vector1_12a0972dffeb4f51b539cf2dab2a8a9d: 0.3
     - Vector1_2c086295a9cb4e85b04190ab5891478b: 6
     - Vector1_5bb05e6951e94d66bb3c14d85c156b19: 6.58
@@ -199,10 +200,12 @@ Material:
     - _doFlash: 1
     - _doSelection: 0
     - _doShake: 0
-    - _flashOrPulsate: 1
-    - _flashSpeed: 1.46
+    - _effectsIntensity: 0.286
+    - _flashIntensity: 0
+    - _flashOrPulsate: 0
+    - _flashSpeed: 1.27
     - _grayOut: 0
-    - _shakeAmount: 0.474
+    - _shakeAmount: 0.253
     - _shakeSpeed: 3
     - _thanosSnapAmount: 0
     m_Colors:
@@ -213,6 +216,7 @@ Material:
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorFullRange: {r: 0.8207547, g: 0.06581525, b: 0.06581525, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
@@ -222,8 +226,8 @@ Material:
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
-    - _flashColor: {r: 0.03529412, g: 0.011764706, b: 0.009803922, a: 0.61960787}
-    - _selectionColor: {r: 0, g: 0.052205883, b: 0.0625, a: 0}
+    - _flashColor: {r: 0.5377358, g: 0, b: 0, a: 1}
+    - _selectionColor: {r: 0.7490196, g: 0.22352941, b: 0, a: 0}
     - _shakeDirection: {r: 1, g: 0.5, b: 0, a: 0}
-    - _thanosSnapColor: {r: 4.1072383, g: 0.8128411, b: 0.48434407, a: 0}
+    - _thanosSnapColor: {r: 4.552328, g: 0.4064579, b: 0, a: 0}
   m_BuildTextureStacks: []

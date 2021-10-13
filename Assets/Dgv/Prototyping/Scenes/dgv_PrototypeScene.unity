@@ -5294,6 +5294,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 2
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &52130713
 MonoBehaviour:
@@ -6748,7 +6749,7 @@ MonoBehaviour:
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
   characterList: {fileID: 11400000, guid: fa52f49f11aaa064d81308a75007aa6f, type: 2}
   health: 0
-  energy: 0
+  actionPoints: 0
   inanimate: 0
   knownAbilities: []
   characterID: 1
@@ -6800,7 +6801,7 @@ SpriteRenderer:
   m_Size: {x: 1.66, y: 1.23}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &247878408
@@ -6841,7 +6842,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255707833}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6139e7a5f51cdd447972046ba38bf6b4, type: 3}
   m_Name: 
@@ -7983,7 +7984,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.96587795, b: 0.9386792, a: 1}
-  m_Intensity: 0.97
+  m_Intensity: 0.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8529,6 +8530,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 2
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &437499408
 MonoBehaviour:
@@ -31837,6 +31839,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &1448686461
 MonoBehaviour:
@@ -31855,6 +31858,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &1448686462
 MonoBehaviour:
@@ -35033,7 +35037,7 @@ MonoBehaviour:
   followUpProcessor: {fileID: 11400000, guid: b9cb2440d381df14087d20386a913bae, type: 2}
   characterList: {fileID: 11400000, guid: fa52f49f11aaa064d81308a75007aa6f, type: 2}
   health: 0
-  energy: 0
+  actionPoints: 0
   inanimate: 0
   knownAbilities: []
   characterID: 1
@@ -35085,7 +35089,7 @@ SpriteRenderer:
   m_Size: {x: 1.66, y: 1.23}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1822337709
@@ -36985,6 +36989,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &2039355892
 MonoBehaviour:
@@ -37003,6 +37008,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &2039355893
 MonoBehaviour:
@@ -37289,6 +37295,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &2060417841
 MonoBehaviour:
@@ -37307,6 +37314,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &2060417842
 MonoBehaviour:
@@ -37401,6 +37409,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 2
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!114 &2074434616
 MonoBehaviour:
@@ -37686,7 +37695,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -8807766702337073260, guid: 8daac719a92de434b9c9eb086fb4ec25, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -39135,6 +39144,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 2
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!4 &1053545822602310998
 Transform:
@@ -39322,12 +39332,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7707853235235152798, guid: 3d8429c13f4c52c40a482bd371f472cd, type: 3}
+  m_Sprite: {fileID: -6604127531995010943, guid: 1b3d5f29d2764a446adc65e2de24d0b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.66, y: 1.23}
+  m_Size: {x: 1.17, y: 1.13}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -43157,6 +43167,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!23 &5748604568445873567
 MeshRenderer:
@@ -45392,6 +45403,7 @@ MonoBehaviour:
   maxValue: 0
   barType: 0
   targetCharacter: {fileID: 0}
+  hoverBar: 0
   gameStateManagerSO: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
 --- !u!4 &8926170426246191492
 Transform:
