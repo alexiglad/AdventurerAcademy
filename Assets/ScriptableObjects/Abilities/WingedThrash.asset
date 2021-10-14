@@ -15,9 +15,9 @@ MonoBehaviour:
   abilityProcessor: {fileID: 11400000, guid: c9c4c8aed25db114c85390bcf5ee5352, type: 2}
   statusProcessor: {fileID: 11400000, guid: d1e0fabeb1e415a4f9865e6b83345088, type: 2}
   gameStateManager: {fileID: 11400000, guid: 562c22946ced2ac43870fb8b68ecab84, type: 2}
-  damage: 0
+  damage: 3
   range: 0
-  radius: 0
+  radius: 0.3
   actionPointCost: 5
   selfInvoking: 1
   abilityType: 2

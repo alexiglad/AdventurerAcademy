@@ -49,12 +49,7 @@ public class Ability : ScriptableObject
     public int ActionPointCost { get => actionPointCost; set => actionPointCost = value; }
     public bool SelfInvoking { get => selfInvoking; set => selfInvoking = value; }
 
-    private void Awake()
-    {
-        damage = 0;
-        range = 0;
-        radius = 0;
-    }
+
 
     public virtual void HandleAbility(Character attacker, Character attackee, Ability ability) { }
 

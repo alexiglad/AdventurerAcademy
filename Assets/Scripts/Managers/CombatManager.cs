@@ -570,6 +570,7 @@ public class CombatManager : GameStateManager
         else{
             uiHandler.DisplayDoubleMovement(true);
             uiHandler.StopDisplayingAbilities();
+            currentAbility = null;
         }
     }
 
