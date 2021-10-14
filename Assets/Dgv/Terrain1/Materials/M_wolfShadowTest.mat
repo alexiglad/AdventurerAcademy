@@ -195,6 +195,7 @@ Material:
     - _doFlash: 0
     - _doSelection: 0
     - _doShake: 0
+    - _effectsIntensity: 0.763
     - _flashIntensity: 0
     - _flashOrPulsate: 0
     - _flashSpeed: 1

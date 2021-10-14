@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Threading.Tasks;
 
 [Serializable]
 [CreateAssetMenu(menuName = "ScriptableObjects/Managers/CombatManager")]
@@ -202,7 +203,10 @@ public class CombatManager : GameStateManager
             }
         }
     }
-
+    public async void Test()
+    {
+        await Task.Yield();
+    }
     public void RemoveCharacter(Character character)
     {
         if (initialStatus)
