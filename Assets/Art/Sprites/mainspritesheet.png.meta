@@ -1,0 +1,732 @@
+fileFormatVersion: 2
+guid: 547ab4592e2280d4689c5c862fbfc19d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1608974651820194940
+    second: MainidleEast1
+  - first:
+      213: 6475076561883219126
+    second: MainidleEast2
+  - first:
+      213: -5409677190698959482
+    second: MainidleEast3
+  - first:
+      213: -7319256349171248538
+    second: MainidleEast4
+  - first:
+      213: 7518315964275305670
+    second: MainWalkNorth1
+  - first:
+      213: 7890444271311982042
+    second: MainWalkNorth2
+  - first:
+      213: -4264688405557147340
+    second: MainWalkNorth3
+  - first:
+      213: -1149569322963611761
+    second: MainWalkSouth1
+  - first:
+      213: -8550997362532262289
+    second: MainWalkSouth2
+  - first:
+      213: -2128825934387363019
+    second: MainWalkSouth3
+  - first:
+      213: 3895699776574973838
+    second: MainRunWest1
+  - first:
+      213: -6745041942348512854
+    second: MainRunWest2
+  - first:
+      213: -7285591663025222032
+    second: MainRunWest3
+  - first:
+      213: 7852336390520543069
+    second: MainRunWest4
+  - first:
+      213: 5159431362980148444
+    second: MainRunWest5
+  - first:
+      213: 992763050568580638
+    second: MainRunWest6
+  - first:
+      213: 4771760248639241928
+    second: MainRunEast1
+  - first:
+      213: -7524559359725383986
+    second: MainRunEast2
+  - first:
+      213: 4052004572412784389
+    second: MainRunEast3
+  - first:
+      213: 8668160136893025574
+    second: MainRunEast4
+  - first:
+      213: -212313670068379585
+    second: MainRunEast5
+  - first:
+      213: 6407389785112371557
+    second: MainRunEast6
+  - first:
+      213: -3474525080325017667
+    second: MainidleWest1
+  - first:
+      213: 5043822733880979317
+    second: MainidleWest2
+  - first:
+      213: 2103015147362423370
+    second: MainidleWest3
+  - first:
+      213: 4307526255268952685
+    second: MainidleWest4
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MainidleEast1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 476
+        width: 58
+        height: 118
+      alignment: 9
+      pivot: {x: 0.41241378, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48346a13416cba9e0800000000000000
+      internalID: -1608974651820194940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainidleEast2
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 476
+        width: 68
+        height: 118
+      alignment: 9
+      pivot: {x: 0.49852931, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b4c18c93d71cd950800000000000000
+      internalID: 6475076561883219126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainidleEast3
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 476
+        width: 72
+        height: 118
+      alignment: 9
+      pivot: {x: 0.52666664, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68dfadab147fce4b0800000000000000
+      internalID: -5409677190698959482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainidleEast4
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 475
+        width: 68
+        height: 118
+      alignment: 9
+      pivot: {x: 0.49823537, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66210a72127cc6a90800000000000000
+      internalID: -7319256349171248538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainWalkNorth1
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 472
+        width: 48
+        height: 119
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cc27c7298c665860800000000000000
+      internalID: 7518315964275305670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainWalkNorth2
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 470
+        width: 58
+        height: 121
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: add0197624d708d60800000000000000
+      internalID: 7890444271311982042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainWalkNorth3
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 469
+        width: 48
+        height: 119
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4390a0d8d78c0d4c0800000000000000
+      internalID: -4264688405557147340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainWalkSouth1
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 325
+        width: 67
+        height: 118
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8f411c9ac8eb00f0800000000000000
+      internalID: -1149569322963611761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainWalkSouth2
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 325
+        width: 58
+        height: 118
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e56f23431c45980800000000000000
+      internalID: -8550997362532262289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainWalkSouth3
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 324
+        width: 67
+        height: 118
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 533c3387714e472e0800000000000000
+      internalID: -2128825934387363019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunWest1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 185
+        width: 86
+        height: 118
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e87e1567e4e401630800000000000000
+      internalID: 3895699776574973838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunWest2
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 187
+        width: 81
+        height: 116
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa1c437171cc462a0800000000000000
+      internalID: -6745041942348512854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunWest3
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 188
+        width: 94
+        height: 117
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07e85d2bbf064ea90800000000000000
+      internalID: -7285591663025222032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunWest4
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 190
+        width: 81
+        height: 116
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5799ddf75a19fc60800000000000000
+      internalID: 7852336390520543069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunWest5
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 189
+        width: 88
+        height: 120
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd4f0712d7bf99740800000000000000
+      internalID: 5159431362980148444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunWest6
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 191
+        width: 90
+        height: 115
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1ef54f0cb007cd00800000000000000
+      internalID: 992763050568580638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunEast1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 36
+        width: 81
+        height: 116
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ceb87d0aa2b83240800000000000000
+      internalID: 4771760248639241928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunEast2
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 34
+        width: 88
+        height: 120
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ece4a301125639790800000000000000
+      internalID: -7524559359725383986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunEast3
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 32
+        width: 90
+        height: 115
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50f2ceea0bc9b3830800000000000000
+      internalID: 4052004572412784389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunEast4
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 28
+        width: 86
+        height: 118
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62dc5b7f7bd7b4870800000000000000
+      internalID: 8668160136893025574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunEast5
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 27
+        width: 81
+        height: 116
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f306d9a87d5bd0df0800000000000000
+      internalID: -212313670068379585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainRunEast6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 23
+        width: 94
+        height: 117
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 561e61fcf0f9be850800000000000000
+      internalID: 6407389785112371557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainidleWest1
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 325
+        width: 68
+        height: 118
+      alignment: 9
+      pivot: {x: 0.5017647, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbfaa0829d108cfc0800000000000000
+      internalID: -3474525080325017667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainidleWest2
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 326
+        width: 72
+        height: 117
+      alignment: 9
+      pivot: {x: 0.4738888, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57fe30b9d024ff540800000000000000
+      internalID: 5043822733880979317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainidleWest3
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 326
+        width: 68
+        height: 117
+      alignment: 9
+      pivot: {x: 0.50147045, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a429dcf52296f2d10800000000000000
+      internalID: 2103015147362423370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainidleWest4
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 326
+        width: 58
+        height: 117
+      alignment: 9
+      pivot: {x: 0.58793116, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6a79f19e4867cb30800000000000000
+      internalID: 4307526255268952685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

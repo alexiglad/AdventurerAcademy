@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb129ae074e82c44a3d0d6920ba82d3, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  name: Player
+  maxHealth: 20
+  maxEnergy: 20
+  maxMovement: 8
+  moveSpeed: 5
+  initiative: 15
+  damage: 5
+  damageMultiplier: 1
+  damageRange: 1
+  inUseAbilities:
+  - {fileID: 11400000, guid: bada04bb653c6224c93d309e1001bd41, type: 2}
+  followUps:
+  - {fileID: 11400000, guid: 1ff57818320056548b9862566d8f051a, type: 2}
+  isPlayer: 1
+  portrait: {fileID: 21300000, guid: cea2c9bf87b0c4dfdafb697a3ff00959, type: 3}
+  doubleMovmenetAnimationFrames:
+  - {fileID: 4771760248639241928, guid: 547ab4592e2280d4689c5c862fbfc19d, type: 3}
+  - {fileID: -7524559359725383986, guid: 547ab4592e2280d4689c5c862fbfc19d, type: 3}
+  - {fileID: 4052004572412784389, guid: 547ab4592e2280d4689c5c862fbfc19d, type: 3}
+  - {fileID: 8668160136893025574, guid: 547ab4592e2280d4689c5c862fbfc19d, type: 3}
+  - {fileID: -212313670068379585, guid: 547ab4592e2280d4689c5c862fbfc19d, type: 3}
+  - {fileID: 6407389785112371557, guid: 547ab4592e2280d4689c5c862fbfc19d, type: 3}
+  frameRate: 0.16
