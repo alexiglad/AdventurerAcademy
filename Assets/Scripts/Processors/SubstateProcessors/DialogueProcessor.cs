@@ -28,9 +28,9 @@ public class DialogueProcessor : ScriptableObject
     }
     public void ProceedDialogue()
     {
-        if (enabled)
+        if (enabled && dialogueHandler.Story.currentChoices.Count == 1)
         {
-            //dialogueHandler.ProceedDialogue();
+            dialogueHandler.OnClicked(0);
         }
     }
     

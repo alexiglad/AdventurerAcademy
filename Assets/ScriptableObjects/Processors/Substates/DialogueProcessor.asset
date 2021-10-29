@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DialogueProcessor
   m_EditorClassIdentifier: 
   substate: {fileID: 11400000, guid: e360876b2e9701445bfb2b887a50847f, type: 2}
-  prefab: {fileID: 2799993746099514800, guid: 2c7410bf2e12d874e946a1c2f57d5e19, type: 3}
+  prefab: {fileID: 8018634725516357756, guid: 0a18c0ddbdee4f34995f16baff4312a1, type: 3}

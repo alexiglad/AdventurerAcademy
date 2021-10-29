@@ -13,10 +13,15 @@ public class DialogueHandler : MonoBehaviour
     Image portrait;
     TextMeshProUGUI speaker;
     RectTransform choiceContainer;
+    RectTransform NPCDialougeBox;
+    RectTransform PlayerDialougeBox;
     [SerializeField] GameObject choiceButtonPrefab;
     List<GameObject> choiceButtons =  new List<GameObject>();
 
     Story story;
+    [SerializeField] bool npcIsSpeaking = true;
+
+    public Story Story { get => story; }
 
     private void Awake()
     {
@@ -36,6 +41,12 @@ public class DialogueHandler : MonoBehaviour
                 case "Content":
                     choiceContainer = child;
                     break;
+                case "NPCDialogueBox":
+                    NPCDialougeBox = child;
+                    break;
+                case "PlayerDialougeBox":
+                    PlayerDialougeBox = child;
+                    break;
             }
         }
     }
@@ -51,9 +62,20 @@ public class DialogueHandler : MonoBehaviour
         while(story.canContinue || story.currentChoices.Count > 0)
         {
             if (story.canContinue)
-            {
+            {             
                 story.Continue();
+
+                if (!npcIsSpeaking && story.currentChoices.Count == 1)
+                {
+                    npcIsSpeaking = true;
+                    NPCDialougeBox.SetAsLastSibling();
+                    NPCDialougeBox.LeanMoveLocalY(-280f, .5f);
+                    PlayerDialougeBox.LeanMoveLocalY(-530f, .5f);
+                    yield return new WaitForSeconds(.5f);
+                }
+
                 dialogueBox.text = story.currentText;
+
                 if (story.currentTags.Count > 0)
                 {
                     speaker.text = story.currentTags[0];
@@ -62,6 +84,15 @@ public class DialogueHandler : MonoBehaviour
 
             if(story.currentChoices.Count > 0 && choiceButtons.Count < 1)
             {
+                if (npcIsSpeaking && story.currentChoices.Count > 1)
+                {
+                    npcIsSpeaking = false;
+                    PlayerDialougeBox.SetAsLastSibling();
+                    NPCDialougeBox.LeanMoveLocalY(-530f, .5f);
+                    PlayerDialougeBox.LeanMoveLocalY(-280f, .5f);
+                    yield return new WaitForSeconds(.5f);
+                }
+
                 for (int i = 0; i < story.currentChoices.Count; i++)
                 {
                     int j = i;//Fixes pass by reference issue
@@ -80,7 +111,7 @@ public class DialogueHandler : MonoBehaviour
         yield return null;
     }
 
-    void OnClicked(int index)
+    public void OnClicked(int index)
     {
         story.ChooseChoiceIndex(index);
         foreach(GameObject obj in choiceButtons)
