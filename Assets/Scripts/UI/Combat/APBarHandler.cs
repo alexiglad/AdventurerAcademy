@@ -64,12 +64,12 @@ public class APBarHandler : MonoBehaviour
     {
         while (true)
         {
-            for(int i = currentAP-1; i > currentAP - AP; i--)
+            for(int i = currentAP-1; i > currentAP - AP - 1; i--)
             {
                 ids.Add(groups[i].LeanAlpha(0, 1f).id);
             }
             yield return new WaitForSeconds(1f);
-            for (int i = currentAP-1; i > currentAP - AP; i--)
+            for (int i = currentAP-1; i > currentAP - AP - 1; i--)
             {
                 ids.Add(groups[i].LeanAlpha(1, 1f).id);
             }

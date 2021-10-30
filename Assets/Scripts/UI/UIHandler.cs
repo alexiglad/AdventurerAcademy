@@ -91,6 +91,7 @@ public class UIHandler : ScriptableObject
     {
         if (doubleM)
         {
+            //Temporary
             doubleMovement.SetActive(true);
             if (TEMP)
             {
@@ -101,7 +102,7 @@ public class UIHandler : ScriptableObject
             {
                 apBarHandler.StopPreviewingAPCost();
                 TEMP = true;
-            }                
+            }//Temporary                
         }
         else
         {
