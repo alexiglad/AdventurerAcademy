@@ -17,7 +17,10 @@ public class UIHandler : ScriptableObject
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
     ResourceBarUI resourceBarUI;
     HoverHandler hoverHandler;
+    APBarHandler apBarHandler;
     [SerializeField] protected GameStateManagerSO gameStateManager;
+
+    bool TEMP;
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
     //public FinishTurnButton OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
@@ -33,6 +36,7 @@ public class UIHandler : ScriptableObject
         statusDrawer = FindObjectOfType<StatusDrawer>();
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
         hoverHandler = FindObjectOfType<HoverHandler>();
+        apBarHandler = FindObjectOfType<APBarHandler>();
         CombatManager tempRef = (CombatManager)gameStateManager.GetCurrentGameStateManager();
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
         abilityButton.OnAbilityButtonClicked += tempRef.CombatAbility;
@@ -41,7 +45,7 @@ public class UIHandler : ScriptableObject
         doubleMovement.SetActive(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
-
+        TEMP = true;
     }
     public void DisableCombat(List<Character> turnOrder)
     {
@@ -66,7 +70,6 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
 
-
     public void DisplayAbility(Ability ability)
     {
         abilityImageDrawer.DisplayAbility(ability);  
@@ -89,10 +92,20 @@ public class UIHandler : ScriptableObject
         if (doubleM)
         {
             doubleMovement.SetActive(true);
+            if (TEMP)
+            {
+                apBarHandler.PreviewAPCost(5);
+                TEMP = false;
+            }                
+            else if (!TEMP)
+            {
+                apBarHandler.StopPreviewingAPCost();
+                TEMP = true;
+            }                
         }
         else
         {
-            doubleMovement.SetActive(false);
+            doubleMovement.SetActive(true);            
         }
     }
     public void UpdateTurnOrder(List<Character> turnOrder)

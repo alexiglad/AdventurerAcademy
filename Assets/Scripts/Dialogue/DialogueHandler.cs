@@ -74,6 +74,15 @@ public class DialogueHandler : MonoBehaviour
                     yield return new WaitForSeconds(.5f);
                 }
 
+                if (npcIsSpeaking && story.currentChoices.Count > 1)
+                {
+                    npcIsSpeaking = false;
+                    PlayerDialougeBox.SetAsLastSibling();
+                    NPCDialougeBox.LeanMoveLocalY(-530f, .5f);
+                    PlayerDialougeBox.LeanMoveLocalY(-280f, .5f);
+                    yield return new WaitForSeconds(.5f);
+                }
+
                 dialogueBox.text = story.currentText;
 
                 if (story.currentTags.Count > 0)
@@ -84,15 +93,6 @@ public class DialogueHandler : MonoBehaviour
 
             if(story.currentChoices.Count > 0 && choiceButtons.Count < 1)
             {
-                if (npcIsSpeaking && story.currentChoices.Count > 1)
-                {
-                    npcIsSpeaking = false;
-                    PlayerDialougeBox.SetAsLastSibling();
-                    NPCDialougeBox.LeanMoveLocalY(-530f, .5f);
-                    PlayerDialougeBox.LeanMoveLocalY(-280f, .5f);
-                    yield return new WaitForSeconds(.5f);
-                }
-
                 for (int i = 0; i < story.currentChoices.Count; i++)
                 {
                     int j = i;//Fixes pass by reference issue

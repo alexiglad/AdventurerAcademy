@@ -197,8 +197,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _doFlash: 0
-    - _doSelection: 0
+    - _doSelection: 1
     - _doShake: 0
+    - _effectsIntensity: 0
     - _flashOrPulsate: 0
     - _flashSpeed: 1
     - _grayOut: 0
