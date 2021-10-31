@@ -20,7 +20,7 @@ public class UIHandler : ScriptableObject
     APBarHandler apBarHandler;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
-    bool TEMP;
+    bool TEMP;//TEMPORARY
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
     //public FinishTurnButton OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
@@ -45,7 +45,7 @@ public class UIHandler : ScriptableObject
         doubleMovement.SetActive(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
-        TEMP = true;
+        TEMP = true;//TEMPORARY
     }
     public void DisableCombat(List<Character> turnOrder)
     {
@@ -91,8 +91,8 @@ public class UIHandler : ScriptableObject
     {
         if (doubleM)
         {
-            //Temporary
             doubleMovement.SetActive(true);
+            //Temporary
             if (TEMP)
             {
                 apBarHandler.PreviewAPCost(5);
@@ -102,7 +102,8 @@ public class UIHandler : ScriptableObject
             {
                 apBarHandler.StopPreviewingAPCost();
                 TEMP = true;
-            }//Temporary                
+            }
+            //Temporary                
         }
         else
         {

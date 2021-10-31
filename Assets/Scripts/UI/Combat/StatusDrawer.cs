@@ -8,6 +8,7 @@ public class StatusDrawer : MonoBehaviour
 {
 
     [SerializeField] protected GameStateManagerSO gameStateManager;
+    [SerializeField] protected UIHandler uiHandler;
     private void Update()
     {
         if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)

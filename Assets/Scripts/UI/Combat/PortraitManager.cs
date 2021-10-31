@@ -10,6 +10,7 @@ public class PortraitManager : MonoBehaviour
     [SerializeField] List<Character> overlayCharacters;
     [SerializeField] List<ResourceBarUI> bars = new List<ResourceBarUI>();
     [SerializeField] List<Image> portraits = new List<Image>();
+    [SerializeField] List<GameObject> statusBars = new List<GameObject>();
 
     void Start()
     {        

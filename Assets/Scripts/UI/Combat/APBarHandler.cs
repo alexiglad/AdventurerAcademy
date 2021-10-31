@@ -22,8 +22,8 @@ public class APBarHandler : MonoBehaviour
         {
             image.color = Color.gray;
         }
-
-        SetAP(7);
+        gameObject.GetComponent<CanvasGroup>().LeanAlpha(1f, .5f);
+        SetAP(7);//TEMPORARY; do this through code instead
     }
 
     public void SetAP(int AP)
