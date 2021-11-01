@@ -26,13 +26,13 @@ public class StatusDrawer : MonoBehaviour
                     }
                 }
             }
-
         }
     }
     public void DrawStatuses(StatusData status)
     {
         SpriteShaderTypeEnum shader = ConvertShader(status.Status.StatusEffect);
         status.Attackee.SetSpriteShader(shader);
+
     }
     SpriteShaderTypeEnum ConvertShader(StatusTypeEnum status)
     {
