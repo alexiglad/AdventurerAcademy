@@ -11,7 +11,7 @@ public class CharacterData : ScriptableObject
     [SerializeField] float maxHealth;
     [SerializeField] float maxEnergy;
 
-    [SerializeField] float maxMovement;//this eventually will be calculated based on speed/agility and what-not
+    [SerializeField] float distancePerAP;//this eventually will be calculated based on speed/agility and what-not
     [SerializeField] float moveSpeed;
 
     [SerializeField] float initiative;
@@ -48,9 +48,9 @@ public class CharacterData : ScriptableObject
         return maxEnergy;
     }
 
-    public float GetMaxMovement()
+    public float GetMaxDistancePerAP()
     {
-        return maxMovement;
+        return distancePerAP;//implement other stats here later
     }
     public float GetMoveSpeed()
     {

@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Lilia
   maxHealth: 20
   maxEnergy: 100
-  maxMovement: 0.25
+  distancePerAP: 0.5
   moveSpeed: 5
   initiative: 10
   damage: 1

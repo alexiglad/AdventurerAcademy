@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Player
   maxHealth: 20
   maxEnergy: 20
-  maxMovement: 8
+  distancePerAP: 0.5
   moveSpeed: 5
   initiative: 15
   damage: 5

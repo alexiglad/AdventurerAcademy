@@ -22,7 +22,6 @@ public class Character : MonoBehaviour, IComparable<Character>
     [SerializeField] protected int actionPoints;
     readonly int maxActionPoints = 10;
     readonly int actionPointsPerTurn = 6;
-    readonly float distancePerActionPoint = 2;
     private bool revived;
     private bool died;
     private bool unstable;
@@ -69,7 +68,6 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     public int ActionPointsPerTurn => actionPointsPerTurn;
 
-    public float DistancePerActionPoint => distancePerActionPoint;
 
     #endregion
     public new String ToString()
@@ -318,7 +316,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     public float GetMaxMovement()
     {
-        return characterData.GetMaxMovement() * actionPoints * distancePerActionPoint;
+        return characterData.GetMaxDistancePerAP() * actionPoints;
     }
     public void Stabilize(bool stabilize)
     {

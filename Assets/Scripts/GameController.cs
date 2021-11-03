@@ -192,6 +192,7 @@ public class GameController : MonoBehaviour
             //yield return new WaitForSeconds(.01f);
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
+            uiHandler.EnableAPBar(false);
             uiHandler.UpdateTurnOrder(turnOrder);
             yield return new WaitUntil(tempRef.CanContinueMethod);
             //uiHandler.UpdateCombatTurnUI(tempRef.Character);

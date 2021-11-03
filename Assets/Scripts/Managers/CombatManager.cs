@@ -102,6 +102,10 @@ public class CombatManager : GameStateManager
         {//only do this if is an enemy
             DetermineEnemyTurn(character);
         }
+        else
+        {
+            uiHandler.DisplayAP(character.GetActionPoints());
+        }
     }
 
     public void EndTurn()
@@ -142,9 +146,13 @@ public class CombatManager : GameStateManager
     public void UpdateMovement(Vector3 movement, float pathLength)
     {
         DisableCombatInput();
-        int cost = (int)Math.Ceiling(pathLength * character.DistancePerActionPoint);
+        int cost = CalculateAPCost(pathLength);
         character.DecrementActionPoints(cost);
         movementProcesssor.HandleMovement(character, movement);
+    }
+    public int CalculateAPCost(float pathLength)
+    {
+        return (int)Math.Ceiling(pathLength / character.GetCharacterData().GetMaxDistancePerAP());
     }
 
     public override void SetSubstateEnum(SubstateEnum state)
@@ -465,13 +473,17 @@ public class CombatManager : GameStateManager
             initialStatus = false;
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
+            uiHandler.EnableAPBar(false);
             DetermineEnemyTurn(character);
+            //uiHandler.StopDisplayingAP(); TODO implement ap method to stop displaying bar
         }
         else
         {
             initialStatus = false;
             uiHandler.DisplayAbilities();
             uiHandler.DisplayEndTurn();
+            uiHandler.EnableAPBar(true);
+            uiHandler.DisplayAP(character.GetActionPoints());
         }
     }
     public void ResetTurn()
@@ -550,15 +562,18 @@ public class CombatManager : GameStateManager
     public void CombatAbility(object sender, AbilityEventArgs e)
     {
         UpdateAbility(e.NewAbility);
+        uiHandler.PreviewAP(currentAbility.ActionPointCost);
     }
     public void CombatAbilityDeselect()
     {
         UpdateAbility(null);
         uiHandler.UnselectAbilities();
+        uiHandler.StopPreviewingAP();
     }
     public void CombatTarget(Character target)
     {
         UpdateTarget(target);
+        uiHandler.DisplayAP(character.GetActionPoints());
     }
     public void ToggleCombatTurn()
     {
@@ -566,12 +581,22 @@ public class CombatManager : GameStateManager
         if (attackingOrMoving)
         {
             uiHandler.UpdateCombatTurnUI(character);
+            uiHandler.StopPreviewingAP();
         }
         else{
-            uiHandler.DisplayDoubleMovement(true);
+            uiHandler.DisplayMovement(true);
             uiHandler.StopDisplayingAbilities();
             currentAbility = null;
+            uiHandler.StopPreviewingAP();
         }
+    }
+    public void PreviewAP(int AP)
+    {
+        uiHandler.PreviewAP(AP);
+    }
+    public void StopPreviewingAP()
+    {
+        uiHandler.StopPreviewingAP();
     }
 
     public void CombatMovement(Vector3 destination)
@@ -586,6 +611,7 @@ public class CombatManager : GameStateManager
             {
                 //If the destination is valid, move to destination
                 UpdateMovement(adjustedDestination - characterBottom, pathLength);
+                uiHandler.DisplayAP(character.GetActionPoints());
             }
             else
             {//move to closest point on destination (should be where path renderer is displayed last)
@@ -624,6 +650,7 @@ public class CombatManager : GameStateManager
                 {
                     //this is creating the movement in the case of being outside the radius
                     UpdateMovement(location, character.GetMaxMovement());
+                    uiHandler.DisplayAP(character.GetActionPoints());
                     //UpdateIteration(new Turn(location), false);
                 }
                 else

@@ -9,7 +9,6 @@ public class Dialogue : Interaction
 
     public override void HandleInteraction() 
     {
-        Debug.Log("Initiated dialogue here");
         dialogueProcessor.HandleDialogue(inkJSONAsset);
     }
 }

@@ -20,7 +20,6 @@ public class UIHandler : ScriptableObject
     APBarHandler apBarHandler;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
-    bool TEMP;//TEMPORARY
 
     public TurnOrderScroll TurnOrderScroll { get => turnOrderScroll; set => turnOrderScroll = value; }
     //public FinishTurnButton OnFinishTurnButtonClicked { get => onFinishTurnButtonClicked; set => onFinishTurnButtonClicked = value; }
@@ -45,7 +44,6 @@ public class UIHandler : ScriptableObject
         doubleMovement.SetActive(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
-        TEMP = true;//TEMPORARY
     }
     public void DisableCombat(List<Character> turnOrder)
     {
@@ -87,28 +85,9 @@ public class UIHandler : ScriptableObject
         abilityButton.UnselectAbilities();
         abilityButton.Selected = false;
     }
-    public void DisplayDoubleMovement(bool doubleM)
+    public void DisplayMovement(bool doubleM)
     {
-        if (doubleM)
-        {
-            doubleMovement.SetActive(true);
-            //Temporary
-            if (TEMP)
-            {
-                apBarHandler.PreviewAPCost(5);
-                TEMP = false;
-            }                
-            else if (!TEMP)
-            {
-                apBarHandler.StopPreviewingAPCost();
-                TEMP = true;
-            }
-            //Temporary                
-        }
-        else
-        {
-            doubleMovement.SetActive(true);            
-        }
+        doubleMovement.SetActive(true);
     }
     public void UpdateTurnOrder(List<Character> turnOrder)
     {
@@ -129,6 +108,24 @@ public class UIHandler : ScriptableObject
     public void DisplayAbilities()
     {
         abilityButton.Display();
+    }
+    public void DisplayAP(int AP)
+    {
+        StopPreviewingAP();
+        apBarHandler.SetAP(AP);
+    }
+    public void PreviewAP(int AP)
+    {
+        apBarHandler.PreviewAPCost(AP);
+    }
+    public void StopPreviewingAP()
+    {
+        apBarHandler.StopPreviewingAPCost(); 
+    }
+    public void EnableAPBar(bool enable)
+    {
+        //apBarHandler.enabled = enable;
+        apBarHandler.gameObject.SetActive(enable);
     }
     public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {

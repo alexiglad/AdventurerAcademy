@@ -10,6 +10,7 @@ public class APBarHandler : MonoBehaviour
     List<CanvasGroup> groups = new List<CanvasGroup>();
     Coroutine coroutine;
     int currentAP;
+    int previewAP;
     List<int> ids = new List<int>();
 
     void Start()
@@ -23,7 +24,6 @@ public class APBarHandler : MonoBehaviour
             image.color = Color.gray;
         }
         gameObject.GetComponent<CanvasGroup>().LeanAlpha(1f, .5f);
-        SetAP(7);//TEMPORARY; do this through code instead
     }
 
     public void SetAP(int AP)
@@ -42,12 +42,21 @@ public class APBarHandler : MonoBehaviour
 
     public void PreviewAPCost(int AP)
     {
-        Debug.Log(AP);
-        coroutine = StartCoroutine(APCostPreview(AP));        
+        if(AP != previewAP)
+        {
+            StopPreviewingAPCost();
+            coroutine = StartCoroutine(APCostPreview(AP));        
+        }
+        previewAP = AP;
     }
 
     public void StopPreviewingAPCost()
     {
+        previewAP = -1;
+        if (coroutine == null)
+        {
+            return;
+        }
         StopCoroutine(coroutine);
         for(int i = 0; i < ids.Count; i++)
         {
@@ -66,17 +75,17 @@ public class APBarHandler : MonoBehaviour
         {
             for(int i = currentAP-1; i > currentAP - AP - 1; i--)
             {
-                ids.Add(groups[i].LeanAlpha(0, 1f).id);
+                ids.Add(groups[i].LeanAlpha(0, .5f).id);
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.5f);
             for (int i = currentAP-1; i > currentAP - AP - 1; i--)
             {
-                ids.Add(groups[i].LeanAlpha(1, 1f).id);
+                ids.Add(groups[i].LeanAlpha(1, .5f).id);
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.5f);
         }
         #pragma warning disable CS0162 // Unreachable code detected
         yield return null;
-        #pragma warning restore CS0162 // Unreachable code detected
+        #pragma warning restore CS0162 // Unreachable code detected TODO cedric do we 
     }
 }

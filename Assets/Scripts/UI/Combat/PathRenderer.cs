@@ -7,7 +7,7 @@ public class PathRenderer : MonoBehaviour
 {
     [SerializeField] InputHandler controls;
     [SerializeField] GameStateManagerSO gameStateManager;
-    Camera defaultCamera;
+    //Camera defaultCamera;
     bool moving;
     RaycastData data;
     Vector3 prevData;
@@ -19,7 +19,7 @@ public class PathRenderer : MonoBehaviour
 
     void Start()
     {
-        defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        //defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>(); deprecated
     }
 
     void Update()
@@ -52,6 +52,7 @@ public class PathRenderer : MonoBehaviour
                     }
                     else
                     {
+                        tempRef.StopPreviewingAP();
                         dotLoc = 0;
                         PathPooling.sharedInstance.DeleteDots(prevNumDots);
                         prevNumDots = 0;
@@ -125,6 +126,7 @@ public class PathRenderer : MonoBehaviour
         {
             totalPathlength = character.GetMaxMovement();
         }
+        tempRef.PreviewAP(tempRef.CalculateAPCost(totalPathlength));
         int place = 1;
         Vector3 location = character.CharacterBottom();
         float currentLengthLeft = (path.corners[place] - path.corners[place - 1]).magnitude;
@@ -167,11 +169,6 @@ public class PathRenderer : MonoBehaviour
     {
         position.y += .1f;
         position.z -= .1f;
-        //TODO REPLACE WITH RAYCAST CODE
-        Vector3 vector = defaultCamera.ScreenToWorldPoint(position);
-        //Ray ray = defaultCamera.ScreenToWorldPoint(position);
-        //RaycastHit hit;
-        //Physics.Raycast(ray, out hit, Mathf.Infinity);
         GameObject dot = PathPooling.sharedInstance.GetPooledObject(i);
         if(dot == null)
         {
