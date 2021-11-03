@@ -5,7 +5,8 @@ public static class ShaderInformation
     public static Color heal = new Color(0.04372039f, 0.1667705f, 0f);
     public static float damageFlashSpeed = 2.5f;
 
-    public static Color selected = new Color(0.1415094f, 0.07451841f, 0.05526876f);
+    //public static Color selected = new Color(0.1415094f, 0.07451841f, 0.05526876f);
+    public static Color selected = new Color(0.3773584f, 0.2623028f, 0.2221431f);
     public static float pulsateSpeed = 0.65f;
 
     public static float grayOutAmount = 0.85f;
@@ -23,7 +24,7 @@ public static class ShaderInformation
 
 
 
-
+    public static string effectsIntensity = "_effectsIntensity";
     public static string flashColor = "_flashColor";
     public static string flashSpeed = "_flashSpeed";
     public static string doFlash = "_doFlash";

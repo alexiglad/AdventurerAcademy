@@ -225,7 +225,7 @@ public class TargetDisplay : MonoBehaviour
         {
             if(!charactere.TakingDamage && !charactere.ShaderActive)
                 charactere.StopAllShaders();
-            //HERE uncomment this line to test out shader colors
+            //HERE comment this line to test out shader colors
         }
     }
     void CreatePoints(Vector3 position, float radius)

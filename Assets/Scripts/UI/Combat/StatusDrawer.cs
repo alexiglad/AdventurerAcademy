@@ -28,11 +28,24 @@ public class StatusDrawer : MonoBehaviour
             }
         }
     }
+
+    public void UpdateStatusUI(StatusData status)
+    {
+        if (status.Attackee.Statuses.Contains(status.Status) || !status.Attackee.IsPlayer())
+        {
+            return;
+        }
+        else
+        {
+            //TODO ced implement
+            //send event
+        }
+    }
     public void DrawStatuses(StatusData status)
     {
         SpriteShaderTypeEnum shader = ConvertShader(status.Status.StatusEffect);
         status.Attackee.SetSpriteShader(shader);
-
+        UpdateStatusUI(status);
     }
     SpriteShaderTypeEnum ConvertShader(StatusTypeEnum status)
     {

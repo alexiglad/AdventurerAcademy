@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TengariCharacterData
   m_EditorClassIdentifier: 
   name: Tengari
-  maxHealth: 20
+  maxHealth: 1
   maxEnergy: 100
   distancePerAP: 0.5
   moveSpeed: 5

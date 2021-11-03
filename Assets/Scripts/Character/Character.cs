@@ -464,6 +464,7 @@ public class Character : MonoBehaviour, IComparable<Character>
                     spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.damage);
                     spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.damageFlashSpeed);
                     spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.effectsIntensity, .7f);
                     //DisplayStatusShader();
                     break;
                 }
@@ -473,6 +474,8 @@ public class Character : MonoBehaviour, IComparable<Character>
                     spriteRenderer.material.SetColor(ShaderInformation.flashColor, ShaderInformation.heal);
                     spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.damageFlashSpeed);
                     spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.effectsIntensity, .5f);
+
                     break;
                 }
             case SpriteShaderTypeEnum.Selected:
@@ -481,11 +484,15 @@ public class Character : MonoBehaviour, IComparable<Character>
                     spriteRenderer.material.SetFloat(ShaderInformation.flashSpeed, ShaderInformation.pulsateSpeed);
                     spriteRenderer.material.SetFloat(ShaderInformation.doFlash, 1);
                     spriteRenderer.material.SetFloat(ShaderInformation.flashOrPulsate, 1);
+                    spriteRenderer.material.SetFloat(ShaderInformation.effectsIntensity, .5f);
+
                     break;
                 }
             case SpriteShaderTypeEnum.Unable:
                 {
                     spriteRenderer.material.SetFloat(ShaderInformation.grayOut, ShaderInformation.grayOutAmount);
+                    spriteRenderer.material.SetFloat(ShaderInformation.effectsIntensity, .5f);
+
                     break;
                 }
             case SpriteShaderTypeEnum.Death:
@@ -577,10 +584,14 @@ public class Character : MonoBehaviour, IComparable<Character>
         spriteRenderer.material.SetFloat(ShaderInformation.grayOut, 0);
         spriteRenderer.material.SetFloat(ShaderInformation.fadeAmount, 0);
         spriteRenderer.material.SetFloat(ShaderInformation.doShake, 0);
+        spriteRenderer.material.SetFloat(ShaderInformation.effectsIntensity, 0);
+
         shaderActive = false;
     }
     IEnumerator DeathShaderCoroutine()
     {
+        spriteRenderer.material.SetFloat(ShaderInformation.effectsIntensity, .7f);
+
         shaderActive = true;
         float time = 0;
         while(time < 1)
@@ -592,6 +603,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     }
     IEnumerator StatusShaderCoroutine()
     {
+        spriteRenderer.material.SetFloat(ShaderInformation.effectsIntensity, .7f);
+
         shaderActive = true;
         yield return new WaitForSeconds(1.3f);
         StopAllShaders();
