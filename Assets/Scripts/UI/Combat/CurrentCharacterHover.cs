@@ -10,8 +10,16 @@ public class CurrentCharacterHover : MonoBehaviour
     readonly float followHeight = .25f;
     public void SetCharacterToFollow(Character character)
     {
-        characterToFollow = character;
         SetEnabled(true);
+        StartCoroutine(MakeReappear(character));
+
+    }
+    IEnumerator MakeReappear(Character character)
+    {
+        gameObject.LeanAlpha(0, .25f);
+        yield return new WaitForSeconds(0.25f);
+        characterToFollow = character;
+        gameObject.LeanAlpha(.5f, .75f);
     }
     public void SetEnabled(bool enable)
     {

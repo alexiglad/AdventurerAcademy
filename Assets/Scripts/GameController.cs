@@ -250,5 +250,17 @@ public class GameController : MonoBehaviour
         }
         action?.Invoke();
     }
+    public void StartCoroutineDisplayEnemyAbility(Character attacker, Character attackee, Action action)
+    {
+        StartCoroutine(Routine5(attacker, attackee, action));
+    }
+    IEnumerator Routine5(Character attacker, Character attackee, Action action)
+    {
+        //TODO lerp camera to be in between two characters, may have to zoom out
+        yield return new WaitForSecondsRealtime(.5f);
+        //TODO project selection thing on character
+        yield return new WaitForSecondsRealtime(.5f);
+        action.Invoke();
+    }
     #endregion methods
 }

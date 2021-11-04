@@ -176,8 +176,9 @@ public class CombatManager : GameStateManager
             UpdateMovement(turn.GetMovement(), 2);
         else if(turn.GetAbility() != null)
         {//assumes if it has an ability it has a target
-            UpdateAbility(turn.GetAbility());
-            UpdateTarget(turn.GetTarget());
+            Action action = () => UpdateAbility(turn.GetAbility());
+            action += () => UpdateTarget(turn.GetTarget());
+            gameStateManager.GetGameController().StartCoroutineDisplayEnemyAbility(character, turn.GetTarget(), action);
         }
         EndTurn();
     }
