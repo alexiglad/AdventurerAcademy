@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.InputSystem.Composites;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
@@ -16,10 +17,40 @@ public class CameraController : MonoBehaviour
     [SerializeField] Vector3 zoomAmmountTwo;
     [SerializeField] Vector3 zoomAmmountPos;
     [SerializeField] Vector3 newZoom;
+
+    [SerializeField] Transform test1;
+    [SerializeField] Transform test2;
+    [SerializeField] Transform test3;
+    [SerializeField] Transform test4;
+
+    [SerializeField] CinemachineVirtualCamera vCamera;
     void Start()
     {
         newPosition = transform.position;
         newZoom = controls.ActiveCamera.transform.localPosition;
+        StartCoroutine(SwapCameraTest());
+    }
+
+    IEnumerator SwapCameraTest()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(2f);
+            vCamera.Follow = test1;
+            vCamera.LookAt = test1;
+            yield return new WaitForSeconds(2f);
+            vCamera.Follow = test2;
+            vCamera.LookAt = test2;
+            yield return new WaitForSeconds(2f);
+            vCamera.Follow = test3;
+            vCamera.LookAt = test3;
+            yield return new WaitForSeconds(2f);
+            vCamera.Follow = test4;
+            vCamera.LookAt = test4;
+        }
+        #pragma warning disable CS0162 // Unreachable code detected
+        yield return null;
+        #pragma warning restore CS0162 // Unreachable code detected
     }
 
     // Update is called once per frame
