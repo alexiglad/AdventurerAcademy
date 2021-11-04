@@ -14,6 +14,7 @@ public class UIHandler : ScriptableObject
     StatusDrawer statusDrawer;
     TurnOrderScroll turnOrderScroll;
     GameObject doubleMovement;
+    CurrentCharacterHover currentCharacterHover;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
     ResourceBarUI resourceBarUI;
     HoverHandler hoverHandler;
@@ -42,6 +43,8 @@ public class UIHandler : ScriptableObject
         abilityButton.OnAbilityButtonHover += hoverHandler.DisplayAbilityHover;
         doubleMovement = GameObject.Find("DoubleMovement");
         doubleMovement.SetActive(false);
+        currentCharacterHover = FindObjectOfType<CurrentCharacterHover>();
+        currentCharacterHover.SetEnabled(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
     }
@@ -65,6 +68,7 @@ public class UIHandler : ScriptableObject
         abilityBarWidthAdjuster.DrawAbilityBar();
         abilityButton.Selected = false;
         doubleMovement.SetActive(false);
+        currentCharacterHover.SetCharacterToFollow(character);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
 

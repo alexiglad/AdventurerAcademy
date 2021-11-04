@@ -188,6 +188,8 @@ public class GameController : MonoBehaviour
             yield return new WaitUntil(tempRef.CanContinueMethod);
             tempRef.DisableCombatInput();
             uiHandler.UpdateCombatTurnUI(tempRef.Character);
+            //TODO here implement call to lerp camera to be above character pos 
+            //TODO ced
 
             //yield return new WaitForSeconds(.01f);
             uiHandler.StopDisplayingAbilities();

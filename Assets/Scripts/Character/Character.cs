@@ -259,6 +259,12 @@ public class Character : MonoBehaviour, IComparable<Character>
         characterBottom.y -= this.BoxCollider.bounds.size.y / 2;
         return characterBottom;
     }
+    public Vector3 CharacterTop()
+    {
+        Vector3 characterTop = this.BoxCollider.bounds.center;
+        characterTop.y += this.BoxCollider.bounds.size.y / 2;
+        return characterTop;
+    }
     public void ResetCharacter()
     {
         //todo determine other functionality of this method
