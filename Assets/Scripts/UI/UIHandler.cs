@@ -20,6 +20,7 @@ public class UIHandler : ScriptableObject
     ResourceBarUI resourceBarUI;
     HoverHandler hoverHandler;
     APBarHandler apBarHandler;
+    CameraController cameraController;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
 
@@ -46,6 +47,7 @@ public class UIHandler : ScriptableObject
         doubleMovement.SetActive(false);
         currentCharacterHover = FindObjectOfType<CurrentCharacterHover>();
         currentCharacterHover.SetEnabled(false);
+        cameraController = FindObjectOfType<CameraController>();
         targetCharacterHover = FindObjectOfType<TargetedCharacterHover>();
         targetCharacterHover.SetEnabled(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
@@ -72,6 +74,7 @@ public class UIHandler : ScriptableObject
         abilityButton.Selected = false;
         doubleMovement.SetActive(false);
         currentCharacterHover.SetCharacterToFollow(character);
+        cameraController.PanCamera(character.transform);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
 

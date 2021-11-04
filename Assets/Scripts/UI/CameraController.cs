@@ -8,7 +8,8 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {    
     [SerializeField] InputHandler controls;
-    [SerializeField] CinemachineVirtualCamera vCamera;    
+    [SerializeField] CinemachineVirtualCamera vCameraOne;
+    [SerializeField] CinemachineVirtualCamera vCameraTwo;
     [SerializeField] float movementSpeed;
     [SerializeField] float movementTime;
     [SerializeField] float zoomSpeed;
@@ -16,11 +17,22 @@ public class CameraController : MonoBehaviour
     [SerializeField] float maxZoomIn;
     [SerializeField] float maxZoomOut;
     Vector3 newPosition;
-
+    Coroutine coroutinePan;
     void Start()
     {
         newPosition = transform.position;
-        vCamera = gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+        foreach(Transform child in transform)
+        {
+            switch (child.name)
+            {
+                case "Virtual Camera One":
+                    vCameraOne = child.GetComponent<CinemachineVirtualCamera>();
+                    break;
+                case "Virtual Camera Two":
+                    vCameraTwo = child.GetComponent<CinemachineVirtualCamera>();
+                    break;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -32,9 +44,33 @@ public class CameraController : MonoBehaviour
             controls.SetZoom();
         }
     }
+    public void PanCamera(Transform target)
+    {
+        //StopCoroutine(coroutinePan);
+        coroutinePan = StartCoroutine(Pan(target));
+    }
+
+    IEnumerator Pan(Transform target)
+    {
+        yield return new WaitForSeconds(1f);
+        vCameraTwo.LookAt = target;
+        vCameraTwo.Follow = target;
+        vCameraTwo.Priority = 100;
+        yield return new WaitForSeconds(2f);
+        vCameraOne.LookAt = target;
+        vCameraOne.Follow = target;
+        vCameraOne.transform.position = vCameraTwo.transform.position;
+        vCameraTwo.Priority = 0;
+        vCameraOne.LookAt = null;
+        vCameraOne.Follow = null;
+        vCameraTwo.LookAt = null;
+        vCameraTwo.Follow = null;
+    }
 
     void HandleMovementInput()
     {
+        Debug.Log(controls.Pan);
+        Debug.Log(controls.Zoom);
         if (controls.Pan.y > 0)
             newPosition += (transform.forward * movementSpeed);
         if (controls.Pan.x < 0)
@@ -46,24 +82,24 @@ public class CameraController : MonoBehaviour
 
         if (controls.ZoomContext == "y")
         {
-            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > maxZoomIn)
+            if (controls.Zoom > 0 && vCameraOne.m_Lens.OrthographicSize > maxZoomIn)
             {
-                vCamera.m_Lens.OrthographicSize -= zoomSpeed * mouseZoomSpeedMultiplier;
+                vCameraOne.m_Lens.OrthographicSize -= zoomSpeed * mouseZoomSpeedMultiplier;
             }
-            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < maxZoomOut)
+            else if (controls.Zoom < 0 && vCameraOne.m_Lens.OrthographicSize < maxZoomOut)
             {
-                vCamera.m_Lens.OrthographicSize += zoomSpeed * mouseZoomSpeedMultiplier;
+                vCameraOne.m_Lens.OrthographicSize += zoomSpeed * mouseZoomSpeedMultiplier;
             }
         }
         else
         {
-            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > maxZoomIn)
+            if (controls.Zoom > 0 && vCameraOne.m_Lens.OrthographicSize > maxZoomIn)
             {
-                vCamera.m_Lens.OrthographicSize -= zoomSpeed;
+                vCameraOne.m_Lens.OrthographicSize -= zoomSpeed;
             }
-            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < maxZoomOut)
+            else if (controls.Zoom < 0 && vCameraOne.m_Lens.OrthographicSize < maxZoomOut)
             {
-                vCamera.m_Lens.OrthographicSize += zoomSpeed;
+                vCameraOne.m_Lens.OrthographicSize += zoomSpeed;
             }
         }
         
