@@ -6,25 +6,20 @@ using UnityEngine;
 using Cinemachine;
 
 public class CameraController : MonoBehaviour
-{
+{    
+    [SerializeField] InputHandler controls;
+    [SerializeField] CinemachineVirtualCamera vCamera;    
     [SerializeField] float movementSpeed;
     [SerializeField] float movementTime;
-    [SerializeField] float globalMaxY;
-    [SerializeField] float globalMinY;
-    [SerializeField] Vector3 newPosition;
-    [SerializeField] InputHandler controls;
-    [SerializeField] Vector3 zoomAmmountOne;
-    [SerializeField] Vector3 zoomAmmountTwo;
-    [SerializeField] Vector3 zoomAmmountPos;
-    [SerializeField] Vector3 newZoom;
     [SerializeField] float zoomSpeed;
-    [SerializeField] float zoomSpeedMultiplier;
+    [SerializeField] float mouseZoomSpeedMultiplier;
+    [SerializeField] float maxZoomIn;
+    [SerializeField] float maxZoomOut;
+    Vector3 newPosition;
 
-    [SerializeField] CinemachineVirtualCamera vCamera;
     void Start()
     {
         newPosition = transform.position;
-        newZoom = controls.ActiveCamera.transform.localPosition;
         vCamera = gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
     }
 
@@ -48,78 +43,25 @@ public class CameraController : MonoBehaviour
             newPosition += (transform.right * movementSpeed);
         if (controls.Pan.y < 0)
             newPosition += (transform.forward * -movementSpeed);
-        #region OLD
-        /*
-        RaycastData hit = controls.GetRaycastHit();
-        bool continueZoom = true;
-        if (controls.Zoom == 120 )
-        {
-            if(newZoom.y - zoomAmmountOne.y <= globalMinY)
-            {
-                continueZoom = false;
-            }
-        }
-        else if (controls.Zoom == -120)
-        {
-            if (newZoom.y + zoomAmmountOne.y >= globalMaxY)
-            {
-                continueZoom = false;
-            }
-        }
-        else if (controls.Zoom == 1)
-        {
-            if (newZoom.y - zoomAmmountTwo.y <= globalMinY)
-            {
-                continueZoom = false;
-            }
-        }
-        else if (controls.Zoom == -1)
-        {
-            if (newZoom.y + zoomAmmountTwo.y >= globalMaxY)
-            {
-                continueZoom = false;
-            }
-        }
-        if (continueZoom && controls.Zoom == 120)
-        {
-            newZoom -= zoomAmmountOne;
-            newPosition += (hit.Hit.point - newPosition) * .15f;
-        }
-        if (continueZoom && controls.Zoom == -120)
-        {
-            newZoom += zoomAmmountOne;
-            newPosition -= (hit.Hit.point - newPosition) * .15f;
-        }
-        if (continueZoom && controls.Zoom == 1)
-        {
-            newZoom -= zoomAmmountTwo;
-            newPosition += (hit.Hit.point - newPosition) * .015f;
-        }
-        if (continueZoom && controls.Zoom == -1)
-        {
-            newZoom += zoomAmmountTwo;
-            newPosition -= (hit.Hit.point - newPosition) * .015f;
-        }*/
-        #endregion
 
         if (controls.ZoomContext == "y")
         {
-            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > 1f)
+            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > maxZoomIn)
             {
-                vCamera.m_Lens.OrthographicSize -= zoomSpeed * zoomSpeedMultiplier;
+                vCamera.m_Lens.OrthographicSize -= zoomSpeed * mouseZoomSpeedMultiplier;
             }
-            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < 2.75f)
+            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < maxZoomOut)
             {
-                vCamera.m_Lens.OrthographicSize += zoomSpeed * zoomSpeedMultiplier;
+                vCamera.m_Lens.OrthographicSize += zoomSpeed * mouseZoomSpeedMultiplier;
             }
         }
         else
         {
-            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > 1f)
+            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > maxZoomIn)
             {
                 vCamera.m_Lens.OrthographicSize -= zoomSpeed;
             }
-            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < 2.75f)
+            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < maxZoomOut)
             {
                 vCamera.m_Lens.OrthographicSize += zoomSpeed;
             }

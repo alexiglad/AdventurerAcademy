@@ -31036,19 +31036,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd45ad8b0fbcf95418160c585c779274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
+  vCamera: {fileID: 0}
+  newPosition: {x: 0, y: 0, z: 0}
   movementSpeed: 0.2
   movementTime: 0.1
-  globalMaxY: 15
-  globalMinY: 3
-  newPosition: {x: 0, y: 0, z: 0}
-  controls: {fileID: 11400000, guid: 7ef3101c9c5091a43ae148947ba04b62, type: 2}
-  zoomAmmountOne: {x: 0, y: 3, z: -3}
-  zoomAmmountTwo: {x: 0, y: 0.3, z: -0.3}
-  zoomAmmountPos: {x: 0, y: 0, z: 0}
-  newZoom: {x: 0, y: 0, z: 0}
   zoomSpeed: 0.02
-  zoomSpeedMultiplier: 10
-  vCamera: {fileID: 0}
+  mouseZoomSpeedMultiplier: 10
+  maxZoomIn: 1
+  maxZoomOut: 2.75
 --- !u!4 &3162169625043912215
 Transform:
   m_ObjectHideFlags: 0
