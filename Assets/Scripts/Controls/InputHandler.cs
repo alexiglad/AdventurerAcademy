@@ -16,6 +16,7 @@ public class InputHandler : ScriptableObject
     Controls controls;
     Vector2 pan;
     float zoom;
+    string zoomContext;
     [SerializeField] bool initialized;
     [SerializeField] private GameObject tempCharacter;
 
@@ -24,11 +25,11 @@ public class InputHandler : ScriptableObject
     [SerializeField] MovementProcessor movementProcessor;
     [SerializeField] DialogueProcessor dialogueProcessor;
     [SerializeField] GameLoader gameLoader;//TODO remove this temp code
-
-
+    
     public Camera ActiveCamera { get => activeCamera;}
     public Vector2 Pan { get => pan;}
     public float Zoom { get => zoom;}
+    public string ZoomContext { get => zoomContext;}
     #endregion
     private void OnEnable()
     {
@@ -48,16 +49,15 @@ public class InputHandler : ScriptableObject
             controls.UniversalControls.Space.performed += _ => OnSpace();
             controls.UniversalControls.ToggleAction.performed += _ => OnToggleCombatTurn();
             controls.UniversalControls.Pan.performed += _ => SetPan();
+            controls.UniversalControls.Zoom.performed += zoomCTX => zoomContext = zoomCTX.control.name;
             controls.UniversalControls.Zoom.performed += _ => SetZoom();
             controls.UniversalControls.Interact.performed += _ => OnInteract();
             controls.UniversalControls.Inventory.performed += _ => OnInventoryToggle();
-
             controls.UniversalControls.TEMP.performed += _ => TempPressed();//TODO remove this temp code
             initialized = true;
         }
         else
-        {
-            
+        {            
             defaultCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             activeCamera = defaultCamera;
             //TODO make this less sketch
@@ -112,7 +112,7 @@ public class InputHandler : ScriptableObject
     #region camera controls
     public void SetZoom()
     {
-        zoom = controls.UniversalControls.Zoom.ReadValue<float>();
+        zoom = controls.UniversalControls.Zoom.ReadValue<float>();        
     }
 
     public void SetPan()

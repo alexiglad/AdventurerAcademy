@@ -17,43 +17,17 @@ public class CameraController : MonoBehaviour
     [SerializeField] Vector3 zoomAmmountTwo;
     [SerializeField] Vector3 zoomAmmountPos;
     [SerializeField] Vector3 newZoom;
-
-    [SerializeField] Transform test1;
-    [SerializeField] Transform test2;
-    [SerializeField] Transform test3;
-    [SerializeField] Transform test4;
+    [SerializeField] float zoomSpeed;
+    [SerializeField] float zoomSpeedMultiplier;
 
     [SerializeField] CinemachineVirtualCamera vCamera;
     void Start()
     {
         newPosition = transform.position;
         newZoom = controls.ActiveCamera.transform.localPosition;
-        StartCoroutine(SwapCameraTest());
+        vCamera = gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
     }
 
-    IEnumerator SwapCameraTest()
-    {
-        while(true)
-        {
-            yield return new WaitForSeconds(2f);
-            vCamera.Follow = test1;
-            vCamera.LookAt = test1;
-            yield return new WaitForSeconds(2f);
-            vCamera.Follow = test2;
-            vCamera.LookAt = test2;
-            yield return new WaitForSeconds(2f);
-            vCamera.Follow = test3;
-            vCamera.LookAt = test3;
-            yield return new WaitForSeconds(2f);
-            vCamera.Follow = test4;
-            vCamera.LookAt = test4;
-        }
-        #pragma warning disable CS0162 // Unreachable code detected
-        yield return null;
-        #pragma warning restore CS0162 // Unreachable code detected
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (controls.GetControls().UniversalControls.enabled)
@@ -74,7 +48,8 @@ public class CameraController : MonoBehaviour
             newPosition += (transform.right * movementSpeed);
         if (controls.Pan.y < 0)
             newPosition += (transform.forward * -movementSpeed);
-
+        #region OLD
+        /*
         RaycastData hit = controls.GetRaycastHit();
         bool continueZoom = true;
         if (controls.Zoom == 120 )
@@ -108,24 +83,49 @@ public class CameraController : MonoBehaviour
         if (continueZoom && controls.Zoom == 120)
         {
             newZoom -= zoomAmmountOne;
-            newPosition += (hit.Hit.point - newPosition) * .15f/** zoomAmmountOne.magnitude*/;
+            newPosition += (hit.Hit.point - newPosition) * .15f;
         }
         if (continueZoom && controls.Zoom == -120)
         {
             newZoom += zoomAmmountOne;
-            newPosition -= (hit.Hit.point - newPosition) * .15f/** zoomAmmountOne.magnitude*/;
+            newPosition -= (hit.Hit.point - newPosition) * .15f;
         }
         if (continueZoom && controls.Zoom == 1)
         {
             newZoom -= zoomAmmountTwo;
-            newPosition += (hit.Hit.point - newPosition) * .015f /** zoomAmmountTwo.magnitude*/;
+            newPosition += (hit.Hit.point - newPosition) * .015f;
         }
         if (continueZoom && controls.Zoom == -1)
         {
             newZoom += zoomAmmountTwo;
-            newPosition -= (hit.Hit.point - newPosition) * .015f/** zoomAmmountTwo.magnitude*/;
+            newPosition -= (hit.Hit.point - newPosition) * .015f;
+        }*/
+        #endregion
+
+        if (controls.ZoomContext == "y")
+        {
+            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > 1f)
+            {
+                vCamera.m_Lens.OrthographicSize -= zoomSpeed * zoomSpeedMultiplier;
+            }
+            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < 2.75f)
+            {
+                vCamera.m_Lens.OrthographicSize += zoomSpeed * zoomSpeedMultiplier;
+            }
         }
+        else
+        {
+            if (controls.Zoom > 0 && vCamera.m_Lens.OrthographicSize > 1f)
+            {
+                vCamera.m_Lens.OrthographicSize -= zoomSpeed;
+            }
+            else if (controls.Zoom < 0 && vCamera.m_Lens.OrthographicSize < 2.75f)
+            {
+                vCamera.m_Lens.OrthographicSize += zoomSpeed;
+            }
+        }
+        
         transform.position = Vector3.Lerp(transform.position, newPosition, movementTime);
-        controls.ActiveCamera.transform.localPosition = Vector3.Lerp(controls.ActiveCamera.transform.localPosition, newZoom, movementTime);
+        //controls.ActiveCamera.transform.localPosition = Vector3.Lerp(controls.ActiveCamera.transform.localPosition, newZoom, movementTime);
     }
 }
