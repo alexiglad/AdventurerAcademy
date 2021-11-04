@@ -7,7 +7,7 @@ using System.Linq;
 public class CurrentCharacterHover : MonoBehaviour
 {
     Character characterToFollow;
-    readonly float followHeight = .25f;
+    readonly float followHeight = .1f;
     public void SetCharacterToFollow(Character character)
     {
         SetEnabled(true);
