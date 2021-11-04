@@ -256,11 +256,18 @@ public class GameController : MonoBehaviour
     }
     IEnumerator Routine5(Character attacker, Character attackee, Action action)
     {
-        //TODO lerp camera to be in between two characters, may have to zoom out
-        yield return new WaitForSecondsRealtime(.5f);
-        //TODO project selection thing on character
-        yield return new WaitForSecondsRealtime(.5f);
-        action.Invoke();
+        if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
+        {
+            CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
+            tempRef.DisableCombatInput();
+            //TODO lerp camera to be in between two characters, may have to zoom out
+            yield return new WaitForSecondsRealtime(.5f);
+            //TODO project selection thing on character
+            uiHandler.SetTargetCharacterHover(attackee);
+            yield return new WaitForSecondsRealtime(1f);
+            uiHandler.StopDisplayingTargetCharacterHover();
+            action.Invoke();
+        }
     }
     #endregion methods
 }

@@ -15,6 +15,7 @@ public class UIHandler : ScriptableObject
     TurnOrderScroll turnOrderScroll;
     GameObject doubleMovement;
     CurrentCharacterHover currentCharacterHover;
+    TargetedCharacterHover targetCharacterHover;
     AbilityBarWidthAdjuster abilityBarWidthAdjuster;
     ResourceBarUI resourceBarUI;
     HoverHandler hoverHandler;
@@ -45,6 +46,8 @@ public class UIHandler : ScriptableObject
         doubleMovement.SetActive(false);
         currentCharacterHover = FindObjectOfType<CurrentCharacterHover>();
         currentCharacterHover.SetEnabled(false);
+        targetCharacterHover = FindObjectOfType<TargetedCharacterHover>();
+        targetCharacterHover.SetEnabled(false);
         turnOrderScroll.StartTurnOrder(tempRef.TurnOrder);
         abilityBarWidthAdjuster = FindObjectOfType<AbilityBarWidthAdjuster>();
     }
@@ -130,6 +133,14 @@ public class UIHandler : ScriptableObject
     {
         //apBarHandler.enabled = enable;
         apBarHandler.gameObject.SetActive(enable);
+    }
+    public void SetTargetCharacterHover(Character character)
+    {
+        targetCharacterHover.SetCharacterToFollow(character);
+    }
+    public void StopDisplayingTargetCharacterHover()
+    {
+        targetCharacterHover.SetEnabled(false);
     }
     public void StopDisplayingTurnOrder(List<Character> turnOrder)
     {

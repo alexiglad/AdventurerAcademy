@@ -9,18 +9,23 @@ public class TargetedCharacterHover : MonoBehaviour
     Character characterToFollow;
     public void SetCharacterToFollow(Character character)
     {
-        
-
+        Vector3 characterBottom = character.CharacterBottom();
+        gameObject.transform.position = characterBottom;
+        BoxCollider box = gameObject.GetComponentInChildren<BoxCollider>();
+        float z = box.size.y;
+        box.size = new Vector3(character.Agent.radius, character.Agent.radius, z);
+        SetEnabled(true);
     }
-    public void StopFollowing()
+    public void SetEnabled(bool enable)
     {
-        characterToFollow = null;
+        gameObject.SetActive(enable);
     }
     private void Update()
     {
-        if (characterToFollow != null)
+        if (gameObject.activeInHierarchy)
         {
             //flash in/out
+
         }
     }
 
