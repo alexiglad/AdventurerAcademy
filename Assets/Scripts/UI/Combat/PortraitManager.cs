@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ public class PortraitManager : MonoBehaviour
     [SerializeField] List<Character> overlayCharacters;
     [SerializeField] List<ResourceBarUI> bars = new List<ResourceBarUI>();
     [SerializeField] List<Image> portraits = new List<Image>();
-    [SerializeField] List<GameObject> statusBars = new List<GameObject>();
+    [SerializeField] List<Transform> statusBars = new List<Transform>();
+    [SerializeField] GameObject statusIconPrefab;
 
     void Start()
     {        
@@ -74,5 +76,55 @@ public class PortraitManager : MonoBehaviour
                 index += 1;
             }            
         }
+
+        List<Transform> children = GetComponentsInChildren<Transform>(true).ToList();
+        foreach(Transform child in children)
+        {
+            if(child.name == "StatusBar")
+            {
+                statusBars.Add(child);
+            }
+        }
+    }
+
+    public void AddStatuses(StatusData status, Sprite icon)
+    {
+        foreach (Character character in overlayCharacters)
+        {
+            if (character == status.Attackee)
+            {
+                int index = overlayCharacters.IndexOf(character);
+                bool isDuplicate = false;
+                GameObject duplicate = null; 
+                foreach (Transform child in statusBars[index])
+                {
+                    if(child.name == icon.name)
+                    {
+                        isDuplicate = true;
+                        duplicate = child.gameObject;
+                    }
+                }
+                if (!isDuplicate)
+                {
+                    GameObject statusIcon = Instantiate(statusIconPrefab, statusBars[index]);
+                    statusIcon.GetComponent<Image>().sprite = icon;
+                    statusIcon.name = icon.name;
+                }
+                if (isDuplicate)
+                {
+                    UpdateStatusInfo(status, duplicate);
+                }
+            }
+        }
+    }
+
+    void UpdateStatusInfo(StatusData status, GameObject statusIcon)
+    {
+        //Update pop-up info about status
+    }
+
+    public void RemoveStatus(StatusData status)
+    {
+
     }
 }

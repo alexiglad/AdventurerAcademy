@@ -260,7 +260,7 @@ public class GameController : MonoBehaviour
         {
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             tempRef.DisableCombatInput();
-            //TODO lerp camera to be in between two characters, may have to zoom out
+            uiHandler.UpdateCameraPan(attackee.transform);
             yield return new WaitForSecondsRealtime(.5f);
             //TODO project selection thing on character
             uiHandler.SetTargetCharacterHover(attackee);

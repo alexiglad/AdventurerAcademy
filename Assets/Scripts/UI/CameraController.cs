@@ -69,8 +69,6 @@ public class CameraController : MonoBehaviour
 
     void HandleMovementInput()
     {
-        Debug.Log(controls.Pan);
-        Debug.Log(controls.Zoom);
         if (controls.Pan.y > 0)
             newPosition += (transform.forward * movementSpeed);
         if (controls.Pan.x < 0)
@@ -85,10 +83,12 @@ public class CameraController : MonoBehaviour
             if (controls.Zoom > 0 && vCameraOne.m_Lens.OrthographicSize > maxZoomIn)
             {
                 vCameraOne.m_Lens.OrthographicSize -= zoomSpeed * mouseZoomSpeedMultiplier;
+                vCameraTwo.m_Lens.OrthographicSize -= zoomSpeed * mouseZoomSpeedMultiplier;
             }
             else if (controls.Zoom < 0 && vCameraOne.m_Lens.OrthographicSize < maxZoomOut)
             {
                 vCameraOne.m_Lens.OrthographicSize += zoomSpeed * mouseZoomSpeedMultiplier;
+                vCameraTwo.m_Lens.OrthographicSize += zoomSpeed * mouseZoomSpeedMultiplier;
             }
         }
         else
@@ -96,10 +96,12 @@ public class CameraController : MonoBehaviour
             if (controls.Zoom > 0 && vCameraOne.m_Lens.OrthographicSize > maxZoomIn)
             {
                 vCameraOne.m_Lens.OrthographicSize -= zoomSpeed;
+                vCameraTwo.m_Lens.OrthographicSize -= zoomSpeed;
             }
             else if (controls.Zoom < 0 && vCameraOne.m_Lens.OrthographicSize < maxZoomOut)
             {
                 vCameraOne.m_Lens.OrthographicSize += zoomSpeed;
+                vCameraTwo.m_Lens.OrthographicSize += zoomSpeed;
             }
         }
         

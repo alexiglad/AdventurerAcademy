@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,9 +7,13 @@ using System.Linq;
 
 public class StatusDrawer : MonoBehaviour
 {
-
+    public delegate void StatusAddDelegate(StatusData status, Sprite icon);
+    public delegate void StatusRemoveDelegate(StatusData status);
+    public event StatusAddDelegate OnStatusAdd;
+    public event StatusRemoveDelegate OnStatusRemove;
     [SerializeField] protected GameStateManagerSO gameStateManager;
     [SerializeField] protected UIHandler uiHandler;
+    [SerializeField] List<Sprite> statusIcons = new List<Sprite>();
     private void Update()
     {
         if(gameStateManager.GetCurrentGameState() == GameStateEnum.Combat)
@@ -31,14 +36,27 @@ public class StatusDrawer : MonoBehaviour
 
     public void UpdateStatusUI(StatusData status)
     {
-        if (status.Attackee.Statuses.Contains(status.Status) || !status.Attackee.IsPlayer())
+        //This code dosen't run properly Alexi, the else never runs
+        /*if (status.Attackee.Statuses.Contains(status.Status) || !status.Attackee.IsPlayer())
+        {
+            return;
+        }*/
+        if (!status.Attackee.IsPlayer())
         {
             return;
         }
         else
-        {
-            //TODO ced implement
-            //send event
+        {            
+            Sprite icon = null;
+            foreach (Sprite sprite in statusIcons)
+            {
+                if (status.Status.StatusEffect.ToString() == sprite.name)
+                {
+                    icon = sprite;
+                    break;
+                }
+            }
+            OnStatusAdd?.Invoke(status, icon);
         }
     }
     public void DrawStatuses(StatusData status)

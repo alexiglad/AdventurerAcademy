@@ -20,6 +20,7 @@ public class UIHandler : ScriptableObject
     ResourceBarUI resourceBarUI;
     HoverHandler hoverHandler;
     APBarHandler apBarHandler;
+    PortraitManager portraitManager;
     CameraController cameraController;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
@@ -35,7 +36,9 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked.ManualAwake();
         abilityImageDrawer = FindObjectOfType<AbilityImageDrawer>();
         followUpAnimationDrawer = FindObjectOfType<FollowUpAnimationDrawer>();
+        portraitManager = FindObjectOfType<PortraitManager>();
         statusDrawer = FindObjectOfType<StatusDrawer>();
+        statusDrawer.OnStatusAdd += portraitManager.AddStatuses;
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
         hoverHandler = FindObjectOfType<HoverHandler>();
         apBarHandler = FindObjectOfType<APBarHandler>();
@@ -64,6 +67,7 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked -= tempRef.FinishTurn;
         abilityButton.OnAbilityButtonClicked -= tempRef.CombatAbility;
         abilityButton.OnAbilityButtonHover -= hoverHandler.DisplayAbilityHover;
+        statusDrawer.OnStatusAdd -= portraitManager.AddStatuses;
     }
 
     #region combatUI
@@ -74,8 +78,13 @@ public class UIHandler : ScriptableObject
         abilityButton.Selected = false;
         doubleMovement.SetActive(false);
         currentCharacterHover.SetCharacterToFollow(character);
-        cameraController.PanCamera(character.transform);
+        UpdateCameraPan(character.transform);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
+    }
+
+    public void UpdateCameraPan(Transform target)
+    {
+        cameraController.PanCamera(target);
     }
 
     public void DisplayAbility(Ability ability)
@@ -89,6 +98,7 @@ public class UIHandler : ScriptableObject
     public void DisplayStatus(StatusData status)
     {
         statusDrawer.DrawStatuses(status);
+
     }
     public void UnselectAbilities()
     {
