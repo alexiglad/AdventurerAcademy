@@ -125,6 +125,20 @@ public class PortraitManager : MonoBehaviour
 
     public void RemoveStatus(StatusData status)
     {
-
+        foreach(Character character in overlayCharacters)
+        {
+            if (character == status.Attackee)
+            {
+                int index = overlayCharacters.IndexOf(character);
+                foreach (Transform child in statusBars[index])
+                {
+                    if (child.name == status.Status.StatusEffect.ToString())
+                    {
+                        Destroy(child);
+                        return;
+                    }
+                }
+            }
+        }
     }
 }

@@ -58,6 +58,7 @@ public class StatusDrawer : MonoBehaviour
             }
             OnStatusAdd?.Invoke(status, icon);
         }
+        //Alexi, when you want to remove a status call OnStatusRemove?.Invoke(StatusData);
     }
     public void DrawStatuses(StatusData status)
     {

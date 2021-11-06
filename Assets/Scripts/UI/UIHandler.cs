@@ -39,6 +39,7 @@ public class UIHandler : ScriptableObject
         portraitManager = FindObjectOfType<PortraitManager>();
         statusDrawer = FindObjectOfType<StatusDrawer>();
         statusDrawer.OnStatusAdd += portraitManager.AddStatuses;
+        statusDrawer.OnStatusRemove += portraitManager.RemoveStatus;
         turnOrderScroll = FindObjectOfType<TurnOrderScroll>();
         hoverHandler = FindObjectOfType<HoverHandler>();
         apBarHandler = FindObjectOfType<APBarHandler>();
@@ -68,6 +69,7 @@ public class UIHandler : ScriptableObject
         abilityButton.OnAbilityButtonClicked -= tempRef.CombatAbility;
         abilityButton.OnAbilityButtonHover -= hoverHandler.DisplayAbilityHover;
         statusDrawer.OnStatusAdd -= portraitManager.AddStatuses;
+        statusDrawer.OnStatusRemove -= portraitManager.RemoveStatus;
     }
 
     #region combatUI
