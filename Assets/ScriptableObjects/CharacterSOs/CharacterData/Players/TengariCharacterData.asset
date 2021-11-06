@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Tengari
   maxHealth: 1
   maxEnergy: 100
-  distancePerAP: 0.5
+  distancePerAP: 100000
   moveSpeed: 5
   initiative: 100
   damage: 1
