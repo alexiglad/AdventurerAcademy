@@ -97,6 +97,7 @@ public class CombatManager : GameStateManager
 
         uiHandler.EnableCombat();
         uiHandler.UpdateCombatTurnUI(character);//todo check what happens when enemy starts combat
+        uiHandler.UpdateCameraPan(character.transform);
 
         if (!character.IsPlayer())
         {//only do this if is an enemy
@@ -280,7 +281,7 @@ public class CombatManager : GameStateManager
                 }
                 else
                 {
-                    Debug.Log("CHECK CONDITION SHOULD NOT HAPPEN once cedric adds coroutines");
+                    Debug.Log("CHECK CONDITION SHOULD NOT HAPPEN");
                     redoTurnOrder = true;
                     EnableCombatInput();
                 }
@@ -441,7 +442,6 @@ public class CombatManager : GameStateManager
                 enumerator.MoveNext();
                 character = enumerator.Current;
             }
-            //@HERE SET ANIMATION FOR CURRENT SPRITE AND USE CINEMACHINE
             currentAbility = null;
             attackingOrMoving = true;
             
@@ -598,6 +598,10 @@ public class CombatManager : GameStateManager
     public void StopPreviewingAP()
     {
         uiHandler.StopPreviewingAP();
+    }
+    public void RemoveStatus(StatusData status)
+    {
+        uiHandler.RemoveStatus(status);
     }
 
     public void CombatMovement(Vector3 destination)

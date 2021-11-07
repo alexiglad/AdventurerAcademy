@@ -80,7 +80,6 @@ public class UIHandler : ScriptableObject
         abilityButton.Selected = false;
         doubleMovement.SetActive(false);
         currentCharacterHover.SetCharacterToFollow(character);
-        UpdateCameraPan(character.transform);
         onFinishTurnButtonClicked.UpdateButton(character.IsPlayer());
     }
 
@@ -101,6 +100,10 @@ public class UIHandler : ScriptableObject
     {
         statusDrawer.DrawStatuses(status);
 
+    }
+    public void RemoveStatus(StatusData status)
+    {
+        statusDrawer.RemoveStatus(status);
     }
     public void UnselectAbilities()
     {

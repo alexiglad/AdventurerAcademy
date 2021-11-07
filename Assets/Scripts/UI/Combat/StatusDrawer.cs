@@ -60,6 +60,10 @@ public class StatusDrawer : MonoBehaviour
         }
         //Alexi, when you want to remove a status call OnStatusRemove?.Invoke(StatusData);
     }
+    public void RemoveStatus(StatusData status)
+    {
+        OnStatusRemove?.Invoke(status);
+    }
     public void DrawStatuses(StatusData status)
     {
         SpriteShaderTypeEnum shader = ConvertShader(status.Status.StatusEffect);

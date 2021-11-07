@@ -49,20 +49,26 @@ public class StatusProcessor : ScriptableObject
                     //todo make it so it takes AP to get back up
                 }
             }
-            for (int i = 0; i < character.Statuses.Count; i++)
-            {
-                if (character.Statuses[i].TurnsLeft < 1)//i.e. status should disappear
-                {
-                    character.Statuses.Remove(character.Statuses[i]);
-                    i--;
-                }
-            }
+            CheckStatusesFinished(character, tempRef);
         }
         else
         {
+            Debug.Log("error");
             return;
         }
 
+    }
+    private void CheckStatusesFinished(Character character, CombatManager tempRef)
+    {
+        for (int i = 0; i < character.Statuses.Count; i++)
+        {
+            if (character.Statuses[i].TurnsLeft < 1)//i.e. status should disappear
+            {
+                tempRef.RemoveStatus(new StatusData(character.Statuses[i], character));
+                character.Statuses.Remove(character.Statuses[i]);
+                CheckStatusesFinished(character, tempRef);
+            }
+        }
     }
     public void CreateStatus(Character attacker, Character attackee, Status status)
     {

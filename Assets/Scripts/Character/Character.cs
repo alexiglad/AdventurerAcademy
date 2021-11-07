@@ -28,6 +28,7 @@ public class Character : MonoBehaviour, IComparable<Character>
     private bool moving;
     bool takingDamage;
     bool shaderActive;
+    bool initializing;
     Vector3 lastPos;
     Vector3 previousSteeringTarget;
     int movementIdleCounter;
@@ -67,6 +68,8 @@ public class Character : MonoBehaviour, IComparable<Character>
     public bool ShaderActive { get => shaderActive; set => shaderActive = value; }
 
     public int ActionPointsPerTurn => actionPointsPerTurn;
+
+    public bool Initializing { get => initializing; set => initializing = value; }
 
 
     #endregion
@@ -116,7 +119,7 @@ public class Character : MonoBehaviour, IComparable<Character>
 
     void LateUpdate()
     {
-        if (!inanimate)
+        if (!inanimate && !initializing)
         {
             Vector3 realPos = this.BoxCollider.bounds.center;
             realPos.y -= this.BoxCollider.bounds.size.y / 2;

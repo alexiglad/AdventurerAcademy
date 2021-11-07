@@ -129,15 +129,17 @@ public class PortraitManager : MonoBehaviour
         {
             if (character == status.Attackee)
             {
+                Transform temp = null;
                 int index = overlayCharacters.IndexOf(character);
                 foreach (Transform child in statusBars[index])
                 {
                     if (child.name == status.Status.StatusEffect.ToString())
                     {
-                        Destroy(child);
-                        return;
+                        temp = child;
+                        break;
                     }
                 }
+                Destroy(temp?.gameObject);
             }
         }
     }

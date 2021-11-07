@@ -16,10 +16,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] float mouseZoomSpeedMultiplier;
     [SerializeField] float maxZoomIn;
     [SerializeField] float maxZoomOut;
+    bool disableCameraInput;
     Vector3 newPosition;
     Coroutine coroutinePan;
     void Start()
     {
+        disableCameraInput = false;
         newPosition = transform.position;
         foreach(Transform child in transform)
         {
@@ -52,23 +54,27 @@ public class CameraController : MonoBehaviour
 
     IEnumerator Pan(Transform target)
     {
-        yield return new WaitForSeconds(1f);
         vCameraTwo.LookAt = target;
         vCameraTwo.Follow = target;
         vCameraTwo.Priority = 100;
-        yield return new WaitForSeconds(2f);
+        disableCameraInput = true;
+        yield return new WaitForSeconds(1f);
         vCameraOne.LookAt = target;
         vCameraOne.Follow = target;
-        vCameraOne.transform.position = vCameraTwo.transform.position;
         vCameraTwo.Priority = 0;
         vCameraOne.LookAt = null;
         vCameraOne.Follow = null;
         vCameraTwo.LookAt = null;
         vCameraTwo.Follow = null;
+        disableCameraInput = false;
     }
 
     void HandleMovementInput()
     {
+        if (disableCameraInput)
+        {
+            return;
+        }
         if (controls.Pan.y > 0)
             newPosition += (transform.forward * movementSpeed);
         if (controls.Pan.x < 0)

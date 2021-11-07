@@ -188,9 +188,7 @@ public class GameController : MonoBehaviour
             yield return new WaitUntil(tempRef.CanContinueMethod);
             tempRef.DisableCombatInput();
             uiHandler.UpdateCombatTurnUI(tempRef.Character);
-            //TODO here implement call to lerp camera to be above character pos 
-            //TODO ced
-
+            uiHandler.UpdateCameraPan(tempRef.Character.transform);
             //yield return new WaitForSeconds(.01f);
             uiHandler.StopDisplayingAbilities();
             uiHandler.StopDisplayingEndTurn();
@@ -219,6 +217,7 @@ public class GameController : MonoBehaviour
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             action.Invoke();
             tempRef.DisableCombatInput();
+            uiHandler.UpdateCameraPan(tempRef.Character.transform);
             yield return new WaitUntil(tempRef.CanContinueMethod);
             tempRef.EnableCombatInput();
         }
@@ -235,6 +234,7 @@ public class GameController : MonoBehaviour
     {
         foreach (Character character in characters)
         {
+            character.Initializing = true;
             character.Obstacle.enabled = false;
         }
         yield return new WaitForSeconds(0.25f);
@@ -247,6 +247,7 @@ public class GameController : MonoBehaviour
         {
             character.Agent.enabled = false;
             character.Obstacle.enabled = true;
+            character.Initializing = false;
         }
         action?.Invoke();
     }
@@ -258,8 +259,10 @@ public class GameController : MonoBehaviour
     {
         if (currentGameStateManager.GetCurrentGameStateManager().GetType() == typeof(CombatManager))
         {
+            
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             tempRef.DisableCombatInput();
+            yield return new WaitForSecondsRealtime(.5f);
             uiHandler.UpdateCameraPan(attackee.transform);
             yield return new WaitForSecondsRealtime(.5f);
             //TODO project selection thing on character
