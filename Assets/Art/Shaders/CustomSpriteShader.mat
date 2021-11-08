@@ -138,6 +138,7 @@ Material:
     - _BaseLight: 0.35
     - _Blend: 0
     - _BlendOp: 0
+    - _BlinkFadeIntensity: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
