@@ -58,7 +58,7 @@ public class CameraController : MonoBehaviour
         vCameraTwo.Follow = target;
         vCameraTwo.Priority = 100;
         disableCameraInput = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.8f);
         vCameraOne.LookAt = target;
         vCameraOne.Follow = target;
         vCameraTwo.Priority = 0;

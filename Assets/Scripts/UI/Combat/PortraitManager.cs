@@ -95,7 +95,6 @@ public class PortraitManager : MonoBehaviour
             {
                 if (portraits[i].gameObject.name.Contains("CharacterPortrait"))
                 {
-                    Debug.Log("here");
                     portraits[i].gameObject.transform.parent.gameObject.SetActive(true);
                 }
             }
@@ -170,7 +169,6 @@ public class PortraitManager : MonoBehaviour
 
     public void RemovePortrait(object sender, CharacterDeathEventArgs data)
     {
-        Debug.Log("ran1");
         StartCoroutine(IRemovePortrait(data.character));
     }
 
@@ -189,7 +187,6 @@ public class PortraitManager : MonoBehaviour
         }
         //Debug.Log("ran1");
         portraits[index].transform.parent.gameObject.SetActive(false);
-        Debug.Log("ran2");
         yield return null;
     }
 }

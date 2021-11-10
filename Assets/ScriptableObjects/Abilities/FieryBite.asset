@@ -30,3 +30,5 @@ MonoBehaviour:
   startY: 0
   targetX: 40
   targetY: 0
+  min: 2
+  max: 2

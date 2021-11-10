@@ -153,7 +153,7 @@ public class CombatManager : GameStateManager
     }
     public int CalculateAPCost(float pathLength)
     {
-        return (int)Math.Ceiling(pathLength / character.GetCharacterData().GetMaxDistancePerAP());
+        return (int)Math.Ceiling(.95 * pathLength / character.GetCharacterData().GetMaxDistancePerAP());
     }
 
     public override void SetSubstateEnum(SubstateEnum state)

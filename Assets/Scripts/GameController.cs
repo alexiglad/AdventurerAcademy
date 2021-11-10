@@ -262,12 +262,12 @@ public class GameController : MonoBehaviour
             
             CombatManager tempRef = (CombatManager)currentGameStateManager.GetCurrentGameStateManager();
             tempRef.DisableCombatInput();
-            yield return new WaitForSecondsRealtime(.5f);
+            yield return new WaitForSeconds(.5f);
             uiHandler.UpdateCameraPan(attackee.transform);
-            yield return new WaitForSecondsRealtime(.5f);
+            yield return new WaitForSeconds(.5f);
             //TODO project selection thing on character
             uiHandler.SetTargetCharacterHover(attackee);
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSeconds(1f);
             uiHandler.StopDisplayingTargetCharacterHover();
             action.Invoke();
         }

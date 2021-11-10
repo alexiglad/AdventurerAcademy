@@ -7,12 +7,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/FieryBite")]
 public class AFieryBite : Ability
 {
+    [SerializeField] int min;
+    [SerializeField] int max;
 
 
     public override void HandleAbility(Character attacker, Character attackee, Ability ability)
     {
         abilityProcessor.Damage(attackee, damage);
-        int turns = Random.Range(1, 2);//in range of 3-4 (is max exclusive)
+        int turns = Random.Range(min, max);//in range of 3-4 (is max exclusive)
         Status status = new Status(damage, StatusTypeEnum.Burn, turns);
         statusProcessor.CreateStatus(attacker, attackee, status);
 
