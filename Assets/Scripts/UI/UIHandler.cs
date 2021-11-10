@@ -22,6 +22,7 @@ public class UIHandler : ScriptableObject
     APBarHandler apBarHandler;
     PortraitManager portraitManager;
     CameraController cameraController;
+    Character character;
     [SerializeField] protected GameStateManagerSO gameStateManager;
 
 
@@ -47,6 +48,7 @@ public class UIHandler : ScriptableObject
         onFinishTurnButtonClicked.OnFinishTurnButtonClicked += tempRef.FinishTurn;
         abilityButton.OnAbilityButtonClicked += tempRef.CombatAbility;
         abilityButton.OnAbilityButtonHover += hoverHandler.DisplayAbilityHover;
+        //character.OnCharacterDeath += portraitManager.RemovePortrait;
         doubleMovement = GameObject.Find("DoubleMovement");
         doubleMovement.SetActive(false);
         currentCharacterHover = FindObjectOfType<CurrentCharacterHover>();
@@ -70,6 +72,7 @@ public class UIHandler : ScriptableObject
         abilityButton.OnAbilityButtonHover -= hoverHandler.DisplayAbilityHover;
         statusDrawer.OnStatusAdd -= portraitManager.AddStatuses;
         statusDrawer.OnStatusRemove -= portraitManager.RemoveStatus;
+        //character.OnCharacterDeath -= portraitManager.RemovePortrait;
     }
 
     #region combatUI

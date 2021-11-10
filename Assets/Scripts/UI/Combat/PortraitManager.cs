@@ -14,9 +14,11 @@ public class PortraitManager : MonoBehaviour
     [SerializeField] List<Transform> statusBars = new List<Transform>();
     [SerializeField] GameObject statusIconPrefab;
 
+    bool subscribed = false;
+
     void Start()
     {        
-        UpdateOverlay();
+        UpdateOverlay();        
     }
 
     void Update()
@@ -28,6 +30,7 @@ public class PortraitManager : MonoBehaviour
     {
         overlayCharacters.Clear();
         portraits.Clear();
+        statusBars.Clear();
     }
 
     public void UpdateOverlay()
@@ -56,14 +59,6 @@ public class PortraitManager : MonoBehaviour
         {
             portraits[i].sprite = overlayCharacters[i].GetCharacterData().Portrait;          
         }
-        
-        for (int i = 0; i < overlayCharacters.Count; i++)
-        {
-            if (portraits[i].gameObject.name.Contains("CharacterPortrait"))
-            {
-                portraits[i].gameObject.transform.parent.gameObject.SetActive(true);
-            }
-        }
 
         bars = GetComponentsInChildren<ResourceBarUI>(true).ToList();
         int index = 0;
@@ -77,14 +72,43 @@ public class PortraitManager : MonoBehaviour
             }            
         }
 
-        List<Transform> children = GetComponentsInChildren<Transform>(true).ToList();
-        foreach(Transform child in children)
+        if(statusBars.Count <= 0)
         {
-            if(child.name == "StatusBar")
+            List<Transform> children = GetComponentsInChildren<Transform>(true).ToList();
+            foreach (Transform child in children)
             {
-                statusBars.Add(child);
+                if (child.name == "StatusBar")
+                {
+                    statusBars.Add(child);
+                }
             }
         }
+        init();
+    }
+
+    private void init()
+    {
+        if (!subscribed)
+        {
+            
+            for (int i = 0; i < overlayCharacters.Count; i++)
+            {
+                if (portraits[i].gameObject.name.Contains("CharacterPortrait"))
+                {
+                    Debug.Log("here");
+                    portraits[i].gameObject.transform.parent.gameObject.SetActive(true);
+                }
+            }
+
+            if (overlayCharacters.Count > 0 && !subscribed)
+            {
+                foreach (Character character in overlayCharacters)
+                {
+                    character.OnCharacterDeath += RemovePortrait;
+                }
+                subscribed = true;
+            }            
+        }        
     }
 
     public void AddStatuses(StatusData status, Sprite icon)
@@ -142,5 +166,30 @@ public class PortraitManager : MonoBehaviour
                 Destroy(temp?.gameObject);
             }
         }
+    }
+
+    public void RemovePortrait(object sender, CharacterDeathEventArgs data)
+    {
+        Debug.Log("ran1");
+        StartCoroutine(IRemovePortrait(data.character));
+    }
+
+    IEnumerator IRemovePortrait(Character charData)
+    {
+        int index = 0;
+        foreach (Character character in overlayCharacters)
+        {
+            if (character == charData)
+            {
+                index = overlayCharacters.IndexOf(character);
+                portraits[index].GetComponentInParent<CanvasGroup>().LeanAlpha(0, .7f);
+                yield return new WaitForSeconds(.7f);
+                break;
+            }
+        }
+        //Debug.Log("ran1");
+        portraits[index].transform.parent.gameObject.SetActive(false);
+        Debug.Log("ran2");
+        yield return null;
     }
 }

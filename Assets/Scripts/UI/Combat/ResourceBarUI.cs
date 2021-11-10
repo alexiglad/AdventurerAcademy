@@ -38,16 +38,19 @@ public class ResourceBarUI : MonoBehaviour
         {
             TargetCharacter = gameObject.GetComponentInParent<Character>();
         }
+        /*
         if (TargetCharacter.IsPlayer() && barType == BarType.health)//had to choose only one as dont want both health bar parts adjusting the lean
         {
             TargetCharacter.OnCharacterDeath += HandleDeath;
         }
+        */
         if (gameStateManagerSO.GetCurrentGameState() == GameStateEnum.Combat)
         {
             CombatManager tempRef = (CombatManager)gameStateManagerSO.GetCurrentGameStateManager();
             tempRef.OnCharacterDamaged += UpdateValues;
         }
     }
+    /*
     public void HandleDeath(object sender, CharacterDeathEventArgs data)
     {
         if(gameObject.GetComponentInParent<CanvasGroup>() != null)
@@ -55,8 +58,8 @@ public class ResourceBarUI : MonoBehaviour
             gameObject.GetComponentInParent<CanvasGroup>().LeanAlpha(0, .7f);
             //TODO cedric right here implement thing adjusting canvases/portrait order (move all portraits below up)
         }
-
     }
+    */
     public void UpdateValues(object sender, CharacterDamagedArgs data)
     {
         if(TargetCharacter != null && TargetCharacter == data.character)
