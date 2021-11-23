@@ -1,0 +1,720 @@
+fileFormatVersion: 2
+guid: d547dd5338da8fa4cb7940e67677e3a7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8628437710960092836
+    second: dgv_UI_CharMagicCastStates_Hearth
+  - first:
+      213: 204404295453628003
+    second: dgv_UI_CharMagicCastStates_Bubble1
+  - first:
+      213: -1089467988984444057
+    second: dgv_UI_CharMagicCastStates_Hearth2
+  - first:
+      213: -2952802462264196594
+    second: dgv_UI_CharMagicCastStates_Cross1
+  - first:
+      213: 8751054601402994650
+    second: dgv_UI_CharMagicCastStates_Frozen
+  - first:
+      213: 4640602524583719783
+    second: dgv_UI_CharMagicCastStates_Heart
+  - first:
+      213: 3215902646304504832
+    second: dgv_UI_CharMagicCastStates_Bubble2
+  - first:
+      213: 7351569483598561769
+    second: dgv_UI_CharMagicCastStates_Bubble3
+  - first:
+      213: 3735831054711414055
+    second: dgv_UI_CharMagicCastStates_Bubble4
+  - first:
+      213: -5605399315175429085
+    second: dgv_UI_CharMagicCastStates_Frozen2
+  - first:
+      213: -2441836954903554946
+    second: dgv_UI_CharMagicCastStates_Bubble5
+  - first:
+      213: 866223561706652122
+    second: dgv_UI_CharMagicCastStates_Bubble6
+  - first:
+      213: -3075479489021328319
+    second: dgv_UI_CharMagicCastStates_Bubble7
+  - first:
+      213: 5668245111511179315
+    second: dgv_UI_CharMagicCastStates_Bubble8
+  - first:
+      213: 1410793036364788600
+    second: dgv_UI_CharMagicCastStates_Bubble9
+  - first:
+      213: 683456656956901248
+    second: dgv_UI_CharMagicCastStates_Bubble10
+  - first:
+      213: -7508744673820865690
+    second: dgv_UI_CharMagicCastStates_Bubble11
+  - first:
+      213: 5905419786230252188
+    second: dgv_UI_CharMagicCastStates_Bubble12
+  - first:
+      213: 6119624719764918020
+    second: dgv_UI_CharMagicCastStates_Cross2
+  - first:
+      213: 3473056338008364934
+    second: dgv_UI_CharMagicCastStates_Cross3
+  - first:
+      213: 5173436043235278506
+    second: dgv_UI_CharMagicCastStates_Frozen3
+  - first:
+      213: 7093010046622234601
+    second: dgv_UI_CharMagicCastStates_Frozen4
+  - first:
+      213: -9112788228617577997
+    second: dgv_UI_CharMagicCastStates_Frozen5
+  - first:
+      213: 4776833653659921542
+    second: dgv_UI_CharMagicCastStates_Frozen6
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 2
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Hearth
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1661
+        width: 361
+        height: 315
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a66c58f16e5eb770800000000000000
+      internalID: 8628437710960092836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble1
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 1644
+        width: 328
+        height: 332
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 366d31daf9036d200800000000000000
+      internalID: 204404295453628003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Hearth2
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1295
+        width: 367
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76b4c62e2ae61e0f0800000000000000
+      internalID: -1089467988984444057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Cross1
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 1279
+        width: 314
+        height: 317
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0208d02ec98507d0800000000000000
+      internalID: -2952802462264196594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Frozen
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 1593
+        width: 312
+        height: 356
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adf4cae7bcdf17970800000000000000
+      internalID: 8751054601402994650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Heart
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 1601
+        width: 407
+        height: 347
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 763f79db86bb66040800000000000000
+      internalID: 4640602524583719783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble2
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 1621
+        width: 337
+        height: 331
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00cf7311b6e21ac20800000000000000
+      internalID: 3215902646304504832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble3
+      rect:
+        serializedVersion: 2
+        x: 1613
+        y: 1196
+        width: 342
+        height: 335
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e18e7bbe75060660800000000000000
+      internalID: 7351569483598561769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble4
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 1200
+        width: 360
+        height: 369
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72d52fc0d8658d330800000000000000
+      internalID: 3735831054711414055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Frozen2
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 1184
+        width: 387
+        height: 369
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32c20c2850f9532b0800000000000000
+      internalID: -5605399315175429085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble5
+      rect:
+        serializedVersion: 2
+        x: 1593
+        y: 804
+        width: 348
+        height: 358
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e745d871a3adc1ed0800000000000000
+      internalID: -2441836954903554946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble6
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 819
+        width: 372
+        height: 357
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad1499b6db1750c00800000000000000
+      internalID: 866223561706652122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble7
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 821
+        width: 350
+        height: 345
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14442e603b3b155d0800000000000000
+      internalID: -3075479489021328319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble8
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 872
+        width: 357
+        height: 356
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 330e773b5e6a9ae40800000000000000
+      internalID: 5668245111511179315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble9
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 874
+        width: 349
+        height: 364
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8733e18bac4249310800000000000000
+      internalID: 1410793036364788600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble10
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 457
+        width: 363
+        height: 388
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 087ca4955302c7900800000000000000
+      internalID: 683456656956901248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble11
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 450
+        width: 376
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b0dcf80849bc790800000000000000
+      internalID: -7508744673820865690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Bubble12
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 467
+        width: 351
+        height: 337
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9241dfd10444f150800000000000000
+      internalID: 5905419786230252188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Cross2
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 435
+        width: 363
+        height: 369
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40f894c62464de450800000000000000
+      internalID: 6119624719764918020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Cross3
+      rect:
+        serializedVersion: 2
+        x: 1659
+        y: 405
+        width: 312
+        height: 314
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68758ef9656c23030800000000000000
+      internalID: 3473056338008364934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Frozen3
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 42
+        width: 344
+        height: 323
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaebd39dbacbbc740800000000000000
+      internalID: 5173436043235278506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Frozen4
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 54
+        width: 398
+        height: 355
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e7f1399e0f6f6260800000000000000
+      internalID: 7093010046622234601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Frozen5
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 54
+        width: 446
+        height: 363
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f953ef336fd88180800000000000000
+      internalID: -9112788228617577997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dgv_UI_CharMagicCastStates_Frozen6
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 44
+        width: 373
+        height: 345
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68ce78536e8ba4240800000000000000
+      internalID: 4776833653659921542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
